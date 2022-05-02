@@ -1,0 +1,50 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "particle": "blocks/anvil_base"
+    }
+  },
+  "variants": {
+    "master": {
+      "true": {
+        "model": "industrialrenewal:fluid_loader"
+      },
+      "false": {
+        "model": "industrialrenewal:dummy"
+      }
+    },
+    "facing": {
+      "north": {},
+      "south": {
+        "y": 180
+      },
+      "east": {
+        "y": 90
+      },
+      "west": {
+        "y": -90
+      }
+    },
+    "unload": {
+      "2": {
+        "submodel": {
+          "master": {
+            "model": "industrialrenewal:fluid_connector/con_out_south"
+          }
+        }
+      },
+      "1": {
+        "submodel": {
+          "master": {
+            "model": "industrialrenewal:fluid_connector/con_in_south"
+          }
+        }
+      },
+      "0": {}
+    },
+    "inventory": {
+      "model": "industrialrenewal:fluid_loader"
+    }
+  }
+}

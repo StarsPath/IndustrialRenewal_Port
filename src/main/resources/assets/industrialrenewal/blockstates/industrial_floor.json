@@ -1,0 +1,18 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "normal": {
+      "model": "industrialrenewal:smartmodel/indfloor"
+    },
+    "inventory": [
+      {
+        "model": "industrialrenewal:ind_floor/floor_side_up",
+        "submodel": {
+          "pipe_down": {
+            "model": "industrialrenewal:ind_floor/floor_side_down"
+          }
+        }
+      }
+    ]
+  }
+}

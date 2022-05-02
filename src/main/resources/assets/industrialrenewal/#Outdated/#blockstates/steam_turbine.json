@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "facing=north,master=true": {
+      "model": "industrialrenewal:block/steam_turbine"
+    },
+    "facing=south,master=true": {
+      "model": "industrialrenewal:block/steam_turbine",
+      "y": 180
+    },
+    "facing=east,master=true": {
+      "model": "industrialrenewal:block/steam_turbine",
+      "y": 90
+    },
+    "facing=west,master=true": {
+      "model": "industrialrenewal:block/steam_turbine",
+      "y": -90
+    },
+    "facing=north,master=false": {
+      "model": "industrialrenewal:block/dummy"
+    },
+    "facing=south,master=false": {
+      "model": "industrialrenewal:block/dummy"
+    },
+    "facing=east,master=false": {
+      "model": "industrialrenewal:block/dummy"
+    },
+    "facing=west,master=false": {
+      "model": "industrialrenewal:block/dummy"
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/record_player"
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/record_player",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/record_player",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/record_player",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "downnoteblock": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/record_player_connected"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "downnoteblock": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/record_player_connected",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "downnoteblock": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/record_player_connected",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "downnoteblock": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/record_player_connected",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "disc0": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/record_player_0"
+      }
+    },
+    {
+      "when": {
+        "disc1": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/record_player_1"
+      }
+    },
+    {
+      "when": {
+        "disc2": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/record_player_2"
+      }
+    },
+    {
+      "when": {
+        "disc3": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/record_player_3"
+      }
+    }
+  ]
+}

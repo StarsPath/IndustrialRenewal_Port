@@ -1,0 +1,59 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "particle": "blocks/stone_slab_top"
+    }
+  },
+  "variants": {
+    "": {
+      "model": "industrialrenewal:block/not_gate_1"
+    },
+    "active=false,facing=down": {
+      "model": "industrialrenewal:block/not_gate_1"
+    },
+    "active=false,facing=up": {
+      "model": "industrialrenewal:block/not_gate_1"
+    },
+    "active=false,facing=north": {
+      "model": "industrialrenewal:block/not_gate_1"
+    },
+    "active=false,facing=west": {
+      "model": "industrialrenewal:block/not_gate_1",
+      "y": -90
+    },
+    "active=false,facing=south": {
+      "model": "industrialrenewal:block/not_gate_1",
+      "y": 180
+    },
+    "active=false,facing=east": {
+      "model": "industrialrenewal:block/not_gate_1",
+      "y": 90
+    },
+    "active=true,facing=down": {
+      "model": "industrialrenewal:block/not_gate_0"
+    },
+    "active=true,facing=up": {
+      "model": "industrialrenewal:block/not_gate_0"
+    },
+    "active=true,facing=north": {
+      "model": "industrialrenewal:block/not_gate_0"
+    },
+    "active=true,facing=west": {
+      "model": "industrialrenewal:block/not_gate_0",
+      "y": -90
+    },
+    "active=true,facing=south": {
+      "model": "industrialrenewal:block/not_gate_0",
+      "y": 180
+    },
+    "active=true,facing=east": {
+      "model": "industrialrenewal:block/not_gate_0",
+      "y": 90
+    },
+    "inventory": {
+      "model": "industrialrenewal:block/not_gate_1",
+      "transform": "forge:default-block"
+    }
+  }
+}

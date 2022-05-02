@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "industrialrenewal:block/energy_connector/con_out_west"
+    }
+  }
+}

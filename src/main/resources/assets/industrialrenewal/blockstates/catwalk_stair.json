@@ -1,0 +1,55 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "industrialrenewal:catwalk_stair",
+    "textures": {
+      "particle": "industrialrenewal:block/pipe"
+    }
+  },
+  "variants": {
+    "facing": {
+      "north": {},
+      "west": {
+        "y": -90
+      },
+      "south": {
+        "y": 180
+      },
+      "east": {
+        "y": 90
+      }
+    },
+    "active_left": {
+      "true": {
+        "submodel": {
+          "left": {
+            "model": "industrialrenewal:catwalk_stair10"
+          }
+        }
+      },
+      "false": {}
+    },
+    "active_right": {
+      "true": {
+        "submodel": {
+          "right": {
+            "model": "industrialrenewal:catwalk_stair01"
+          }
+        }
+      },
+      "false": {}
+    },
+    "inventory": {
+      "model": "industrialrenewal:catwalk_stair",
+      "y": 180,
+      "submodel": {
+        "right": {
+          "model": "industrialrenewal:catwalk_stair01"
+        },
+        "left": {
+          "model": "industrialrenewal:catwalk_stair10"
+        }
+      }
+    }
+  }
+}

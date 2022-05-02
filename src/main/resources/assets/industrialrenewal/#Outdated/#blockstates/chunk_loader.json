@@ -1,0 +1,43 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "particle": "industrialrenewal:block/blocks/pipe"
+    }
+  },
+  "variants": {
+    "master": {
+      "true": {
+        "model": "industrialrenewal:block/chunk_loader"
+      },
+      "false": {
+        "model": "industrialrenewal:block/dummy"
+      }
+    },
+    "facing": {
+      "north": {},
+      "south": {
+        "y": 180
+      },
+      "east": {
+        "y": 90
+      },
+      "west": {
+        "y": -90
+      }
+    },
+    "working": {
+      "true": {
+        "submodel": {
+          "slave": {
+            "model": "industrialrenewal:block/chunk_loader_slave"
+          }
+        }
+      },
+      "false": {}
+    },
+    "inventory": {
+      "model": "industrialrenewal:block/chunk_loader"
+    }
+  }
+}

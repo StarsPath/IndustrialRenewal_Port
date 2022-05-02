@@ -1,0 +1,42 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "shape": "north_south",
+        "open": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/rail_gate_open"
+      }
+    },
+    {
+      "when": {
+        "shape": "east_west",
+        "open": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/rail_gate_open",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "shape": "north_south",
+        "open": "false"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/rail_gate"
+      }
+    },
+    {
+      "when": {
+        "shape": "east_west",
+        "open": "false"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/rail_gate",
+        "y": 90
+      }
+    }
+  ]
+}

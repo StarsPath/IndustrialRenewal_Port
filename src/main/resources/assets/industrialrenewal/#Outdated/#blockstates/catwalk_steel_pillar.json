@@ -1,0 +1,60 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "industrialrenewal:block/catwalk_steel_pillar_base"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/catwalk_steel_pillar_side"
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/catwalk_steel_pillar_side",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/catwalk_steel_pillar_side",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/catwalk_steel_pillar_side",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/catwalk_steel_pillar_up"
+      }
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/catwalk_steel_pillar_down"
+      }
+    }
+  ]
+}

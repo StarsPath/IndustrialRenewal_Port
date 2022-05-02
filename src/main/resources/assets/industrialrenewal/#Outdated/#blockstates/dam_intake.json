@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "industrialrenewal:block/dam_intake"
+    },
+    "facing=south": {
+      "model": "industrialrenewal:block/dam_intake",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "industrialrenewal:block/dam_intake",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "industrialrenewal:block/dam_intake",
+      "y": -90
+    }
+  }
+}

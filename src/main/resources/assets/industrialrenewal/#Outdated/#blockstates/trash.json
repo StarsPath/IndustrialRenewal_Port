@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "industrialrenewal:block/trash"
+    },
+    "facing=south": {
+      "model": "industrialrenewal:block/trash",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "industrialrenewal:block/trash",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "industrialrenewal:block/trash",
+      "y": -90
+    }
+  }
+}

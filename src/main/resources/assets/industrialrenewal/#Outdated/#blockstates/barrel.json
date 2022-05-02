@@ -1,0 +1,35 @@
+{
+
+  "variants": {
+    "facing=north,frame=true": {
+      "model": "industrialrenewal:block/fluid_barrel_framed"
+    },
+    "facing=south,frame=true": {
+      "model": "industrialrenewal:block/fluid_barrel_framed",
+      "y": 180
+    },
+    "facing=east,frame=true": {
+      "model": "industrialrenewal:block/fluid_barrel_framed",
+      "y": 90
+    },
+    "facing=west,frame=true": {
+      "model": "industrialrenewal:block/fluid_barrel_framed",
+      "y": -90
+    },
+    "facing=north,frame=false": {
+      "model": "industrialrenewal:block/fluid_barrel"
+    },
+    "facing=south,frame=false": {
+      "model": "industrialrenewal:block/fluid_barrel",
+      "y": 180
+    },
+    "facing=east,frame=false": {
+      "model": "industrialrenewal:block/fluid_barrel",
+      "y": 90
+    },
+    "facing=west,frame=false": {
+      "model": "industrialrenewal:block/fluid_barrel",
+      "y": -90
+    }
+  }
+}

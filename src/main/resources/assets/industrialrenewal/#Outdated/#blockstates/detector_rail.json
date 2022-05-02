@@ -1,0 +1,42 @@
+{
+  "variants": {
+    "powered=false,shape=north_south": {
+      "model": "industrialrenewal:block/rail_detector"
+    },
+    "powered=false,shape=east_west": {
+      "model": "industrialrenewal:block/rail_detector",
+      "y": 90
+    },
+    "powered=true,shape=north_south": {
+      "model": "industrialrenewal:block/rail_detector_active"
+    },
+    "powered=true,shape=east_west": {
+      "model": "industrialrenewal:block/rail_detector_active",
+      "y": 90
+    },
+    "powered=false,shape=ascending_east": {
+      "model": "industrialrenewal:block/rail_detector"
+    },
+    "powered=false,shape=ascending_west": {
+      "model": "industrialrenewal:block/rail_detector"
+    },
+    "powered=false,shape=ascending_north": {
+      "model": "industrialrenewal:block/rail_detector"
+    },
+    "powered=false,shape=ascending_south": {
+      "model": "industrialrenewal:block/rail_detector"
+    },
+    "powered=true,shape=ascending_east": {
+      "model": "industrialrenewal:block/rail_detector"
+    },
+    "powered=true,shape=ascending_west": {
+      "model": "industrialrenewal:block/rail_detector"
+    },
+    "powered=true,shape=ascending_north": {
+      "model": "industrialrenewal:block/rail_detector"
+    },
+    "powered=true,shape=ascending_south": {
+      "model": "industrialrenewal:block/rail_detector"
+    }
+  }
+}

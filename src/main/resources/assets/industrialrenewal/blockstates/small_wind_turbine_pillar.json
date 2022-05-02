@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,base=false": {"model": "industrialrenewal:block/small_wind_turbine_pillar"},
+    "facing=south,base=false": {"model": "industrialrenewal:block/small_wind_turbine_pillar", "y": 180},
+    "facing=east,base=false": {"model": "industrialrenewal:block/small_wind_turbine_pillar", "y": 90},
+    "facing=west,base=false": {"model": "industrialrenewal:block/small_wind_turbine_pillar", "y": -90},
+    "facing=north,base=true": {"model": "industrialrenewal:block/small_wind_turbine_pillar_base"},
+    "facing=south,base=true": {"model": "industrialrenewal:block/small_wind_turbine_pillar_base", "y": 180},
+    "facing=east,base=true": {"model": "industrialrenewal:block/small_wind_turbine_pillar_base", "y": 90},
+    "facing=west,base=true": {"model": "industrialrenewal:block/small_wind_turbine_pillar_base", "y": -90}
+  }
+}
