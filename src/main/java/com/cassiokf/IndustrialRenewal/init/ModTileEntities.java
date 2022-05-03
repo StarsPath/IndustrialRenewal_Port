@@ -50,11 +50,11 @@ public class ModTileEntities {
 
     public static RegistryObject<TileEntityType<TileEntityEnergyCableMV>> ENERGYCABLE_MV_TILE =
             TILE_ENTITIES.register("energycable_mv_tile", ()-> TileEntityType.Builder.of(
-                    TileEntityEnergyCableMV::new, ModBlocks.ENERGYCABLE_LV.get()).build(null));
+                    TileEntityEnergyCableMV::new, ModBlocks.ENERGYCABLE_MV.get()).build(null));
 
     public static RegistryObject<TileEntityType<TileEntityEnergyCableHV>> ENERGYCABLE_HV_TILE =
             TILE_ENTITIES.register("energycable_hv_tile", ()-> TileEntityType.Builder.of(
-                    TileEntityEnergyCableHV::new, ModBlocks.ENERGYCABLE_LV.get()).build(null));
+                    TileEntityEnergyCableHV::new, ModBlocks.ENERGYCABLE_HV.get()).build(null));
 
 
 

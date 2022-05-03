@@ -74,6 +74,14 @@ public class ModBlocks {
             () -> new BlockEnergyCable(EnumEnergyCableType.LV, AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
                     .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
 
+    public static final RegistryObject<BlockEnergyCable> ENERGYCABLE_MV = registerBlock("energy_cable_mv",
+            () -> new BlockEnergyCable(EnumEnergyCableType.MV, AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<BlockEnergyCable> ENERGYCABLE_HV = registerBlock("energy_cable_hv",
+            () -> new BlockEnergyCable(EnumEnergyCableType.HV, AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);
 //    public static final BlockFirstAidKit firstAidKit = new BlockFirstAidKit("firstaid_kit", References.CREATIVE_IR_TAB);
 //    public static final BlockFireExtinguisher fireExtinguisher = new BlockFireExtinguisher("fire_extinguisher", References.CREATIVE_IR_TAB);

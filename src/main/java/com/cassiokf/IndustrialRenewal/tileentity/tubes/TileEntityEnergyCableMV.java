@@ -10,13 +10,13 @@ public class TileEntityEnergyCableMV extends TileEntityEnergyCable{
     }
 
     public TileEntityEnergyCableMV(){
-        super(ModTileEntities.ENERGYCABLE_LV_TILE.get());
+        super(ModTileEntities.ENERGYCABLE_MV_TILE.get());
     }
 
     //TODO: add to config
     @Override
     public int getMaxEnergyToTransport() {
-        return 256;
+        return 1024;
     }
 
     @Override

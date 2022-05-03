@@ -59,19 +59,19 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable>{
         }
     }
 
-    public Block getBlockFromType()
-    {
-        switch (type)
-        {
-            default:
-            case LV:
-                return ModBlocks.ENERGYCABLE_LV.get();
+//    public Block getBlockFromType()
+//    {
+//        switch (type)
+//        {
+//            default:
+//            case LV:
+//                return ModBlocks.ENERGYCABLE_LV.get();
 //            case MV:
-//                return BlocksRegistration.ENERGYCABLEMV.get();
+//                return ModBlocks.ENERGYCABLE_MV.get();
 //            case HV:
-//                return BlocksRegistration.ENERGYCABLEHV.get();
-        }
-    }
+//                return ModBlocks.ENERGYCABLE_HV.get();
+//        }
+//    }
 
 
     @Override
@@ -87,7 +87,7 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable>{
                 amount = 1024;
                 break;
             case HV:
-                amount = 10240;
+                amount = 4096;
                 break;
         }
         tooltip.add(new StringTextComponent(amount + " FE/t"));
