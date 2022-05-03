@@ -97,20 +97,12 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable>{
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         if(!worldIn.isClientSide){
             for(Direction direction : Direction.values()){
-                //Block b = worldIn.getBlockState(pos.relative(direction)).getBlock();
                 if(canConnectTo(worldIn, pos, direction)){
                     worldIn.setBlock(pos, worldIn.getBlockState(pos).setValue(directionToBooleanProp(direction), true), Constants.BlockFlags.DEFAULT);
                 }
                 else{
                     worldIn.setBlock(pos, worldIn.getBlockState(pos).setValue(directionToBooleanProp(direction), false), Constants.BlockFlags.DEFAULT);
                 }
-//                if(b instanceof BlockEnergyCable){
-//                    worldIn.setBlock(pos.relative(direction), worldIn.getBlockState(pos.relative(direction.getOpposite())).setValue(directionToBooleanProp(direction), true), Constants.BlockFlags.DEFAULT);
-//                    worldIn.setBlock(pos, state.setValue(directionToBooleanProp(direction), true), Constants.BlockFlags.DEFAULT);
-//                }
-//                else{
-//                    worldIn.setBlock(pos, state.setValue(directionToBooleanProp(direction), false), Constants.BlockFlags.DEFAULT);
-//                }
             }
         }
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
@@ -138,26 +130,6 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable>{
                 .setValue(EAST, canConnectTo(world, pos, Direction.EAST))
                 .setValue(WEST, canConnectTo(world, pos, Direction.WEST));
     }
-
-    //    @Override
-//    public boolean canConnectToPipe(World worldIn, BlockPos ownPos, Direction neighbourDirection) {
-//        BlockPos otherPos = ownPos.relative(neighbourDirection);
-//        BlockState state = worldIn.getBlockState(otherPos);
-//        Block block = state.getBlock();
-//        return (block instanceof BlockEnergyCable && type.equals(((BlockEnergyCable) block).type));
-//                //|| (block instanceof BlockCableTray && ((BlockCableTray) block).isCablePresent(worldIn, otherPos, convertFromType(type)));
-//
-//        //return false;
-//    }
-//
-//    @Override
-//    public boolean canConnectToCapability(World worldIn, BlockPos ownPos, Direction neighbourDirection) {
-//        BlockPos pos = ownPos.relative(neighbourDirection);
-//        BlockState state = worldIn.getBlockState(pos);
-//        TileEntity te = worldIn.getBlockEntity(pos);
-//        return !(state.getBlock() instanceof BlockEnergyCable) && te != null && te.getCapability(CapabilityEnergy.ENERGY, neighbourDirection.getOpposite()).isPresent();
-//    }
-
 
     @Nullable
     @Override

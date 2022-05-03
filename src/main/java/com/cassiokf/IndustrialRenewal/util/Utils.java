@@ -29,6 +29,15 @@ public class Utils {
             .sorted(Comparator.comparingInt(Direction::get2DDataValue))
             .toArray(Direction[]::new);
 
+    public static void debug(String msg, Object ... objects){
+        StringBuilder s = new StringBuilder("DEBUG: ");
+        s.append(msg).append(" ");
+        for(Object obj : objects){
+            s.append(obj.toString()).append(" ");
+        }
+        industrialrenewal.LOGGER.info(s);
+    }
+
     public static void sendChatMessage(PlayerEntity player, String str)
     {
         if (player == null) Minecraft.getInstance().player.sendMessage(new StringTextComponent(str), Minecraft.getInstance().player.getUUID());

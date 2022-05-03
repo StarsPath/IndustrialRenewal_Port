@@ -2,6 +2,7 @@ package com.cassiokf.IndustrialRenewal.tileentity.tubes;
 
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TETubeBase;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
@@ -117,6 +118,7 @@ public abstract class TileEntityMultiBlocksTube<TE extends TileEntityMultiBlocks
                     storage.setMaster(null);
                 }
             }
+            //Utils.debug("", connectedCables);
             setChanged();
         }
     }

@@ -2,10 +2,12 @@ package com.cassiokf.IndustrialRenewal.tileentity.tubes;
 
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockEnergyCable;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockPipeBase;
+import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.util.CustomEnergyStorage;
 //import com.cassiokf.IndustrialRenewal.util.MultiBlockHelper;
 //import com.cassiokf.IndustrialRenewal.util.VoltsEnergyContainer;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
@@ -37,7 +39,7 @@ public abstract class TileEntityEnergyCable extends TileEntityMultiBlocksTube<Ti
 
     private IEnergyStorage createEnergy()
     {
-        return new CustomEnergyStorage(10240, getMaxEnergyToTransport(), getMaxEnergyToTransport())
+        return new CustomEnergyStorage(getMaxEnergyToTransport(), getMaxEnergyToTransport(), getMaxEnergyToTransport())
         {
             @Override
             public void onEnergyChange()
@@ -47,27 +49,25 @@ public abstract class TileEntityEnergyCable extends TileEntityMultiBlocksTube<Ti
         };
     }
 
-//    public TileEntityEnergyCable(){
-//        super();
-//        //super(ModTileEntities.ENERGYCABLE_LV_TILE.get());
-//        this.energyContainer = new VoltsEnergyContainer(getMaxEnergyToTransport(), getMaxEnergyToTransport(), getMaxEnergyToTransport())
-//        {
-//            @Override
-//            public int receiveEnergy(int maxReceive, boolean simulate)
-//            {
-//                return TileEntityEnergyCable.this.onEnergyReceived(maxReceive, simulate);
-//            }
-//        };
-//    }
-
     @Override
     public void doTick() {
+        // TODO: find a better way to transfer power from slave to master node.
+        if(!level.isClientSide && !isMaster()){
+            IEnergyStorage storage = energyStorage.orElse(null);
+            //Utils.debug("\npos, energy, max isMaster ", worldPosition, storage.getEnergyStored(), storage.getMaxEnergyStored(), isMaster());
+//            TileEntityEnergyCable master = getMaster();
+//            master.energyStorage.ifPresent();
+            getMaster().energyStorage.ifPresent(e->{
+                if(e.getEnergyStored() < e.getMaxEnergyStored())
+                    e.receiveEnergy(storage.extractEnergy(Math.min(storage.getEnergyStored(), getMaxEnergyToTransport()), false), false);
+            });
+        }
         if (!level.isClientSide && isMaster())
         {
             final Map<BlockPos, Direction> mapPosSet = getPosSet();
             int quantity = mapPosSet.size();
             IEnergyStorage thisStorage = energyStorage.orElse(null);
-            energyStorage.ifPresent(e -> ((CustomEnergyStorage) e).setMaxCapacity(Math.max(getMaxEnergyToTransport() * quantity, thisStorage.getEnergyStored())));
+//            energyStorage.ifPresent(e -> ((CustomEnergyStorage) e).setMaxCapacity(Math.max(getMaxEnergyToTransport() * quantity, thisStorage.getEnergyStored())));
 
             if (quantity > 0)
             {
@@ -84,49 +84,6 @@ public abstract class TileEntityEnergyCable extends TileEntityMultiBlocksTube<Ti
             }
         }
     }
-
-//    @Nonnull
-//    @Override
-//    public IModelData getModelData()
-//    {
-//        ModelDataMap.Builder builder = new ModelDataMap.Builder()
-//                .withInitial(MASTER, IRConfig.Main.showMaster.get() && isMaster())
-//                .withInitial(SOUTH, canConnectToPipe(Direction.SOUTH))
-//                .withInitial(NORTH, canConnectToPipe(Direction.NORTH))
-//                .withInitial(EAST, canConnectToPipe(Direction.EAST))
-//                .withInitial(WEST, canConnectToPipe(Direction.WEST))
-//                .withInitial(UP, canConnectToPipe(Direction.UP))
-//                .withInitial(DOWN, canConnectToPipe(Direction.DOWN))
-//                .withInitial(CSOUTH, canConnectToCapability(Direction.SOUTH))
-//                .withInitial(CNORTH, canConnectToCapability(Direction.NORTH))
-//                .withInitial(CEAST, canConnectToCapability(Direction.EAST))
-//                .withInitial(CWEST, canConnectToCapability(Direction.WEST))
-//                .withInitial(CUP, canConnectToCapability(Direction.UP))
-//                .withInitial(CDOWN, canConnectToCapability(Direction.DOWN));
-//
-//        Block block = getBlockState().getBlock();
-//        if (block instanceof BlockFloorCable)
-//        {
-//            builder = builder
-//                    .withInitial(WSOUTH, BlockIndustrialFloor.canConnect(world, pos, Direction.SOUTH))
-//                    .withInitial(WNORTH, BlockIndustrialFloor.canConnect(world, pos, Direction.NORTH))
-//                    .withInitial(WEAST, BlockIndustrialFloor.canConnect(world, pos, Direction.EAST))
-//                    .withInitial(WWEST, BlockIndustrialFloor.canConnect(world, pos, Direction.WEST))
-//                    .withInitial(WUP, BlockIndustrialFloor.canConnect(world, pos, Direction.UP))
-//                    .withInitial(WDOWN, BlockIndustrialFloor.canConnect(world, pos, Direction.DOWN));
-//        } else if (block instanceof BlockPillarEnergyCable)
-//        {
-//            builder = builder
-//                    .withInitial(WSOUTH, BlockPillar.canConnect(world, pos, Direction.SOUTH))
-//                    .withInitial(WNORTH, BlockPillar.canConnect(world, pos, Direction.NORTH))
-//                    .withInitial(WEAST, BlockPillar.canConnect(world, pos, Direction.EAST))
-//                    .withInitial(WWEST, BlockPillar.canConnect(world, pos, Direction.WEST))
-//                    .withInitial(WUP, BlockPillar.canConnect(world, pos, Direction.UP))
-//                    .withInitial(WDOWN, BlockPillar.canConnect(world, pos, Direction.DOWN));
-//        }
-//
-//        return builder.build();
-//    }
 
     public boolean canConnectToPipe(Direction neighborDirection)
     {
@@ -193,50 +150,6 @@ public abstract class TileEntityEnergyCable extends TileEntityMultiBlocksTube<Ti
     }
 
     public abstract int getMaxEnergyToTransport();
-
-//    public int onEnergyReceived(int maxReceive, boolean simulate)
-//    {
-//        if(level != null)
-//        if (level.isClientSide) return 0;
-//        if (!isMaster()) return getMaster().onEnergyReceived(maxReceive, simulate);
-//
-//        if (inUse) return 0; //to prevent stack overflow (IE)
-//        inUse = true;
-//        int maxTransfer = Math.min(maxReceive, this.energyContainer.getMaxOutput());
-//        if (!simulate) potentialEnergy = maxTransfer;
-//        if (maxReceive <= 0)
-//        {
-//            inUse = false;
-//            return 0;
-//        }
-//        List<Integer> out = MultiBlockHelper.outputEnergy(this, maxTransfer, energyContainer.getMaxOutput(), simulate, level);
-//        if (!simulate) outPut += out.get(0);
-//        outPutCount = out.get(1);
-//        inUse = false;
-//        return out.get(0);
-//    }
-
-//    @Override
-//    public void checkForOutPuts()
-//    {
-//        if(level != null)
-//        if (level.isClientSide()) return;
-//        for (Direction face : Direction.values())
-//        {
-//            BlockPos currentPos = worldPosition.relative(face);
-//            TileEntity te = level.getBlockEntity(currentPos);
-//            boolean hasMachine = te != null && !(te instanceof TileEntityEnergyCable);
-////            IEnergyStorage eStorage = null;
-////            if (hasMachine) eStorage = te.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
-////            if (hasMachine && eStorage != null && eStorage.canReceive())
-////                addMachine(te, face);
-//            if(hasMachine)
-//            te.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).ifPresent((cap)->{
-//                if(cap.canReceive())
-//                    addMachine(te, face);
-//            });
-//        }
-//    }
 
     @Override
     @Nullable

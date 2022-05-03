@@ -31,7 +31,12 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
     {
         super(tileEntityTypeIn);
         random = ThreadLocalRandom.current().nextInt(10);
-        container = new CustomEnergyStorage(0, 0, 15);
+        container = new CustomEnergyStorage(0, 0, 15){
+            @Override
+            public boolean canReceive() {
+                return false;
+            }
+        };
         this.energy = LazyOptional.of(()->this.container);
     }
 
@@ -39,7 +44,12 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
     {
         super(ModTileEntities.SOLAR_PANEL_BASE.get());
         random = ThreadLocalRandom.current().nextInt(10);
-        container = new CustomEnergyStorage(0, 0, 15);
+        container = new CustomEnergyStorage(0, 0, 15){
+            @Override
+            public boolean canReceive() {
+                return false;
+            }
+        };
         this.energy = LazyOptional.of(()->this.container);
     }
 
