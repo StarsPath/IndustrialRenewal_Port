@@ -5,6 +5,7 @@ import com.cassiokf.IndustrialRenewal.tileentity.*;
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityEnergyCableHV;
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityEnergyCableLV;
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityEnergyCableMV;
+import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityFluidPipe;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -55,6 +56,10 @@ public class ModTileEntities {
     public static RegistryObject<TileEntityType<TileEntityEnergyCableHV>> ENERGYCABLE_HV_TILE =
             TILE_ENTITIES.register("energycable_hv_tile", ()-> TileEntityType.Builder.of(
                     TileEntityEnergyCableHV::new, ModBlocks.ENERGYCABLE_HV.get()).build(null));
+
+    public static RegistryObject<TileEntityType<TileEntityFluidPipe>> FLUIDPIPE_TILE =
+            TILE_ENTITIES.register("fluidpipe_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityFluidPipe::new, ModBlocks.FLUID_PIPE.get()).build(null));
 
 
 

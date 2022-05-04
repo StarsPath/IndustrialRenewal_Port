@@ -34,7 +34,7 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable>{
     public EnumEnergyCableType type;
 
     public BlockEnergyCable(EnumEnergyCableType type, Properties props){
-        super(Block.Properties.of(Material.METAL), 4, 4);
+        super(props, 4, 4);
         registerDefaultState(this.defaultBlockState()
                 .setValue(NORTH, false)
                 .setValue(SOUTH, false)

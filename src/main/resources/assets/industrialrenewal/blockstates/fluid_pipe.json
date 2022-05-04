@@ -1,22 +1,68 @@
 {
-  "forge_marker": 1,
-  "variants": {
-    "normal": {
-      "model": "industrialrenewal:smartmodel/pipe_fluid"
-    },
-    "inventory": [
-      {
-        "model": "industrialrenewal:pipe_fluid/pipe_center",
-        "submodel": {
-          "pipe_north": {
-            "model": "industrialrenewal:pipe_fluid/pipe_side"
-          },
-          "pipe_south": {
-            "model": "industrialrenewal:pipe_fluid/pipe_side",
-            "y": 180
-          }
-        }
+  "multipart": [
+    {
+      "apply": {
+        "model": "industrialrenewal:block/pipe_fluid/pipe_center"
       }
-    ]
-  }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/pipe_fluid/pipe_side",
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/pipe_fluid/pipe_side",
+        "y": 90,
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/pipe_fluid/pipe_side",
+        "y": 180,
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/pipe_fluid/pipe_side",
+        "y": 270,
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/pipe_fluid/pipe_side",
+        "x": 270,
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/pipe_fluid/pipe_side",
+        "x": 90,
+        "uvlock": false
+      }
+    }
+  ]
 }

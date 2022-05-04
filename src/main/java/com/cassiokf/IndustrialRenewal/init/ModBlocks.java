@@ -3,6 +3,7 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.blocks.*;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockEnergyCable;
+import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockFluidPipe;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.util.enums.EnumEnergyCableType;
 import net.minecraft.block.AbstractBlock;
@@ -80,6 +81,10 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockEnergyCable> ENERGYCABLE_HV = registerBlock("energy_cable_hv",
             () -> new BlockEnergyCable(EnumEnergyCableType.HV, AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<BlockFluidPipe> FLUID_PIPE = registerBlock("fluid_pipe",
+            ()-> new BlockFluidPipe(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
                     .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
 
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);

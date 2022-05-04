@@ -54,7 +54,7 @@ public abstract class TileEntityEnergyCable extends TileEntityMultiBlocksTube<Ti
         // TODO: find a better way to transfer power from slave to master node.
         if(!level.isClientSide && !isMaster()){
             IEnergyStorage storage = energyStorage.orElse(null);
-            Utils.debug("\npos, energy, max isMaster ", worldPosition, storage.getEnergyStored(), storage.getMaxEnergyStored(), isMaster());
+            //Utils.debug("\npos, energy, max isMaster ", worldPosition, storage.getEnergyStored(), storage.getMaxEnergyStored(), isMaster());
 //            TileEntityEnergyCable master = getMaster();
 //            master.energyStorage.ifPresent();
             getMaster().energyStorage.ifPresent(e->{
