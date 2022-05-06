@@ -1,6 +1,7 @@
 package com.cassiokf.IndustrialRenewal.util;
 
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,6 +11,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.wrappers.BlockWrapper;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -33,7 +36,10 @@ public class Utils {
         StringBuilder s = new StringBuilder("DEBUG: ");
         s.append(msg).append(" ");
         for(Object obj : objects){
-            s.append(obj.toString()).append(" ");
+            if(obj == null)
+                s.append("EMPTY ");
+            else
+                s.append(obj.toString()).append(" ");
         }
         industrialrenewal.LOGGER.info(s);
     }
@@ -203,5 +209,17 @@ public class Utils {
             worldIn.addFreshEntity(entityitem);
             //worldIn.spawnEntity(entityitem);
         }
+    }
+
+    public static double getDistanceSq(BlockPos pos, double x, double y, double z) {
+        double d0 = (double)pos.getX() + 0.5D - x;
+        double d1 = (double)pos.getY() + 0.5D - y;
+        double d2 = (double)pos.getZ() + 0.5D - z;
+        return d0 * d0 + d1 * d1 + d2 * d2;
+    }
+
+    public static IFluidHandler wrapFluidBlock(BlockState state, World world, BlockPos pos)
+    {
+        return new BlockWrapper(state, world, pos);
     }
 }

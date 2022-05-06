@@ -76,7 +76,7 @@ public abstract class TileEntityMultiBlocksTube<TE extends TileEntityMultiBlocks
     {
         if ((isMasterInvalid() && !this.isRemoved()) || forceInit)
         {
-            industrialrenewal.LOGGER.info("TRYING TO INIT MULTIBLOCK, Forced: "+forceInit);
+            //industrialrenewal.LOGGER.info("TRYING TO INIT MULTIBLOCK, Forced: "+forceInit);
             if (isTray()) return;
             List<TileEntityMultiBlocksTube> connectedCables = new CopyOnWriteArrayList<>();
             Stack<TileEntityMultiBlocksTube> traversingCables = new Stack<>();

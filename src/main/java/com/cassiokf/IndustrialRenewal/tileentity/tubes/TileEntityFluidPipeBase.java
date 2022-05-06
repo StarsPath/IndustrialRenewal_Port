@@ -2,6 +2,7 @@ package com.cassiokf.IndustrialRenewal.tileentity.tubes;
 
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockFluidPipe;
 import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
@@ -155,6 +156,7 @@ public abstract class TileEntityFluidPipeBase extends TileEntityMultiBlocksTube<
         BlockPos offset = worldPosition.relative(neighborDirection);
         BlockState state = level.getBlockState(offset);
         TileEntity te = level.getBlockEntity(offset);
+        //Utils.debug("te: ", te);
         return !(state.getBlock() instanceof BlockFluidPipe)
                 && te != null
                 && te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, neighborDirection.getOpposite()).isPresent();

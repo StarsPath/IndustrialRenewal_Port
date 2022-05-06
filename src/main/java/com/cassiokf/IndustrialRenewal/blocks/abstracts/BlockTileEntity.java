@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -15,6 +16,10 @@ public abstract class BlockTileEntity<TE extends TileEntity> extends IRBaseBlock
 
     public BlockTileEntity(String name) {
         super(name, IRBlockItem::new);
+    }
+
+    public BlockTileEntity(Properties props) {
+        super(props);
     }
 
     public BlockTileEntity(String name, Properties props) {
@@ -30,5 +35,12 @@ public abstract class BlockTileEntity<TE extends TileEntity> extends IRBaseBlock
         return true;
     }
 
-    public abstract TE createTileEntity(World world, BlockState state);
+    @Nullable
+    @Override
+    public abstract TE createTileEntity(BlockState state, IBlockReader world);
+
+    public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos)
+    {
+        return true;
+    }
 }

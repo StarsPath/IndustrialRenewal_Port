@@ -18,6 +18,10 @@ import java.util.function.BiFunction;
 public class IRBaseBlock extends Block{
     protected String name;
 
+    public IRBaseBlock(Properties props) {
+        super(props);
+    }
+
     public IRBaseBlock(String name, BiFunction<Block, Item.Properties, Item> createItemBlock){
         super(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0f, 12.0f));
         this.name = name;

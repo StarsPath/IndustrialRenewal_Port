@@ -61,6 +61,9 @@ public class ModTileEntities {
             TILE_ENTITIES.register("fluidpipe_tile", ()-> TileEntityType.Builder.of(
                     TileEntityFluidPipe::new, ModBlocks.FLUID_PIPE.get()).build(null));
 
+    public static RegistryObject<TileEntityType<TileEntityElectricPump>> ELECTRIC_PUMP_TILE =
+            TILE_ENTITIES.register("electric_pump_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityElectricPump::new, ModBlocks.ELECTRIC_PUMP.get()).build(null));
 
 
 

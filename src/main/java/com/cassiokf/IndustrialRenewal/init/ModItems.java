@@ -28,7 +28,7 @@ public class ModItems {
     public static final IRItemCartridge cartridge_inverter;
     //    public static final ItemIronPlow locomotivePlowIron;
 //    public static final ItemCartLinkable cartLinkable;
-//    public static final ItemPowerScrewDrive screwDrive;
+    public static final ItemPowerScrewDrive screwDrive;
 //    public static final ItemSteelSaw steelSaw;
 //    public static final ItemMineCartCargoContainer cargoContainer;
 //    public static final ItemHopperCart hopperCart;
@@ -115,6 +115,8 @@ public class ModItems {
         drillSteel = new IRItemDrill("drill_steel", industrialrenewal.IR_TAB, 600);
         drillDiamond = new IRItemDrill("drill_diamond", industrialrenewal.IR_TAB, 1200);
         drillDeep = new IRItemDrill("drill_deep", industrialrenewal.IR_TAB, 2000);
+
+        screwDrive = new ItemPowerScrewDrive("screwdrive", new Item.Properties().stacksTo(1));
 
         //barrel =  new IRItemBarrel("barrel_item", industrialrenewal.IR_TAB);
 
