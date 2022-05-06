@@ -127,6 +127,9 @@ dependencies {
 
     runtimeOnly fg.deobf("curse.maven:justenoughitems(jei)-238222:3681294")
     runtimeOnly fg.deobf("curse.maven:mekanism-268560:3202681")
+    runtimeOnly fg.deobf("curse.maven:wawlawhatarewelookingat-224712:3732265")
+    runtimeOnly fg.deobf("curse.maven:hwyla-253449:3033593")
+    runtimeOnly fg.deobf("curse.maven:bookshelf-228525:3732239")
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"

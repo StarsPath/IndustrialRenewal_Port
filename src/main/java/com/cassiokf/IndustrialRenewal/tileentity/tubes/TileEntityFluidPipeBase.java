@@ -46,7 +46,7 @@ public abstract class TileEntityFluidPipeBase extends TileEntityMultiBlocksTube<
 
             if (quantity > 0)
             {
-                int canAccept = moveFluid(IFluidHandler.FluidAction.SIMULATE, 1, mapPosSet);
+                int canAccept = moveFluid(IFluidHandler.FluidAction.SIMULATE, quantity, mapPosSet);
                 outPut = canAccept > 0 ? moveFluid(IFluidHandler.FluidAction.EXECUTE, canAccept, mapPosSet) : 0;
             } else outPut = 0;
 
@@ -65,6 +65,8 @@ public abstract class TileEntityFluidPipeBase extends TileEntityMultiBlocksTube<
         int canAccept = 0;
         int out = 0;
         int realMaxOutput = Math.min(tank.getFluidAmount() / validOutputs, maxOutput);
+
+        Utils.debug("valid outputs, real outputs", validOutputs, realMaxOutput);
         for (BlockPos posM : mapPosSet.keySet())
         {
             TileEntity te = level.getBlockEntity(posM);
@@ -72,9 +74,7 @@ public abstract class TileEntityFluidPipeBase extends TileEntityMultiBlocksTube<
             if (te != null)
             {
                 IFluidHandler tankStorage = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face).orElse(null);
-                if (tankStorage != null
-                        && tankStorage.isFluidValid(0, tank.getFluid())
-                        && tank.drain(maxOutput, IFluidHandler.FluidAction.SIMULATE) != null)
+                if (tankStorage != null && tankStorage.isFluidValid(0, tank.getFluid()) && tank.drain(maxOutput, IFluidHandler.FluidAction.SIMULATE) != null)
                 {
                     int fluid = tankStorage.fill(
                             tank.drain(realMaxOutput, IFluidHandler.FluidAction.SIMULATE),
