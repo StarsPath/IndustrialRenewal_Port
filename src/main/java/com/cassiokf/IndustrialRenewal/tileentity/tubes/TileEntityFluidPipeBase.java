@@ -66,7 +66,7 @@ public abstract class TileEntityFluidPipeBase extends TileEntityMultiBlocksTube<
         int out = 0;
         int realMaxOutput = Math.min(tank.getFluidAmount() / validOutputs, maxOutput);
 
-        Utils.debug("valid outputs, real outputs", validOutputs, realMaxOutput);
+        //Utils.debug("valid outputs, real outputs", validOutputs, realMaxOutput);
         for (BlockPos posM : mapPosSet.keySet())
         {
             TileEntity te = level.getBlockEntity(posM);

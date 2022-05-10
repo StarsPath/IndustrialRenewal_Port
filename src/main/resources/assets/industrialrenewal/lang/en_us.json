@@ -48,5 +48,8 @@
   "item.industrialrenewal.battery_lithium" : "Lithium Battery",
 
   "item.industrialrenewal.record_royal_entrance" : "Music Disc",
-  "item.industrialrenewal.record_royal_entrance.des0" : "Royal Entrance by Visager"
+  "item.industrialrenewal.record_royal_entrance.des0" : "Royal Entrance by Visager",
+
+  "block.industrialrenewal.steam" : "Steam",
+  "fluid.industrialrenewal.steam" : "Steam"
 }

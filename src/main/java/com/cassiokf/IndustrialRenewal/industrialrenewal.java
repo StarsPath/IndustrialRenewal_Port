@@ -1,15 +1,13 @@
 package com.cassiokf.IndustrialRenewal;
 
 import com.cassiokf.IndustrialRenewal.init.ModBlocks;
+import com.cassiokf.IndustrialRenewal.init.ModFluids;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
 //import com.cassiokf.IndustrialRenewal.proxy.ClientProxy;
 //import com.cassiokf.IndustrialRenewal.proxy.CommonProxy;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 //import com.cassiokf.IndustrialRenewal.model.ModelLoaderCustom;
-import com.cassiokf.IndustrialRenewal.tesr.TESRBatteryBank;
-import com.cassiokf.IndustrialRenewal.tesr.TESRPortableGenerator;
-import com.cassiokf.IndustrialRenewal.tesr.TESRWindTurbineHead;
-import com.cassiokf.IndustrialRenewal.tesr.TESRWindTurbinePillar;
+import com.cassiokf.IndustrialRenewal.tesr.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -68,6 +66,7 @@ public class industrialrenewal
         ModTileEntities.register(modEventBus);
         ModItems.registerInit(modEventBus);
         ModBlocks.registerInit(modEventBus);
+        ModFluids.init(modEventBus);
 
         modEventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -119,13 +118,18 @@ public class industrialrenewal
             RenderTypeLookup.setRenderLayer(ModBlocks.TRASH.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.TURBINE_PILLAR.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.WIND_TURBINE.get(), RenderType.translucent());
-            //RenderTypeLookup.setRenderLayer(ModBlocks.CONCRETEWALL.get(), RenderType.cutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.STEAM_BOILER.get(), RenderType.translucent());
+
+            RenderTypeLookup.setRenderLayer(ModFluids.STEAM.get(), RenderType.translucent());
+            RenderTypeLookup.setRenderLayer(ModFluids.STEAM_FLOWING.get(), RenderType.translucent());
+            RenderTypeLookup.setRenderLayer(ModFluids.STEAM_BLOCK.get(), RenderType.translucent());
         });
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.BATTERY_BANK_TILE.get(), TESRBatteryBank::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.PORTABLE_GENERATOR_TILE.get(), TESRPortableGenerator::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.TURBINE_PILLAR_TILE.get(), TESRWindTurbinePillar::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.WIND_TURBINE_TILE.get(), TESRWindTurbineHead::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.STEAM_BOILER_TILE.get(), TESRSteamBoiler::new);
 
     }
 

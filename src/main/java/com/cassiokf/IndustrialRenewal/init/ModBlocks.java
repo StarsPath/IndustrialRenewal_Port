@@ -91,6 +91,10 @@ public class ModBlocks {
             ()-> new BlockElectricPump(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
                     .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
 
+    public static final RegistryObject<BlockSteamBoiler> STEAM_BOILER = registerBlock("steam_boiler",
+            ()-> new BlockSteamBoiler(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);
 //    public static final BlockFirstAidKit firstAidKit = new BlockFirstAidKit("firstaid_kit", References.CREATIVE_IR_TAB);
 //    public static final BlockFireExtinguisher fireExtinguisher = new BlockFireExtinguisher("fire_extinguisher", References.CREATIVE_IR_TAB);

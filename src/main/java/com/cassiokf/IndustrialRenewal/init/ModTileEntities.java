@@ -65,6 +65,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("electric_pump_tile", ()-> TileEntityType.Builder.of(
                     TileEntityElectricPump::new, ModBlocks.ELECTRIC_PUMP.get()).build(null));
 
+    public static RegistryObject<TileEntityType<TileEntitySteamBoiler>> STEAM_BOILER_TILE =
+            TILE_ENTITIES.register("steam_boiler_tile", ()-> TileEntityType.Builder.of(
+                    TileEntitySteamBoiler::new, ModBlocks.STEAM_BOILER.get()).build(null));
+
 
 
     public static void register(IEventBus bus){

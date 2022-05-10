@@ -3,6 +3,7 @@ package com.cassiokf.IndustrialRenewal.util;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -17,9 +18,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Random;
+import java.util.*;
 
 public class Utils {
     public static boolean debugMsg = false;
@@ -221,5 +220,61 @@ public class Utils {
     public static IFluidHandler wrapFluidBlock(BlockState state, World world, BlockPos pos)
     {
         return new BlockWrapper(state, world, pos);
+    }
+
+    public static List<BlockPos> getBlocksIn3x3x3Centered(BlockPos pos)
+    {
+        List<BlockPos> list = new ArrayList<BlockPos>();
+        for (int y = -1; y < 2; y++)
+        {
+            for (int z = -1; z < 2; z++)
+            {
+                for (int x = -1; x < 2; x++)
+                {
+                    list.add(new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ() + z));
+                }
+            }
+        }
+        return list;
+    }
+
+    public static float getConvertedTemperature(float temp)
+    {
+        //TODO: Add to config
+        //0 C. 1 F. 2 K
+        int scaleSetting = 0;
+        switch (scaleSetting)
+        {
+            default:
+            case 0:
+                return temp;
+            case 1:
+                return (float) (temp * 1.8 + 32);
+            case 2:
+                return (float) (temp + 273.15);
+        }
+    }
+
+    public static String getTemperatureUnit()
+    {
+        String st = "";
+
+        //TODO: Add to config
+        //0 C. 1 F. 2 K
+        int scaleSetting = 0;
+        switch (scaleSetting)
+        {
+            default:
+                return "??";
+            case 0:
+                //st = " " + I18n.get("render.industrialrenewal.c");
+                return "C";
+            case 1:
+                //st = " " + I18n.get("render.industrialrenewal.f");
+                return "F";
+            case 2:
+                //st = " " + I18n.get("render.industrialrenewal.k");
+                return "K";
+        }
     }
 }

@@ -3,8 +3,12 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.item.*;
+import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.Items;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -63,8 +67,8 @@ public class ModItems {
     public static final IRItemBattery battery_lithium;
     //    public static final ItemCoilHV coilHV;
 //    public static final ItemBarrel barrel;
-//    public static final ItemFireBox fireBoxSolid;
-//    public static final ItemFireBox fireBoxFluid;
+    public static final ItemFireBox fireBoxSolid;
+    public static final ItemFireBox fireBoxFluid;
     public static final ItemWindBlade windBlade;
     public static final IRItemDrill drillSteel;
     public static final IRItemDrill drillDiamond;
@@ -73,6 +77,9 @@ public class ModItems {
 //    public static final ItemOre hematiteChunk;
 //    public static final ItemRegenerationWand regenerationWand;
 
+    public static final RegistryObject<Item> STEAM_BUCKET = ITEMS.register("steam_bucket",
+            () -> new BucketItem(() -> ModFluids.STEAM.get(),
+                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(ItemGroup.TAB_MATERIALS)));
 
 
 
@@ -118,6 +125,8 @@ public class ModItems {
 
         screwDrive = new ItemPowerScrewDrive("screwdrive", new Item.Properties().stacksTo(1));
 
+        fireBoxSolid = new ItemFireBox("firebox_solid", 1);
+        fireBoxFluid = new ItemFireBox("firebox_fluid", 2);
         //barrel =  new IRItemBarrel("barrel_item", industrialrenewal.IR_TAB);
 
     }
