@@ -130,6 +130,7 @@ public class industrialrenewal
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.TURBINE_PILLAR_TILE.get(), TESRWindTurbinePillar::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.WIND_TURBINE_TILE.get(), TESRWindTurbineHead::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.STEAM_BOILER_TILE.get(), TESRSteamBoiler::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.STEAM_TURBINE_TILE.get(), TESRSteamTurbine::new);
 
     }
 

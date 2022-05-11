@@ -61,6 +61,12 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3MachineBase> exten
     }
 
     @Override
+    public float getShadeBrightness(BlockState p_220080_1_, IBlockReader p_220080_2_, BlockPos p_220080_3_) {
+        return 1.0f;
+        //return super.getShadeBrightness(p_220080_1_, p_220080_2_, p_220080_3_);
+    }
+
+    @Override
     public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity livingEntity, ItemStack itemStack) {
         //world.setBlockAndUpdate(pos.relative(state.getValue(FACING)).above(), state.setValue(MASTER, true));
         if(!world.isClientSide)
@@ -88,7 +94,7 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3MachineBase> exten
     }
 
 //    @Override
-//    public void onPlace(BlockState state, World world, BlockPos pos, BlockState blockState, boolean flag) {
+//    public void onPlace(BlockState state,right clicked on World world, BlockPos pos, BlockState blockState, boolean flag) {
 //        if(isValidPosition(world, pos)){
 //            if (state.getValue(MASTER))
 //            {

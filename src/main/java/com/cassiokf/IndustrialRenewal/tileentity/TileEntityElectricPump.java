@@ -46,8 +46,8 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
         }
     };
 
-    private LazyOptional<IEnergyStorage> energyStorage = LazyOptional.of(this::createEnergy);
-    private LazyOptional<CustomFluidTank> tankHandler = LazyOptional.of(()->tank);
+    public LazyOptional<IEnergyStorage> energyStorage = LazyOptional.of(this::createEnergy);
+    public LazyOptional<CustomFluidTank> tankHandler = LazyOptional.of(()->tank);
 
     private int index = -1;
     //private int everyXtick = 10;
@@ -66,6 +66,7 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
     //private boolean oldIsRunning = false;
     private boolean starting = false;
     //private boolean oldStarting = false;
+    private boolean firstLoad = false;
 
     private IEnergyStorage createEnergy() {
         return new CustomEnergyStorage(200, 200, 200) {
@@ -93,14 +94,31 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
 //        return energyStorage;
 //    }
 
+
+    @Override
+    public void onLoad() {
+        if(!level.isClientSide && getIdex() == 1){
+            TileEntityElectricPump energyInputTile = (TileEntityElectricPump) level.getBlockEntity(worldPosition.relative(getBlockState().getValue(BlockElectricPump.FACING).getOpposite()));
+            if(energyInputTile != null)
+                energyStorage = energyInputTile.energyStorage;
+        }
+        super.onLoad();
+    }
+
     @Override
     public void tick() {
         if (!level.isClientSide && getIdex() == 1)
         {
+            if(!firstLoad){
+                firstLoad = true;
+                this.onLoad();
+            }
+
             if (isRunning = consumeEnergy())
             {
                 GetFluidDown();
                 passFluidUp();
+                this.sync();
             }
         }
 //        else
@@ -145,50 +163,12 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
 //        }
 //    }
 
-//    public boolean drainEnergy(int amount, boolean simulated){
-//        IEnergyStorage storage = energyStorage.orElse(null);
-//        if (storage.getEnergyStored() >= amount){
-////            energyStorage.ifPresent(cap-> {
-////                Utils.debug("\nCanExtract, amount, Energy drained, current energy, max energy\n",
-////                        cap.canExtract(), amount, cap.extractEnergy(amount, simulated), cap.getEnergyStored(), cap.getMaxEnergyStored(), worldPosition);
-////                sync();
-////            });
-//            storage.extractEnergy(amount, false);
-//            //Utils.debug("extraction, simulated, storage", extraction, simulated, storage.getEnergyStored());
-//            return true;
-//        }
-//        return false;
-//    }
-
     private boolean consumeEnergy()
     {
-        TileEntityElectricPump motor = getMotor();
-        IEnergyStorage e = motor.energyStorage.orElse(null);
-//        //Utils.debug("extract amount, max, current", , e.getMaxEnergyStored(), e.getEnergyStored());
+        IEnergyStorage e = energyStorage.orElse(null);
+        if(e == null)
+            return false;
         return e.getEnergyStored() > energyPerTick && e.extractEnergy(energyPerTick, false) > 0;
-
-        //motor.energyStorage.ifPresent(cap->cap.extractEnergy(energyPerTick, false));
-        //Utils.debug("motor pos", motor.getBlockPos());
-//        if (motor != null && motor.drainEnergy(energyPerTick, false))
-//        {
-//            isRunning = true;
-//            sync();
-//            //Utils.debug("consume energy return true");
-//            return true;
-//        } else
-//        {
-//            isRunning = false;
-//            starting = false;
-//            sync();
-//            //Utils.debug("consume energy return false");
-//            return false;
-//        }
-//        if (oldIsRunning != isRunning || oldStarting != starting)
-//        {
-//            oldIsRunning = isRunning;
-//            oldStarting = starting;
-//            sync();
-//        }
     }
 
     private void GetFluidDown()
@@ -319,23 +299,6 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
                 return (TileEntityElectricPump)te;
         return null;
     }
-
-//    private IEnergyStorage GetEnergyContainer()
-//    {
-//        //if (getIdex() == 0) return energyStorage.orElse(null);
-//        //if (motorEnergy != null) return motorEnergy;
-//        BlockState state = getBlockState();
-//        if (state.getBlock() instanceof BlockElectricPump)
-//        {
-//            Direction facing = state.getValue(BlockElectricPump.FACING);
-//            TileEntityElectricPump te = (TileEntityElectricPump) level.getBlockEntity(worldPosition.relative(facing.getOpposite()));
-//            if (te != null)
-//            {
-//                return te.energyStorage.orElse(null);
-//            }
-//        }
-//        return null;
-//    }
 
     private IFluidHandler GetTankUp()
     {

@@ -44,6 +44,7 @@ public class BlockSteamBoiler extends Block3x3x3Base<TileEntitySteamBoiler> {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
+        //TODO: add to config
         int waterPtick = 100;
         int steeamConversion = 1;
 
@@ -75,17 +76,6 @@ public class BlockSteamBoiler extends Block3x3x3Base<TileEntitySteamBoiler> {
             worldIn.playSound(null, pos, SoundEvents.FIRE_AMBIENT, SoundCategory.BLOCKS, 0.3F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F);
         }
         //super.animateTick(stateIn, worldIn, pos, rand);
-    }
-
-    @Override
-    public boolean propagatesSkylightDown(BlockState p_200123_1_, IBlockReader p_200123_2_, BlockPos p_200123_3_) {
-        return true;
-    }
-
-    @Override
-    public float getShadeBrightness(BlockState p_220080_1_, IBlockReader p_220080_2_, BlockPos p_220080_3_) {
-        return 1.0f;
-        //return super.getShadeBrightness(p_220080_1_, p_220080_2_, p_220080_3_);
     }
 
     @Override

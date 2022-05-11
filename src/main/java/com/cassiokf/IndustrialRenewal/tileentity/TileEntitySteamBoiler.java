@@ -109,7 +109,7 @@ public class TileEntitySteamBoiler extends TileEntity3x3MachineBase<TileEntitySt
     private boolean fuelLoaded = false;
 
     //TODO: Add to config
-    float steamBoilerConversionConfig = 1.0f;
+    float steamBoilerConversionConfig = 5.0f;
 
     public TileEntitySteamBoiler() {
         super(ModTileEntities.STEAM_BOILER_TILE.get());
@@ -240,14 +240,15 @@ public class TileEntitySteamBoiler extends TileEntity3x3MachineBase<TileEntitySt
             if (this.type > 0)
             {
                 if(!fuelLoaded){
-                    loadFuel();;
+                    loadFuel();
                     fuelLoaded = true;
                 }
 
-//                Utils.debug("\nliquid fuel tank, solid fuel tank, steam, water\n",
+//                Utils.debug("\nliquid fuel tank, solid fuel tank, steam, water, first loaded\n",
 //                        fuelTank.getFluidAmount(), solidFuelInv.orElse(null).getStackInSlot(0),
-//                        steamTank.getFluidAmount(), waterTank.getFluidAmount());
+//                        steamTank.getFluidAmount(), waterTank.getFluidAmount(), firstLoad);
                 //Fuel to Heat
+                this.sync();
                 switch (this.type)
                 {
                     default:

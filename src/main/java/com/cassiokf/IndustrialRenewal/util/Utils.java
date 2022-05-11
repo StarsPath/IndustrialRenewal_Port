@@ -74,6 +74,11 @@ public class Utils {
         return MathHelper.clamp((value - min), 0, (max - min)) / (max - min);
     }
 
+    public static float normalize(float value, float min, float max)
+    {
+        return (value - min) / (max - min);
+    }
+
     public static int directionToInt(Direction d){
         switch (d){
             case DOWN: return 0;

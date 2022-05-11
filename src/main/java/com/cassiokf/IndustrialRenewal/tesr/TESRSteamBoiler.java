@@ -29,7 +29,7 @@ public class TESRSteamBoiler extends TESRBase<TileEntitySteamBoiler>{
             Direction facing = tileEntity.getMasterFacing();
             //WATER
             doTheMath(facing, x, z, 1.9, -0.69);
-            //Utils.debug("Water:", tileEntity.getWaterText());
+            //Utils.debug("Water:", tileEntity.GetWaterFill());
             renderText(matrixStack, facing, xPos, y + 0.25, zPos, tileEntity.getWaterText(), 0.01F);
             renderPointer(matrixStack, combinedLightIn, combinedOverlayIn, renderTypeBuffer, facing, xPos, y + 0.51, zPos, tileEntity.GetWaterFill(), pointer, 0.3F);
             //STEAM
