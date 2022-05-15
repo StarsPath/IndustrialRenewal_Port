@@ -187,7 +187,7 @@ public class TileEntityMiner extends TileEntity3x3MachineBase<TileEntityMiner> i
             if (!level.isClientSide)
             {
                 if(!firstLoad){
-                    Utils.debug("CALLING ONLOAD");
+                    //Utils.debug("CALLING ONLOAD");
                     firstLoad = true;
                     this.onLoad();
                 }
@@ -207,7 +207,7 @@ public class TileEntityMiner extends TileEntity3x3MachineBase<TileEntityMiner> i
                         if (drillHeat < (waterTank.getFluidAmount() >= waterPerTick ? 9400 : 17300)) drillHeat += 20;
                         mineOre();
                         size = getOreSize();
-                        Utils.debug("MINING...", size);
+                        //Utils.debug("MINING...", size);
                     } else
                     {
                         size = 0;
@@ -364,7 +364,7 @@ public class TileEntityMiner extends TileEntity3x3MachineBase<TileEntityMiner> i
     private void getOres()
     {
         tempStack.clear();
-        Utils.debug("call getOres");
+        //Utils.debug("call getOres");
         if (isDeepMine())
         {
             //vein = OreGeneration.getChunkVein(level, worldPosition);
@@ -391,7 +391,7 @@ public class TileEntityMiner extends TileEntity3x3MachineBase<TileEntityMiner> i
                     if(state.is(Tags.Blocks.ORES)){
                         ores.add(new OreMining(state, actualPosition));
                         //tempStack.add(new ItemStack(state.getBlock().asItem()));
-                        Utils.debug("adding ore to list", state.getBlock(), actualPosition);
+                        //Utils.debug("adding ore to list", state.getBlock(), actualPosition);
                     }
 //                    if (OreGeneration.MINERABLE_ORES.contains(Item.byBlock(state.getBlock())))
 //                    {

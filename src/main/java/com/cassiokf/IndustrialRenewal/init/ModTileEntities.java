@@ -78,6 +78,10 @@ public class ModTileEntities {
                     TileEntityMiner::new, ModBlocks.MINER.get()).build(null));
 
 
+    public static RegistryObject<TileEntityType<TileEntityLocker>> LOCKER_TILE =
+            TILE_ENTITIES.register("locker_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityLocker::new, ModBlocks.MINER.get()).build(null));
+
 
     public static void register(IEventBus bus){
         TILE_ENTITIES.register(bus);
