@@ -36,6 +36,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         withExistingParent("steam_boiler", modLoc("block/steam_boiler"));
         withExistingParent("steam_turbine", modLoc("block/steam_turbine"));
+        withExistingParent("mining", modLoc("block/mining_drill"));
 
         //withExistingParent("energy_cable_lv", modLoc("block/pipe_energy_lv/cable_inventory"));
 

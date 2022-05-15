@@ -51,6 +51,16 @@ public abstract class TESRBase <T extends TileEntity> extends TileEntityRenderer
 
     }
 
+    public static void renderScreenTexts(MatrixStack matrixStack, Direction facing, double x, double y, double z, String[] text, float spacing, float scale)
+    {
+        double lY = y;
+        for (String line : text)
+        {
+            renderText(matrixStack, facing, x, lY, z, TextFormatting.GREEN + line, scale, false);
+            lY -= spacing;
+        }
+    }
+
     public void doTheMath(Direction facing, double x, double z, double offset, double sidePlus)
     {
         switch (facing)

@@ -73,6 +73,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("steam_turbine_tile", ()-> TileEntityType.Builder.of(
                     TileEntitySteamTurbine::new, ModBlocks.STEAM_TURBINE.get()).build(null));
 
+    public static RegistryObject<TileEntityType<TileEntityMiner>> MINER_TILE =
+            TILE_ENTITIES.register("miner_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityMiner::new, ModBlocks.MINER.get()).build(null));
+
 
 
     public static void register(IEventBus bus){
