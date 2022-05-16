@@ -3,20 +3,16 @@ package com.cassiokf.IndustrialRenewal.tileentity;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.item.IRItemDrill;
-import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3MachineBase;
+import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3x3MachineBase;
 import com.cassiokf.IndustrialRenewal.util.CustomEnergyStorage;
 import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tags.ITag;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -25,7 +21,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.capabilities.Capability;
@@ -45,7 +40,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
-public class TileEntityMiner extends TileEntity3x3MachineBase<TileEntityMiner> implements ITickableTileEntity {
+public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner> implements ITickableTileEntity {
 
     public CustomFluidTank waterTank = new CustomFluidTank(32000)
     {
@@ -272,7 +267,7 @@ public class TileEntityMiner extends TileEntity3x3MachineBase<TileEntityMiner> i
 
     private void mineOre()
     {
-        Utils.debug("Called mineOre");
+        //Utils.debug("Called mineOre");
         if (currentTick >= getMaxCooldown())
         {
             currentTick = 0;

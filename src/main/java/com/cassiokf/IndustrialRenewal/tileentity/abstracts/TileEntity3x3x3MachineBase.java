@@ -13,16 +13,16 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import java.util.List;
 
-public abstract class TileEntity3x3MachineBase <TE extends TileEntity3x3MachineBase> extends TileEntitySyncable implements ICapabilityProvider {
+public abstract class TileEntity3x3x3MachineBase<TE extends TileEntity3x3x3MachineBase> extends TileEntitySyncable implements ICapabilityProvider {
 
-    private boolean master;
-    private boolean breaking;
-    private TE masterTE;
-    private boolean masterChecked = false;
-    private boolean faceChecked = false;
-    private int faceIndex;
+    protected boolean master;
+    protected boolean breaking;
+    protected TE masterTE;
+    protected boolean masterChecked = false;
+    protected boolean faceChecked = false;
+    protected int faceIndex;
 
-    public TileEntity3x3MachineBase(TileEntityType<?> tileEntityTypeIn) {
+    public TileEntity3x3x3MachineBase(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
 
@@ -38,8 +38,8 @@ public abstract class TileEntity3x3MachineBase <TE extends TileEntity3x3MachineB
             for (BlockPos currentPos : list)
             {
                 TileEntity te = level.getBlockEntity(currentPos);
-                if (te instanceof TileEntity3x3MachineBase
-                        && ((TileEntity3x3MachineBase) te).isMaster()
+                if (te instanceof TileEntity3x3x3MachineBase
+                        && ((TileEntity3x3x3MachineBase) te).isMaster()
                         && instanceOf(te))
                 {
                     masterTE = (TE) te;

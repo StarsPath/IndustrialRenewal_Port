@@ -1,11 +1,10 @@
 package com.cassiokf.IndustrialRenewal.blocks.abstracts;
 
-import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3MachineBase;
+import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3x3MachineBase;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,20 +14,15 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.EntityPredicates;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.function.Predicate;
 
-public abstract class Block3x3x3Base <TE extends TileEntity3x3MachineBase> extends BlockAbstractHorizontalFacing{
+public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> extends BlockAbstractHorizontalFacing{
 
     public static final BooleanProperty MASTER = BooleanProperty.create("master");
     public Block3x3x3Base(Properties properties) {
@@ -82,7 +76,7 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3MachineBase> exten
                                 BlockPos currentPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ() + z);
                                 //Utils.debug("placing", currentPos, x, y, z);
                                 world.setBlockAndUpdate(currentPos, state.setValue(MASTER, false));
-                                TileEntity3x3MachineBase te = (TileEntity3x3MachineBase) world.getBlockEntity(currentPos);
+                                TileEntity3x3x3MachineBase te = (TileEntity3x3x3MachineBase) world.getBlockEntity(currentPos);
                                 te.getMaster();
                                 //Utils.debug("Master pos", te.getMaster().getBlockPos());
                             }
@@ -158,8 +152,8 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3MachineBase> exten
                 TileEntity te = world.getBlockEntity(blockPos);
                 //Utils.debug("break bock at pos", pos, te);
                 if(te != null){
-                    if(te instanceof TileEntity3x3MachineBase && ((TileEntity3x3MachineBase)te).isMaster()){
-                        ((TileEntity3x3MachineBase)te).breakMultiBlocks();
+                    if(te instanceof TileEntity3x3x3MachineBase && ((TileEntity3x3x3MachineBase)te).isMaster()){
+                        ((TileEntity3x3x3MachineBase)te).breakMultiBlocks();
                     }
                 }
             }

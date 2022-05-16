@@ -1,7 +1,6 @@
 package com.cassiokf.IndustrialRenewal.tesr;
 
 import com.cassiokf.IndustrialRenewal.init.ModItems;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntitySteamBoiler;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntitySteamTurbine;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.IRenderTypeBuffer;

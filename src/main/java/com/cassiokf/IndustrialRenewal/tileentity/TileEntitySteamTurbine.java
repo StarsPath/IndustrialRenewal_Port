@@ -2,7 +2,7 @@ package com.cassiokf.IndustrialRenewal.tileentity;
 
 import com.cassiokf.IndustrialRenewal.init.ModFluids;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
-import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3MachineBase;
+import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3x3MachineBase;
 import com.cassiokf.IndustrialRenewal.util.CustomEnergyStorage;
 import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;
 import com.cassiokf.IndustrialRenewal.util.Utils;
@@ -27,7 +27,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nullable;
 
-public class TileEntitySteamTurbine extends TileEntity3x3MachineBase<TileEntitySteamTurbine> implements ITickableTileEntity {
+public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntitySteamTurbine> implements ITickableTileEntity {
 
     public CustomFluidTank waterTank = new CustomFluidTank(32000)
     {

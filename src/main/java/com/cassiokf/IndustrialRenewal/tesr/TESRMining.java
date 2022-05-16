@@ -1,7 +1,6 @@
 package com.cassiokf.IndustrialRenewal.tesr;
 
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityMiner;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityWindTurbinePillar;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;

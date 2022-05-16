@@ -243,6 +243,26 @@ public class Utils {
         return list;
     }
 
+    public static List<BlockPos> getBlocksIn3x3x2Centered(BlockPos pos, Direction facing)
+    {
+        List<BlockPos> list = new ArrayList<>();
+        boolean isSided = facing == Direction.EAST || facing == Direction.WEST;
+        boolean invert = facing == Direction.NORTH || facing == Direction.WEST;
+        for (int y = -1; y < 2; y++)
+        {
+            for (int z = 0; z < 2; z++)
+            {
+                for (int x = -1; x < 2; x++)
+                {
+                    int finalX = (isSided ? z : x);
+                    int finalZ = (isSided ? x : z);
+                    list.add(new BlockPos(pos.getX() + (invert ? -finalX : finalX), pos.getY() + y, pos.getZ() + (invert ? -finalZ : finalZ)));
+                }
+            }
+        }
+        return list;
+    }
+
     public static float getConvertedTemperature(float temp)
     {
         //TODO: Add to config

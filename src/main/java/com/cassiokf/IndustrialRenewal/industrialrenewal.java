@@ -1,11 +1,8 @@
 package com.cassiokf.IndustrialRenewal;
 
-import com.cassiokf.IndustrialRenewal.init.ModBlocks;
-import com.cassiokf.IndustrialRenewal.init.ModFluids;
-import com.cassiokf.IndustrialRenewal.init.ModItems;
+import com.cassiokf.IndustrialRenewal.init.*;
 //import com.cassiokf.IndustrialRenewal.proxy.ClientProxy;
 //import com.cassiokf.IndustrialRenewal.proxy.CommonProxy;
-import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 //import com.cassiokf.IndustrialRenewal.model.ModelLoaderCustom;
 import com.cassiokf.IndustrialRenewal.tesr.*;
 import net.minecraft.block.Block;
@@ -67,6 +64,7 @@ public class industrialrenewal
         ModItems.registerInit(modEventBus);
         ModBlocks.registerInit(modEventBus);
         ModFluids.init(modEventBus);
+        ModGUI.register(modEventBus);
 
         modEventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading

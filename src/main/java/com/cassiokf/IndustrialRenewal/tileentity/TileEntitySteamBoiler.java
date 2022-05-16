@@ -4,8 +4,7 @@ import com.cassiokf.IndustrialRenewal.blocks.BlockSteamBoiler;
 import com.cassiokf.IndustrialRenewal.init.ModFluids;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
-import com.cassiokf.IndustrialRenewal.item.ItemFireBox;
-import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3MachineBase;
+import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3x3MachineBase;
 import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;
 import com.cassiokf.IndustrialRenewal.util.CustomItemStackHandler;
 import com.cassiokf.IndustrialRenewal.util.Utils;
@@ -14,7 +13,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -36,7 +34,7 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileEntitySteamBoiler extends TileEntity3x3MachineBase<TileEntitySteamBoiler> implements ITickableTileEntity {
+public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntitySteamBoiler> implements ITickableTileEntity {
     public CustomFluidTank waterTank = new CustomFluidTank(32000)
     {
         @Override
