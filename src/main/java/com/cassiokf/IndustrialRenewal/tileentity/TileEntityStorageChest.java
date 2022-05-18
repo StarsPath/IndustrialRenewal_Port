@@ -1,15 +1,21 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
+import com.cassiokf.IndustrialRenewal.containers.container.StorageChestContainer;
+import com.cassiokf.IndustrialRenewal.init.ModContainers;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3x2MachineBase;
 import com.cassiokf.IndustrialRenewal.util.CustomItemStackHandler;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -17,7 +23,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntityStorageChest> {
+public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntityStorageChest> implements INamedContainerProvider {
 
     private static final int slots = 99;
     public final CustomItemStackHandler inventory = new CustomItemStackHandler(slots){
@@ -55,6 +61,7 @@ public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntit
         openGui(player, false);
     }
 
+
     public void openGui(PlayerEntity player, boolean resetLine)
     {
         if (this.isRemoved()) return;
@@ -68,6 +75,7 @@ public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntit
         if (!level.isClientSide)
         {
             //player.openMenu(IndustrialRenewal.instance, GUIHandler.STORAGECHEST, world, pos.getX(), pos.getY(), pos.getZ());
+            player.openMenu(this);
         }
     }
 
@@ -121,5 +129,16 @@ public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntit
     public void load(BlockState state, CompoundNBT compound) {
         inventory.deserializeNBT(compound.getCompound("inv"));
         super.load(state, compound);
+    }
+
+    @Override
+    public ITextComponent getDisplayName() {
+        return ITextComponent.nullToEmpty("");
+    }
+
+    @Nullable
+    @Override
+    public Container createMenu(int ID, PlayerInventory inventory, PlayerEntity player) {
+        return new StorageChestContainer(ID, inventory, getMaster());
     }
 }

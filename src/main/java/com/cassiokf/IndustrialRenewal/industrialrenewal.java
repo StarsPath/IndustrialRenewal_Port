@@ -1,20 +1,21 @@
 package com.cassiokf.IndustrialRenewal;
 
+import com.cassiokf.IndustrialRenewal.containers.container.StorageChestContainer;
+import com.cassiokf.IndustrialRenewal.containers.screen.StorageChestScreen;
 import com.cassiokf.IndustrialRenewal.init.*;
 //import com.cassiokf.IndustrialRenewal.proxy.ClientProxy;
 //import com.cassiokf.IndustrialRenewal.proxy.CommonProxy;
 //import com.cassiokf.IndustrialRenewal.model.ModelLoaderCustom;
 import com.cassiokf.IndustrialRenewal.tesr.*;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -64,7 +65,7 @@ public class industrialrenewal
         ModItems.registerInit(modEventBus);
         ModBlocks.registerInit(modEventBus);
         ModFluids.init(modEventBus);
-        ModGUI.register(modEventBus);
+        ModContainers.register(modEventBus);
 
         modEventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -121,6 +122,8 @@ public class industrialrenewal
             RenderTypeLookup.setRenderLayer(ModFluids.STEAM.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModFluids.STEAM_FLOWING.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModFluids.STEAM_BLOCK.get(), RenderType.translucent());
+
+            ScreenManager.register(ModContainers.STORAGE_CHEST_CONTAINER.get(), StorageChestScreen::new);
         });
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.BATTERY_BANK_TILE.get(), TESRBatteryBank::new);
@@ -130,7 +133,6 @@ public class industrialrenewal
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.STEAM_BOILER_TILE.get(), TESRSteamBoiler::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.STEAM_TURBINE_TILE.get(), TESRSteamTurbine::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.MINER_TILE.get(), TESRMining::new);
-
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

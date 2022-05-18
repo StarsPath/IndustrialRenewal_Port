@@ -40,7 +40,11 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        return defaultBlockState().setValue(FACING, context.getHorizontalDirection()).setValue(MASTER, false);
+        World world = context.getLevel();
+        BlockPos pos =  context.getClickedPos();
+        if(isValidPosition(world, pos))
+            return defaultBlockState().setValue(FACING, context.getHorizontalDirection()).setValue(MASTER, false);
+        return Blocks.AIR.defaultBlockState();
     }
 
     @Override
@@ -87,7 +91,13 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
         }
     }
 
-//    @Override
+    @Override
+    public void onPlace(BlockState p_220082_1_, World p_220082_2_, BlockPos p_220082_3_, BlockState p_220082_4_, boolean p_220082_5_) {
+        Utils.debug("ON PLACE IS CALLED", p_220082_1_, p_220082_2_, p_220082_3_, p_220082_4_, p_220082_5_);
+        super.onPlace(p_220082_1_, p_220082_2_, p_220082_3_, p_220082_4_, p_220082_5_);
+    }
+
+    //    @Override
 //    public void onPlace(BlockState state,right clicked on World world, BlockPos pos, BlockState blockState, boolean flag) {
 //        if(isValidPosition(world, pos)){
 //            if (state.getValue(MASTER))
