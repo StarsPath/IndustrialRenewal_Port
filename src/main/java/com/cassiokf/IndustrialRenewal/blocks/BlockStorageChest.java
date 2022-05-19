@@ -45,11 +45,11 @@ public class BlockStorageChest extends Block3x3x2Base<TileEntityStorageChest> {
         {
             TileEntityStorageChest storageChestMaster = ((TileEntityStorageChest) world.getBlockEntity(pos)).getMaster();
             BlockPos masterPos = storageChestMaster.getBlockPos();
-            //INamedContainerProvider containerProvider = createContainerProvider(world, storageChestMaster.getBlockPos());
+            INamedContainerProvider containerProvider = createContainerProvider(world, storageChestMaster.getBlockPos());
             storageChestMaster.openGui(playerEntity, true);
 
             //Utils.debug("BLOCKS POSES", pos, storageChestMaster.getBlockPos());
-            NetworkHooks.openGui((ServerPlayerEntity) playerEntity, storageChestMaster, masterPos);
+            NetworkHooks.openGui((ServerPlayerEntity) playerEntity, containerProvider, masterPos);
 //                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, storageChestMaster, (PacketBuffer packerBuffer) -> {
 //                    packerBuffer.writeBlockPos(storageChestMaster.getBlockPos());
 //                });
@@ -58,20 +58,20 @@ public class BlockStorageChest extends Block3x3x2Base<TileEntityStorageChest> {
         //return super.use(state, world, pos, playerEntity, hand, rayTraceResult);
     }
 
-//    private INamedContainerProvider createContainerProvider(World world, BlockPos pos) {
-//        return  new INamedContainerProvider() {
-//            @Override
-//            public ITextComponent getDisplayName() {
-//                return new TranslationTextComponent("screen.industrialrenewal.storage_chest");
-//            }
-//
-//            @Nullable
-//            @Override
-//            public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-//                TileEntity te = world.getBlockEntity(pos);
-//                TileEntityStorageChest teMaster = te instanceof TileEntityStorageChest? ((TileEntityStorageChest) te).getMaster() : null;
-//                return new StorageChestContainer(i, playerInventory, teMaster);
-//            }
-//        };
-//    }
+    private INamedContainerProvider createContainerProvider(World world, BlockPos pos) {
+        return  new INamedContainerProvider() {
+            @Override
+            public ITextComponent getDisplayName() {
+                return new TranslationTextComponent("");
+            }
+
+            @Nullable
+            @Override
+            public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+                TileEntity te = world.getBlockEntity(pos);
+                TileEntityStorageChest teMaster = te instanceof TileEntityStorageChest? ((TileEntityStorageChest) te).getMaster() : null;
+                return new StorageChestContainer(i, playerInventory, teMaster);
+            }
+        };
+    }
 }

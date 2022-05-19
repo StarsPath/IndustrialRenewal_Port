@@ -2,10 +2,12 @@ package com.cassiokf.IndustrialRenewal.containers.screen;
 
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.containers.container.StorageChestContainer;
+//import com.cassiokf.IndustrialRenewal.network.NetworkHandler;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityStorageChest;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
@@ -30,6 +32,9 @@ public class StorageChestScreen extends ContainerScreen<StorageChestContainer> {
     private TextFieldWidget searchField;
     private boolean skip;
 
+    public int actualMouseX;
+    public int actualMouseY;
+
     private final ResourceLocation GUI = new ResourceLocation(References.MODID, "textures/gui/container/storage_chest.png");
     public StorageChestScreen(StorageChestContainer screenContainer, PlayerInventory inv, ITextComponent title) {
         super(screenContainer, inv, title);
@@ -42,7 +47,7 @@ public class StorageChestScreen extends ContainerScreen<StorageChestContainer> {
 //    private void sendToServer(int id)
 //    {
 //        te.guiButtonClick(id, null);
-//        NetworkHandler.INSTANCE.sendToServer(new PacketReturnTEStorageChest(this.te, id, mc.player.getEntityId()));
+//        NetworkHandler.sendToServer(new PacketReturnTEStorageChest(this.te, id, mc.player.getEntityId()));
 //    }
 
 //    public void scrollPressed(boolean up)
@@ -60,10 +65,14 @@ public class StorageChestScreen extends ContainerScreen<StorageChestContainer> {
         upB = new Button(posX1 + 206, posY1 + 15, 10, 18,
             ITextComponent.nullToEmpty("UP"), (button)-> {
                 Utils.debug("UP Button Pressed", button);
+                te.guiButtonClick(1, null);
+                //sendToServer(1);
         });
         downB = new Button(posX1 + 206, posY1 + 105, 10, 18,
             ITextComponent.nullToEmpty("DN"), (button)-> {
                 Utils.debug("DOWN Button Pressed", button);
+                te.guiButtonClick(2, null);
+                //sendToServer(2);
         });
 
         addButton(upB);
@@ -90,4 +99,8 @@ public class StorageChestScreen extends ContainerScreen<StorageChestContainer> {
         int j = this.getGuiTop();
         this.blit(matrixStack, i, j , 0, 0, this.getXSize(), this.getYSize());
     }
+
+//    public static void open() {
+//        Minecraft.getInstance().setScreen(new StorageChestScreen());
+//    }
 }

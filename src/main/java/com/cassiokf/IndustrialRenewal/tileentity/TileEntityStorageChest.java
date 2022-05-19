@@ -23,7 +23,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntityStorageChest> implements INamedContainerProvider {
+public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntityStorageChest> {
 
     private static final int slots = 99;
     public final CustomItemStackHandler inventory = new CustomItemStackHandler(slots){
@@ -58,6 +58,7 @@ public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntit
         {
             currentLine++;
         }
+        Utils.debug("LINE", currentLine);
         openGui(player, false);
     }
 
@@ -75,7 +76,7 @@ public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntit
         if (!level.isClientSide)
         {
             //player.openMenu(IndustrialRenewal.instance, GUIHandler.STORAGECHEST, world, pos.getX(), pos.getY(), pos.getZ());
-            player.openMenu(this);
+            //player.openMenu(this);
         }
     }
 
@@ -131,14 +132,14 @@ public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntit
         super.load(state, compound);
     }
 
-    @Override
-    public ITextComponent getDisplayName() {
-        return ITextComponent.nullToEmpty("");
-    }
-
-    @Nullable
-    @Override
-    public Container createMenu(int ID, PlayerInventory inventory, PlayerEntity player) {
-        return new StorageChestContainer(ID, inventory, getMaster());
-    }
+//    @Override
+//    public ITextComponent getDisplayName() {
+//        return ITextComponent.nullToEmpty("");
+//    }
+//
+//    @Nullable
+//    @Override
+//    public Container createMenu(int ID, PlayerInventory inventory, PlayerEntity player) {
+//        return new StorageChestContainer(ID, inventory, getMaster());
+//    }
 }
