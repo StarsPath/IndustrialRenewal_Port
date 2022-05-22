@@ -44,26 +44,11 @@ public class BlockElectricPump extends BlockTileEntity<TileEntityElectricPump> {
         return null;
     }
 
-//    @Override
-//    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult hit) {
-////        if(world.getBlockState(pos.relative(state.getValue(FACING))).getMaterial().isReplaceable())
-//            return super.use(state, world, pos, playerEntity, hand, hit);
-//
-//    }
-
-
-//    @Override
-//    public void onPlace(BlockState state, World world, BlockPos pos, BlockState state2, boolean flag) {
-//        if(world.getBlockState(pos.relative(state2.getValue(FACING))).getMaterial().isReplaceable())
-//            super.onPlace(state, world, pos, state2, flag);
-//    }
-
     @Override
     public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack itemStack) {
         super.setPlacedBy(world, pos, state, entity, itemStack);
         if (state.getValue(INDEX) == 0)
             world.setBlockAndUpdate(pos.relative(state.getValue(FACING)), state.setValue(INDEX, 1));
-        //world.blockUpdated(pos, Blocks.AIR);
     }
 
     @Override
@@ -82,10 +67,6 @@ public class BlockElectricPump extends BlockTileEntity<TileEntityElectricPump> {
         super.destroy(world, pos, state);
     }
 
-//    private boolean IsPump(World world, BlockPos pos)
-//    {
-//        return world.getBlockState(pos).getBlock() instanceof BlockElectricPump;
-//    }
     private boolean IsPump(IWorld world, BlockPos pos)
     {
         return world.getBlockState(pos).getBlock() instanceof BlockElectricPump;
@@ -96,13 +77,6 @@ public class BlockElectricPump extends BlockTileEntity<TileEntityElectricPump> {
         super.createBlockStateDefinition(builder);
         builder.add(FACING, INDEX);
     }
-
-//    @Nullable
-//    @Override
-//    public TileEntityElectricPump createTileEntity(World world, BlockState state) {
-//        Utils.debug("creating tile entity");
-//        return new TileEntityElectricPump();
-//    }
 
     @Nullable
     @Override

@@ -24,15 +24,10 @@ public class ModContainers {
 
     public static final RegistryObject<ContainerType<StorageChestContainer>> STORAGE_CHEST_CONTAINER =
             CONTAINERS.register("storage_chest_container", ()-> IForgeContainerType.create(((windowId, inv, data) -> {
-                //Utils.debug("DATA, BLOCKPOS, DATA IS NULL?", data, data.readBlockPos(), data==null);
-                //BlockPos pos = Objects.requireNonNull(data).readBlockPos();
                 BlockPos pos = data.readBlockPos();
                 TileEntity tileEntity = inv.player.level.getBlockEntity(pos);
                 return new StorageChestContainer(windowId, inv, ((TileEntityStorageChest) Objects.requireNonNull(tileEntity)).getMaster());
             })));
-
-//    public static final RegistryObject<ContainerType<StorageChestContainer>> STORAGE_CHEST_CONTAINER =
-//            CONTAINERS.register("storage_chest_container", ()-> IForgeContainerType.create((StorageChestContainer::new)));
 
     public static void register(IEventBus bus){
         CONTAINERS.register(bus);

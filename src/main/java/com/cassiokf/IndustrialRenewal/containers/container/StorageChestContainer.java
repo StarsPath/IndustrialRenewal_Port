@@ -34,23 +34,13 @@ public class StorageChestContainer extends ContainerBase {
     private int currentPage = 0;
     private int slotsPerPage;
     private PlayerInventory playerInventory;
-//    private IIntArray data;
-//    private final int numRows;
-//    private final PlayerEntity playerEntity;
-//    private final IItemHandler playerInventory;
 
-//    protected StorageChestContainer(@Nullable ContainerType<?> p_i50105_1_, int p_i50105_2_) {
-//        super(p_i50105_1_, p_i50105_2_);
-//    }
     public StorageChestContainer(int windowId, PlayerInventory playerInventory, TileEntityStorageChest tileEntity){
         super(ModContainers.STORAGE_CHEST_CONTAINER.get(), windowId);
         this.tileEntity = tileEntity;
         this.slotsPerPage = tileEntity.slotsPerPage;
         this.playerInventory = playerInventory;
         IItemHandler inventory = tileEntity.inventory;
-
-        //Utils.debug("numRow, start Index, currentPage", numRows, startIndex, tileEntity.currentPage, inventory.getSlots(), inventory);
-        //int limit = 0;
 
         drawContainer(inventory);
         drawPlayerInv(playerInventory, 45, 18);
@@ -63,10 +53,7 @@ public class StorageChestContainer extends ContainerBase {
         else if(id == 2 && currentPage < tileEntity.maxPage-1){
             currentPage++;
         }
-//        Utils.debug("Clicked", currentPage);
-//        for(Slot s : slots){
-//            Utils.debug("SLOTS", s.container, s.index, s.getItem());
-//        }
+
         slots.clear();
         drawContainer(tileEntity.inventory);
         drawPlayerInv(playerInventory, 45, 18);
@@ -75,24 +62,11 @@ public class StorageChestContainer extends ContainerBase {
     }
 
     public void drawContainer(IItemHandler inventory){
-
-//        if (id == 1 && tileEntity.currentPage > 0)
-//        {
-//            tileEntity.currentPage--;
-//            tileEntity.sync();
-//        }
-//        else if (id == 2 && tileEntity.currentPage < tileEntity.maxPage-1)
-//        {
-//            tileEntity.currentPage++;
-//            tileEntity.sync();
-//        }
-        //Utils.debug("SETTING CURRENT PAGE", tileEntity.currentPage);
         int limit = 0;
         int xS = 0;
         int yS = 0;
         int startIndex = currentPage * slotsPerPage;
         int numRows = inventory.getSlots() / 11;
-//        Utils.debug("numRow, start Index, currentPage", numRows, startIndex, currentPage, inventory.getSlots(), inventory);
 
         for (int y = 0; y < numRows; ++y) {
             for (int x = 0; x < 11; ++x) {

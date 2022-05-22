@@ -30,13 +30,13 @@ public class ClientProxy extends CommonProxy{
 //        RenderHandler.registerCustomMeshesAndStates();
     }
 
-    public void registerItemModel(Item item, String path, String renderCase)
-    {
-        Minecraft.getInstance().getItemRenderer().getItemModelShaper().register(item, new ModelResourceLocation(path, renderCase));
-    }
+//    public void registerItemModel(Item item, String path, String renderCase)
+//    {
+//        Minecraft.getInstance().getItemRenderer().getItemModelShaper().register(item, new ModelResourceLocation(path, renderCase));
+//    }
 
-    public void registerRenderers(){
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.BATTERY_BANK_TILE.get(), TESRBatteryBank::new);
-    }
+//    public void registerRenderers(){
+//        ClientRegistry.bindTileEntityRenderer(ModTileEntities.BATTERY_BANK_TILE.get(), TESRBatteryBank::new);
+//    }
 
 }

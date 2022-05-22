@@ -61,37 +61,6 @@ public abstract class BlockSaveContent extends HorizontalBlock {
         super.appendHoverText(itemStack, world, list, flag);
     }
 
-//    @Override
-//    public void spawnAfterBreak(BlockState blockState, ServerWorld serverWorld, BlockPos pos, ItemStack itemStack) {
-//        TileEntity te = serverWorld.getBlockEntity(pos);
-//        if (te instanceof TileEntitySaveContent)
-//        {
-//            ItemStack itemst = SaveStackContainer((TileEntitySaveContent) te);
-//            //serverWorld.addFreshEntity(new ItemEntity(serverWorld,pos.getX(), pos.getY(), pos.getZ(), itemst));
-//            new ItemEntity(serverWorld,pos.getX(), pos.getY(), pos.getZ(), itemst);
-//            //super.spawnAfterBreak(blockState, serverWorld, pos, itemst);
-//        }
-//        else
-//            super.spawnAfterBreak(blockState, serverWorld, pos, itemStack);
-//    }
-
-//    private ItemStack SaveStackContainer(TileEntitySaveContent te) {
-//        ItemStack stack = new ItemStack(getItemToDrop());
-//        if (te != null)
-//        {
-//            CompoundNBT nbt = stack.getTag();
-//            if (nbt == null) nbt = new CompoundNBT();
-//            if (te.getTank().getFluid() != null)
-//            {
-//                te.getTank().writeToNBT(nbt);
-//                stack.setTag(nbt);
-//            }
-//        }
-//        return stack;
-//    }
-
-    //public abstract Item getItemToDrop();
-
     public void doAdditionalFunction(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, Hand hand, Direction facing)
     {
     }

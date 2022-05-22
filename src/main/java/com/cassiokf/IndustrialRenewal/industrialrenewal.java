@@ -51,12 +51,6 @@ public class industrialrenewal
     public static final industrialrenewal.IndustrialRenewalTab IR_TAB = new industrialrenewal.IndustrialRenewalTab("industrialrenewal");
 
 
-    //public static CommonProxy proxy;
-//    public static CommonProxy proxy = DistExecutor.safeRunForDist(
-//            bootstrapErrorToXCPInDev(() -> ClientProxy::new), bootstrapErrorToXCPInDev(() -> CommonProxy::new)
-//    );
-
-
     public industrialrenewal() {
         // Register the setup method for modloading
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -74,9 +68,7 @@ public class industrialrenewal
         modEventBus.addListener(this::processIMC);
         // Register the doClientStuff method for modloading
         modEventBus.addListener(this::doClientStuff);
-        //modEventBus.addListener(this::registerModels);
 
-        //ModItems.ITEMS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -98,11 +90,7 @@ public class industrialrenewal
     {
         // some preinit code
         LOGGER.info("Industrial Renewal is loading preInit!");
-        //ModelLoaderRegistry.registerLoader(new ResourceLocation(References.MODID, "smartmodel"), new ModelLoaderCustom());
-        //industrialrenewal.proxy.preInit();
-        //industrialrenewal.proxy.registerRenderers(); // doesnt do shit
-        //proxy.preInit();
-        //proxy.registerRenderers();
+
         LOGGER.info("Done");
     }
 
@@ -154,45 +142,6 @@ public class industrialrenewal
         // do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
-
-//    @SubscribeEvent
-//    public void registerModels(ModelRegistryEvent event){
-//        LOGGER.info("Registering models...");
-//        ModelLoaderRegistry.registerLoader(new ResourceLocation(References.MODID, "model/smartmodel"), new ModelLoaderCustom());
-//    }
-
-//    @Mod.EventBusSubscriber
-//    public static class RegistrationHandler{
-//        @SubscribeEvent
-//        public static void registerBlocks(RegistryEvent.Register<Block> event)
-//        {
-//            //ModBlocks.register(event.getRegistry());
-//        }
-//
-//        @SubscribeEvent
-//        public static void registerItems(RegistryEvent.Register<Item> event)
-//        {
-//            ModItems.register(event.getRegistry());
-//            //ModBlocks.registerItemBlocks(event.getRegistry());
-//            //ModItems.registerOreDict();
-//            //ModBlocks.registerOreDict();
-//        }
-//
-//        @SubscribeEvent
-//        public static void registerItems(ModelRegistryEvent event) {
-//            //ModItems.registerModels();
-//            //ModBlocks.registerItemModels();
-//        }
-//
-////        @SubscribeEvent
-////        public void onConfigChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event)
-////        {
-////            if (event.getModID().equals(MODID))
-////            {
-////                ConfigManager.sync(MODID, Config.Type.INSTANCE);
-////            }
-////        }
-//    }
 
     public static <T>
     Supplier<T> bootstrapErrorToXCPInDev(Supplier<T> in)

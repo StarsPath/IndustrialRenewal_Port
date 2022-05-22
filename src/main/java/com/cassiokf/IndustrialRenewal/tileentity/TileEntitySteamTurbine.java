@@ -110,9 +110,6 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
 
             TileEntitySteamTurbine waterOutputTile = ((TileEntitySteamTurbine) level.getBlockEntity(getBlockPos().below().relative(face)));
             if(waterOutputTile != null) waterTank = waterOutputTile.waterTank;
-
-//            TileEntitySteamTurbine energyOutputTile = ((TileEntitySteamTurbine) level.getBlockEntity(getBlockPos().below().relative(face.getOpposite()).relative(face.getCounterClockWise())));
-//            if(energyOutputTile != null) energyStorage = energyOutputTile.energyStorage;
         }
         super.onLoad();
     }
@@ -178,36 +175,6 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
             }
         }
     }
-
-//    @Override
-//    public float getPitch()
-//    {
-//        return Math.max(getRotation(), 0.1F);
-//    }
-
-//    @Override
-//    public float getVolume()
-//    {
-//        return volume;
-//    }
-
-//    private void updateSound(float pitch)
-//    {
-//        if (!world.isRemote) return;
-//        if (this.rotation > 0)
-//        {
-//            IRSoundHandler.playRepeatableSound(this, SoundsRegistration.MOTOR_ROTATION.get(), volume, pitch);
-//        } else
-//        {
-//            IRSoundHandler.stopTileSound(pos);
-//        }
-//    }
-
-//    @Override
-//    public void onMasterBreak()
-//    {
-//        if (world.isRemote) IRSoundHandler.stopTileSound(pos);
-//    }
 
     @Override
     public boolean instanceOf(TileEntity tileEntity)

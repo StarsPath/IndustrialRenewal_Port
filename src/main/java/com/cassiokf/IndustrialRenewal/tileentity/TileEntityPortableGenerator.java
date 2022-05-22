@@ -73,15 +73,7 @@ public class TileEntityPortableGenerator extends TileEntitySaveContent implement
     // TODO: Fix Sound
     private void handleSound()
     {
-//        if (generator.isGenerating() && !soundStarted)
-//        {
-//            IRSoundHandler.playRepeatableSound(IRSoundRegister.GENERATOR_RESOURCEL, volume, 1.0F, worldPosition);
-//            soundStarted = true;
-//        } else if (!generator.isGenerating() && soundStarted)
-//        {
-//            IRSoundHandler.stopTileSound(worldPosition);
-//            soundStarted = false;
-//        }
+
     }
 
     public String getChatQuantity(){
@@ -99,8 +91,6 @@ public class TileEntityPortableGenerator extends TileEntitySaveContent implement
         super.setRemoved();
         setChanged();
         generator.setRemoved();
-//        LazyOptional.of(()-> generator.energyStorage).invalidate();
-//        LazyOptional.of(()-> generator.tank).invalidate();
     }
 
     public void changeGenerator()

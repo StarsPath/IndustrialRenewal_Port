@@ -83,25 +83,6 @@ public class BlockWindTurbinePillar extends BlockConnectedMultiblocks<TileEntity
         return super.getStateForPlacement(context).setValue(BASE, true);
     }
 
-//    private boolean canConnectTo(final World worldIn, final BlockPos ownPos, final Direction neighbourDirection)
-//    {
-//        final BlockPos neighbourPos = ownPos.relative(neighbourDirection);
-//        final BlockState neighbourState = worldIn.getBlockState(neighbourPos);
-//
-//        if (neighbourDirection == Direction.DOWN)
-//        {
-//            return !(neighbourState.getBlock() instanceof BlockWindTurbinePillar);
-//        }
-//        TileEntity te = worldIn.getBlockEntity(ownPos.relative(neighbourDirection));
-//        return te != null && te.getCapability(CapabilityEnergy.ENERGY, neighbourDirection.getOpposite()).isPresent();
-//    }
-
-//    @Override
-//    public BlockRenderType getRenderShape(BlockState p_149645_1_) {
-//        return BlockRenderType.MODEL;
-//        //return super.getRenderShape(p_149645_1_);
-//    }
-
     @Override
     public boolean propagatesSkylightDown(BlockState p_200123_1_, IBlockReader p_200123_2_, BlockPos p_200123_3_) {
         return true;
@@ -127,56 +108,6 @@ public class BlockWindTurbinePillar extends BlockConnectedMultiblocks<TileEntity
         }
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, flag);
     }
-//
-//    @Override
-//    public void onNeighborChange(BlockState state, IWorldReader world, BlockPos pos, BlockPos neighbor) {
-//        if(!world.isClientSide()){
-//            if(world.getBlockEntity(pos.below()) instanceof TileEntityWindTurbinePillar){
-//                world.getBlockState(pos).setValue(BASE, false);
-//            }
-//            else{
-//                world.getBlockState(pos).setValue(BASE, true);
-//            }
-//        }
-//    }
-
-//    @Override
-//    public void onRemove(BlockState blockState, World world, BlockPos pos, BlockState state, boolean flag) {
-//        //worldIn.sendBlockUpdated(pos, state, state, 2);
-//        //industrialrenewal.LOGGER.info("ONREMOVE");
-//        if(!world.isClientSide){
-//            if(world.getBlockState(pos.above()).getBlock() instanceof BlockWindTurbinePillar){
-//                if(!world.getBlockState(pos.above()).getValue(BASE)){
-//                    world.setBlock(pos.above(), world.getBlockState(pos.above()).setValue(BASE, true), 3);
-//                }
-//            }
-//        }
-//        super.onRemove(blockState, world, pos, state, flag);
-//    }
-//
-//    @Override
-//    public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity player, ItemStack itemStack) {
-//        if(!world.isClientSide){
-//            if(world.getBlockState(pos.above()).getBlock() instanceof BlockWindTurbinePillar){
-//                if(world.getBlockState(pos.above()).getValue(BASE)){
-//                    world.setBlock(pos.above(), world.getBlockState(pos.above()).setValue(BASE, false), 3);
-//                }
-//            }
-//        }
-//        super.setPlacedBy(world, pos, state, player, itemStack);
-//    }
-
-//    @Override
-//    public void onPlace(BlockState blockState, World worldIn, BlockPos pos, BlockState state, boolean flag) {
-//        if(!worldIn.isClientSide){
-//            if(worldIn.getBlockState(pos.above()).getBlock() instanceof BlockWindTurbinePillar){
-//                worldIn.getBlockState(pos.above()).setValue(BASE, false);
-//                industrialrenewal.LOGGER.info("SETTING BLOCK ABOVE NOT BASE");
-//            }
-//        }
-//
-//        super.onPlace(blockState, worldIn, pos, state, flag);
-//    }
 
 
     @Override

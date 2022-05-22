@@ -72,12 +72,6 @@ public class BlockWindTurbineHead extends BlockAbstractHorizontalFacing {
         //return super.use(state, world, pos, playerEntity, hand, hit);
     }
 
-//    @Override
-//    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
-//        super.createBlockStateDefinition(builder);
-//        builder.add(FACING);
-//    }
-
     @Override
     public void appendHoverText(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         tooltip.add(new StringTextComponent(String.format("Produces %d FR/t max", 128)));

@@ -44,18 +44,6 @@ public class StorageChestScreen extends ContainerScreen<StorageChestContainer> {
         this.imageHeight = 211;
     }
 
-//    private void sendToServer(int id)
-//    {
-//        te.guiButtonClick(id, null);
-//        NetworkHandler.sendToServer(new PacketReturnTEStorageChest(this.te, id, mc.player.getEntityId()));
-//    }
-
-//    public void scrollPressed(boolean up)
-//    {
-//        if (up && upB.active) sendToServer(1);
-//        else if (!up && downB.active) sendToServer(2);
-//    }
-
     @Override
     protected void init() {
         super.init();
@@ -66,17 +54,11 @@ public class StorageChestScreen extends ContainerScreen<StorageChestContainer> {
             ITextComponent.nullToEmpty("UP"), (button)-> {
                 Utils.debug("UP Button Pressed", button);
             storageChestContainer.clickedOn(1);
-                //te.guiButtonClick(1, null);
-                //storageChestContainer.drawContainer(te.inventory, te, 1);
-                //sendToServer(1);
         });
         downB = new Button(posX1 + 206, posY1 + 105, 10, 18,
             ITextComponent.nullToEmpty("DN"), (button)-> {
                 Utils.debug("DOWN Button Pressed", button);
                 storageChestContainer.clickedOn(2);
-                //te.guiButtonClick(2, null);
-                //storageChestContainer.drawContainer(te.inventory, te, 2);
-                //sendToServer(2);
         });
 
         addButton(upB);
@@ -103,8 +85,4 @@ public class StorageChestScreen extends ContainerScreen<StorageChestContainer> {
         int j = this.getGuiTop();
         this.blit(matrixStack, i, j , 0, 0, this.getXSize(), this.getYSize());
     }
-
-//    public static void open() {
-//        Minecraft.getInstance().setScreen(new StorageChestScreen());
-//    }
 }

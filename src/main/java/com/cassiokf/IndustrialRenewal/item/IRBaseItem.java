@@ -42,18 +42,4 @@ public class IRBaseItem extends Item {
         setRegistryName(References.MODID, name);
         industrialrenewal.registeredIRItems.add(this);
     }
-
-//    public void registerItemModel(){
-//        industrialrenewal.proxy.registerItemRenderer(this, 0, this.name);
-//    }
-
-    //    @Override
-//    public boolean isRepairable(@Nonnull ItemStack stack) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean isEnchantable(ItemStack stack) {
-//        return false;
-//    }
 }

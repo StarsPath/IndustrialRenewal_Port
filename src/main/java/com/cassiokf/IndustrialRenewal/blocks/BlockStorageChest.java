@@ -50,9 +50,6 @@ public class BlockStorageChest extends Block3x3x2Base<TileEntityStorageChest> {
 
             //Utils.debug("BLOCKS POSES", pos, storageChestMaster.getBlockPos());
             NetworkHooks.openGui((ServerPlayerEntity) playerEntity, containerProvider, masterPos);
-//                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, storageChestMaster, (PacketBuffer packerBuffer) -> {
-//                    packerBuffer.writeBlockPos(storageChestMaster.getBlockPos());
-//                });
         }
         return ActionResultType.SUCCESS;
         //return super.use(state, world, pos, playerEntity, hand, rayTraceResult);

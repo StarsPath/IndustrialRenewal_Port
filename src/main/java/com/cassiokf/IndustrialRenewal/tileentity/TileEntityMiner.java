@@ -102,21 +102,13 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
 
             TileEntityMiner waterTankTile = (TileEntityMiner) level.getBlockEntity(getBlockPos().below().relative(face).relative(face.getClockWise()));
             if(waterTankTile != null) {
-                //Utils.debug("SETTING WATER TANK, POS", waterTankTile, waterTankTile.getBlockPos(), waterTankTile.waterTank);
                 masterTE.waterTank = waterTankTile.waterTank;
-                //Utils.debug("MASTER WATER TANK", masterTE.waterTank, waterTankTile.waterTank);
-                //this.sync();
             }
 
             TileEntityMiner energyTile = (TileEntityMiner) level.getBlockEntity(getBlockPos().relative(face.getOpposite()).above());
             if(energyTile != null) {
-                //Utils.debug("SETTING ENERGY, POS", energyTile, energyTile.getBlockPos());
                 masterTE.energyStorage = energyTile.energyStorage;
-                //this.sync();
             }
-//
-//            if(energyTile != null && waterTankTile != null)
-//            Utils.debug("ONLOAD...", waterTankTile.waterTank.getFluidAmount(), energyTile.energyStorage.orElse(null).getEnergyStored());
         }
         super.onLoad();
     }
@@ -224,14 +216,6 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
                     oldDrillHeat = drillHeat;
                     sync();
                 }
-//                if (running)
-//                {
-//                    if (drillHeat < (waterTank.getFluidAmount() > waterPtick ? 9300 : 17300)) drillHeat += 20;
-//                } else
-//                {
-//                    drillHeat -= 30;
-//                }
-//                drillHeat = MathHelper.clamp(drillHeat, 3200, maxHeat);
             }
             doAnimation();
             //updateSound();

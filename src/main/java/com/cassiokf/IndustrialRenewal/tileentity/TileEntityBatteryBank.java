@@ -74,47 +74,15 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
         };
     }
 
-//    @Nonnull
-//    @Override
-//    public IModelData getModelData()
-//    {
-//        return new ModelDataMap.Builder()
-//                .withInitial(UP, canFaceBeOutPut(Direction.UP))
-//                .withInitial(DOWN, canFaceBeOutPut(Direction.DOWN))
-//                .withInitial(NORTH, canFaceBeOutPut(Direction.NORTH))
-//                .withInitial(SOUTH, canFaceBeOutPut(Direction.SOUTH))
-//                .withInitial(EAST, canFaceBeOutPut(Direction.EAST))
-//                .withInitial(WEST, canFaceBeOutPut(Direction.WEST))
-//                .build();
-//    }
 
     private boolean canFaceBeOutPut(Direction face)
     {
         return isFacingOutput(face) && face != getBlockFacing();
     }
 
-//    @Override
-//    public void setRemoved() {
-//        super.setRemoved();
-//        setChanged();
-//        handler.invalidate();
-//    }
 
     @Override
     public void tick() {
-//        if (this.hasLevel() && !this.level.isClientSide()) {
-//            for (Direction face : outPutFacings)
-//            {
-//                TileEntity te = level.getBlockEntity(worldPosition.relative(face));
-//                if (te != null)
-//                {
-//                    getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).ifPresent(cap->{
-//                        if(cap.canReceive())
-//                            this.container.extractEnergy(cap.receiveEnergy(this.container.extractEnergy(this.container.getMaxOutput(), true), false), false);
-//                    });
-//                }
-//            }
-//        }
 
         if (this.hasLevel() && !level.isClientSide)
         {
@@ -132,11 +100,6 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
                 }
             }
         }
-//        if(tick>=20) {
-//            tick = 0;
-//        }
-        //level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
-        //tick++;
     }
     public boolean toggleFacing(final Direction facing)
     {
@@ -154,11 +117,6 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
             return true;
         }
     }
-
-//    public Direction getBlockFacing() {
-//        if (blockFacing != null) return blockFacing;
-//        return Direction.NORTH;
-//    }
 
     public boolean isFacingOutput(final @Nullable Direction facing) {
         return outPutFacings.contains(facing) || facing == null;
@@ -182,11 +140,6 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
         return blockFacing;
     }
 
-//    public Direction forceFaceCheck()
-//    {
-//        blockFacing = this.level.getBlockState(this.worldPosition).getBlockState().getValue(BlockStateProperties.FACING);
-//        return blockFacing;
-//    }
     public float getTankFill() //0 ~ 180
     {
         float currentAmount = energyStorage.orElse(null).getEnergyStored() / 1000F;
@@ -251,29 +204,4 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
     public void handleUpdateTag(BlockState state, CompoundNBT tag) {
         this.load(state, tag);
     }
-
-    //    @Override
-//    public void readFromNBT(CompoundNBT compound) {
-//        this.container.deserializeNBT(compound.getCompoundTag("StoredIR"));
-//
-//        outPutFacings.clear();
-//        final int[] enabledFacingIndices = compound.getIntArray("OutputFacings");
-//        for (final int index : enabledFacingIndices)
-//        {
-//            outPutFacings.add(EnumFacing.byIndex(index));
-//        }
-//        blockFacing = EnumFacing.byHorizontalIndex(compound.getInteger("face"));
-//        super.readFromNBT(compound);
-//    }
-
-//    @Override
-//    public CompoundNBT writeToNBT(CompoundNBT compound) {
-//        compound.setTag("StoredIR", this.container.serializeNBT());
-//        final int[] enabledFacingIndices = outPutFacings.stream()
-//                .mapToInt(EnumFacing::getIndex)
-//                .toArray();
-//        compound.setIntArray("OutputFacings", enabledFacingIndices);
-//        compound.setInteger("face", getBlockFacing().getHorizontalIndex());
-//        return super.writeToNBT(compound);
-//    }
 }

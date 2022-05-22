@@ -31,31 +31,10 @@ public class TESRBatteryBank extends TESRBase<TileEntityBatteryBank> {
         int x = 0;
         int y = 0;
         int z = 0;
-//        int x = tileEntity.getBlockPos().getX();
-//        int y = tileEntity.getBlockPos().getY();
-//        int z = tileEntity.getBlockPos().getZ();
-        //Direction facing = Utils.intToDir(tileEntity.serializeNBT().getInt("face"));
-        //Direction facing = tileEntity.getBlockFacing();
+
         Direction facing = tileEntity.getBlockState().getValue(BlockBatteryBank.FACING);
         doTheMath(facing, x, z, 1.023, 0);
-//        CompoundNBT StoredIR = tileEntity.serializeNBT().getCompound("StoredIR");
-//        int energy = StoredIR.getInt("energy");
-////        int IROutput = StoredIR.getInt("IROutput");
-////        int IRInput = StoredIR.getInt("IRInput");
-////        int IRStored = StoredIR.getInt("IRStored");
-////        int IRCapacity = StoredIR.getInt("IRCapacity");
-//        industrialrenewal.LOGGER.info(StoredIR);
-//        industrialrenewal.LOGGER.info("IRStored: " + tileEntity.serializeNBT().getCompound("IRStored").getInt("energy"));
         renderText(matrixStack, facing, xPos, y + 0.43, zPos, tileEntity.getText(), 0.005F);
         renderBarLevel(matrixStack, combinedLightIn, combinedOverlayIn, renderTypeBuffer, facing, xPos, y + 0.49, zPos, tileEntity.getTankFill(), 0.7F);
     }
-
-    //TESRBase
-//    @Override
-//    public void render(TileEntityBatteryBank te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-//        Direction facing = te.getBlockFacing();
-//        doTheMath(facing, x, z, 1.023, 0);
-//        renderText(facing, xPos, y + 0.43, zPos, te.GetText(), 0.005F);
-//        renderBarLevel(facing, xPos, y + 0.49, zPos, te.getBatteryFill(), 0.7F);
-//    }
 }

@@ -64,19 +64,6 @@ public class BlockPortableGenerator extends BlockSaveContent {
         return new TileEntityPortableGenerator(ModTileEntities.PORTABLE_GENERATOR_TILE.get());
     }
 
-//    @Override
-//    public void doAdditionalFunction(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, Hand hand, Direction facing) {
-//        if (facing == state.getValue(FACING).getOpposite())
-//        {
-//            TileEntity te = worldIn.getBlockEntity(pos);
-//            if (te instanceof TileEntityPortableGenerator)
-//            {
-//                ((TileEntityPortableGenerator) te).changeGenerator();
-//            }
-//        }
-//        super.doAdditionalFunction(worldIn, pos, state, playerIn, hand, facing);
-//    }
-
     @Override
     public void neighborChanged(BlockState state, World world, BlockPos pos1, Block block, BlockPos pos2, boolean flag) {
         TileEntity te = world.getBlockEntity(pos1);

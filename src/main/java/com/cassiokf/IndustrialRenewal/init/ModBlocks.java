@@ -37,10 +37,6 @@ public class ModBlocks {
     public static final IRBaseBlock STEELBLOCK = new IRBaseBlock("block_steel", IRBlockItem::new);
     public static final IRBaseBlock CONCRETE = new IRBaseBlock("concrete", IRBlockItem::new);
 
-    //public static final WallBlock CONCRETEWALL = new WallBlock(AbstractBlock.Properties.of(Material.STONE).sound(SoundType.STONE).strength(2f).noCollission());
-
-    //public static final BlockIndustrialFloor BLOCKINDFLOOR = new BlockIndustrialFloor("industrial_floor");
-
     public static final RegistryObject<Block> CONCRETEWALL = registerBlock("concrete_wall",
             () -> new WallBlock(AbstractBlock.Properties.of(Material.STONE).sound(SoundType.STONE).strength(2f).noCollission()));
 
@@ -255,9 +251,6 @@ public class ModBlocks {
 //    public static final BlockOreVein veinHematite = new BlockOreVein("orevein_hematite", "oreIron", References.CREAATIVE_IRWIP_TAB);
 
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block) {
-//        RegistryObject<T> toReturn = BLOCKS.register(name, block);
-//        registerBlockItem(name, toReturn);
-//        return toReturn;
         return registerBlock(name, block, true);
     }
 

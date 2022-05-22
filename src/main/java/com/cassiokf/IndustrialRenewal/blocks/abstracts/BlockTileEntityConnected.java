@@ -25,12 +25,6 @@ public abstract class BlockTileEntityConnected <TE extends TileEntity> extends H
         super(props);
     }
 
-//    @Override
-//    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
-//        super.createBlockStateDefinition(builder);
-//        builder.add(SOUTH, NORTH, EAST, WEST, UP, DOWN);
-//    }
-
     @Override
     public boolean hasTileEntity(BlockState state) {
         return true;

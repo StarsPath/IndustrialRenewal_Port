@@ -81,19 +81,6 @@ public class BlockSteamBoiler extends Block3x3x3Base<TileEntitySteamBoiler> {
         super.onRemove(state, world, pos, oldState, isMoving);
     }
 
-//    @Override
-//    public void destroy(IWorld p_176206_1_, BlockPos p_176206_2_, BlockState p_176206_3_) {
-//        Utils.debug("called destroy function");
-//        super.destroy(p_176206_1_, p_176206_2_, p_176206_3_);
-//    }
-
-    //    @Override
-//    public void destroy(IWorld world, BlockPos pos, BlockState state) {
-//        TileEntitySteamBoiler te = (TileEntitySteamBoiler) world.getBlockEntity(pos);
-//        if (te != null) te.dropAllItems();
-//        super.destroy(world, pos, state);
-//    }
-
     @Override
     public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult p_225533_6_) {
         TileEntitySteamBoiler tile = (TileEntitySteamBoiler) worldIn.getBlockEntity(pos);
@@ -127,57 +114,11 @@ public class BlockSteamBoiler extends Block3x3x3Base<TileEntitySteamBoiler> {
     }
 
 
-//    @Override
-//    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult p_225533_6_) {
-//        TileEntitySteamBoiler tile = (TileEntitySteamBoiler) worldIn.getBlockEntity(pos);
-//        Utils.debug("right clicked on tile", tile);
-//        if(tile == null)
-//            return ActionResultType.FAIL;
-//        IItemHandler itemHandler = tile.getFireBoxHandler();
-//        if(itemHandler == null)
-//            return ActionResultType.FAIL;
-//        ItemStack heldItem = player.getItemInHand(handIn);
-//        if (!heldItem.isEmpty() && (heldItem.getItem() instanceof ItemFireBox || heldItem.getItem() instanceof ItemPowerScrewDrive))
-//        {
-//            if (heldItem.getItem() instanceof ItemFireBox && itemHandler.getStackInSlot(0).isEmpty())
-//            {
-//                int type = ((ItemFireBox) heldItem.getItem()).type;
-//                //itemHandler.insertItem(0, new ItemStack(heldItem.getItem(), 1), false);
-//                tile.setType(type);
-//                if (!worldIn.isClientSide && !player.isCreative()) heldItem.shrink(1);
-//                return ActionResultType.SUCCESS;
-//            }
-//            if (heldItem.getItem() instanceof ItemPowerScrewDrive && !itemHandler.getStackInSlot(0).isEmpty())
-//            {
-//                ItemStack stack = itemHandler.extractItem(0, 64, false);
-//                if (!worldIn.isClientSide && !player.isCreative()) player.addItem(stack);
-//                tile.setType(0);
-//                return ActionResultType.SUCCESS;
-//            }
-//        }
-//        return ActionResultType.PASS;
-//        //return super.use(state, worldIn, pos, player, handIn, p_225533_6_);
-//    }
-
     @Override
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(TYPE);
     }
-
-//    @Nullable
-//    @Override
-//    public BlockState getStateForPlacement(BlockItemUseContext context) {
-//        World worldIn = context.getLevel();
-//        BlockPos currentPos = context.getClickedPos();
-//        BlockState stateIn = worldIn.getBlockState(currentPos);
-//
-//        TileEntitySteamBoiler te = (TileEntitySteamBoiler) worldIn.getBlockEntity(currentPos);
-//        if (te == null || !stateIn.getValue(MASTER))
-//            return stateIn.setValue(TYPE, 0);
-//        return stateIn.setValue(TYPE, te.getIntType());
-//        //return super.getStateForPlacement(context);
-//    }
 
     @Nullable
     @Override
@@ -185,10 +126,4 @@ public class BlockSteamBoiler extends Block3x3x3Base<TileEntitySteamBoiler> {
     {
         return new TileEntitySteamBoiler();
     }
-
-//    @Override
-//    public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity livingEntity, ItemStack itemStack) {
-//        //world.setBlockAndUpdate(pos.relative(state.getValue(FACING)).above(), state.setValue(MASTER, true));
-//        super.setPlacedBy(world, pos, state, livingEntity, itemStack);
-//    }
 }

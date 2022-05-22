@@ -39,12 +39,6 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
     private int energyGenerated;
     private int tickToDamage;
 
-
-//    private float rotation;
-//    private float oldRotation;
-//    private int tickToDamage;
-//    private Direction blockFacing;
-
     private final Random random = new Random();
 
     public TileEntityWindTurbineHead() {

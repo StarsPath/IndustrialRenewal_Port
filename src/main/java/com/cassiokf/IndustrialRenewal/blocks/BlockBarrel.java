@@ -65,10 +65,4 @@ public class BlockBarrel extends BlockSaveContent {
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new TileEntityBarrel(ModTileEntities.BARREL_TILE.get());
     }
-
-//    @Override
-//    public Item getItemToDrop()
-//    {
-//        return ModItems.barrel;
-//    }
 }

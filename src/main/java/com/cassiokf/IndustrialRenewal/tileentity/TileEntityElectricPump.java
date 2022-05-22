@@ -90,10 +90,6 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
         super(tileEntityTypeIn);
     }
 
-//    public LazyOptional<IEnergyStorage> debugEnergyStorage(){
-//        return energyStorage;
-//    }
-
 
     @Override
     public void onLoad() {
@@ -139,30 +135,6 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
         return index;
     }
 
-//    private void handleSound()
-//    {
-//        if (!level.isClientSide) return;
-//        if (isRunning && !starting)
-//        {
-//            IRSoundHandler.playSound(world, SoundsRegistration.PUMP_START.get(), IRConfig.Main.pumpVolume.get().floatValue() + 0.5f, 1.0F, pos);
-//            starting = true;
-//            oldStarting = true;
-//            Sync();
-//        } else if (isRunning)
-//        {
-//            IRSoundHandler.playRepeatableSound(this, SoundsRegistration.PUMP_ROTATION.get(), IRConfig.MAIN.pumpVolume.get().floatValue(), 1.0F);
-//        } else
-//        {
-//            IRSoundHandler.stopTileSound(pos);
-//            starting = false;
-//            if (oldStarting)
-//            {
-//                oldStarting = false;
-//                Sync();
-//            }
-//        }
-//    }
-
     private boolean consumeEnergy()
     {
         IEnergyStorage e = energyStorage.orElse(null);
@@ -198,8 +170,6 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
                 }
 
                 FluidState state = level.getFluidState(fluidPos);
-                //IFluidHandler downFluid = Utils.wrapFluidBlock(state, level, fluidPos);
-                //IFluidHandler downFluid = FluidBlockWrapper(state.getType().)
 
                 boolean consumeFluid = !(state.getType().equals(Fluids.WATER) && config);
                         //&& IRConfig.Main.pumpInfinityWater.get());
@@ -217,16 +187,6 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
                         }
                     }
                 }
-
-//                if (tank.fill(downFluid.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE) > 0)
-//                {
-//                    FluidStack stack = downFluid.drain(Integer.MAX_VALUE, consumeFluid ? IFluidHandler.FluidAction.EXECUTE : IFluidHandler.FluidAction.SIMULATE);
-//                    //Utils.debug("stack", stack);
-//                    if (replaceCobbleConfig && stack != null && stack.getFluid().equals(Fluids.LAVA))
-//                        level.setBlock(fluidPos, Blocks.COBBLESTONE.defaultBlockState(), Constants.BlockFlags.DEFAULT);
-//                    tank.fill(stack, IFluidHandler.FluidAction.EXECUTE);
-//                }
-//                getFluidSet().remove(fluidPos);
             }
         }
     }

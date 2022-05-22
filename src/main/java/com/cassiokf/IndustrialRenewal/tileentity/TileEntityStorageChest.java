@@ -50,19 +50,6 @@ public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntit
         }
     };
 
-//    public CustomItemStackHandler[] createItemStackHandler(int maxPage, int slotsPerPage){
-//        CustomItemStackHandler[] output = new CustomItemStackHandler[maxPage];
-//        for(int i =0; i < maxPage; i++){
-//            output[i] = new CustomItemStackHandler(slotsPerPage){
-//                @Override
-//                protected void onContentsChanged(int slot) {
-//                    super.onContentsChanged(slot);
-//                }
-//            };
-//        }
-//        return output;
-//    }
-
     public LazyOptional<CustomItemStackHandler> inventoryHandler = LazyOptional.of(()->inventory);
 
     public TileEntityStorageChest(TileEntityType tileEntityTypeIn) {
@@ -74,43 +61,6 @@ public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntit
         //data = new IntArray(1);
         //data.set(0, currentPage);
     }
-
-//    public void guiButtonClick(int id, PlayerEntity player)
-//    {
-//        if (id == 1 && currentPage > 0)
-//        {
-//            currentPage--;
-//            //sync();
-//        }
-//        else if (id == 2 && currentPage < maxPage-1)
-//        {
-//            currentPage++;
-//            //sync();
-//        }
-//        //data.set(0, currentPage);
-//        Utils.debug("LINE", currentPage);
-//        openGui(player, false);
-//    }
-
-
-//    public void openGui(PlayerEntity player, boolean resetLine)
-//    {
-//        if (this.isRemoved()) return;
-//        if (resetLine)
-//        {
-//            currentPage = 0;
-//            search = "";
-//            searchActive = false;
-//            //data.set(0, currentPage);
-//            //searchActive = IRConfig.MainConfig.Main.searchBarStartFocused;
-//        }
-//        if (!level.isClientSide)
-//        {
-//            //player.openMenu(IndustrialRenewal.instance, GUIHandler.STORAGECHEST, world, pos.getX(), pos.getY(), pos.getZ());
-//            //player.openMenu(this);
-//            NetworkHooks.openGui((ServerPlayerEntity) player, createContainerProvider(player.level, getMaster().getBlockPos()));
-//        }
-//    }
 
     private INamedContainerProvider createContainerProvider(World world, BlockPos pos) {
         return  new INamedContainerProvider() {
@@ -128,31 +78,6 @@ public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntit
             }
         };
     }
-
-//    public void setLineValues(int currentPage, int maxPage)
-//    {
-//        this.currentPage = currentPage;
-//        this.maxPage = maxPage;
-//    }
-
-//    public void setLineValues(int currentPage, int additionalLines)
-//    {
-//        this.currentPage = currentPage;
-//        this.additionalLines = additionalLines;
-//    }
-
-//    //@Override
-//    public void setSize(int i)
-//    {
-//        int newCapacity = slots * i;
-//        if (newCapacity < 0) newCapacity = Integer.MAX_VALUE;
-//
-//        maxPage = (newCapacity / 11) - 6;
-//        currentPage = 0;
-//        inventory[].setSize(newCapacity);
-//        //NetworkHandler.INSTANCE.sendToAll(new PacketStorageChest(this));
-//        setChanged();
-//    }
 
     @Override
     public void onMasterBreak()
@@ -192,14 +117,4 @@ public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntit
         super.load(state, compound);
     }
 
-//    @Override
-//    public ITextComponent getDisplayName() {
-//        return ITextComponent.nullToEmpty("");
-//    }
-//
-//    @Nullable
-//    @Override
-//    public Container createMenu(int ID, PlayerInventory inventory, PlayerEntity player) {
-//        return new StorageChestContainer(ID, inventory, getMaster());
-//    }
 }

@@ -39,14 +39,8 @@ public class ItemPowerScrewDrive extends IRBaseItem{
         World world = context.getLevel();
         TileEntity te = world.getBlockEntity(pos);
 
-        Utils.debug("pos, facing ", pos, facing);
-        Utils.debug("te ", te);
-//        if(te instanceof TileEntityElectricPump){
-//            //IEnergyStorage temp = ((TileEntityElectricPump)te).debugMotorEnergy();
-////            if (temp != null)
-////                Utils.debug("motorEnergy", temp.getEnergyStored());
-//            ((TileEntityElectricPump)te).debugEnergyStorage().ifPresent(cap-> Utils.debug("energyStorage", cap.getEnergyStored()));
-//        }
+//        Utils.debug("pos, facing ", pos, facing);
+//        Utils.debug("te ", te);
 
         return super.useOn(context);
     }

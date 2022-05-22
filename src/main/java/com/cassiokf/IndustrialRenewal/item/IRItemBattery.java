@@ -35,13 +35,11 @@ public class IRItemBattery extends IRBaseItem implements ICapabilityProvider {
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
 
-//    public boolean hasCapability(final Capability<?> capability, final Direction facing) {
-//        return capability == CapabilityEnergy.ENERGY;
-//    }
-
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return this.handler.cast();
+        if(cap == CapabilityEnergy.ENERGY)
+            return this.handler.cast();
+        return null;
     }
 }

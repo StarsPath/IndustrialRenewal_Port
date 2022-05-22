@@ -55,29 +55,6 @@ public class Block3x3x2Base <TE extends TileEntity3x3x2MachineBase> extends Bloc
         }
     }
 
-//    @Override
-//    public void playerWillDestroy(World p_176208_1_, BlockPos p_176208_2_, BlockState p_176208_3_, PlayerEntity p_176208_4_) {
-//        Utils.debug("playerWIllDestroy", p_176208_1_, p_176208_2_, p_176208_3_, p_176208_4_);
-//        super.playerWillDestroy(p_176208_1_, p_176208_2_, p_176208_3_, p_176208_4_);
-//    }
-
-//    @Override
-//    public void playerDestroy(World world, PlayerEntity playerEntity, BlockPos pos, BlockState blockState, @Nullable TileEntity tileEntity, ItemStack itemStack) {
-//        //Utils.debug("playerDestroy", world, playerEntity, pos, blockState, tileEntity, itemStack);
-//        if(tileEntity instanceof TileEntity3x3x2MachineBase){
-//            Utils.debug("playerDestroy", world, playerEntity, pos, blockState, tileEntity, itemStack);
-//            TileEntity3x3x2MachineBase te = (TileEntity3x3x2MachineBase)tileEntity;
-//            if(te.isMaster()) {
-//                //te.breakMultiBlocks();
-//                List<BlockPos> blocks = Utils.getBlocksIn3x3x2Centered(pos, blockState.getValue(FACING));
-//                for(BlockPos blockPos: blocks){
-//                    world.removeBlock(blockPos, false);
-//                }
-//            }
-//        }
-//        super.playerDestroy(world, playerEntity, pos, blockState, tileEntity, itemStack);
-//    }
-
     @Override
     public void destroy(IWorld world, BlockPos pos, BlockState state) {
         //if (state.getBlock() == newState.getBlock()) return;

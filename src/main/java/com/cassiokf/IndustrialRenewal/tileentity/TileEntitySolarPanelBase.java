@@ -72,20 +72,8 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
             getEnergyFromSun();
         }
         tick++;
-        //if (energyCanGenerate > 0) energyContainer.receiveInternally(energyCanGenerate, false);
-//        energyStorage.setEnergy(1000);
         moveEnergyOut(energyCanGenerate, false);
     }
-
-//    private RFEnergyStorage createEnergy(){
-//        //return new EnergyStorage(15, 120);
-//        return new RFEnergyStorage(1000, 150){
-//            @Override
-//            protected void onEnergyChanged() {
-//                setChanged();
-//            }
-//        };
-//    }
 
     private void moveEnergyOut(int energy, boolean simulate)
     {
@@ -123,14 +111,6 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
     {
         energyCanGenerate = getGeneration(this.level, this.worldPosition);
     }
-
-//    @Nullable
-//    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-//        if (cap == CapabilityEnergy.ENERGY) {
-//            return this.energy.cast();
-//        }
-//        return super.getCapability(cap, side);
-//    }
 
     @Override
     @Nullable

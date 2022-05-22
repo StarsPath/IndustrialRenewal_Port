@@ -30,21 +30,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.awt.*;
 
 public class ModFluids {
-//    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, References.MODID);
-//    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, References.MODID);
-//    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, References.MODID);
-//    public static final RegistryObject<FlowingFluid> STEAM = FLUIDS.register("steam", FluidSteam.Source::new);
-//    public static final RegistryObject<FlowingFluid> STEAM_FLOWING = FLUIDS.register("flowing_steam", FluidSteam.Flowing::new);
-//    public static final RegistryObject<BlockSteam> STEAM_BLOCK = BLOCKS.register("steam_block", BlockSteam::new);
-//    public static final RegistryObject<Item> STEAM_BUCKET = ITEMS.register("steam_bucket", () ->
-//            new BucketItem(() -> ModFluids.STEAM.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(ItemGroup.TAB_MATERIALS)));
-//
-//    public static void init(IEventBus e)
-//    {
-//        FLUIDS.register(e);
-//        BLOCKS.register(e);
-//        ITEMS.register(e);
-//    }
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, References.MODID);
 
     public static final RegistryObject<FlowingFluid> STEAM =
@@ -66,13 +51,6 @@ public class ModFluids {
     public static final RegistryObject<FlowingFluidBlock> STEAM_BLOCK = ModBlocks.BLOCKS.register("steam",
             ()-> new FlowingFluidBlock(()->ModFluids.STEAM.get(), AbstractBlock.Properties.of(Material.WATER)
                     .strength(100f).noDrops()){
-//                @Override
-//                public void entityInside(BlockState p_196262_1_, World p_196262_2_, BlockPos p_196262_3_, Entity entityIn) {
-//                    //super.entityInside(p_196262_1_, p_196262_2_, p_196262_3_, p_196262_4_);
-//                    {
-//                        entityIn.hurt(DamageSource.HOT_FLOOR, 0.5F);
-//                    }
-//                }
             });
 
     public static void init(IEventBus e){

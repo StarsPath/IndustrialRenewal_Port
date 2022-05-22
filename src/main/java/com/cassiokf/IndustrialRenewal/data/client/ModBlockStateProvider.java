@@ -26,10 +26,5 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.AISLEHAZARD.getBlock());
         simpleBlock(ModBlocks.STEELBLOCK.getBlock());
         simpleBlock(ModBlocks.CONCRETE.getBlock());
-
-        //wallBlock(ModBlocks.CONCRETEWALL, new ResourceLocation("block/concrete"));
-
-        //simpleBlock(ModBlocks.BLOCKINDFLOOR.getBlock());
-
     }
 }

@@ -47,8 +47,6 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
         @Override
         public void onContentsChanged()
         {
-//            Utils.debug("water tank changed", waterTank.getFluidAmount(), waterTank.getFluid().getAmount(), waterTank.getCapacity(), waterTank.getFluidInTank(0).getAmount(), waterTank.getFluidInTank(1).getAmount());
-//            Utils.debug("water tank pos", getBlockPos());
             TileEntitySteamBoiler.this.sync();
         }
     };
@@ -116,25 +114,6 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
     public TileEntitySteamBoiler(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
-
-//    private IItemHandler createFireboxInv()
-//    {
-//        return new CustomItemStackHandler(1)
-//        {
-//            @Override
-//            public boolean isItemValid(int slot, @Nonnull ItemStack stack)
-//            {
-//                if (stack.isEmpty()) return false;
-//                return stack.getItem() instanceof ItemFireBox;
-//            }
-//
-//            @Override
-//            protected void onContentsChanged(int slot)
-//            {
-//                TileEntitySteamBoiler.this.sync();
-//            }
-//        };
-//    }
 
     @Override
     public void onLoad() {

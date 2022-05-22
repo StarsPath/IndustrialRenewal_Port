@@ -27,8 +27,6 @@ public class TESRWindTurbineHead extends TESRBase<TileEntityWindTurbineHead>{
         int y = 0;
         int z = 0;
 
-        //industrialrenewal.LOGGER.info(tileEntity.hasBlade());
-
         if(tileEntity.hasBlade()){
             Direction facing = tileEntity.getBlockFacing();
             doTheMath(facing, x, z, 0, 0);

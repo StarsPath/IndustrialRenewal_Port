@@ -82,49 +82,4 @@ public abstract class ContainerBase extends Container {
         return itemstack;
         //return super.quickMoveStack(p_82846_1_, p_82846_2_);
     }
-
-//    @Override
-//    public ItemStack transferStackInSlot(PlayerEntity player, int index)
-//    {
-//        ItemStack itemstack = ItemStack.EMPTY;
-//        Slot slot = slots.get(index);
-//
-//        if (slot != null && slot.getMaxStackSize()>0)
-//        {
-//            ItemStack itemstack1 = slot.getItem().getStack();
-//            itemstack = itemstack1.copy();
-//
-//            int containerSlots = slots.size() - player.inventory.items.size();
-//
-//            if (index < containerSlots)
-//            {
-//                if (!this.moveItemStackTo(itemstack1, containerSlots, slots.size(), true))
-//                {
-//                    return ItemStack.EMPTY;
-//                }
-//            }
-//            else if (!this.moveItemStackTo(itemstack1, 0, containerSlots, false))
-//            {
-//                return ItemStack.EMPTY;
-//            }
-//
-//            if (itemstack1.getCount() == 0)
-//            {
-//                slot.set(ItemStack.EMPTY);
-//            }
-//            else
-//            {
-//                slot.setChanged();
-//            }
-//
-//            if (itemstack1.getCount() == itemstack.getCount())
-//            {
-//                return ItemStack.EMPTY;
-//            }
-//
-//            slot.onTake(player, itemstack1);
-//        }
-//
-//        return itemstack;
-//    }
 }

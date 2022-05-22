@@ -93,63 +93,9 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
 
     @Override
     public void onPlace(BlockState p_220082_1_, World p_220082_2_, BlockPos p_220082_3_, BlockState p_220082_4_, boolean p_220082_5_) {
-        Utils.debug("ON PLACE IS CALLED", p_220082_1_, p_220082_2_, p_220082_3_, p_220082_4_, p_220082_5_);
+        //Utils.debug("ON PLACE IS CALLED", p_220082_1_, p_220082_2_, p_220082_3_, p_220082_4_, p_220082_5_);
         super.onPlace(p_220082_1_, p_220082_2_, p_220082_3_, p_220082_4_, p_220082_5_);
     }
-
-    //    @Override
-//    public void onPlace(BlockState state,right clicked on World world, BlockPos pos, BlockState blockState, boolean flag) {
-//        if(isValidPosition(world, pos)){
-//            if (state.getValue(MASTER))
-//            {
-//                for (int y = -1; y < 2; y++)
-//                {
-//                    for (int z = -1; z < 2; z++)
-//                    {
-//                        for (int x = -1; x < 2; x++)
-//                        {
-//                            BlockPos currentPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ() + z);
-//                            if (y != 0 || z != 0 || x != 0) {
-//                                Utils.debug("placing", currentPos);
-//                                world.setBlock(currentPos, state.setValue(MASTER, false), Constants.BlockFlags.DEFAULT);
-//                            }
-//                        }
-//                    }
-//                }
-//                super.onPlace(state, world, pos, blockState, flag);
-//            }
-//        }
-//    }
-
-    //    @Override
-//    public void playerDestroy(World world, PlayerEntity playerEntity, BlockPos pos, BlockState state, @Nullable TileEntity tileEntity, ItemStack itemStack) {
-//        super.playerDestroy(world, playerEntity, pos, state, tileEntity, itemStack);
-//    }
-
-//    @Override
-//    public void onPlace(BlockState p_220082_1_, World p_220082_2_, BlockPos p_220082_3_, BlockState p_220082_4_, boolean p_220082_5_) {
-//        super.onPlace(p_220082_1_, p_220082_2_, p_220082_3_, p_220082_4_, p_220082_5_);
-//    }
-
-
-//    @Override
-//    public void playerWillDestroy(World p_176208_1_, BlockPos p_176208_2_, BlockState p_176208_3_, PlayerEntity p_176208_4_) {
-//        super.playerWillDestroy(p_176208_1_, p_176208_2_, p_176208_3_, p_176208_4_);
-//    }
-
-//    @Override
-//    public void onRemove(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving) {
-//        Utils.debug("onRemove is called", pos);
-//        if(!world.isClientSide())
-//        {
-//            TileEntity3x3MachineBase te = (TileEntity3x3MachineBase) world.getBlockEntity(pos);
-//            //Utils.debug("break bock at pos", pos, te);
-//            if (te != null) {
-//                te.breakMultiBlocks();
-//            }
-//        }
-//        super.onRemove(state, world, pos, oldState, isMoving);
-//    }
 
     @Override
     public void destroy(IWorld world, BlockPos pos, BlockState state) {

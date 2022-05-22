@@ -49,21 +49,11 @@ public class BlockBatteryBank extends BlockAbstractHorizontalFacing {
 
         if(handIn == Hand.MAIN_HAND){
             Direction facehit = hit.getDirection();
-//            BooleanProperty blockfacehit = OUTPUT[Utils.directionToInt(facehit)];
-//            boolean currentValue = state.getValue(blockfacehit);
-//            worldIn.setBlock(pos, state.setValue(blockfacehit, !currentValue), 3);
             TileEntityBatteryBank batteryBank = (TileEntityBatteryBank)worldIn.getBlockEntity(pos);
             batteryBank.toggleFacing(facehit);
         }
         return super.use(state, worldIn, pos, player, handIn, hit);
     }
-
-//    @Nullable
-//    @Override
-//    public Direction[] getValidRotations(BlockState state, IBlockReader world, BlockPos pos)
-//    {
-//        return new Direction[0];
-//    }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> list, ITooltipFlag tooltipFlag) {

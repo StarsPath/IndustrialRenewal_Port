@@ -32,49 +32,6 @@ public abstract class BlockConnectedMultiblocks<TE extends TileEntityMultiBlocks
         if (te != null) te.checkForOutPuts(pos);
     }
 
-//    @Nullable
-//    @Override
-//    public BlockState getStateForPlacement(BlockItemUseContext context) {
-//        return super.getStateForPlacement(context);
-//    }
-
-    //    @Nullable
-//    @Override
-//    public BlockState getStateForPlacement(BlockItemUseContext context) {
-//        World worldIn = context.getLevel();
-//        BlockPos currentPos = context.getClickedPos();
-//        BlockState stateIn = context.getLevel().getBlockState(currentPos);
-//
-//        TileEntityMultiBlocksTube te = (TileEntityMultiBlocksTube) worldIn.getBlockEntity(currentPos);
-//        if (te != null) te.requestModelRefresh();
-//        return stateIn;
-//    }
-
-//    @Override
-//    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
-//    {
-//        TileEntityMultiBlocksTube te = (TileEntityMultiBlocksTube) worldIn.getBlockEntity(currentPos);
-//        if (te != null) te.requestModelRefresh();
-//        return stateIn;
-//    }
-
-//    @Override
-//    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
-//    {
-//        if (state.getBlock() == newState.getBlock()) return;
-//        TileEntityMultiBlocksTube te = (TileEntityMultiBlocksTube) worldIn.getBlockEntity(pos);
-//        if (te != null)
-//        {
-//            for (Direction face : Direction.values())
-//            {
-//                BlockPos posM = pos.relative(face);
-//                if (te.getMaster() != null) te.getMaster().removeMachine(pos, posM);
-//            }
-//        }
-//        super.onReplaced(state, worldIn, pos, newState, isMoving);
-//    }
-
-
     @Override
     public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity player, ItemStack itemStack) {
         TileEntityMultiBlocksTube te = (TileEntityMultiBlocksTube) world.getBlockEntity(pos);
