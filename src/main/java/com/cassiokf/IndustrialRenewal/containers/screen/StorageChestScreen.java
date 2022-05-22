@@ -65,13 +65,17 @@ public class StorageChestScreen extends ContainerScreen<StorageChestContainer> {
         upB = new Button(posX1 + 206, posY1 + 15, 10, 18,
             ITextComponent.nullToEmpty("UP"), (button)-> {
                 Utils.debug("UP Button Pressed", button);
-                te.guiButtonClick(1, null);
+            storageChestContainer.clickedOn(1);
+                //te.guiButtonClick(1, null);
+                //storageChestContainer.drawContainer(te.inventory, te, 1);
                 //sendToServer(1);
         });
         downB = new Button(posX1 + 206, posY1 + 105, 10, 18,
             ITextComponent.nullToEmpty("DN"), (button)-> {
                 Utils.debug("DOWN Button Pressed", button);
-                te.guiButtonClick(2, null);
+                storageChestContainer.clickedOn(2);
+                //te.guiButtonClick(2, null);
+                //storageChestContainer.drawContainer(te.inventory, te, 2);
                 //sendToServer(2);
         });
 

@@ -6,6 +6,7 @@ import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.init.ModContainers;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityStorageChest;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3x3MachineBase;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -30,6 +31,10 @@ import java.util.Objects;
 public class StorageChestContainer extends ContainerBase {
 
     private final TileEntityStorageChest tileEntity;
+    private int currentPage = 0;
+    private int slotsPerPage;
+    private PlayerInventory playerInventory;
+//    private IIntArray data;
 //    private final int numRows;
 //    private final PlayerEntity playerEntity;
 //    private final IItemHandler playerInventory;
@@ -37,98 +42,71 @@ public class StorageChestContainer extends ContainerBase {
 //    protected StorageChestContainer(@Nullable ContainerType<?> p_i50105_1_, int p_i50105_2_) {
 //        super(p_i50105_1_, p_i50105_2_);
 //    }
-
     public StorageChestContainer(int windowId, PlayerInventory playerInventory, TileEntityStorageChest tileEntity){
         super(ModContainers.STORAGE_CHEST_CONTAINER.get(), windowId);
-
         this.tileEntity = tileEntity;
+        this.slotsPerPage = tileEntity.slotsPerPage;
+        this.playerInventory = playerInventory;
         IItemHandler inventory = tileEntity.inventory;
-        int startIndex = tileEntity.currentLine * 11;
-        int numRows = inventory.getSlots() / 11;
+
+        //Utils.debug("numRow, start Index, currentPage", numRows, startIndex, tileEntity.currentPage, inventory.getSlots(), inventory);
+        //int limit = 0;
+
+        drawContainer(inventory);
+        drawPlayerInv(playerInventory, 45, 18);
+    }
+
+    public void clickedOn(int id){
+        if (id == 1 && currentPage > 0){
+            currentPage--;
+        }
+        else if(id == 2 && currentPage < tileEntity.maxPage-1){
+            currentPage++;
+        }
+//        Utils.debug("Clicked", currentPage);
+//        for(Slot s : slots){
+//            Utils.debug("SLOTS", s.container, s.index, s.getItem());
+//        }
+        slots.clear();
+        drawContainer(tileEntity.inventory);
+        drawPlayerInv(playerInventory, 45, 18);
+        this.broadcastChanges();
+
+    }
+
+    public void drawContainer(IItemHandler inventory){
+
+//        if (id == 1 && tileEntity.currentPage > 0)
+//        {
+//            tileEntity.currentPage--;
+//            tileEntity.sync();
+//        }
+//        else if (id == 2 && tileEntity.currentPage < tileEntity.maxPage-1)
+//        {
+//            tileEntity.currentPage++;
+//            tileEntity.sync();
+//        }
+        //Utils.debug("SETTING CURRENT PAGE", tileEntity.currentPage);
         int limit = 0;
         int xS = 0;
         int yS = 0;
-        for (int y = 0; y < numRows; ++y)
-        {
-            for (int x = 0; x < 11; ++x)
-            {
+        int startIndex = currentPage * slotsPerPage;
+        int numRows = inventory.getSlots() / 11;
+//        Utils.debug("numRow, start Index, currentPage", numRows, startIndex, currentPage, inventory.getSlots(), inventory);
+
+        for (int y = 0; y < numRows; ++y) {
+            for (int x = 0; x < 11; ++x) {
                 int index = x + y * 11;
-                if (index >= startIndex && limit < 66)
-                {
+                if (index >= startIndex && limit < 66) {
                     limit++;
                     xS = x;
                     this.addSlot(new SlotItemHandler(inventory, index, 8 + xS * 18, 16 + yS * 18));
-                }
-                else
+                } else
                     this.addSlot(new SlotItemHandler(inventory, index, Integer.MIN_VALUE, Integer.MIN_VALUE));
             }
             if (xS > 0) yS++;
         }
-        drawPlayerInv(playerInventory, 45, 18);
-
-
-//        this.tileEntity = tileEntity;
-//        this.numRows = 6;
-//        int playerInventoryStart = numRows * 18;
-
-//        for (int i = 0; i < numRows; i++) {
-//            for (int j = 0; j < 9; j++) {
-//                addSlot(new SlotItemHandler(tileCounter.getItemHandler(), j + i * 9, 8 + j * 18, 18 + i * 18));
-//            }
-//        }
-
-//        for (int i = 0; i < 3; i++) {
-//            for (int j = 0; j < 9; j++) {
-//                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 31 + i * 18 + playerInventoryStart));
-//            }
-//        }
-//
-//        for (int i = 0; i < 9; i++) {
-//            addSlot(new Slot(playerInventory, i, 8 + i * 18, 89 + playerInventoryStart));
-//        }
     }
-
-    //    protected StorageChestContainer(@Nullable ContainerType<?> menuType, int containerID) {
-//        super(menuType, containerID);
-//    }
-//    public StorageChestContainer(final int containerID, final PlayerInventory inv, PacketBuffer data){
-//        super(ModContainers.STORAGE_CHEST_CONTAINER.get(), containerID);
-////        BlockPos pos = data.readBlockPos();
-////        World world = inv.player.level;
-//
-//        this.tileEntity = getMasterTileEntity(inv, data);
-//        this.playerEntity = inv.player;
-//        this.playerInventory = new InvWrapper(inv);
-//    }
-
-//    public StorageChestContainer(int containerID, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity playerEntity){
-//        super(ModContainers.STORAGE_CHEST_CONTAINER.get(), containerID);
-//        TileEntity tileEntity = world.getBlockEntity(pos);
-//        if(tileEntity instanceof TileEntityStorageChest)
-//            this.tileEntity = ((TileEntityStorageChest) tileEntity).getMaster();
-//        else this.tileEntity = tileEntity;
-//        this.playerEntity = playerEntity;
-//        this.playerInventory = new InvWrapper(playerInventory);
-//
-//        layoutPlayerInventorySlots(8, 86);
-//
-//        if(tileEntity != null) {
-//            tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-//                addSlot(new SlotItemHandler(h, 0, 80, 31));
-//                addSlot(new SlotItemHandler(h, 1, 80, 53));
-//            });
-//        }
-//    }
-
-//    private static TileEntityStorageChest getMasterTileEntity(final PlayerInventory inv, final PacketBuffer data){
-//        Objects.requireNonNull(inv, "Player Inv cannot be null");
-//        Objects.requireNonNull(data, "Packet Buffer Data cannot be null");
-//        final TileEntity te = inv.player.level.getBlockEntity(data.readBlockPos());
-//        if(te instanceof TileEntityStorageChest){
-//            return ((TileEntityStorageChest)te).getMaster();
-//        }
-//        throw new IllegalStateException("Unable to provide Tile Entity");
-//    }
 
     @Override
     public boolean stillValid(PlayerEntity playerEntity) {
@@ -139,36 +117,4 @@ public class StorageChestContainer extends ContainerBase {
     public TileEntityStorageChest getTileEntity(){
         return tileEntity;
     }
-
-//    @Override
-//    protected Slot addSlot(Slot slot) {
-//        return super.addSlot(slot);
-//    }
-//
-//
-//    private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
-//        for (int i = 0; i < amount; i++) {
-//            addSlot(new SlotItemHandler(handler, index, x, y));
-//            x += dx;
-//            index++;
-//        }
-//
-//        return index;
-//    }
-//
-//    private int addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int dx, int verAmount, int dy) {
-//        for (int j = 0; j < verAmount; j++) {
-//            index = addSlotRange(handler, index, x, y, horAmount, dx);
-//            y += dy;
-//        }
-//
-//        return index;
-//    }
-
-//    private void layoutPlayerInventorySlots(int leftCol, int topRow) {
-//        addSlotBox(playerInventory, 9, leftCol, topRow, 9, 18, 3, 18);
-//
-//        topRow += 58;
-//        addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
-//    }
 }
