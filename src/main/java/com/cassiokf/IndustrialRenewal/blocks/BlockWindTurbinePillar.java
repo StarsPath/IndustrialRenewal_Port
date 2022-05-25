@@ -4,6 +4,7 @@ import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockConnectedMultiblocks
 import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityWindTurbinePillar;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -74,12 +75,11 @@ public class BlockWindTurbinePillar extends BlockConnectedMultiblocks<TileEntity
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        //boolean isBase = false;
-//        if(super.getStateForPlacement(context).hasProperty(FACING)){
-//            return super.getStateForPlacement(context)
-//                    .setValue(FACING, context.getHorizontalDirection())
-//                    .setValue(BASE, true);
-//        }
+        BlockPos pos = context.getClickedPos();
+        World level = context.getLevel();
+        //Utils.debug("Block Below", level.getBlockState(pos).getBlock(), level.getBlockState(pos).getBlock().is(ModBlocks.TURBINE_PILLAR.get()));
+        if(level.getBlockState(pos.below()).getBlock().is(ModBlocks.TURBINE_PILLAR.get()))
+            return super.getStateForPlacement(context).setValue(BASE, false);
         return super.getStateForPlacement(context).setValue(BASE, true);
     }
 

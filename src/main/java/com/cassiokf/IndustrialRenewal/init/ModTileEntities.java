@@ -86,6 +86,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("storage_chest_tile", ()-> TileEntityType.Builder.of(
                     TileEntityStorageChest::new, ModBlocks.MINER.get()).build(null));
 
+    public static RegistryObject<TileEntityType<TileEntityIndustrialBatteryBank>> INDUSTRIAL_BATTERY_TILE =
+            TILE_ENTITIES.register("ind_battery_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityIndustrialBatteryBank::new, ModBlocks.INDUSTRIAL_BATTERY_BANK.get()).build(null));
+
 
     public static void register(IEventBus bus){
         TILE_ENTITIES.register(bus);

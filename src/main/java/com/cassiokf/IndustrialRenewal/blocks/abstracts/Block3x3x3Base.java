@@ -81,7 +81,7 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
                                 //Utils.debug("placing", currentPos, x, y, z);
                                 world.setBlockAndUpdate(currentPos, state.setValue(MASTER, false));
                                 TileEntity3x3x3MachineBase te = (TileEntity3x3x3MachineBase) world.getBlockEntity(currentPos);
-                                te.getMaster();
+                                //te.getMaster();
                                 //Utils.debug("Master pos", te.getMaster().getBlockPos());
                             }
                         }
@@ -91,11 +91,11 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
         }
     }
 
-    @Override
-    public void onPlace(BlockState p_220082_1_, World p_220082_2_, BlockPos p_220082_3_, BlockState p_220082_4_, boolean p_220082_5_) {
-        //Utils.debug("ON PLACE IS CALLED", p_220082_1_, p_220082_2_, p_220082_3_, p_220082_4_, p_220082_5_);
-        super.onPlace(p_220082_1_, p_220082_2_, p_220082_3_, p_220082_4_, p_220082_5_);
-    }
+//    @Override
+//    public void onPlace(BlockState p_220082_1_, World p_220082_2_, BlockPos p_220082_3_, BlockState p_220082_4_, boolean p_220082_5_) {
+//        //Utils.debug("ON PLACE IS CALLED", p_220082_1_, p_220082_2_, p_220082_3_, p_220082_4_, p_220082_5_);
+//        super.onPlace(p_220082_1_, p_220082_2_, p_220082_3_, p_220082_4_, p_220082_5_);
+//    }
 
     @Override
     public void destroy(IWorld world, BlockPos pos, BlockState state) {

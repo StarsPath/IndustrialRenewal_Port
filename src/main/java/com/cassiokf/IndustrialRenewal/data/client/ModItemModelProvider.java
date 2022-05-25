@@ -41,5 +41,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent("locker", modLoc("block/locker"));
         withExistingParent("storage_chest", modLoc("block/storage/master_chest"));
 
+        withExistingParent("ind_battery_bank", modLoc("block/battery/ind_battery_item"));
+
     }
 }
