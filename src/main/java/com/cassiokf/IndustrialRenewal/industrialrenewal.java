@@ -121,6 +121,7 @@ public class industrialrenewal
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.STEAM_BOILER_TILE.get(), TESRSteamBoiler::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.STEAM_TURBINE_TILE.get(), TESRSteamTurbine::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.MINER_TILE.get(), TESRMining::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.INDUSTRIAL_BATTERY_TILE.get(), TESRIndustrialBatteryBank::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

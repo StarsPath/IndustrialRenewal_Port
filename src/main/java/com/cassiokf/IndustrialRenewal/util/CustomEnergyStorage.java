@@ -10,6 +10,11 @@ public class CustomEnergyStorage extends EnergyStorage implements INBTSerializab
         super(capacity, maxReceive, maxExtract);
     }
 
+    public CustomEnergyStorage(int capacity, int maxReceive, int maxExtract, int passEnergy)
+    {
+        super(capacity, maxReceive, maxExtract, passEnergy);
+    }
+
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate)
     {

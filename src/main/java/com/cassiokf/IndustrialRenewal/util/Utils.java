@@ -24,6 +24,7 @@ public class Utils {
     public static boolean debugMsg = false;
     private static final Random RANDOM = new Random();
     private static final DecimalFormat form = new DecimalFormat("0.0");
+    private static final DecimalFormat preciseForm = new DecimalFormat("0.00");
 
     public static final Direction[] VALUES = Direction.values();
     public static final Direction[] BY_HORIZONTAL_INDEX = Arrays.stream(VALUES)
@@ -321,5 +322,17 @@ public class Utils {
             }
         }
         return movement;
+    }
+
+    public static String formatPreciseEnergyString(int energy)
+    {
+        String text = energy + " FE";
+        if (energy >= 1000 && energy < 1000000)
+            text = preciseForm.format((float) energy / 1000) + "K FE";
+        else if (energy >= 1000000 && energy < 1000000000)
+            text = preciseForm.format((float) energy / 1000000) + "M FE";
+        else if (energy >= 1000000000)
+            text = preciseForm.format((float) energy / 1000000000) + "B FE";
+        return text;
     }
 }

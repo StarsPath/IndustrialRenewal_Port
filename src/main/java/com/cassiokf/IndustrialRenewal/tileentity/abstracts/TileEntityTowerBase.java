@@ -97,4 +97,8 @@ public class TileEntityTowerBase<TE extends TileEntityTowerBase> extends TileEnt
             ((TileEntityTowerBase<?>) relativeMaster).setSelfBooleanProperty(property, bool);
         }
     }
+
+    public boolean isBase(){
+        return level.getBlockState(getMaster().worldPosition).getValue(BlockTowerBase.BASE);
+    }
 }

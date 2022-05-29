@@ -47,7 +47,7 @@ public abstract class TESRBase <T extends TileEntity> extends TileEntityRenderer
     }
 
     @Override
-    public void render(T p_225616_1_, float p_225616_2_, MatrixStack p_225616_3_, IRenderTypeBuffer p_225616_4_, int p_225616_5_, int p_225616_6_) {
+    public void render(T tileEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int combinedLightIn, int combinedOverlayIn) {
 
     }
 

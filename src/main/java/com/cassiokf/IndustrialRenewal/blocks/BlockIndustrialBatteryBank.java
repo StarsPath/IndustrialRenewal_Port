@@ -2,15 +2,20 @@ package com.cassiokf.IndustrialRenewal.blocks;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockTowerBase;
 import com.cassiokf.IndustrialRenewal.init.ModBlocks;
+import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityIndustrialBatteryBank;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntityTowerBase;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -76,5 +81,23 @@ public class BlockIndustrialBatteryBank extends BlockTowerBase<TileEntityIndustr
             }
         }
         super.destroy(world, pos, state);
+    }
+
+
+    @Override
+    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult context) {
+        if(!world.isClientSide){
+            //Utils.debug("USE ON BATTERYBANK BLOCK");
+            ItemStack stack = player.getItemInHand(hand);
+            if (stack.getItem().equals(ModItems.battery_lithium)) {
+                TileEntity te = world.getBlockEntity(pos);
+                //Utils.debug("PLACING",te instanceof TileEntityIndustrialBatteryBank);
+                if (te instanceof TileEntityIndustrialBatteryBank) {
+                    if (((TileEntityIndustrialBatteryBank) te).getMaster().placeBattery(player, stack))
+                        return ActionResultType.PASS;
+                }
+            }
+        }
+        return super.use(state, world, pos, player, hand, context);
     }
 }
