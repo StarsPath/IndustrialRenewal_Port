@@ -21,30 +21,13 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BlockIndustrialBatteryBank extends BlockTowerBase<TileEntityIndustrialBatteryBank> {
     public BlockIndustrialBatteryBank(Properties properties) {
         super(properties);
     }
-
-//    @Nullable
-//    @Override
-//    public BlockState getStateForPlacement(BlockItemUseContext context) {
-//        BlockPos pos = context.getClickedPos();
-//        World level = context.getLevel();
-//        BlockState state = super.getStateForPlacement(context);
-//
-//        if(level.getBlockState(pos.below(2)).getBlock().is(ModBlocks.INDUSTRIAL_BATTERY_BANK.get()))
-//            state.setValue(BASE, false);
-//        else state.setValue(BASE, true);
-//        if(level.getBlockState(pos.above(2)).getBlock().is(ModBlocks.INDUSTRIAL_BATTERY_BANK.get()))
-//            state.setValue(TOP, false);
-//        else state.setValue(TOP, true);
-//
-//        Utils.debug("Base, Top", state.getValue(BASE), state.getValue(TOP));
-//        return state;
-//    }
 
     @Nullable
     @Override
@@ -60,9 +43,13 @@ public class BlockIndustrialBatteryBank extends BlockTowerBase<TileEntityIndustr
             for(BlockPos blockPos : blocks){
                 TileEntity te = world.getBlockEntity(blockPos);
                 if(te instanceof TileEntityIndustrialBatteryBank && ((TileEntityTowerBase)te).isMaster()){
-                    ((TileEntityIndustrialBatteryBank) te).setSelfBooleanProperty();
-                    ((TileEntityTowerBase) te).setOtherBooleanProperty(TOP, false, false);
-                    ((TileEntityTowerBase) te).setOtherBooleanProperty(BASE, false, true);
+                    TileEntityIndustrialBatteryBank bankTE = (TileEntityIndustrialBatteryBank) te;
+
+                    bankTE.setSelfBooleanProperty();
+                    bankTE.setOtherBooleanProperty(TOP, false, false);
+                    bankTE.setOtherBooleanProperty(BASE, false, true);
+                    //bankTE.getBase().addToTower(bankTE, bankTE.getAbove()!=null? bankTE.getAbove().getMaster().tower : null);
+                    bankTE.getBase().loadTower();
                 }
             }
         }
@@ -75,8 +62,16 @@ public class BlockIndustrialBatteryBank extends BlockTowerBase<TileEntityIndustr
             for(BlockPos blockPos : blocks){
                 TileEntity te = world.getBlockEntity(blockPos);
                 if(te instanceof TileEntityIndustrialBatteryBank && ((TileEntityTowerBase)te).isMaster()){
-                    ((TileEntityTowerBase) te).setOtherBooleanProperty(TOP, true, false);
-                    ((TileEntityTowerBase) te).setOtherBooleanProperty(BASE, true, true);
+                    TileEntityIndustrialBatteryBank bankTE = (TileEntityIndustrialBatteryBank) te;
+                    bankTE.setOtherBooleanProperty(TOP, true, false);
+                    bankTE.setOtherBooleanProperty(BASE, true, true);
+                    if(!bankTE.isBase()){
+                        bankTE.getBase().removeTower(bankTE);
+                    }
+                    if(bankTE.getAbove() != null){
+                        //bankTE.getAbove().tower = new ArrayList<>();
+                        bankTE.getAbove().loadTower();
+                    }
                 }
             }
         }

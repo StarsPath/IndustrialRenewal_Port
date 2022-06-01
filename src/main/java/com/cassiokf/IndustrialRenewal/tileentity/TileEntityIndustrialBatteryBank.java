@@ -13,7 +13,9 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -23,15 +25,18 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 
 public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEntityIndustrialBatteryBank> implements ITickableTileEntity {
+    //public ArrayList<TileEntityIndustrialBatteryBank> tower = null;
+
     public TileEntityIndustrialBatteryBank(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
 
     public static final int CAPACITY_PER_BATTERY = 5000000; //6480000
     // Typical car battery is 720Wh = 2592000J = 6480000RF
-    private static final int maxTransfer = 102400;
+    private static final int maxTransfer = 1024000;
     private static final int maxBatteries = 24;
 
     private CustomEnergyStorage customEnergyStorage = new CustomEnergyStorage(0, maxTransfer, maxTransfer){
@@ -42,36 +47,12 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
 
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
-            return TileEntityIndustrialBatteryBank.this.onEnergyIn(maxReceive, simulate);
-            //return super.receiveEnergy(maxReceive, simulate);
+            //return TileEntityIndustrialBatteryBank.this.onEnergyIn(maxReceive, simulate);
+            return onEnergyIn(super.receiveEnergy(maxReceive, simulate), simulate);
         }
     };
 
     private LazyOptional<IEnergyStorage> energyStorage = LazyOptional.of(()->customEnergyStorage);
-
-//    private IEnergyStorage createEnergy()
-//    {
-//        return new CustomEnergyStorage(0, maxTransfer ,maxTransfer)
-//        {
-//            @Override
-//            public void onEnergyChange()
-//            {
-//                TileEntityIndustrialBatteryBank.this.sync();
-//            }
-//        };
-//    }
-
-//    private IEnergyStorage createEnergy(int maxCapacity, int passEnergy)
-//    {
-//        return new CustomEnergyStorage(maxCapacity, maxTransfer ,maxTransfer, passEnergy)
-//        {
-//            @Override
-//            public void onEnergyChange()
-//            {
-//                TileEntityIndustrialBatteryBank.this.sync();
-//            }
-//        };
-//    }
 
     private int input;
     private int avrIn;
@@ -84,6 +65,11 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
     private int tick;
     public boolean firstLoad = false;
 
+    private int numOfStack = 0;
+
+    private int currentEnergy = 0;
+    private int maxEnergy = 0;
+
     public TileEntityIndustrialBatteryBank(){
         super(ModTileEntities.INDUSTRIAL_BATTERY_TILE.get());
     }
@@ -94,31 +80,26 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
         //return super.instanceOf(tileEntity);
     }
 
-    public int onEnergyIn(int maxReceive, boolean simulate)
+
+    public int onEnergyIn(int received, boolean simulated)
     {
-        maxReceive = Math.min(maxReceive, maxTransfer);
-        int in;
-        if (batteries > 0)
-            in = customEnergyStorage.receiveEnergy(maxReceive, simulate);
-        else
-        {
-            in = outPutEnergy(null, maxReceive, simulate);
-            if (!simulate && !level.isClientSide) outPut += in;
+        if(!level.isClientSide && !simulated){
+            input += received;
         }
-        if (!simulate && !level.isClientSide) input += in;
-        return in;
+        //Utils.debug("INPUT", input);
+        return received;
     }
 //
     private int outPutEnergy(IEnergyStorage container, int maxReceive, boolean simulate)
     {
         BlockPos masterPos = masterTE.getBlockPos();
         Direction face = getMasterFacing();
-        TileEntity te = level.getBlockEntity(masterPos.relative(face.getClockWise()).above(2));
+        TileEntity te = level.getBlockEntity(masterPos.relative(face.getClockWise()).above(2 + (tower.size()-1)*3));
 
         int out = 0;
         if (te != null)
         {
-            Utils.debug("OUTPUT ENERGY", te, te.getBlockPos());
+            //Utils.debug("OUTPUT ENERGY", te, te.getBlockPos());
             IEnergyStorage energyStorage = te.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).orElse(null);
             if (energyStorage != null)
             {
@@ -132,21 +113,14 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
 
     public boolean placeBattery(PlayerEntity player, ItemStack batteryStack)
     {
-        Utils.debug("PLACE BATTERY CALLED", batteries, energyStorage.orElse(null).getMaxEnergyStored(), energyStorage.orElse(null).getEnergyStored());
+        //Utils.debug("PLACE BATTERY CALLED", batteries, energyStorage.orElse(null).getMaxEnergyStored(), energyStorage.orElse(null).getEnergyStored());
         if (!level.isClientSide)
         {
             if (batteries >= maxBatteries) return false;
-            batteries++;
-            Utils.debug("BATTERIES", batteries);
+            batteries = maxBatteries;
             if (!player.isCreative()) batteryStack.shrink(1);
-            int currentAmount = energyStorage.orElse(null).getEnergyStored();
             customEnergyStorage.setMaxCapacity(batteries * CAPACITY_PER_BATTERY);
-            //Utils.debug("Currrent energy, max Energy", currentAmount, energyStorage.orElse(null).getMaxEnergyStored());
-            //energyStorage = LazyOptional.of(()->this.createEnergy(batteries * CAPACITY_PER_BATTERY, currentAmount));
             sync();
-            //Utils.debug("New energy", energyStorage.orElse(null).getMaxEnergyStored());
-            onLoad();
-            //reachTop();
         }
         return true;
     }
@@ -158,30 +132,56 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
             Direction face = masterTE.getMasterFacing();
 
             // Input
-            TileEntityIndustrialBatteryBank energyInputTile = (TileEntityIndustrialBatteryBank) level.getBlockEntity(getBlockPos().relative(face.getCounterClockWise()).above());
+            TileEntityIndustrialBatteryBank energyInputTile = (TileEntityIndustrialBatteryBank) level.getBlockEntity(getBlockPos().relative(face.getCounterClockWise()).above(1));
             if(energyInputTile != null)
                 energyInputTile.energyStorage = masterTE.energyStorage;
+//                energyInputTile.energyStorage = LazyOptional.of(()-> new CustomEnergyStorage(0, maxTransfer, maxTransfer){
+//                    @Override
+//                    public int receiveEnergy(int maxReceive, boolean simulate) {
+//                        return fillEnergy(this, super.receiveEnergy(maxReceive, simulate));
+//                    }
+//                });
 
-//            TileEntityIndustrialBatteryBank energyOutputTile = (TileEntityIndustrialBatteryBank) level.getBlockEntity(getBlockPos().relative(face.getClockWise()).above());
-//            if(energyInputTile != null)
-//                energyOutputTile.energyStorage = masterTE.energyStorage;
+            if(isBase()){
+                if (tower == null || tower.isEmpty()) {
+                    //tower = new ArrayList<>();
+                    loadTower();
+                }
+            }
+            else{
+                this.tower = getBase().tower;
+//                Utils.debug("tower is null", tower == null || tower.isEmpty());
+//                if(tower == null || tower.isEmpty()){
+//                    this.tower = getBase().tower;
+//                    Utils.debug("setting tower", this.tower);
+//                }
+            }
         }
 
         super.onLoad();
+    }
+
+    public void loadTower(){
+        TileEntityIndustrialBatteryBank chunk = this;
+        tower = new ArrayList<>();
+        while(chunk != null){
+            if(!tower.contains(chunk))
+                tower.add(chunk);
+            chunk = chunk.getAbove();
+        }
     }
 
     @Override
     public void tick() {
         if (!level.isClientSide && isMaster() && isBase())
         {
-
             if(!firstLoad){
                 //Utils.debug("CALLING ONLOAD");
                 firstLoad = true;
                 this.onLoad();
             }
             //IEnergyStorage storage = energyStorage.orElse(null);
-            Utils.debug("IENERGYSTORAGE", customEnergyStorage.getEnergyStored(), customEnergyStorage.getMaxEnergyStored());
+            //Utils.debug("IENERGYSTORAGE", customEnergyStorage.getEnergyStored(), customEnergyStorage.getMaxEnergyStored());
             if (batteries > 0 && customEnergyStorage.getEnergyStored() > 0)
             {
                 outPut += outPutEnergy(customEnergyStorage, maxTransfer, false);
@@ -189,6 +189,9 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
 
             if (tick >= 10)
             {
+                //Utils.debug("tower\n", tower.size(), tower);
+                //Utils.debug("tower", tower.isEmpty()? null : tower.get(0), tower.size());
+                //Utils.debug("Energy", getSumCurrentEnergy(), getSumMaxEnergy());
                 tick = 0;
                 avrIn = input / 10;
                 avrOut = outPut / 10;
@@ -200,10 +203,94 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
                     oldOutPut = avrOut;
                     oldIn = avrIn;
                 }
+                currentEnergy = getSumCurrentEnergy();
+                maxEnergy = getSumMaxEnergy();
                 sync();
             }
             tick++;
         }
+        else if(!level.isClientSide && isMaster() && isTop()){
+            if(!firstLoad){
+                firstLoad = true;
+                this.onLoad();
+            }
+            //Utils.debug("PASS ENERGY DOWN");
+            passEnergyDown();
+        }
+    }
+
+    public void passEnergyDown(){
+        for(TileEntityTowerBase<TileEntityIndustrialBatteryBank> TE : getBase().tower){
+            //Utils.debug("TE", TE);
+            if(TE instanceof TileEntityIndustrialBatteryBank){
+                TileEntityIndustrialBatteryBank bankTE = ((TileEntityIndustrialBatteryBank) TE);
+
+                //Utils.debug("condition 3", bankTE, !bankTE.isFull());
+                if(!bankTE.isFull() && bankTE != this) {
+                    //Utils.debug("condition 3", bankTE);
+                    bankTE.customEnergyStorage.receiveEnergy(this.customEnergyStorage.extractEnergy(maxTransfer, false), false);
+                    break;
+                }
+                else continue;
+            }
+        }
+    }
+
+//    @Override
+//    public void breakMultiBlocks() {
+//        super.breakMultiBlocks();
+//    }
+
+//    public void addToTower(TileEntityIndustrialBatteryBank tile, ArrayList<TileEntityIndustrialBatteryBank> list){
+//        if(tower == null){
+//            tower = new ArrayList<>();
+//        }
+//        this.tower.add(tile);
+//        if(list != null){
+//            tower.addAll(list);
+//        }
+//    }
+//
+//    public void removeTower(TileEntityIndustrialBatteryBank tile){
+//        if(tower.contains(tile)){
+//            int index = tower.indexOf(tile);
+//            ArrayList<TileEntityIndustrialBatteryBank> newTower = new ArrayList<>(tower.subList(0, index));
+//            this.tower = newTower;
+//        }
+//    }
+
+    public int getSumMaxEnergy(){
+        //int max = 0;
+        if(tower == null || tower.isEmpty())
+            return 0;
+
+        int max = tower.stream().map(te -> (((TileEntityIndustrialBatteryBank) te).customEnergyStorage.getMaxEnergyStored())).reduce(0, Integer::sum);
+        return max;
+    }
+
+    public int getSumCurrentEnergy(){
+        //int current = 0;
+        if(tower == null || tower.isEmpty())
+            return 0;
+
+        int current = tower.stream().map(te -> (((TileEntityIndustrialBatteryBank) te).customEnergyStorage.getEnergyStored())).reduce(0, Integer::sum);
+        return current;
+    }
+
+    public int fillEnergy(IEnergyStorage storage, int amount){
+        for(TileEntityTowerBase<TileEntityIndustrialBatteryBank> TE : getMaster().getBase().tower){
+
+            if(TE instanceof TileEntityIndustrialBatteryBank){
+                TileEntityIndustrialBatteryBank bankTE = ((TileEntityIndustrialBatteryBank) TE);
+
+                if(!bankTE.isFull() && bankTE != this) {
+                    bankTE.customEnergyStorage.receiveEnergy(storage.extractEnergy(amount, false), false);
+                    break;
+                }
+                else continue;
+            }
+        }
+        return amount;
     }
 
     public int getRealCapacity()
@@ -218,12 +305,14 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
 
     public String getEnergyText()
     {
-        return Utils.formatEnergyString(customEnergyStorage.getEnergyStored()).replace(" FE", "") + " / " + Utils.formatEnergyString(customEnergyStorage.getMaxEnergyStored());
+        //return Utils.formatEnergyString(customEnergyStorage.getEnergyStored()).replace(" FE", "") + " / " + Utils.formatEnergyString(customEnergyStorage.getMaxEnergyStored());
+        return Utils.formatEnergyString(currentEnergy).replace(" FE", "") + " / " + Utils.formatEnergyString(maxEnergy);
     }
 
     public float getBatteryFill()
     {
-        return Utils.normalizeClamped(customEnergyStorage.getEnergyStored(), 0, customEnergyStorage.getMaxEnergyStored());
+        //return Utils.normalizeClamped(customEnergyStorage.getEnergyStored(), 0, customEnergyStorage.getMaxEnergyStored());
+        return Utils.normalizeClamped(currentEnergy, 0, maxEnergy);
     }
 
     public float getOutPutAngle()
@@ -258,20 +347,9 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
         return "Output";
     }
 
-//    private BlockPos getOutPutPos()
-//    {
-//        return getTopTE().pos.up(2).offset(getMasterFacing().rotateY());
-//    }
-//
-//    public TileEntityIndustrialBatteryBank getBottomTE()
-//    {
-//        return bottomTE;
-//    }
-//
-//    public TileEntityIndustrialBatteryBank getTopTE()
-//    {
-//        return topTE;
-//    }
+    public Boolean isFull(){
+        return customEnergyStorage.getEnergyStored() >= customEnergyStorage.getMaxEnergyStored();
+    }
 
 
     @Nonnull
@@ -296,32 +374,35 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
 
     @Override
     public CompoundNBT save(CompoundNBT compound) {
-//        energyStorage.ifPresent(h ->
-//        {
-//            CompoundNBT tag = ((INBTSerializable<CompoundNBT>) h).serializeNBT();
-//            compound.put("StoredIR", tag);
-//        });
-//        CompoundNBT tag = customEnergyStorage.serializeNBT();
-//        compound.put("energy", tag);
         compound.putInt("energy", customEnergyStorage.getEnergyStored());
 
         compound.putInt("out", avrOut);
         compound.putInt("in", avrIn);
         compound.putInt("battery", batteries);
+
+        compound.putInt("currentEnergy", currentEnergy);
+        compound.putInt("maxEnergy", maxEnergy);
         return super.save(compound);
     }
 
     @Override
     public void load(BlockState state, CompoundNBT compound) {
         //energyStorage.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(compound.getCompound("StoredIR")));
-        int currentEnergy = compound.getInt("energy");
+        int current = compound.getInt("energy");
 
-        customEnergyStorage.deserializeNBT(compound.getCompound("energy"));
         avrOut = compound.getInt("out");
         avrIn = compound.getInt("in");
         batteries = compound.getInt("battery");
 
-        customEnergyStorage = new CustomEnergyStorage(batteries * CAPACITY_PER_BATTERY, maxTransfer, maxTransfer, currentEnergy);
+        customEnergyStorage = new CustomEnergyStorage(batteries * CAPACITY_PER_BATTERY, maxTransfer, maxTransfer, current);
+
+        currentEnergy = compound.getInt("currentEnergy");
+        maxEnergy = compound.getInt("maxEnergy");
         super.load(state, compound);
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        return INFINITE_EXTENT_AABB;
     }
 }

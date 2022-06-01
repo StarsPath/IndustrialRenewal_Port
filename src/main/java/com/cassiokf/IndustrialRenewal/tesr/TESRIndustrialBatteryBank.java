@@ -24,10 +24,10 @@ public class TESRIndustrialBatteryBank extends TESRBase<TileEntityIndustrialBatt
         double y = 0;
         double z = 0;
 
-        if (te.isMaster() && te.isBase())
+        if (te.isMaster())
         {
             Direction facing = te.getMasterFacing();
-            if (te.isMaster())
+            if (te.isMaster() && te.isBase())
             {
                 doTheMath(facing, x, z, 1.97, -0.586);
                 renderPointer(matrixStack, combinedLightIn, combinedOverlayIn, renderTypeBuffer, facing, xPos, y + 0.486, zPos, te.getInPutAngle(), pointerLong, 0.6F);
@@ -36,7 +36,7 @@ public class TESRIndustrialBatteryBank extends TESRBase<TileEntityIndustrialBatt
                 render3dItem(matrixStack, combinedLightIn, combinedOverlayIn, renderTypeBuffer, facing, te.getLevel(), xPos, y + 0.96f, zPos, label_5, 1.6f, false);
                 renderText(matrixStack, facing, xPos, y + 0.984f, zPos, te.getInPutIndicatorText(), 0.008F);
 
-                doTheMath(facing, x, z, 1.97, 0);
+                doTheMath(facing, x, z, 1.98, 0);
                 renderText(matrixStack, facing, xPos, y + 1.0, zPos, te.getEnergyText(), 0.006F);
                 renderBarLevel(matrixStack, combinedLightIn, combinedOverlayIn, renderTypeBuffer, facing, xPos, y + 1.14, zPos, te.getBatteryFill(), 1.2F);
 

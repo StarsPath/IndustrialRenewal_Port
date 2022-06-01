@@ -12,9 +12,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class TileEntityTowerBase<TE extends TileEntityTowerBase> extends TileEntity3x3x3MachineBase<TE>{
+
+    public ArrayList<TileEntityTowerBase<TE>> tower = null;
 
     public TileEntityTowerBase(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -98,7 +102,62 @@ public class TileEntityTowerBase<TE extends TileEntityTowerBase> extends TileEnt
         }
     }
 
+    public TE getBase(){
+        TE currentTower = (TE)level.getBlockEntity(worldPosition);
+        BlockPos currentPos = worldPosition;
+        while(isAligned(false)){
+            currentPos = currentPos.below(3);
+            currentTower = (TE)level.getBlockEntity(currentPos);
+            if(currentTower.isBase())
+                return currentTower;
+        }
+        return currentTower;
+    }
+
+    public TE getAbove(){
+        TE above = null;
+        if(topAligned()){
+            above = (TE) level.getBlockEntity(worldPosition.above(3));
+        }
+        return above;
+    }
+
     public boolean isBase(){
         return level.getBlockState(getMaster().worldPosition).getValue(BlockTowerBase.BASE);
+    }
+    public boolean isTop(){
+        return level.getBlockState(getMaster().worldPosition).getValue(BlockTowerBase.TOP);
+    }
+
+    public void loadTower(){
+        TileEntityTowerBase<TE> chunk = this;
+        while(chunk != null){
+            tower.add(chunk);
+            chunk = chunk.getAbove();
+        }
+    }
+
+    public void addToTower(TE tile, ArrayList<TileEntityTowerBase<TE>> list){
+        if(tower == null){
+            tower = new ArrayList<>();
+        }
+        if(!tower.contains(tile))
+            this.tower.add(tile);
+        if(list != null){
+            tower.addAll(list);
+        }
+    }
+
+    public void removeTower(TE tile){
+        if(tower.contains(tile)){
+            int index = tower.indexOf(tile);
+            ArrayList<TileEntityTowerBase<TE>> newTower = new ArrayList<>(tower.subList(0, index));
+            this.tower = newTower;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "TETB " + worldPosition;
     }
 }
