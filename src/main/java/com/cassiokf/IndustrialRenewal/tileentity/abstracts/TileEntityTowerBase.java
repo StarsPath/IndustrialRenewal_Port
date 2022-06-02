@@ -114,6 +114,13 @@ public class TileEntityTowerBase<TE extends TileEntityTowerBase> extends TileEnt
         return currentTower;
     }
 
+    public TE getTop(){
+        if(tower != null && !tower.isEmpty()){
+            return (TE)tower.get(tower.size()-1);
+        }
+        return null;
+    }
+
     public TE getAbove(){
         TE above = null;
         if(topAligned()){
