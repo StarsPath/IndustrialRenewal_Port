@@ -90,6 +90,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("ind_battery_tile", ()-> TileEntityType.Builder.of(
                     TileEntityIndustrialBatteryBank::new, ModBlocks.INDUSTRIAL_BATTERY_BANK.get()).build(null));
 
+    public static RegistryObject<TileEntityType<TileEntityFluidTank>> FLUID_TANK_TILE =
+            TILE_ENTITIES.register("fluid_tank_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityFluidTank::new, ModBlocks.FLUID_TANK.get()).build(null));
+
 
     public static void register(IEventBus bus){
         TILE_ENTITIES.register(bus);
