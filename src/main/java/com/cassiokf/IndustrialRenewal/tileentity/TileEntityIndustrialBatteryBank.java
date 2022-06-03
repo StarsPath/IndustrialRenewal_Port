@@ -149,6 +149,7 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
         super.onLoad();
     }
 
+    @Override
     public void loadTower(){
         TileEntityIndustrialBatteryBank chunk = this;
         tower = new ArrayList<>();

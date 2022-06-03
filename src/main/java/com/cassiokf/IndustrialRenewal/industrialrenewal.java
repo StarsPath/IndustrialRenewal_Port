@@ -106,6 +106,9 @@ public class industrialrenewal
             RenderTypeLookup.setRenderLayer(ModBlocks.TURBINE_PILLAR.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.WIND_TURBINE.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.STEAM_BOILER.get(), RenderType.translucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.MINER.get(), RenderType.translucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.INDUSTRIAL_BATTERY_BANK.get(), RenderType.translucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.FLUID_TANK.get(), RenderType.translucent());
 
             RenderTypeLookup.setRenderLayer(ModFluids.STEAM.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModFluids.STEAM_FLOWING.get(), RenderType.translucent());
@@ -122,6 +125,7 @@ public class industrialrenewal
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.STEAM_TURBINE_TILE.get(), TESRSteamTurbine::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.MINER_TILE.get(), TESRMining::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.INDUSTRIAL_BATTERY_TILE.get(), TESRIndustrialBatteryBank::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.FLUID_TANK_TILE.get(), TESRFluidTank::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

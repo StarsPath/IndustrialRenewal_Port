@@ -3,6 +3,7 @@ package com.cassiokf.IndustrialRenewal.tileentity.abstracts;
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.Block3x3x3Base;
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockTowerBase;
 import com.cassiokf.IndustrialRenewal.init.ModBlocks;
+import com.cassiokf.IndustrialRenewal.tileentity.TileEntityFluidTank;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityIndustrialBatteryBank;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
@@ -136,10 +137,19 @@ public class TileEntityTowerBase<TE extends TileEntityTowerBase> extends TileEnt
         return level.getBlockState(getMaster().worldPosition).getValue(BlockTowerBase.TOP);
     }
 
+//    public void loadTower(){
+//        TileEntityTowerBase<TE> chunk = this;
+//        while(chunk != null){
+//            tower.add(chunk);
+//            chunk = chunk.getAbove();
+//        }
+//    }
     public void loadTower(){
         TileEntityTowerBase<TE> chunk = this;
+        tower = new ArrayList<>();
         while(chunk != null){
-            tower.add(chunk);
+            if(!tower.contains(chunk))
+                tower.add(chunk);
             chunk = chunk.getAbove();
         }
     }

@@ -35,8 +35,7 @@ public class BlockFluidTank extends BlockTowerBase<TileEntityFluidTank> {
                     bankTE.setSelfBooleanProperty();
                     bankTE.setOtherBooleanProperty(TOP, false, false);
                     bankTE.setOtherBooleanProperty(BASE, false, true);
-                    //bankTE.getBase().addToTower(bankTE, bankTE.getAbove()!=null? bankTE.getAbove().getMaster().tower : null);
-                    //bankTE.getBase().loadTower();
+                    bankTE.getBase().loadTower();
                 }
             }
         }
@@ -52,13 +51,12 @@ public class BlockFluidTank extends BlockTowerBase<TileEntityFluidTank> {
                     TileEntityFluidTank bankTE = (TileEntityFluidTank) te;
                     bankTE.setOtherBooleanProperty(TOP, true, false);
                     bankTE.setOtherBooleanProperty(BASE, true, true);
-//                    if(!bankTE.isBase()){
-//                        bankTE.getBase().removeTower(bankTE);
-//                    }
-//                    if(bankTE.getAbove() != null){
-//                        //bankTE.getAbove().tower = new ArrayList<>();
-//                        bankTE.getAbove().loadTower();
-//                    }
+                    if(!bankTE.isBase()){
+                        bankTE.getBase().removeTower(bankTE);
+                    }
+                    if(bankTE.getAbove() != null){
+                        bankTE.getAbove().loadTower();
+                    }
                 }
             }
         }
