@@ -49,7 +49,7 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockBarrel> BARREL = registerBlock("barrel",
             () -> new BlockBarrel(AbstractBlock.Properties.of(Material.METAL).strength(2f)
-                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()), false);
 
     public static final RegistryObject<BlockPortableGenerator> PORTABLE_GENERATOR = registerBlock("portable_generator",
             () -> new BlockPortableGenerator(AbstractBlock.Properties.of(Material.METAL).strength(2f)

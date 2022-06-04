@@ -3,10 +3,7 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.item.*;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -82,8 +79,8 @@ public class ModItems {
                     new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(ItemGroup.TAB_MATERIALS)));
 
 
-
-    //public static final IRItemBarrel barrel;
+    public static final RegistryObject<BlockItem> barrel = ITEMS.register("barrel",
+            ()-> new IRItemBarrel(ModBlocks.BARREL.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
 
     static {
         ingotSteel = new IRBaseItem("ingot_steel", industrialrenewal.IR_TAB);
@@ -127,7 +124,6 @@ public class ModItems {
 
         fireBoxSolid = new ItemFireBox("firebox_solid", 1);
         fireBoxFluid = new ItemFireBox("firebox_fluid", 2);
-        //barrel =  new IRItemBarrel("barrel_item", industrialrenewal.IR_TAB);
 
     }
 

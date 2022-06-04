@@ -1,14 +1,9 @@
 package com.cassiokf.IndustrialRenewal;
 
-import com.cassiokf.IndustrialRenewal.containers.container.StorageChestContainer;
 import com.cassiokf.IndustrialRenewal.containers.screen.StorageChestScreen;
 import com.cassiokf.IndustrialRenewal.init.*;
-//import com.cassiokf.IndustrialRenewal.proxy.ClientProxy;
-//import com.cassiokf.IndustrialRenewal.proxy.CommonProxy;
-//import com.cassiokf.IndustrialRenewal.model.ModelLoaderCustom;
 import com.cassiokf.IndustrialRenewal.tesr.*;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -20,7 +15,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-//import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
