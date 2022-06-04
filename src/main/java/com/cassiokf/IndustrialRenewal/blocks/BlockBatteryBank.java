@@ -2,6 +2,8 @@ package com.cassiokf.IndustrialRenewal.blocks;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractHorizontalFacing;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
+import com.cassiokf.IndustrialRenewal.item.IRItemDrill;
+import com.cassiokf.IndustrialRenewal.item.ItemPowerScrewDrive;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityBatteryBank;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
@@ -32,14 +34,39 @@ import java.util.List;
 
 public class BlockBatteryBank extends BlockAbstractHorizontalFacing {
 
+    public static BooleanProperty NORTH_OUTPUT = BooleanProperty.create("north_out");
+    public static BooleanProperty SOUTH_OUTPUT = BooleanProperty.create("south_out");
+    public static BooleanProperty EAST_OUTPUT = BooleanProperty.create("east_out");
+    public static BooleanProperty WEST_OUTPUT = BooleanProperty.create("west_out");
+    public static BooleanProperty UP_OUTPUT = BooleanProperty.create("up_out");
+    public static BooleanProperty DOWN_OUTPUT = BooleanProperty.create("down_out");
+
     public BlockBatteryBank() {
         super(Properties.of(Material.METAL));
-        registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
+        registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH)
+                .setValue(NORTH_OUTPUT, false)
+                .setValue(SOUTH_OUTPUT, false)
+                .setValue(EAST_OUTPUT, false)
+                .setValue(WEST_OUTPUT, false)
+                .setValue(UP_OUTPUT, false)
+                .setValue(DOWN_OUTPUT, false));
     }
 
     public BlockBatteryBank(Properties props) {
         super(props);
-        registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
+        registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH)
+                .setValue(NORTH_OUTPUT, false)
+                .setValue(SOUTH_OUTPUT, false)
+                .setValue(EAST_OUTPUT, false)
+                .setValue(WEST_OUTPUT, false)
+                .setValue(UP_OUTPUT, false)
+                .setValue(DOWN_OUTPUT, false));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(NORTH_OUTPUT, SOUTH_OUTPUT, EAST_OUTPUT, WEST_OUTPUT, UP_OUTPUT, DOWN_OUTPUT);
     }
 
     @Override
@@ -47,12 +74,27 @@ public class BlockBatteryBank extends BlockAbstractHorizontalFacing {
         if(worldIn.isClientSide())
             return super.use(state, worldIn, pos, player, handIn, hit);
 
-        if(handIn == Hand.MAIN_HAND){
+        ItemStack heldItem = player.getItemInHand(handIn);
+        if(!heldItem.isEmpty() && heldItem.getItem() instanceof ItemPowerScrewDrive){
             Direction facehit = hit.getDirection();
             TileEntityBatteryBank batteryBank = (TileEntityBatteryBank)worldIn.getBlockEntity(pos);
             batteryBank.toggleFacing(facehit);
+            Utils.debug("hit with screwdriver", facehit);
+            worldIn.setBlockAndUpdate(pos, state.cycle(toggleOutput(facehit)));
         }
         return super.use(state, worldIn, pos, player, handIn, hit);
+    }
+
+    public BooleanProperty toggleOutput(Direction facing){
+        switch (facing){
+            case NORTH: return NORTH_OUTPUT;
+            case SOUTH: return SOUTH_OUTPUT;
+            case EAST: return EAST_OUTPUT;
+            case WEST: return WEST_OUTPUT;
+            case UP: return UP_OUTPUT;
+            case DOWN: return DOWN_OUTPUT;
+        }
+        return NORTH_OUTPUT;
     }
 
     @Override

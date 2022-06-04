@@ -78,9 +78,11 @@ public class ModItems {
             () -> new BucketItem(() -> ModFluids.STEAM.get(),
                     new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(ItemGroup.TAB_MATERIALS)));
 
+    public static final RegistryObject<BlockItem> BATTERY_BANK = ITEMS.register("battery_bank",
+            ()-> new ItemBatteryBank(ModBlocks.BATTERYBANK.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
 
-    public static final RegistryObject<BlockItem> barrel = ITEMS.register("barrel",
-            ()-> new IRItemBarrel(ModBlocks.BARREL.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
+    public static final RegistryObject<BlockItem> BARREL = ITEMS.register("barrel",
+            ()-> new ItemBarrel(ModBlocks.BARREL.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
 
     static {
         ingotSteel = new IRBaseItem("ingot_steel", industrialrenewal.IR_TAB);

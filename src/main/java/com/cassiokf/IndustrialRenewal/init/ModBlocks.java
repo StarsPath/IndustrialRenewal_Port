@@ -45,7 +45,7 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockBatteryBank> BATTERYBANK = registerBlock("battery_bank",
             () -> new BlockBatteryBank(AbstractBlock.Properties.of(Material.METAL).strength(2f)
-                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()), false);
 
     public static final RegistryObject<BlockBarrel> BARREL = registerBlock("barrel",
             () -> new BlockBarrel(AbstractBlock.Properties.of(Material.METAL).strength(2f)

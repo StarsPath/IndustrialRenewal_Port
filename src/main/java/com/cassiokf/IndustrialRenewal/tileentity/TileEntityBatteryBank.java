@@ -166,7 +166,7 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
 
         @Override
     public void load(BlockState state, CompoundNBT compound) {
-        energyStorage.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(compound.getCompound("StoredIR")));
+        energyStorage.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(compound.getCompound("energy")));
         outPutFacings.clear();
 
         final int[] enabledFacingIndices = compound.getIntArray("OutputFacings");
@@ -183,7 +183,7 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
         energyStorage.ifPresent(h ->
         {
             CompoundNBT tag = ((INBTSerializable<CompoundNBT>) h).serializeNBT();
-            compound.put("StoredIR", tag);
+            compound.put("energy", tag);
         });
 
         final int[] enabledFacingIndices = outPutFacings.stream()
