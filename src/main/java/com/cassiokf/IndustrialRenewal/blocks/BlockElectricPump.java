@@ -2,6 +2,7 @@ package com.cassiokf.IndustrialRenewal.blocks;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockTileEntity;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityElectricPump;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -64,6 +65,7 @@ public class BlockElectricPump extends BlockTileEntity<TileEntityElectricPump> {
                     world.removeBlock(pos.relative(state.getValue(FACING).getOpposite()), false);
                 break;
         }
+        popResource((World) world, pos, new ItemStack(this.asItem()));
         super.destroy(world, pos, state);
     }
 

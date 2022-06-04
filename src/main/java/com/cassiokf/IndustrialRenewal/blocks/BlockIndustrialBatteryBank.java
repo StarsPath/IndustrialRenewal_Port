@@ -62,6 +62,7 @@ public class BlockIndustrialBatteryBank extends BlockTowerBase<TileEntityIndustr
             for(BlockPos blockPos : blocks){
                 TileEntity te = world.getBlockEntity(blockPos);
                 if(te instanceof TileEntityIndustrialBatteryBank && ((TileEntityTowerBase)te).isMaster()){
+                    popResource((World) world, te.getBlockPos(), new ItemStack(ModItems.battery_lithium, ((TileEntityIndustrialBatteryBank)te).getBatteries()));
                     TileEntityIndustrialBatteryBank bankTE = (TileEntityIndustrialBatteryBank) te;
                     bankTE.setOtherBooleanProperty(TOP, true, false);
                     bankTE.setOtherBooleanProperty(BASE, true, true);

@@ -98,15 +98,13 @@ public class ModBlocks {
     public static final RegistryObject<BlockMiner> MINER = registerBlock("mining",
             ()-> new BlockMiner(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
                     .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
-
-
-
+    
 
     public static final RegistryObject<BlockLocker> LOCKER = registerBlock("locker",
             ()-> new BlockLocker(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
                     .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
 
-    public static final RegistryObject<BlockStorageChest> Storage_CHEST = registerBlock("storage_chest",
+    public static final RegistryObject<BlockStorageChest> STORAGE_CHEST = registerBlock("storage_chest",
             ()-> new BlockStorageChest(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
                     .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
 

@@ -110,6 +110,7 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
                 if(te != null){
                     if(te instanceof TileEntity3x3x3MachineBase && ((TileEntity3x3x3MachineBase)te).isMaster()){
                         ((TileEntity3x3x3MachineBase)te).breakMultiBlocks();
+                        popResource((World) world, te.getBlockPos(), new ItemStack(this.asItem()));
                     }
                 }
             }

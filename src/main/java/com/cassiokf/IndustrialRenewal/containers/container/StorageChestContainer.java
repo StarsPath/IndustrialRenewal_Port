@@ -85,7 +85,7 @@ public class StorageChestContainer extends ContainerBase {
     @Override
     public boolean stillValid(PlayerEntity playerEntity) {
         return stillValid(IWorldPosCallable.create(tileEntity.getLevel(), tileEntity.getBlockPos()),
-                playerEntity, ModBlocks.Storage_CHEST.get());
+                playerEntity, ModBlocks.STORAGE_CHEST.get());
     }
 
     public TileEntityStorageChest getTileEntity(){
