@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "CDE",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:ingots/iron"
+    },
+    "B": {
+      "item": "minecraft:hopper"
+    },
+    "C": {
+      "item": "industrialrenewal:fluid_pipe"
+    },
+    "D": {
+      "item": "minecraft:ender_pearl"
+    },
+    "E": {
+      "item": "industrialrenewal:energy_cable_lv"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:trash"
+  }
+}

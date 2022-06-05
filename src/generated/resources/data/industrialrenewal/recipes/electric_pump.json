@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " BA",
+    "CDA",
+    " BA"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:ingots/iron"
+    },
+    "B": {
+      "item": "industrialrenewal:fluid_pipe"
+    },
+    "C": {
+      "item": "industrialrenewal:motor"
+    },
+    "D": {
+      "item": "industrialrenewal:stick_iron"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:electric_pump"
+  }
+}

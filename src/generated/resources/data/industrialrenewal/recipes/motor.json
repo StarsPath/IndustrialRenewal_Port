@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "YXB",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/iron"
+    },
+    "Y": {
+      "tag": "forge:dusts/redstone"
+    },
+    "B": {
+      "item": "minecraft:gold_ingot"
+    },
+    "X": {
+      "item": "minecraft:piston"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:motor",
+    "count": 2
+  }
+}

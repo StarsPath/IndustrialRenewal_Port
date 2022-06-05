@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "B B",
+    "BCB"
+  ],
+  "key": {
+    "A": {
+      "item": "industrialrenewal:energy_cable_hv"
+    },
+    "B": {
+      "item": "industrialrenewal:stick_steel"
+    },
+    "C": {
+      "tag": "forge:storage_blocks/steel"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:ind_battery_bank"
+  }
+}

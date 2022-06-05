@@ -4,6 +4,7 @@ import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.data.client.ModBlockStateProvider;
 import com.cassiokf.IndustrialRenewal.data.client.ModItemModelProvider;
 import com.cassiokf.IndustrialRenewal.data.client.ModLootTableProvider;
+import com.cassiokf.IndustrialRenewal.data.client.ModRecipeProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,5 +24,6 @@ public class DataGenerators {
         gen.addProvider(new ModBlockStateProvider(gen, existingFileHelper));
         gen.addProvider(new ModItemModelProvider(gen, existingFileHelper));
         gen.addProvider(new ModLootTableProvider(gen));
+        gen.addProvider(new ModRecipeProvider(gen));
     }
 }

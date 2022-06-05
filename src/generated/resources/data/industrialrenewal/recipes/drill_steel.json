@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    " A ",
+    "BBB"
+  ],
+  "key": {
+    "A": {
+      "item": "industrialrenewal:stick_steel"
+    },
+    "B": {
+      "tag": "forge:ingots/steel"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:drill_steel"
+  }
+}

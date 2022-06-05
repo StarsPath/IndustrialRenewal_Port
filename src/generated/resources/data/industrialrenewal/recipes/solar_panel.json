@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "AAA",
+    "B B"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:glass_pane"
+    },
+    "A": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "B": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:solar_panel"
+  }
+}

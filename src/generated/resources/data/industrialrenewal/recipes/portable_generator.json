@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#B#",
+    "A#Y",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/iron"
+    },
+    "Y": {
+      "item": "minecraft:furnace"
+    },
+    "A": {
+      "item": "industrialrenewal:motor"
+    },
+    "B": {
+      "item": "industrialrenewal:barrel"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:portable_generator"
+  }
+}

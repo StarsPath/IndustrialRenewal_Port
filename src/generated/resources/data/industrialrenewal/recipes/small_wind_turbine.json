@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#AC",
+    " B "
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/steel"
+    },
+    "A": {
+      "item": "industrialrenewal:motor"
+    },
+    "B": {
+      "item": "industrialrenewal:energy_cable_lv"
+    },
+    "C": {
+      "item": "industrialrenewal:stick_steel"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:small_wind_turbine"
+  }
+}

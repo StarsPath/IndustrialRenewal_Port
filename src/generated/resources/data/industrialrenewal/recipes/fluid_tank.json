@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "#B#"
+  ],
+  "key": {
+    "#": {
+      "item": "industrialrenewal:stick_steel"
+    },
+    "A": {
+      "item": "industrialrenewal:barrel"
+    },
+    "B": {
+      "item": "industrialrenewal:fluid_pipe"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:fluid_tank"
+  }
+}

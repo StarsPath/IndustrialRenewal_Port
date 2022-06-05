@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CBA",
+    "DED",
+    "DFD"
+  ],
+  "key": {
+    "A": {
+      "item": "industrialrenewal:fluid_pipe"
+    },
+    "B": {
+      "item": "industrialrenewal:barrel"
+    },
+    "C": {
+      "tag": "forge:dusts/redstone"
+    },
+    "D": {
+      "tag": "forge:ingots/steel"
+    },
+    "E": {
+      "item": "industrialrenewal:motor"
+    },
+    "F": {
+      "item": "industrialrenewal:battery_bank"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:steam_turbine"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##Y",
+    " BA"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/iron"
+    },
+    "Y": {
+      "item": "industrialrenewal:motor"
+    },
+    "A": {
+      "item": "industrialrenewal:battery"
+    },
+    "B": {
+      "item": "minecraft:stone_button"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:screwdrive"
+  }
+}

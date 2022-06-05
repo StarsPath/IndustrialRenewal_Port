@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "BBB",
+    "CDC"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:ingots/iron"
+    },
+    "B": {
+      "item": "industrialrenewal:battery"
+    },
+    "C": {
+      "item": "industrialrenewal:stick_iron"
+    },
+    "D": {
+      "tag": "forge:dusts/redstone"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:battery_bank"
+  }
+}

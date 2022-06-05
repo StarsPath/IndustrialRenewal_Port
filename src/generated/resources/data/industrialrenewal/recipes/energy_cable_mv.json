@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#X#",
+    "AAA",
+    "#X#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:gold_ingot"
+    },
+    "A": {
+      "tag": "forge:dusts/redstone"
+    },
+    "X": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:energy_cable_mv",
+    "count": 6
+  }
+}

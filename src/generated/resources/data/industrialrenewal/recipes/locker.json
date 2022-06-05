@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "ABA",
+    " A "
+  ],
+  "key": {
+    "A": {
+      "item": "industrialrenewal:stick_iron"
+    },
+    "B": {
+      "tag": "forge:chests"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:locker"
+  }
+}
