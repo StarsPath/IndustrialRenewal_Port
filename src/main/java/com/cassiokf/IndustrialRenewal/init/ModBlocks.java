@@ -116,6 +116,10 @@ public class ModBlocks {
             ()-> new BlockFluidTank(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
                     .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
 
+    public static final RegistryObject<BlockLathe> LATHE = registerBlock("lathe",
+            ()-> new BlockLathe(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);
 //    public static final BlockFirstAidKit firstAidKit = new BlockFirstAidKit("firstaid_kit", References.CREATIVE_IR_TAB);
 //    public static final BlockFireExtinguisher fireExtinguisher = new BlockFireExtinguisher("fire_extinguisher", References.CREATIVE_IR_TAB);

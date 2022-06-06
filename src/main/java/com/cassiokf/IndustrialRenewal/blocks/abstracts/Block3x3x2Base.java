@@ -1,6 +1,7 @@
 package com.cassiokf.IndustrialRenewal.blocks.abstracts;
 
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3x2MachineBase;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
@@ -49,8 +50,17 @@ public abstract class Block3x3x2Base <TE extends TileEntity3x3x2MachineBase> ext
 
     @Override
     public void destroy(IWorld world, BlockPos pos, BlockState state) {
-        if(!world.isClientSide())
+        if(!world.isClientSide()) {
+            List<BlockPos> blocks = Utils.getBlocksIn3x3x2Centered(pos, state.getValue(FACING));
+
+            if (state.getValue(MASTER)) {
+                for (BlockPos blockPos : blocks) {
+                    world.removeBlock(blockPos, false);
+                }
+            }
+
             popResource((World) world, pos, new ItemStack(this.asItem()));
+        }
     }
 
     @Override
