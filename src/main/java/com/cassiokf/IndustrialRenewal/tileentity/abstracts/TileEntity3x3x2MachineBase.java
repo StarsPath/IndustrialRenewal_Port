@@ -1,9 +1,10 @@
 package com.cassiokf.IndustrialRenewal.tileentity.abstracts;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.Block3x3x2Base;
-import com.cassiokf.IndustrialRenewal.blocks.abstracts.Block3x3x3Base;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -15,27 +16,29 @@ public abstract class TileEntity3x3x2MachineBase<TE extends TileEntity3x3x2Machi
     public TileEntity3x3x2MachineBase(TileEntityType tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
+    public BlockPos masterPos = worldPosition;
 
     @Override
     public TE getMaster() {
         //return super.getMaster();
-        if (masterTE == null || masterTE.isRemoved())
+        TileEntity te = level.getBlockEntity(masterPos);
+        Utils.debug("master pos", worldPosition, masterPos, te);
+        if(te instanceof TileEntity3x3x2MachineBase
+                && ((TileEntity3x3x2MachineBase) te).isMaster()
+                && instanceOf(te))
         {
-            List<BlockPos> list = Utils.getBlocksIn3x3x2Centered(worldPosition, level.getBlockState(worldPosition).getValue(Block3x3x2Base.FACING));
-            for (BlockPos currentPos : list)
-            {
-                TileEntity te = level.getBlockEntity(currentPos);
-                if (te instanceof TileEntity3x3x2MachineBase
-                        && ((TileEntity3x3x2MachineBase) te).isMaster()
-                        && instanceOf(te))
-                {
-                    masterTE = (TE) te;
-                    return masterTE;
-                }
-            }
-            return null;
+            masterTE = (TE) te;
+            return masterTE;
         }
-        return masterTE;
+        return null;
+    }
+
+    @Override
+    public void setRemoved() {
+        TileEntity3x3x2MachineBase te = (TileEntity3x3x2MachineBase) level.getBlockEntity(masterPos);
+        if(te != null)
+            te.breakMultiBlocks();
+        super.setRemoved();
     }
 
     @Override
@@ -80,5 +83,17 @@ public abstract class TileEntity3x3x2MachineBase<TE extends TileEntity3x3x2Machi
                 if (block instanceof Block3x3x2Base) level.removeBlock(currentPos, false);
             }
         }
+    }
+
+    @Override
+    public CompoundNBT save(CompoundNBT compound) {
+        compound.putLong("masterPos", masterPos.asLong());
+        return super.save(compound);
+    }
+
+    @Override
+    public void load(BlockState state, CompoundNBT compound) {
+        masterPos = BlockPos.of(compound.getLong("masterPos"));
+        super.load(state, compound);
     }
 }

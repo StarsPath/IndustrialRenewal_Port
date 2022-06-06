@@ -42,7 +42,7 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
     {
         World world = context.getLevel();
         BlockPos pos =  context.getClickedPos();
-        if(isValidPosition(world, pos))
+        if(isValidPosition(world, pos, context.getHorizontalDirection()))
             return defaultBlockState().setValue(FACING, context.getHorizontalDirection()).setValue(MASTER, false);
         return Blocks.AIR.defaultBlockState();
     }
@@ -69,8 +69,9 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
         //world.setBlockAndUpdate(pos.relative(state.getValue(FACING)).above(), state.setValue(MASTER, true));
         if(!world.isClientSide)
         {
+            Direction facing = state.getValue(FACING);
             world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-            if (isValidPosition(world, pos)) {
+            if (isValidPosition(world, pos, facing)) {
                 world.setBlockAndUpdate(pos.above(), state.setValue(MASTER, true));
                 for (int y = 0; y < 3; y++) {
                     for (int z = -1; z < 2; z++) {
@@ -91,12 +92,6 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
         }
     }
 
-//    @Override
-//    public void onPlace(BlockState p_220082_1_, World p_220082_2_, BlockPos p_220082_3_, BlockState p_220082_4_, boolean p_220082_5_) {
-//        //Utils.debug("ON PLACE IS CALLED", p_220082_1_, p_220082_2_, p_220082_3_, p_220082_4_, p_220082_5_);
-//        super.onPlace(p_220082_1_, p_220082_2_, p_220082_3_, p_220082_4_, p_220082_5_);
-//    }
-
     @Override
     public void destroy(IWorld world, BlockPos pos, BlockState state) {
         //if (state.getBlock() == newState.getBlock()) return;
@@ -106,7 +101,6 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
 
             for(BlockPos blockPos : blocks){
                 TileEntity te = world.getBlockEntity(blockPos);
-                //Utils.debug("break bock at pos", pos, te);
                 if(te != null){
                     if(te instanceof TileEntity3x3x3MachineBase && ((TileEntity3x3x3MachineBase)te).isMaster()){
                         ((TileEntity3x3x3MachineBase)te).breakMultiBlocks();
@@ -118,9 +112,8 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
         super.destroy(world, pos, state);
     }
 
-    public boolean isValidPosition(World worldIn, BlockPos pos)
+    public boolean isValidPosition(World worldIn, BlockPos pos, Direction facing)
     {
-        //PlayerEntity player = worldIn.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 10D, false);
         PlayerEntity player = worldIn.getNearestPlayer(EntityPredicate.DEFAULT, pos.getX(), pos.getY(), pos.getZ());
         if (player == null) return false;
         for (int y = 0; y < 3; y++)
@@ -129,15 +122,10 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
             {
                 for (int x = -1; x < 2; x++)
                 {
-                    Direction facing = player.getDirection();
-                    //BlockPos currentPos = new BlockPos(pos.relative(facing, z).relative(facing.getClockWise(), x).relative(Direction.UP, y));
                     BlockPos currentPos = new BlockPos(pos.getX()+x, pos.getY()+y, pos.getZ()+z);
-                    //Utils.debug("clicked on, check for pos", pos, currentPos);
                     BlockState currentState = worldIn.getBlockState(currentPos);
-                    if (!currentState.getMaterial().isReplaceable()) {
-                        //Utils.debug("invalid for placement");
+                    if (!currentState.getMaterial().isReplaceable())
                         return false;
-                    }
                 }
             }
         }
