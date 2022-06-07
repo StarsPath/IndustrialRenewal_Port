@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal;
 
+import com.cassiokf.IndustrialRenewal.containers.screen.LatheScreen;
 import com.cassiokf.IndustrialRenewal.containers.screen.StorageChestScreen;
 import com.cassiokf.IndustrialRenewal.init.*;
 import com.cassiokf.IndustrialRenewal.tesr.*;
@@ -109,6 +110,7 @@ public class industrialrenewal
             RenderTypeLookup.setRenderLayer(ModFluids.STEAM_BLOCK.get(), RenderType.translucent());
 
             ScreenManager.register(ModContainers.STORAGE_CHEST_CONTAINER.get(), StorageChestScreen::new);
+            ScreenManager.register(ModContainers.LATHE_CONTAINER.get(), LatheScreen::new);
         });
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.BATTERY_BANK_TILE.get(), TESRBatteryBank::new);

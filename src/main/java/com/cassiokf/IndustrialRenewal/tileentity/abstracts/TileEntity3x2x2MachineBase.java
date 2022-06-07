@@ -23,7 +23,7 @@ public class TileEntity3x2x2MachineBase <TE extends TileEntity3x2x2MachineBase> 
     public TE getMaster() {
         //return super.getMaster();
         TileEntity te = level.getBlockEntity(masterPos);
-        Utils.debug("master pos", worldPosition, masterPos, te);
+        //Utils.debug("master pos", worldPosition, masterPos, te);
         if(te instanceof TileEntity3x2x2MachineBase
                 && ((TileEntity3x2x2MachineBase) te).isMaster()
                 && instanceOf(te))

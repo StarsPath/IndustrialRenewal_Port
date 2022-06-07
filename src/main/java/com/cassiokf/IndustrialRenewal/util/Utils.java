@@ -344,6 +344,46 @@ public class Utils {
         return movement;
     }
 
+    public static boolean moveItemsBetweenInventories(IItemHandler from, IItemHandler to)
+    {
+        return moveItemsBetweenInventories(from, to, true, Integer.MAX_VALUE);
+    }
+
+    public static boolean moveItemsBetweenInventories(IItemHandler from, IItemHandler to, int maxStackCount)
+    {
+        return moveItemsBetweenInventories(from, to, true, maxStackCount);
+    }
+
+    private static boolean moveItemsBetweenInventories(IItemHandler from, IItemHandler to, boolean stackPerTick, int maxStackCount)
+    {
+        boolean movement = false;
+        for (int i = 0; i < from.getSlots(); i++)
+        {
+            boolean needBreak = false;
+            ItemStack stack = from.extractItem(i, maxStackCount, true);
+            for (int j = 0; j < to.getSlots(); j++)
+            {
+                if (!stack.isEmpty() && to.isItemValid(j, stack))
+                {
+                    ItemStack left = to.insertItem(j, stack, false);
+                    if (!ItemStack.isSame(stack, left))
+                    {
+                        int toExtract = stack.getCount() - left.getCount();
+                        from.extractItem(i, toExtract, false);
+                        movement = true;
+                        if (stackPerTick)
+                        {
+                            needBreak = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (stackPerTick && needBreak) break;
+        }
+        return movement;
+    }
+
     public static String formatPreciseEnergyString(int energy)
     {
         String text = energy + " FE";
