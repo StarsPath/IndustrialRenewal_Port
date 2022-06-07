@@ -1,11 +1,16 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
+import com.cassiokf.IndustrialRenewal.init.ModRecipes;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.recipes.LatheRecipe;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x2x2MachineBase;
 import com.cassiokf.IndustrialRenewal.util.CustomEnergyStorage;
 import com.cassiokf.IndustrialRenewal.util.Utils;
+import net.minecraft.block.BlockState;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -20,6 +25,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe> implements ITickableTileEntity {
     public TileEntityLathe(TileEntityType<?> tileEntityTypeIn) {
@@ -44,9 +50,10 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
     private boolean stopped = true;
     private boolean oldStopping = false;
 
-    private LazyOptional<CustomEnergyStorage> energyHandler;
-    private LazyOptional<ItemStackHandler> inputItemHandler;
-    private LazyOptional<ItemStackHandler> outputItemHandler;
+    private Boolean firstLoad = false;
+    public LazyOptional<CustomEnergyStorage> energyHandler;
+    public LazyOptional<ItemStackHandler> inputItemHandler;
+    public LazyOptional<ItemStackHandler> outputItemHandler;
 
     public TileEntityLathe(){
         super(ModTileEntities.LATHE_TILE.get());
@@ -67,7 +74,7 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return false;
+                return true;
                 //return super.isItemValid(slot, stack);
             }
         };
@@ -81,7 +88,7 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return false;
+                return true;
                 //return super.isItemValid(slot, stack);
             }
         };
@@ -93,16 +100,41 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
     }
 
     @Override
+    public void onLoad() {
+        super.onLoad();
+    }
+
+    public void setFirstLoad(){
+        TileEntityLathe masterTE = getMaster();
+        Direction face = masterTE.getMasterFacing();
+        TileEntityLathe energyInputTile = (TileEntityLathe) level.getBlockEntity(getBlockPos().relative(face).relative(face.getCounterClockWise()));
+        if(energyInputTile != null)
+            energyInputTile.energyHandler = masterTE.energyHandler;
+
+        TileEntityLathe itemInputTile = (TileEntityLathe) level.getBlockEntity(getBlockPos().relative(getMasterFacing().getCounterClockWise()));
+        if(itemInputTile != null)
+            itemInputTile.inputItemHandler = masterTE.inputItemHandler;
+    }
+
+
+    @Override
     public void tick() {
         if(!level.isClientSide){
             if(isMaster()){
+
+                if (!firstLoad) {
+                    //Utils.debug("CALLING ONLOAD", worldPosition);
+                    firstLoad = true;
+                    setFirstLoad();
+                }
+
                 ItemStack inputStack = input.getStackInSlot(0);
                 oldProcessTime = renderCutterProcess;
-                if (!inProcess
-                        && !inputStack.isEmpty())
+                if (!inProcess && !inputStack.isEmpty() && valid(output.getStackInSlot(0)))
+//                        && output.getStackInSlot(0).sam)
                         //&& LatheRecipe.CACHED_RECIPES.containsKey(inputStack.getItem()))
                 {
-                    //getProcessFromInputItem(inputStack);
+                    getProcessFromInputItem();
                     Utils.debug("PROCESSING...");
                 }
                 else if (inProcess)
@@ -117,8 +149,25 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
         }
     }
 
+    private boolean valid(ItemStack outputSlot){
+        if(outputSlot.isEmpty())
+            return true;
+
+        Inventory inv = new Inventory(1);
+        inv.setItem(0, input.getStackInSlot(0));
+
+        Optional<LatheRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipes.LATHE_RECIPE, inv, level);
+
+        IRecipe iRecipe = recipe.orElse(null);
+        ItemStack resultItem = iRecipe.getResultItem();
+        if(resultItem.sameItem(outputSlot) && outputSlot.isStackable() && outputSlot.getCount() < outputSlot.getMaxStackSize())
+            return true;
+        return false;
+    }
+
     private void process()
     {
+        //Utils.debug("PROCESS... Energy", energyContainer.getEnergyStored());
         if (energyContainer.getEnergyStored() < energyPTick) return;
         energyContainer.extractEnergy(energyPTick, false);
         tick++;
@@ -129,12 +178,36 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
             inProcess = false;
             processingItem = null;
 
-            if (!level.isClientSide) output.insertItem(0, hold, false);
+            {
+                if (!level.isClientSide) {
+                    //Utils.debug("PRE OUTPUTING...", hold, output.getStackInSlot(0));
+                    output.insertItem(0, hold, false);
+                    hold = ItemStack.EMPTY;
+                    //Utils.debug("OUTPUTING...", hold, output.getStackInSlot(0));
+                }
+            }
         }
     }
 
-//    private void getProcessFromInputItem(ItemStack inputStack)
-//    {
+    private void getProcessFromInputItem()
+    {
+        Inventory inv = new Inventory(1);
+        inv.setItem(0, input.getStackInSlot(0));
+//        inv.setItem(1, output.getStackInSlot(0));
+
+        Optional<LatheRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipes.LATHE_RECIPE, inv, level);
+
+        recipe.ifPresent(iRecipe -> {
+            processTime = iRecipe.getProcessTime();
+            ItemStack resultItem = iRecipe.getResultItem();
+            processingItem = input.extractItem(0, 1, false);
+            hold = resultItem;
+            Utils.debug("HOLD", hold, resultItem);
+            //hold = output.insertItem(0, resultItem, false);
+            inProcess = true;
+        });
+
+        sync();
 //        LatheRecipe recipe = LatheRecipe.CACHED_RECIPES.get(inputStack.getItem());
 //        if (recipe != null)
 //        {
@@ -154,12 +227,13 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
 //                hold = result;
 //            }
 //        }
-//    }
+    }
 
     private void tryOutPutItem()
     {
         if (!level.isClientSide && !output.getStackInSlot(0).isEmpty())
         {
+            //Utils.debug("TRYING OUTPUT ITEM");
             Direction facing = getMasterFacing().getClockWise();
             TileEntity te = level.getBlockEntity(worldPosition.relative(facing, 2));
             if (te != null)
@@ -242,5 +316,25 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
                 //return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(masterTE.outPut);
         }
         return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public CompoundNBT save(CompoundNBT compound) {
+        compound.put("input", this.input.serializeNBT());
+        compound.put("output", this.output.serializeNBT());
+        compound.put("hold", this.hold.serializeNBT());
+        compound.put("energy", this.energyContainer.serializeNBT());
+        compound.putBoolean("processing", inProcess);
+        return super.save(compound);
+    }
+
+    @Override
+    public void load(BlockState state, CompoundNBT compound) {
+        this.input.deserializeNBT(compound.getCompound("input"));
+        this.output.deserializeNBT(compound.getCompound("output"));
+        this.hold.deserializeNBT(compound.getCompound("hold"));
+        this.energyContainer.deserializeNBT(compound.getCompound("StoredIR"));
+        inProcess = compound.getBoolean("processing");
+        super.load(state, compound);
     }
 }

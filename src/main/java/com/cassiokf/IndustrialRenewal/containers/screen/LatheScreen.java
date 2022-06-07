@@ -25,6 +25,11 @@ public class LatheScreen extends ContainerScreen<LatheContainer> {
     }
 
     @Override
+    protected void renderLabels(MatrixStack p_230451_1_, int p_230451_2_, int p_230451_3_) {
+        return;
+    }
+
+    @Override
     protected void renderBg(MatrixStack matrixStack, float p_230450_2_, int p_230450_3_, int p_230450_4_) {
         RenderSystem.color4f(1f, 1f, 1f, 1f);
         this.minecraft.getTextureManager().bind(GUI);

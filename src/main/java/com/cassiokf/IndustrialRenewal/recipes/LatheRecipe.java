@@ -1,6 +1,9 @@
 package com.cassiokf.IndustrialRenewal.recipes;
 
+import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.init.ModBlocks;
+import com.cassiokf.IndustrialRenewal.init.ModRecipes;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -9,12 +12,15 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
 public class LatheRecipe implements IRecipe<IInventory> {
+
+    public static final ResourceLocation TYPE_ID = new ResourceLocation(References.MODID, "lathe");
 
     private final ResourceLocation id;
     private final ItemStack output;
@@ -91,36 +97,54 @@ public class LatheRecipe implements IRecipe<IInventory> {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return null;
+        return ModRecipes.LATHE_SERIALIZER.get();
         //return
     }
 
     @Override
     public IRecipeType<?> getType() {
-        return null;
+        return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
+//        return null;
     }
 
     public static class LatheRecipeType implements IRecipeType<LatheRecipe>{
-
+        @Override
+        public String toString() {
+            return LatheRecipe.TYPE_ID.toString();
+        }
     }
 
-//    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<LatheRecipe>{
-//
-//        @Override
-//        public LatheRecipe fromJson(ResourceLocation resourceLocation, JsonObject json) {
-//            final int processTime = JSONUtils.getAsInt(json, "process_time", 100);
-//            return new LatheRecipe(input, result, processTime);
-//        }
-//
-//        @Nullable
-//        @Override
-//        public LatheRecipe fromNetwork(ResourceLocation resourceLocation, PacketBuffer buffer) {
-//            return null;
-//        }
-//
-//        @Override
-//        public void toNetwork(PacketBuffer p_199427_1_, LatheRecipe p_199427_2_) {
-//
-//        }
-//    }
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<LatheRecipe>{
+
+        @Override
+        public LatheRecipe fromJson(ResourceLocation resourceLocation, JsonObject json) {
+            final int processTime = JSONUtils.getAsInt(json, "process_time", 100);
+            ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
+            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
+            NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
+            inputs.set(0, Ingredient.fromJson(ingredients.get(0)));
+
+            return new LatheRecipe(resourceLocation, output, inputs, processTime);
+        }
+
+        @Nullable
+        @Override
+        public LatheRecipe fromNetwork(ResourceLocation resourceLocation, PacketBuffer buffer) {
+            final int processTime = buffer.readInt();
+            NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
+            ItemStack output = buffer.readItem();
+            inputs.set(0, Ingredient.fromNetwork(buffer));
+
+            return new LatheRecipe(resourceLocation, output, inputs, processTime);
+        }
+
+        @Override
+        public void toNetwork(PacketBuffer buffer, LatheRecipe recipe) {
+            buffer.writeInt(recipe.processTime);
+            buffer.writeItemStack(recipe.getResultItem(), false);
+            for (Ingredient ing : recipe.getIngredients()) {
+                ing.toNetwork(buffer);
+            }
+        }
+    }
 }

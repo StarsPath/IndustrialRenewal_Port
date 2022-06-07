@@ -55,6 +55,7 @@ public class industrialrenewal
         ModBlocks.registerInit(modEventBus);
         ModFluids.init(modEventBus);
         ModContainers.register(modEventBus);
+        ModRecipes.register(modEventBus);
 
         modEventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -104,6 +105,8 @@ public class industrialrenewal
             RenderTypeLookup.setRenderLayer(ModBlocks.MINER.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.INDUSTRIAL_BATTERY_BANK.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.FLUID_TANK.get(), RenderType.translucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.STORAGE_CHEST.get(), RenderType.translucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.LATHE.get(), RenderType.cutout());
 
             RenderTypeLookup.setRenderLayer(ModFluids.STEAM.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModFluids.STEAM_FLOWING.get(), RenderType.translucent());

@@ -8,10 +8,12 @@ import com.cassiokf.IndustrialRenewal.tileentity.TileEntityStorageChest;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class LatheContainer extends ContainerBase {
@@ -39,6 +41,11 @@ public class LatheContainer extends ContainerBase {
         });
         this.addSlot(new SlotItemHandler(tileEntity.getOutputInv(), 0, 134, 30)
         {
+            @Override
+            public boolean mayPlace(@Nonnull ItemStack stack) {
+                return false;
+            }
+
             @Override
             public void setChanged() {
                 tileEntity.setChanged();
