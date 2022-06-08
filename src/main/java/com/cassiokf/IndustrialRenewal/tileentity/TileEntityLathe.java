@@ -38,14 +38,15 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
     private CustomEnergyStorage energyContainer;
     private ItemStackHandler input;
     private ItemStackHandler output;
+    private ItemStackHandler hold;
     public boolean inProcess = false;
-    private ItemStack hold = ItemStack.EMPTY;
+    //public ItemStack hold = ItemStack.EMPTY;
     private boolean oldInProcess;
     private int tick;
     private int processTime;
-    private float renderCutterProcess;
+    public float renderCutterProcess;
     private float oldProcessTime;
-    private ItemStack processingItem;
+    //public ItemStack processingItem = ItemStack.EMPTY;
     private boolean stopping = false;
     private boolean stopped = true;
     private boolean oldStopping = false;
@@ -54,13 +55,18 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
     public LazyOptional<CustomEnergyStorage> energyHandler;
     public LazyOptional<ItemStackHandler> inputItemHandler;
     public LazyOptional<ItemStackHandler> outputItemHandler;
+    public LazyOptional<ItemStackHandler> holdHandler;
+
+    public int currentEnergy;
+    public final int MAX_ENERGY = 10240;
 
     public TileEntityLathe(){
         super(ModTileEntities.LATHE_TILE.get());
-        this.energyContainer = new CustomEnergyStorage(10240, 256, 256){
+        this.energyContainer = new CustomEnergyStorage(MAX_ENERGY, 256, 256){
             @Override
             public void onEnergyChange() {
                 //super.onEnergyChange();
+                currentEnergy = this.getEnergyStored();
                 TileEntityLathe.this.sync();
             }
         };
@@ -68,7 +74,8 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
         this.input = new ItemStackHandler(1){
             @Override
             protected void onContentsChanged(int slot) {
-                //super.onContentsChanged(slot);
+                //Utils.debug("onChange Called", slot);
+                super.onContentsChanged(slot);
                 TileEntityLathe.this.sync();
             }
 
@@ -93,9 +100,22 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
             }
         };
 
+        this.hold = new ItemStackHandler(1){
+            @Override
+            protected void onContentsChanged(int slot) {
+                TileEntityLathe.this.sync();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return true;
+            }
+        };
+
         this.energyHandler = LazyOptional.of(()-> energyContainer);
         this.inputItemHandler = LazyOptional.of(()-> input);
         this.outputItemHandler = LazyOptional.of(()-> output);
+        this.holdHandler = LazyOptional.of(()-> hold);
 
     }
 
@@ -131,22 +151,32 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
                 ItemStack inputStack = input.getStackInSlot(0);
                 oldProcessTime = renderCutterProcess;
                 if (!inProcess && !inputStack.isEmpty() && valid(output.getStackInSlot(0)))
-//                        && output.getStackInSlot(0).sam)
-                        //&& LatheRecipe.CACHED_RECIPES.containsKey(inputStack.getItem()))
                 {
                     getProcessFromInputItem();
-                    Utils.debug("PROCESSING...");
                 }
                 else if (inProcess)
                 {
+                    getProcessFromInputItem();
                     process();
+                }
+                if(inputStack.isEmpty() || !valid(output.getStackInSlot(0))){
+                    interrupt();
                 }
                 if (!inProcess && !oldInProcess) stopping = true;
                 oldInProcess = inProcess;
                 renderCutterProcess = processTime > 0 ? Utils.normalizeClamped(tick, 0, processTime) * 0.8f : 0;
                 tryOutPutItem();
+                sync();
             }
         }
+    }
+    public void interrupt(){
+        inProcess = false;
+        processTime = 0;
+        tick = 0;
+        stopping = true;
+        //hold.extractItem(0, 1, false);
+        hold.setStackInSlot(0, ItemStack.EMPTY);
     }
 
     private boolean valid(ItemStack outputSlot){
@@ -176,13 +206,14 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
             tick = 0;
             processTime = 0;
             inProcess = false;
-            processingItem = null;
+            //processingItem = ItemStack.EMPTY;
 
             {
                 if (!level.isClientSide) {
                     //Utils.debug("PRE OUTPUTING...", hold, output.getStackInSlot(0));
-                    output.insertItem(0, hold, false);
-                    hold = ItemStack.EMPTY;
+                    input.extractItem(0, 1, false);
+                    output.insertItem(0, hold.extractItem(0, 1, false), false);
+                    //hold = ItemStack.EMPTY;
                     //Utils.debug("OUTPUTING...", hold, output.getStackInSlot(0));
                 }
             }
@@ -200,8 +231,10 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
         recipe.ifPresent(iRecipe -> {
             processTime = iRecipe.getProcessTime();
             ItemStack resultItem = iRecipe.getResultItem();
-            processingItem = input.extractItem(0, 1, false);
-            hold = resultItem;
+            //hold.insertItem(0, resultItem, false);
+            hold.setStackInSlot(0, resultItem);
+            //processingItem =
+            //hold = resultItem;
             Utils.debug("HOLD", hold, resultItem);
             //hold = output.insertItem(0, resultItem, false);
             inProcess = true;
@@ -269,20 +302,21 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
         return output;
     }
 
-    public IEnergyStorage getEnergyStorage()
-    {
-        return energyContainer;
-    }
+//    public IEnergyStorage getEnergyStorage()
+//    {
+//        return energyContainer;
+//    }
+//
 
     public ItemStack getResultItem()
     {
-        return hold;
+        return hold.getStackInSlot(0);
     }
 
-    public ItemStack getProcessingItem()
-    {
-        return processingItem;
-    }
+//    public ItemStack getProcessingItem()
+//    {
+//        return processingItem;
+//    }
 
     public float getNormalizedProcess()
     {
@@ -320,21 +354,60 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
 
     @Override
     public CompoundNBT save(CompoundNBT compound) {
-        compound.put("input", this.input.serializeNBT());
-        compound.put("output", this.output.serializeNBT());
-        compound.put("hold", this.hold.serializeNBT());
-        compound.put("energy", this.energyContainer.serializeNBT());
-        compound.putBoolean("processing", inProcess);
+        compound.putInt("current", this.currentEnergy);
+        compound.putFloat("progress", this.renderCutterProcess);
+        compound.putInt("tick", this.tick);
+        compound.putInt("processTime", this.processTime);
+        compound.putBoolean("processing", this.inProcess);
+
+        inputItemHandler.ifPresent(in -> {
+            CompoundNBT tag = in.serializeNBT();
+            compound.put("input", tag);
+        });
+
+        outputItemHandler.ifPresent(out -> {
+            CompoundNBT tag = out.serializeNBT();
+            compound.put("output", tag);
+        });
+
+        holdHandler.ifPresent(handler -> {
+            CompoundNBT tag = handler.serializeNBT();
+            compound.put("hold", tag);
+        });
+
+        energyHandler.ifPresent(energy ->{
+            CompoundNBT tag = energy.serializeNBT();
+            compound.put("energy", tag);
+        });
+
+        //compound.put("input", this.input.serializeNBT());
+        //compound.put("output", this.output.serializeNBT());
+        //compound.put("hold", this.hold.serializeNBT());
+        //compound.put("item", this.processingItem.serializeNBT());
+        //compound.put("energy", this.energyContainer.serializeNBT());
+
         return super.save(compound);
     }
 
     @Override
     public void load(BlockState state, CompoundNBT compound) {
-        this.input.deserializeNBT(compound.getCompound("input"));
-        this.output.deserializeNBT(compound.getCompound("output"));
-        this.hold.deserializeNBT(compound.getCompound("hold"));
-        this.energyContainer.deserializeNBT(compound.getCompound("StoredIR"));
-        inProcess = compound.getBoolean("processing");
+        this.currentEnergy = compound.getInt("current");
+        this.renderCutterProcess = compound.getFloat("progress");
+        this.tick = compound.getInt("tick");
+        this.processTime = compound.getInt("processTime");
+        this.inProcess = compound.getBoolean("processing");
+
+        inputItemHandler.ifPresent(input->input.deserializeNBT(compound.getCompound("input")));
+        outputItemHandler.ifPresent(output->output.deserializeNBT(compound.getCompound("output")));
+        energyHandler.ifPresent(energy->energy.deserializeNBT(compound.getCompound("energy")));
+        holdHandler.ifPresent(handler->handler.deserializeNBT(compound.getCompound("hold")));
+
+//        this.input.deserializeNBT(compound.getCompound("input"));
+//        this.output.deserializeNBT(compound.getCompound("output"));
+        //this.hold.deserializeNBT(compound.getCompound("hold"));
+        //this.processingItem.deserializeNBT(compound.getCompound("item"));
+//        this.energyContainer.deserializeNBT(compound.getCompound("StoredIR"));
+
         super.load(state, compound);
     }
 }

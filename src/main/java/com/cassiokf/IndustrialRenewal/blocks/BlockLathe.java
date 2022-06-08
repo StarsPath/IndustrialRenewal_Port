@@ -34,6 +34,12 @@ public class BlockLathe extends Block3x2x2Base<TileEntityLathe> {
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new TileEntityLathe();
     }
+//
+//    @Override
+//    public boolean hasTileEntity(BlockState state) {
+//        //return super.hasTileEntity(state);
+//        return false;
+//    }
 
     @Override
     public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult rayTraceResult) {

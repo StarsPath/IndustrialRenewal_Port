@@ -5,11 +5,14 @@ import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.init.ModContainers;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityLathe;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityStorageChest;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.IWorldPosCallable;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -60,5 +63,17 @@ public class LatheContainer extends ContainerBase {
     public boolean stillValid(PlayerEntity playerEntity) {
         return stillValid(IWorldPosCallable.create(tileEntity.getLevel(), tileEntity.getBlockPos()),
                 playerEntity, ModBlocks.LATHE.get());
+    }
+
+    public int getEnergyFill(){
+        return (int) (Utils.normalizeClamped(tileEntity.currentEnergy, 0, tileEntity.MAX_ENERGY) * 69);
+    }
+
+    public float getProgress(){
+        return tileEntity.renderCutterProcess;
+    }
+
+    public TileEntityLathe getTileEntity(){
+        return tileEntity;
     }
 }
