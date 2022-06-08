@@ -52,6 +52,10 @@ public class TileEntityFluidTank extends TileEntityTowerBase<TileEntityFluidTank
 
     @Override
     public void onLoad() {
+        super.onLoad();
+    }
+
+    public void setFirstLoad(){
         if(!level.isClientSide && isMaster()){
             TileEntityFluidTank masterTE = getMaster();
             TileEntityFluidTank inputTile = (TileEntityFluidTank) level.getBlockEntity(getBlockPos().above());
@@ -71,7 +75,6 @@ public class TileEntityFluidTank extends TileEntityTowerBase<TileEntityFluidTank
                 this.tower = getBase().tower;
             }
         }
-        super.onLoad();
     }
 
     @Override
@@ -92,7 +95,8 @@ public class TileEntityFluidTank extends TileEntityTowerBase<TileEntityFluidTank
             if (!firstLoad) {
                 //Utils.debug("CALLING ONLOAD", worldPosition);
                 firstLoad = true;
-                this.onLoad();
+                setFirstLoad();
+                //this.onLoad();
             }
             if(isBase()){
                 if (tank.getFluidAmount() > 0) {

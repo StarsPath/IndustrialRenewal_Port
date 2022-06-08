@@ -100,8 +100,12 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
         super(tileEntityTypeIn);
     }
 
-    @Override
-    public void onLoad() {
+//    @Override
+//    public void onLoad() {
+//        super.onLoad();
+//    }
+
+    public void setFirstLoad(){
         if(!level.isClientSide && isMaster()){
             TileEntitySteamTurbine masterTE = getMaster();
             Direction face = masterTE.getMasterFacing();
@@ -111,7 +115,6 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
             TileEntitySteamTurbine waterOutputTile = ((TileEntitySteamTurbine) level.getBlockEntity(getBlockPos().below().relative(face)));
             if(waterOutputTile != null) waterTank = waterOutputTile.waterTank;
         }
-        super.onLoad();
     }
 
     @Override
@@ -122,7 +125,8 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
             {
                 if(!firstLoad){
                     firstLoad = true;
-                    this.onLoad();
+                    setFirstLoad();
+                    //this.onLoad();
                 }
                 this.sync();
                 //Utils.debug("energy tile", energyStorage, energyStorage.orElse(null).getEnergyStored(), energyStorage.orElse(null).getMaxEnergyStored());

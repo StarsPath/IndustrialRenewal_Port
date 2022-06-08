@@ -118,8 +118,12 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
         return true;
     }
 
-    @Override
-    public void onLoad() {
+//    @Override
+//    public void onLoad() {
+//        super.onLoad();
+//    }
+
+    public void setFirstLoad(){
         if(!level.isClientSide && isMaster()){
             TileEntityIndustrialBatteryBank masterTE = getMaster();
             Direction face = masterTE.getMasterFacing();
@@ -145,8 +149,6 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
                 this.tower = getBase().tower;
             }
         }
-
-        super.onLoad();
     }
 
     @Override
@@ -167,7 +169,8 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
             if(!firstLoad){
                 //Utils.debug("CALLING ONLOAD");
                 firstLoad = true;
-                this.onLoad();
+                setFirstLoad();
+                //this.onLoad();
             }
             if (batteries > 0 && customEnergyStorage.getEnergyStored() > 0)
             {

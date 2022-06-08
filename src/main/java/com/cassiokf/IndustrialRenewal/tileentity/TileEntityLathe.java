@@ -99,10 +99,10 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
 
     }
 
-    @Override
-    public void onLoad() {
-        super.onLoad();
-    }
+//    @Override
+//    public void onLoad() {
+//        super.onLoad();
+//    }
 
     public void setFirstLoad(){
         TileEntityLathe masterTE = getMaster();

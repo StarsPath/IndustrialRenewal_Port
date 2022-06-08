@@ -94,8 +94,12 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
     private int particleTick;
     public boolean firstLoad = false;
 
-    @Override
-    public void onLoad() {
+//    @Override
+//    public void onLoad() {
+//        super.onLoad();
+//    }
+
+    public void setFirstLoad(){
         if(!level.isClientSide && isMaster()){
             TileEntityMiner masterTE = getMaster();
             Direction face = masterTE.getMasterFacing();
@@ -110,7 +114,6 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
                 masterTE.energyStorage = energyTile.energyStorage;
             }
         }
-        super.onLoad();
     }
 
     public TileEntityMiner()
@@ -176,7 +179,8 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
                 if(!firstLoad){
                     //Utils.debug("CALLING ONLOAD");
                     firstLoad = true;
-                    this.onLoad();
+                    setFirstLoad();
+                    //this.onLoad();
                 }
                 this.sync();
 

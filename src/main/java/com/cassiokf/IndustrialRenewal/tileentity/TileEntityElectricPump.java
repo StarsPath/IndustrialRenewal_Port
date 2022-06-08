@@ -93,12 +93,15 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
 
     @Override
     public void onLoad() {
+        super.onLoad();
+    }
+
+    public void setFirstLoad(){
         if(!level.isClientSide && getIdex() == 1){
             TileEntityElectricPump energyInputTile = (TileEntityElectricPump) level.getBlockEntity(worldPosition.relative(getBlockState().getValue(BlockElectricPump.FACING).getOpposite()));
             if(energyInputTile != null)
                 energyStorage = energyInputTile.energyStorage;
         }
-        super.onLoad();
     }
 
     @Override
@@ -107,7 +110,8 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
         {
             if(!firstLoad){
                 firstLoad = true;
-                this.onLoad();
+                setFirstLoad();
+                //this.onLoad();
             }
 
             if (isRunning = consumeEnergy())

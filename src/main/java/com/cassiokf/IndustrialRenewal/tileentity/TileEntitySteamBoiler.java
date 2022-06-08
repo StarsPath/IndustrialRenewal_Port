@@ -115,8 +115,12 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
         super(tileEntityTypeIn);
     }
 
-    @Override
-    public void onLoad() {
+//    @Override
+//    public void onLoad() {
+//        super.onLoad();
+//    }
+
+    public void setFirstLoad(){
         if(!level.isClientSide && isMaster()){
             //Utils.debug("onLoad()......");
             TileEntitySteamBoiler masterTE = getMaster();
@@ -132,7 +136,6 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
                 steamTank = steamOutputTile.steamTank;
         }
         loadFuel();
-        super.onLoad();
     }
 
     public void loadFuel(){
@@ -211,7 +214,8 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
         {
             if(!firstLoad){
                 firstLoad = true;
-                this.onLoad();
+                setFirstLoad();
+                //this.onLoad();
             }
             if(this.type == 0) fuelLoaded = false;
             if (this.type > 0)
