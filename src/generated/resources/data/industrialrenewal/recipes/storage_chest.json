@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {
-      "item": "industrialrenewal:stick_iron"
+      "tag": "forge:rods/iron"
     },
     "A": {
       "tag": "forge:chests"

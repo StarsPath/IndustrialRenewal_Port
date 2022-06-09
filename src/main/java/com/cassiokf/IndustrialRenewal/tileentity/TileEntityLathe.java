@@ -189,10 +189,10 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
         Optional<LatheRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipes.LATHE_RECIPE, inv, level);
 
         IRecipe iRecipe = recipe.orElse(null);
+        if(iRecipe == null)
+            return false;
         ItemStack resultItem = iRecipe.getResultItem();
-        if(resultItem.sameItem(outputSlot) && outputSlot.isStackable() && outputSlot.getCount() < outputSlot.getMaxStackSize())
-            return true;
-        return false;
+        return resultItem.sameItem(outputSlot) && outputSlot.isStackable() && outputSlot.getCount() < outputSlot.getMaxStackSize();
     }
 
     private void process()
@@ -235,7 +235,7 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
             hold.setStackInSlot(0, resultItem);
             //processingItem =
             //hold = resultItem;
-            Utils.debug("HOLD", hold, resultItem);
+            //Utils.debug("HOLD", hold, resultItem);
             //hold = output.insertItem(0, resultItem, false);
             inProcess = true;
         });

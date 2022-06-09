@@ -3,7 +3,7 @@
   "pattern": [
     "###",
     "AAA",
-    "B B"
+    "BCB"
   ],
   "key": {
     "#": {
@@ -14,6 +14,9 @@
     },
     "B": {
       "tag": "forge:ingots/iron"
+    },
+    "C": {
+      "tag": "forge:dusts/redstone"
     }
   },
   "result": {

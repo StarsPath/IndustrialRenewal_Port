@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:ingots/steel"
+      "tag": "forge:ingots/iron"
     },
     "A": {
       "item": "industrialrenewal:motor"
@@ -16,7 +16,7 @@
       "item": "industrialrenewal:energy_cable_lv"
     },
     "C": {
-      "item": "industrialrenewal:stick_steel"
+      "tag": "forge:rods/steel"
     }
   },
   "result": {

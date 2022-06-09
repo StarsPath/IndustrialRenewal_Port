@@ -3,7 +3,7 @@
   "pattern": [
     "ABA",
     "BBB",
-    "CDC"
+    "ADA"
   ],
   "key": {
     "A": {
@@ -11,9 +11,6 @@
     },
     "B": {
       "item": "industrialrenewal:battery"
-    },
-    "C": {
-      "item": "industrialrenewal:stick_iron"
     },
     "D": {
       "tag": "forge:dusts/redstone"

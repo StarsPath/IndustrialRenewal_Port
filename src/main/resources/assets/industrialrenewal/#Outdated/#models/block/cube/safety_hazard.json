@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "industrialrenewal:block/hazard/safety_hazard"
-  }
-}

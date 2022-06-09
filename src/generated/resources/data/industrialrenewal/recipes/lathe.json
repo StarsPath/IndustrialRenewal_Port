@@ -1,22 +1,26 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ABA",
-    "BCB",
-    "ABA"
+    "AAA",
+    "BCC",
+    "ADA"
   ],
   "key": {
     "A": {
       "tag": "forge:ingots/iron"
     },
     "B": {
-      "tag": "forge:rods/steel"
+      "item": "industrialrenewal:motor"
     },
     "C": {
       "tag": "forge:ingots/steel"
+    },
+    "D": {
+      "item": "industrialrenewal:battery_bank"
     }
   },
   "result": {
-    "item": "industrialrenewal:small_wind_blade"
+    "item": "industrialrenewal:lathe",
+    "count": 8
   }
 }

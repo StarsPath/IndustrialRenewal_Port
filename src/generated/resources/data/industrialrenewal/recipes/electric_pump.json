@@ -16,7 +16,7 @@
       "item": "industrialrenewal:motor"
     },
     "D": {
-      "item": "industrialrenewal:stick_iron"
+      "tag": "forge:rods/iron"
     }
   },
   "result": {
