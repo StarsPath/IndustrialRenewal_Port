@@ -47,6 +47,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent("lathe", modLoc("block/lathe"));
 
         withExistingParent("catwalk_pillar", modLoc("block/pillar/catwalk_pillar_base"));
+        withExistingParent("catwalk_steel_pillar", modLoc("block/pillar/catwalk_steel_pillar_base"));
+
+        withExistingParent("catwalk_column", modLoc("block/catwalk_column_base"));
+        withExistingParent("catwalk_column_steel", modLoc("block/catwalk_column_steel_base"));
 
     }
 }

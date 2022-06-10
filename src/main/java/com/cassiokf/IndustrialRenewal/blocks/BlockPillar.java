@@ -37,7 +37,8 @@ public class BlockPillar extends BlockAbstractSixWayConnections {
         Block nb = neighborState.getBlock();
         if (neighborDirection != Direction.UP && neighborDirection != Direction.DOWN)
         {
-            return false;
+            //return false;
+            return nb instanceof BlockColumn;
 //            return nb instanceof LeverBlock
 //                    || (nb instanceof BlockHVIsolator && neighborState.get(BlockHVIsolator.FACING) == neighborDirection.getOpposite())
 //                    || nb instanceof RedstoneTorchBlock
