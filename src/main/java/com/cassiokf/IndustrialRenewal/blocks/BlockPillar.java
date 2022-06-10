@@ -65,7 +65,7 @@ public class BlockPillar extends BlockAbstractSixWayConnections {
         {
             return Block.canSupportRigidBlock(worldIn, neighborPos);
         }
-        return Block.canSupportRigidBlock(worldIn, neighborPos);
+        return Block.canSupportRigidBlock(worldIn, neighborPos) || nb instanceof BlockCatwalk;
         //return false;
 //        return neighborState.isSolid() || nb instanceof BlockIndustrialFloor || nb instanceof BlockFloorLamp
 //                || nb instanceof BlockFloorPipe || nb instanceof BlockFloorCable || nb instanceof BlockCatWalk;

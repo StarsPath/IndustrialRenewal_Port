@@ -12,11 +12,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.shapes.VoxelShape;
 
 import java.util.function.BiFunction;
 
 public class IRBaseBlock extends Block{
     protected String name;
+    public static final VoxelShape NULL_SHAPE = Block.box(0, 0, 0, 0, 0, 0);
+    protected static final VoxelShape FULL_SHAPE = Block.box(0, 0, 0, 16, 16, 16);
 
     public IRBaseBlock(Properties props) {
         super(props);
