@@ -41,6 +41,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent("locker", modLoc("block/locker"));
         withExistingParent("storage_chest", modLoc("block/storage/master_chest"));
 
+
         withExistingParent("ind_battery_bank", modLoc("block/battery/ind_battery_item"));
         withExistingParent("fluid_tank", modLoc("block/tank/tank_item"));
 
@@ -54,6 +55,9 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         withExistingParent("catwalk", modLoc("block/catwalk_inventory"));
         withExistingParent("catwalk_steel", modLoc("block/catwalk_steel_inventory"));
+
+        withExistingParent("catwalk_stair", modLoc("block/catwalk_stair_inventory"));
+        withExistingParent("catwalk_stair_steel", modLoc("block/catwalk_stair_steel_inventory"));
 
     }
 }

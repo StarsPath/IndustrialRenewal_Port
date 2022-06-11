@@ -140,6 +140,12 @@ public class ModBlocks {
     public static final RegistryObject<BlockCatwalk> CATWALK_STEEL = registerBlock("catwalk_steel",
             BlockCatwalk::new);
 
+    public static final RegistryObject<BlockCatwalkStair> CATWALK_STAIR = registerBlock("catwalk_stair",
+            BlockCatwalkStair::new);
+
+    public static final RegistryObject<BlockCatwalkStair> CATWALK_STAIR_STEEL = registerBlock("catwalk_stair_steel",
+            BlockCatwalkStair::new);
+
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);
 //    public static final BlockFirstAidKit firstAidKit = new BlockFirstAidKit("firstaid_kit", References.CREATIVE_IR_TAB);
 //    public static final BlockFireExtinguisher fireExtinguisher = new BlockFireExtinguisher("fire_extinguisher", References.CREATIVE_IR_TAB);
