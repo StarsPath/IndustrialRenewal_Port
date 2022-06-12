@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
 
 public class BlockCatwalk extends BlockAbstractSixWayConnections {
 
-    protected static final VoxelShape BASE_AABB = Block.box(0, 0, 0, 16, 0.5, 16);
+    protected static final VoxelShape BASE_AABB = Block.box(0, 0, 0, 16, 2, 16);
 
     protected static final VoxelShape RNORTH_AABB = Block.box(0, 0, 0, 16, 16, 0.5);
     protected static final VoxelShape RSOUTH_AABB = Block.box(0, 0, 15.5, 16, 16, 16);
@@ -173,12 +173,12 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
                     //|| nb instanceof BlockElectricGate
                     || (nb instanceof StairsBlock && (neighborState.getValue(StairsBlock.FACING) == neighborDirection || neighborState.getValue(StairsBlock.FACING) == neighborDirection.getOpposite()))
                     || (downstate.getBlock() instanceof StairsBlock && downstate.getValue(StairsBlock.FACING) == neighborDirection.getOpposite())
-//                    || (nb instanceof BlockCatwalkHatch && neighborState.get(BlockCatwalkHatch.FACING) == neighborDirection)
-//                    || (nb instanceof BlockCatwalkGate && neighborState.get(BlockCatwalkGate.FACING) == neighborDirection.getOpposite())
+                    || (nb instanceof BlockCatwalkHatch && neighborState.getValue(BlockCatwalkHatch.FACING) == neighborDirection)
+                    || (nb instanceof BlockCatwalkGate && neighborState.getValue(BlockCatwalkGate.FACING) == neighborDirection.getOpposite())
                     || (nb instanceof BlockCatwalkStair && neighborState.getValue(BlockCatwalkStair.FACING) == neighborDirection)
                     || (downstate.getBlock() instanceof BlockCatwalkStair && downstate.getValue(BlockCatwalkStair.FACING) == neighborDirection.getOpposite())
 //                    || (downstate.getBlock() instanceof BlockCatwalkLadder && downstate.get(BlockCatwalkLadder.FACING) == neighborDirection.getOpposite())
-//                    || (nb instanceof BlockCatwalkLadder && neighborState.get(BlockCatwalkLadder.FACING) == neighborDirection && !neighborState.get(BlockCatwalkLadder.ACTIVE));
+//                    || (nb instanceof BlockCatwalkLadder && neighborState.get(BlockCatwalkLadder.FACING) == neighborDirection && !neighborState.get(BlockCatwalkLadder.ACTIVE))
             ;
         }
         if (neighborDirection == Direction.DOWN)
