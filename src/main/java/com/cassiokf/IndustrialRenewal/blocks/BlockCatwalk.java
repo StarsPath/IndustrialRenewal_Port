@@ -2,11 +2,9 @@ package com.cassiokf.IndustrialRenewal.blocks;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractSixWayConnections;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockEnergyCable;
-import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.item.ItemBlockCatwalk;
 import com.cassiokf.IndustrialRenewal.item.ItemBlockCatwalkStair;
-import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -21,11 +19,9 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nullable;
 
@@ -76,13 +72,6 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
         return super.canBeReplaced(p_196253_1_, context);
     }
 
-//    @Override
-//    public boolean canBeReplaced(BlockState state, BlockItemUseContext context) {
-//        PlayerEntity player = context.getPlayer();
-//        return (context.getItemInHand().getItem() == this.asItem() || Block.byItem(context.getItemInHand().getItem()) instanceof BlockCatwalkStair) && !player.isCrouching();
-//        //return super.canBeReplaced(state, context);
-//    }
-
     @Override
     public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
@@ -90,55 +79,15 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
             if (handIn == Hand.MAIN_HAND) {
                 Item playerItem = player.getMainHandItem().getItem();
                 if (playerItem.equals(ModItems.screwDrive)) {
-                    //Utils.debug("Hit Location", hit.getLocation());
                     Vector3d hitQuad = hit.getLocation().subtract(Vector3d.atCenterOf(pos));
-                    //Utils.debug("hitQuad", quadToDir(hitQuad), hitQuad);
-
                     if (hit.getDirection() == Direction.UP)
                         state = state.cycle(quadToDir(hitQuad));
                     else
                         state = state.cycle(getBooleanProperty(hit.getDirection()));
 
                     worldIn.setBlock(pos, state, 2);
-//                TileEntityCatWalk te = (TileEntityCatWalk) worldIn.getTileEntity(pos);
-//                if (te != null)
-//                {
-//                    te.toggleFacing(hit.getFace());
-//                    if (!worldIn.isRemote) ItemPowerScrewDrive.playDrillSound(worldIn, pos);
-//                    worldIn.setBlockState(pos, updatePostPlacement(state, hit.getFace(), null, worldIn, pos, null));
                     return ActionResultType.SUCCESS;
-//                }
                 }
-//                BlockPos posOffset = pos.relative(player.getDirection());
-//                BlockState stateOffset = worldIn.getBlockState(posOffset);
-//
-//                BlockCatwalk catwalk = playerItem.equals(ModBlocks.CATWALK.get().asItem()) ? ModBlocks.CATWALK.get() : (playerItem.equals(ModBlocks.CATWALK_STEEL.get().asItem()) ? ModBlocks.CATWALK_STEEL.get() : null);
-//                BlockCatwalkStair catwalk_stair = playerItem.equals(ModBlocks.CATWALK_STAIR.get().asItem()) ? ModBlocks.CATWALK_STAIR.get() : (playerItem.equals(ModBlocks.CATWALK_STAIR_STEEL.get().asItem()) ? ModBlocks.CATWALK_STAIR_STEEL.get() : null);
-//
-//                if (catwalk != null) {
-//                    if (hit.getDirection() == Direction.UP) {
-//                        if (stateOffset.getMaterial().isReplaceable()) {
-//                            worldIn.setBlockAndUpdate(posOffset, catwalk.defaultBlockState());
-//                            worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
-//                            if (!player.isCreative()) {
-//                                //player.getHeldItemMainhand().shrink(1);
-//                                player.getMainHandItem().shrink(1);
-//                            }
-//                            return ActionResultType.SUCCESS;
-//                        }
-//                    }
-//                }
-//                else if(catwalk_stair != null){
-//                    if (stateOffset.getMaterial().isReplaceable()) {
-//                        worldIn.setBlockAndUpdate(posOffset, catwalk_stair.getStateForPlacement(worldIn, posOffset, player.getDirection()));
-//                        worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
-//                        if (!player.isCreative()) {
-//                            //player.getHeldItemMainhand().shrink(1);
-//                            player.getMainHandItem().shrink(1);
-//                        }
-//                        return ActionResultType.SUCCESS;
-//                    }
-//                }
             }
         }
         return ActionResultType.PASS;
@@ -170,9 +119,6 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
 
     protected boolean isValidConnection(final BlockState neighborState, final IBlockReader world, final BlockPos ownPos, final Direction neighborDirection)
     {
-//        TileEntityCatWalk te = (TileEntityCatWalk) world.getTileEntity(ownPos);
-//        if (te != null && te.isFacingBlackListed(neighborDirection)) return true;
-
         BlockState downstate = world.getBlockState(ownPos.relative(neighborDirection).below());
         Block nb = neighborState.getBlock();
 
@@ -187,15 +133,14 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
                     || (nb instanceof BlockCatwalkGate && neighborState.getValue(BlockCatwalkGate.FACING) == neighborDirection.getOpposite())
                     || (nb instanceof BlockCatwalkStair && neighborState.getValue(BlockCatwalkStair.FACING) == neighborDirection)
                     || (downstate.getBlock() instanceof BlockCatwalkStair && downstate.getValue(BlockCatwalkStair.FACING) == neighborDirection.getOpposite())
-//                    || (downstate.getBlock() instanceof BlockCatwalkLadder && downstate.get(BlockCatwalkLadder.FACING) == neighborDirection.getOpposite())
-//                    || (nb instanceof BlockCatwalkLadder && neighborState.get(BlockCatwalkLadder.FACING) == neighborDirection && !neighborState.get(BlockCatwalkLadder.ACTIVE))
+                    || (downstate.getBlock() instanceof BlockCatwalkLadder && downstate.getValue(BlockCatwalkLadder.FACING) == neighborDirection.getOpposite())
+                    || (nb instanceof BlockCatwalkLadder && neighborState.getValue(BlockCatwalkLadder.FACING) == neighborDirection && !neighborState.getValue(BlockCatwalkLadder.ACTIVE))
             ;
         }
         if (neighborDirection == Direction.DOWN)
         {
-            return nb instanceof LadderBlock
-//            return nb instanceof BlockCatwalkLadder
-//                    || nb instanceof LadderBlock
+            return nb instanceof BlockCatwalkLadder
+                    || nb instanceof LadderBlock
 //                    || nb instanceof BlockIndustrialFloor || nb instanceof BlockFloorCable || nb instanceof BlockFloorPipe
                     || nb instanceof BlockCatwalk;
         }
@@ -220,26 +165,6 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
     {
         VoxelShape SHAPE = NULL_SHAPE;
         SHAPE = VoxelShapes.or(SHAPE, BASE_AABB);
-//        if (isConnected(state, Direction.DOWN))
-//        {
-//            SHAPE = VoxelShapes.or(SHAPE, BASE_AABB);
-//        }
-//        if (isConnected(state, Direction.NORTH))
-//        {
-//            SHAPE = VoxelShapes.or(SHAPE, RNORTH_AABB);
-//        }
-//        if (isConnected(state, Direction.SOUTH))
-//        {
-//            SHAPE = VoxelShapes.or(SHAPE, RSOUTH_AABB);
-//        }
-//        if (isConnected(state, Direction.WEST))
-//        {
-//            SHAPE = VoxelShapes.or(SHAPE, RWEST_AABB);
-//        }
-//        if (isConnected(state, Direction.EAST))
-//        {
-//            SHAPE = VoxelShapes.or(SHAPE, REAST_AABB);
-//        }
         return SHAPE;
     }
 
@@ -278,7 +203,6 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
 
     @Override
     public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos neighbor, boolean flag) {
-        //Utils.debug("neighbor changed", state, world, pos, block, neighbor, flag);
         for (Direction face : Direction.values())
         {
             state = state.setValue(getPropertyBasedOnDirection(face), canConnectTo(world, pos, face));

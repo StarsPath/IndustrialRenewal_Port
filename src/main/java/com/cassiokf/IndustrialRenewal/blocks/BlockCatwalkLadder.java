@@ -1,17 +1,24 @@
 package com.cassiokf.IndustrialRenewal.blocks;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractHorizontalFacingWithActivating;
+import com.cassiokf.IndustrialRenewal.init.ModItems;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.Item;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -40,6 +47,26 @@ public class BlockCatwalkLadder extends BlockAbstractHorizontalFacingWithActivat
     {
         super(Block.Properties.of(Material.METAL));
         registerDefaultState(defaultBlockState().setValue(DOWN, false).setValue(ACTIVE, true));
+    }
+
+    @Override
+    public boolean canBeReplaced(BlockState p_196253_1_, BlockItemUseContext context) {
+        if(!context.getPlayer().isCrouching())
+            return context.getItemInHand().getItem() == this.asItem();
+        return super.canBeReplaced(p_196253_1_, context);
+    }
+
+    @Override
+    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if(!worldIn.isClientSide) {
+            if (handIn == Hand.MAIN_HAND) {
+                Item playerItem = player.getMainHandItem().getItem();
+                if (playerItem.equals(ModItems.screwDrive)) {
+                    return super.use(state, worldIn, pos, player, handIn, hit);
+                }
+            }
+        }
+        return ActionResultType.PASS;
     }
 
     @Override

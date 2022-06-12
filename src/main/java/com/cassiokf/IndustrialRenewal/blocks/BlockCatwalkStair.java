@@ -60,10 +60,8 @@ public class BlockCatwalkStair extends BlockAbstractHorizontalFacing {
 
     @Override
     public boolean canBeReplaced(BlockState state, BlockItemUseContext context) {
-        //PlayerEntity player = context.getPlayer();
         if(!context.getPlayer().isCrouching())
             return context.getItemInHand().getItem() instanceof ItemBlockCatwalkStair || context.getItemInHand().getItem() instanceof ItemBlockCatwalk;
-        // || Block.byItem(context.getItemInHand().getItem()) instanceof BlockCatwalk) && !player.isCrouching();
         return super.canBeReplaced(state, context);
     }
 
@@ -82,29 +80,6 @@ public class BlockCatwalkStair extends BlockAbstractHorizontalFacing {
 
                 BlockCatwalkStair catwalk_stair = playerItem.equals(ModBlocks.CATWALK_STAIR.get().asItem()) ? ModBlocks.CATWALK_STAIR.get() : (playerItem.equals(ModBlocks.CATWALK_STAIR_STEEL.get().asItem()) ? ModBlocks.CATWALK_STAIR_STEEL.get() : null);
                 BlockCatwalk catwalk = playerItem.equals(ModBlocks.CATWALK.get().asItem()) ? ModBlocks.CATWALK.get() : (playerItem.equals(ModBlocks.CATWALK_STEEL.get().asItem()) ? ModBlocks.CATWALK_STEEL.get() : null);
-
-//                if (catwalk_stair != null) {
-//                    if (stateOffset.getMaterial().isReplaceable()) {
-//                        worldIn.setBlockAndUpdate(posOffset, catwalk_stair.defaultBlockState().setValue(FACING, state.getValue(FACING)));
-//                        worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
-//                        if (!player.isCreative()) {
-//                            //player.getHeldItemMainhand().shrink(1);
-//                            player.getMainHandItem().shrink(1);
-//                        }
-//                        return ActionResultType.SUCCESS;
-//                    }
-//                }
-//                else if(catwalk != null){
-//                    if (stateOffset.getMaterial().isReplaceable()) {
-//                        worldIn.setBlockAndUpdate(posOffset, catwalk.getStateForPlacement(worldIn, posOffset));
-//                        worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
-//                        if (!player.isCreative()) {
-//                            //player.getHeldItemMainhand().shrink(1);
-//                            player.getMainHandItem().shrink(1);
-//                        }
-//                        return ActionResultType.SUCCESS;
-//                    }
-//                }
             }
         }
         return ActionResultType.PASS;
@@ -136,9 +111,6 @@ public class BlockCatwalkStair extends BlockAbstractHorizontalFacing {
     private Boolean sideConnected(BlockState state, IBlockReader world, BlockPos pos, Direction direction)
     {
         Direction face = state.getValue(FACING);
-//        TileEntityCatWalkStair te = (TileEntityCatWalkStair) world.getTileEntity(pos);
-//        if (te != null && te.isFacingBlackListed(direction)) return false;
-
         BlockPos posOffset = pos.relative(direction);
         BlockState stateOffset = world.getBlockState(posOffset);
 
@@ -240,10 +212,8 @@ public class BlockCatwalkStair extends BlockAbstractHorizontalFacing {
 
     @Override
     public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos neighbor, boolean flag) {
-        //Utils.debug("neighbor changed", state, world, pos, block, neighbor, flag);
         state = state.setValue(ACTIVE_LEFT, sideConnected(state, world, pos, state.getValue(FACING).getCounterClockWise()))
                 .setValue(ACTIVE_RIGHT, sideConnected(state, world, pos, state.getValue(FACING).getClockWise()));
-        //Utils.debug("new state", state);
         world.setBlock(pos, state, 2);
         super.neighborChanged(state, world, pos, block, neighbor, flag);
     }

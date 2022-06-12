@@ -1,5 +1,7 @@
 package com.cassiokf.IndustrialRenewal.item;
 
+import com.cassiokf.IndustrialRenewal.blocks.BlockCatwalk;
+import com.cassiokf.IndustrialRenewal.blocks.BlockCatwalkLadder;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,8 +20,8 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class ItemBlockPillar extends BlockItem {
-    public ItemBlockPillar(Block block, Properties props) {
+public class ItemBlockCatwalkLadder extends BlockItem {
+    public ItemBlockCatwalkLadder(Block block, Properties props) {
         super(block, props);
     }
 
@@ -31,13 +33,11 @@ public class ItemBlockPillar extends BlockItem {
         BlockState state = world.getBlockState(pos);
         Block block = this.getBlock();
 
-        if (!state.is(block) || context.getPlayer().isCrouching()) {
+        if(context.getPlayer().isCrouching()){
             return context;
         }
-        else{
+        else if(state.getBlock() instanceof BlockCatwalkLadder){
             Direction direction = Direction.UP;
-            //int i = 0;
-
             BlockPos.Mutable blockpos$mutable = pos.mutable().move(direction);
 
             while(true) {
@@ -61,11 +61,10 @@ public class ItemBlockPillar extends BlockItem {
                 }
 
                 blockpos$mutable.move(direction);
-//                if (direction.getAxis().isHorizontal()) {
-//                    ++i;
-//                }
             }
         }
+
+
         return super.updatePlacementContext(context);
     }
 }

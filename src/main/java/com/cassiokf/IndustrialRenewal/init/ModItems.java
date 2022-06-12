@@ -3,6 +3,7 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.item.*;
+import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -101,6 +102,15 @@ public class ModItems {
 
     public static final RegistryObject<BlockItem> CATWALK_STEEL_STAIR = ITEMS.register("catwalk_stair_steel",
             ()-> new ItemBlockCatwalkStair(ModBlocks.CATWALK_STAIR_STEEL.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> CATWALK_LADDER = ITEMS.register("catwalk_ladder",
+            ()-> new ItemBlockCatwalkLadder(ModBlocks.CATWALK_LADDER.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> CATWALK_LADDER_STEEL = ITEMS.register("catwalk_ladder_steel",
+            ()-> new ItemBlockCatwalkLadder(ModBlocks.CATWALK_LADDER_STEEL.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> PLATFORM = ITEMS.register("platform",
+            ()-> new ItemBlockPlatform(ModBlocks.PLATFORM.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
 
     static {
         ingotSteel = new IRBaseItem("ingot_steel", industrialrenewal.IR_TAB);

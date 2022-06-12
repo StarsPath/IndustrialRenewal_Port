@@ -2,8 +2,8 @@
   "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
   "textures": {
     "0": "industrialrenewal:block/pipe",
-    "1": "block/anvil_base",
-    "2": "block/planks_oak"
+    "1": "industrialrenewal:block/anvil_base",
+    "2": "block/oak_planks"
   },
   "display": {
     "gui": {

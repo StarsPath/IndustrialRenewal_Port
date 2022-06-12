@@ -153,13 +153,16 @@ public class ModBlocks {
             BlockHandRail::new);
 
     public static final RegistryObject<BlockCatwalkLadder> CATWALK_LADDER = registerBlock("catwalk_ladder",
-            BlockCatwalkLadder::new);
+            BlockCatwalkLadder::new, false);
 
     public static final RegistryObject<BlockCatwalkLadder> CATWALK_LADDER_STEEL = registerBlock("catwalk_ladder_steel",
-            BlockCatwalkLadder::new);
+            BlockCatwalkLadder::new, false);
 
     public static final RegistryObject<BlockFrame> FRAME = registerBlock("frame",
             BlockFrame::new);
+
+    public static final RegistryObject<BlockPlatform> PLATFORM = registerBlock("platform",
+            BlockPlatform::new, false);
 
     public static final RegistryObject<BlockCatwalkGate> CATWALK_GATE = registerBlock("catwalk_gate",
             BlockCatwalkGate::new);
