@@ -90,6 +90,18 @@ public class ModItems {
     public static final RegistryObject<BlockItem> PILLAR_STEEL = ITEMS.register("catwalk_steel_pillar",
             ()-> new ItemBlockPillar(ModBlocks.PILLAR_STEEL.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
 
+    public static final RegistryObject<BlockItem> CATWALK = ITEMS.register("catwalk",
+            ()-> new ItemBlockCatwalk(ModBlocks.CATWALK.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> CATWALK_STEEL = ITEMS.register("catwalk_steel",
+            ()-> new ItemBlockCatwalk(ModBlocks.CATWALK_STEEL.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> CATWALK_STAIR = ITEMS.register("catwalk_stair",
+            ()-> new ItemBlockCatwalkStair(ModBlocks.CATWALK_STAIR.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> CATWALK_STEEL_STAIR = ITEMS.register("catwalk_stair_steel",
+            ()-> new ItemBlockCatwalkStair(ModBlocks.CATWALK_STAIR_STEEL.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
+
     static {
         ingotSteel = new IRBaseItem("ingot_steel", industrialrenewal.IR_TAB);
         stickIron = new IRBaseItem("stick_iron", industrialrenewal.IR_TAB);

@@ -3,6 +3,8 @@ package com.cassiokf.IndustrialRenewal.blocks;
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractHorizontalFacing;
 import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
+import com.cassiokf.IndustrialRenewal.item.ItemBlockCatwalk;
+import com.cassiokf.IndustrialRenewal.item.ItemBlockCatwalkStair;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -56,13 +58,14 @@ public class BlockCatwalkStair extends BlockAbstractHorizontalFacing {
         super(Block.Properties.of(Material.METAL));
     }
 
-//    @Override
-//    public boolean canBeReplaced(BlockState state, BlockItemUseContext context) {
-//        Utils.debug("can Replace", Block.byItem(context.getItemInHand().getItem()) instanceof BlockCatwalk);
-//        PlayerEntity player = context.getPlayer();
-//        return (context.getItemInHand().getItem() == this.asItem() || Block.byItem(context.getItemInHand().getItem()) instanceof BlockCatwalk) && !player.isCrouching();
-//        //return super.canBeReplaced(state, context);
-//    }
+    @Override
+    public boolean canBeReplaced(BlockState state, BlockItemUseContext context) {
+        //PlayerEntity player = context.getPlayer();
+        if(!context.getPlayer().isCrouching())
+            return context.getItemInHand().getItem() instanceof ItemBlockCatwalkStair || context.getItemInHand().getItem() instanceof ItemBlockCatwalk;
+        // || Block.byItem(context.getItemInHand().getItem()) instanceof BlockCatwalk) && !player.isCrouching();
+        return super.canBeReplaced(state, context);
+    }
 
     @Override
     public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
@@ -80,28 +83,28 @@ public class BlockCatwalkStair extends BlockAbstractHorizontalFacing {
                 BlockCatwalkStair catwalk_stair = playerItem.equals(ModBlocks.CATWALK_STAIR.get().asItem()) ? ModBlocks.CATWALK_STAIR.get() : (playerItem.equals(ModBlocks.CATWALK_STAIR_STEEL.get().asItem()) ? ModBlocks.CATWALK_STAIR_STEEL.get() : null);
                 BlockCatwalk catwalk = playerItem.equals(ModBlocks.CATWALK.get().asItem()) ? ModBlocks.CATWALK.get() : (playerItem.equals(ModBlocks.CATWALK_STEEL.get().asItem()) ? ModBlocks.CATWALK_STEEL.get() : null);
 
-                if (catwalk_stair != null) {
-                    if (stateOffset.getMaterial().isReplaceable()) {
-                        worldIn.setBlockAndUpdate(posOffset, catwalk_stair.defaultBlockState().setValue(FACING, state.getValue(FACING)));
-                        worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
-                        if (!player.isCreative()) {
-                            //player.getHeldItemMainhand().shrink(1);
-                            player.getMainHandItem().shrink(1);
-                        }
-                        return ActionResultType.SUCCESS;
-                    }
-                }
-                else if(catwalk != null){
-                    if (stateOffset.getMaterial().isReplaceable()) {
-                        worldIn.setBlockAndUpdate(posOffset, catwalk.getStateForPlacement(worldIn, posOffset));
-                        worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
-                        if (!player.isCreative()) {
-                            //player.getHeldItemMainhand().shrink(1);
-                            player.getMainHandItem().shrink(1);
-                        }
-                        return ActionResultType.SUCCESS;
-                    }
-                }
+//                if (catwalk_stair != null) {
+//                    if (stateOffset.getMaterial().isReplaceable()) {
+//                        worldIn.setBlockAndUpdate(posOffset, catwalk_stair.defaultBlockState().setValue(FACING, state.getValue(FACING)));
+//                        worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
+//                        if (!player.isCreative()) {
+//                            //player.getHeldItemMainhand().shrink(1);
+//                            player.getMainHandItem().shrink(1);
+//                        }
+//                        return ActionResultType.SUCCESS;
+//                    }
+//                }
+//                else if(catwalk != null){
+//                    if (stateOffset.getMaterial().isReplaceable()) {
+//                        worldIn.setBlockAndUpdate(posOffset, catwalk.getStateForPlacement(worldIn, posOffset));
+//                        worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
+//                        if (!player.isCreative()) {
+//                            //player.getHeldItemMainhand().shrink(1);
+//                            player.getMainHandItem().shrink(1);
+//                        }
+//                        return ActionResultType.SUCCESS;
+//                    }
+//                }
             }
         }
         return ActionResultType.PASS;
@@ -156,7 +159,25 @@ public class BlockCatwalkStair extends BlockAbstractHorizontalFacing {
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
-        return getVoxelShape(state, true);
+        VoxelShape FINAL_SHAPE = BASE_AABB;
+
+        Direction face = state.getValue(FACING);
+        Boolean left = state.getValue(ACTIVE_LEFT);
+        Boolean right = state.getValue(ACTIVE_RIGHT);
+        if (face == Direction.NORTH)
+        {
+            FINAL_SHAPE = VoxelShapes.or(FINAL_SHAPE, NORTH_AABB);
+        }
+        if (face == Direction.SOUTH) {
+            FINAL_SHAPE = VoxelShapes.or(FINAL_SHAPE, SOUTH_AABB);
+        }
+        if (face == Direction.WEST) {
+            FINAL_SHAPE = VoxelShapes.or(FINAL_SHAPE, WEST_AABB);
+        }
+        if (face == Direction.EAST) {
+            FINAL_SHAPE = VoxelShapes.or(FINAL_SHAPE, EAST_AABB);
+        }
+        return FINAL_SHAPE;
     }
 
     @Override
@@ -223,7 +244,7 @@ public class BlockCatwalkStair extends BlockAbstractHorizontalFacing {
         state = state.setValue(ACTIVE_LEFT, sideConnected(state, world, pos, state.getValue(FACING).getCounterClockWise()))
                 .setValue(ACTIVE_RIGHT, sideConnected(state, world, pos, state.getValue(FACING).getClockWise()));
         //Utils.debug("new state", state);
-        world.setBlockAndUpdate(pos, state);
+        world.setBlock(pos, state, 2);
         super.neighborChanged(state, world, pos, block, neighbor, flag);
     }
 

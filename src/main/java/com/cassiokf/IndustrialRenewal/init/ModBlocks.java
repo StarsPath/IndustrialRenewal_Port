@@ -135,16 +135,16 @@ public class ModBlocks {
             BlockColumn::new);
 
     public static final RegistryObject<BlockCatwalk> CATWALK = registerBlock("catwalk",
-            BlockCatwalk::new);
+            BlockCatwalk::new, false);
 
     public static final RegistryObject<BlockCatwalk> CATWALK_STEEL = registerBlock("catwalk_steel",
-            BlockCatwalk::new);
+            BlockCatwalk::new, false);
 
     public static final RegistryObject<BlockCatwalkStair> CATWALK_STAIR = registerBlock("catwalk_stair",
-            BlockCatwalkStair::new);
+            BlockCatwalkStair::new, false);
 
     public static final RegistryObject<BlockCatwalkStair> CATWALK_STAIR_STEEL = registerBlock("catwalk_stair_steel",
-            BlockCatwalkStair::new);
+            BlockCatwalkStair::new, false);
 
     public static final RegistryObject<BlockHandRail> HANDRAIL = registerBlock("handrail",
             BlockHandRail::new);

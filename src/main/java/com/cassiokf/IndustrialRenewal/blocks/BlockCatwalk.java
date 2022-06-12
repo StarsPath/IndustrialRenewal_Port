@@ -4,6 +4,8 @@ import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractSixWayConnec
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockEnergyCable;
 import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
+import com.cassiokf.IndustrialRenewal.item.ItemBlockCatwalk;
+import com.cassiokf.IndustrialRenewal.item.ItemBlockCatwalkStair;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -66,6 +68,14 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
         return state;
     }
 
+    @Override
+    public boolean canBeReplaced(BlockState p_196253_1_, BlockItemUseContext context) {
+        if(!context.getPlayer().isCrouching())
+            return context.getItemInHand().getItem() instanceof ItemBlockCatwalk || context.getItemInHand().getItem() instanceof ItemBlockCatwalkStair;
+        //context.getItemInHand().getItem() == this.asItem();// || Block.byItem(context.getItemInHand().getItem()) instanceof BlockCatwalkStair;
+        return super.canBeReplaced(p_196253_1_, context);
+    }
+
 //    @Override
 //    public boolean canBeReplaced(BlockState state, BlockItemUseContext context) {
 //        PlayerEntity player = context.getPlayer();
@@ -99,36 +109,36 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
                     return ActionResultType.SUCCESS;
 //                }
                 }
-                BlockPos posOffset = pos.relative(player.getDirection());
-                BlockState stateOffset = worldIn.getBlockState(posOffset);
-
-                BlockCatwalk catwalk = playerItem.equals(ModBlocks.CATWALK.get().asItem()) ? ModBlocks.CATWALK.get() : (playerItem.equals(ModBlocks.CATWALK_STEEL.get().asItem()) ? ModBlocks.CATWALK_STEEL.get() : null);
-                BlockCatwalkStair catwalk_stair = playerItem.equals(ModBlocks.CATWALK_STAIR.get().asItem()) ? ModBlocks.CATWALK_STAIR.get() : (playerItem.equals(ModBlocks.CATWALK_STAIR_STEEL.get().asItem()) ? ModBlocks.CATWALK_STAIR_STEEL.get() : null);
-
-                if (catwalk != null) {
-                    if (hit.getDirection() == Direction.UP) {
-                        if (stateOffset.getMaterial().isReplaceable()) {
-                            worldIn.setBlockAndUpdate(posOffset, catwalk.defaultBlockState());
-                            worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
-                            if (!player.isCreative()) {
-                                //player.getHeldItemMainhand().shrink(1);
-                                player.getMainHandItem().shrink(1);
-                            }
-                            return ActionResultType.SUCCESS;
-                        }
-                    }
-                }
-                else if(catwalk_stair != null){
-                    if (stateOffset.getMaterial().isReplaceable()) {
-                        worldIn.setBlockAndUpdate(posOffset, catwalk_stair.getStateForPlacement(worldIn, posOffset, player.getDirection()));
-                        worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
-                        if (!player.isCreative()) {
-                            //player.getHeldItemMainhand().shrink(1);
-                            player.getMainHandItem().shrink(1);
-                        }
-                        return ActionResultType.SUCCESS;
-                    }
-                }
+//                BlockPos posOffset = pos.relative(player.getDirection());
+//                BlockState stateOffset = worldIn.getBlockState(posOffset);
+//
+//                BlockCatwalk catwalk = playerItem.equals(ModBlocks.CATWALK.get().asItem()) ? ModBlocks.CATWALK.get() : (playerItem.equals(ModBlocks.CATWALK_STEEL.get().asItem()) ? ModBlocks.CATWALK_STEEL.get() : null);
+//                BlockCatwalkStair catwalk_stair = playerItem.equals(ModBlocks.CATWALK_STAIR.get().asItem()) ? ModBlocks.CATWALK_STAIR.get() : (playerItem.equals(ModBlocks.CATWALK_STAIR_STEEL.get().asItem()) ? ModBlocks.CATWALK_STAIR_STEEL.get() : null);
+//
+//                if (catwalk != null) {
+//                    if (hit.getDirection() == Direction.UP) {
+//                        if (stateOffset.getMaterial().isReplaceable()) {
+//                            worldIn.setBlockAndUpdate(posOffset, catwalk.defaultBlockState());
+//                            worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
+//                            if (!player.isCreative()) {
+//                                //player.getHeldItemMainhand().shrink(1);
+//                                player.getMainHandItem().shrink(1);
+//                            }
+//                            return ActionResultType.SUCCESS;
+//                        }
+//                    }
+//                }
+//                else if(catwalk_stair != null){
+//                    if (stateOffset.getMaterial().isReplaceable()) {
+//                        worldIn.setBlockAndUpdate(posOffset, catwalk_stair.getStateForPlacement(worldIn, posOffset, player.getDirection()));
+//                        worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
+//                        if (!player.isCreative()) {
+//                            //player.getHeldItemMainhand().shrink(1);
+//                            player.getMainHandItem().shrink(1);
+//                        }
+//                        return ActionResultType.SUCCESS;
+//                    }
+//                }
             }
         }
         return ActionResultType.PASS;
@@ -273,7 +283,7 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
         {
             state = state.setValue(getPropertyBasedOnDirection(face), canConnectTo(world, pos, face));
         }
-        world.setBlockAndUpdate(pos, state);
+        world.setBlock(pos, state, 2);
         super.neighborChanged(state, world, pos, block, neighbor, flag);
     }
 }
