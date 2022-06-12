@@ -123,10 +123,10 @@ public class ModBlocks {
 
 
     public static final RegistryObject<BlockPillar> PILLAR = registerBlock("catwalk_pillar",
-            BlockPillar::new);
+            BlockPillar::new, false);
 
     public static final RegistryObject<BlockPillar> PILLAR_STEEL = registerBlock("catwalk_steel_pillar",
-            BlockPillar::new);
+            BlockPillar::new, false);
 
     public static final RegistryObject<BlockColumn> COLUMN = registerBlock("catwalk_column",
             BlockColumn::new);
@@ -151,6 +151,12 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockHandRail> HANDRAIL_STEEL = registerBlock("handrail_steel",
             BlockHandRail::new);
+
+    public static final RegistryObject<BlockCatwalkLadder> CATWALK_LADDER = registerBlock("catwalk_ladder",
+            BlockCatwalkLadder::new);
+
+    public static final RegistryObject<BlockCatwalkLadder> CATWALK_LADDER_STEEL = registerBlock("catwalk_ladder_steel",
+            BlockCatwalkLadder::new);
 
     public static final RegistryObject<BlockFrame> FRAME = registerBlock("frame",
             BlockFrame::new);

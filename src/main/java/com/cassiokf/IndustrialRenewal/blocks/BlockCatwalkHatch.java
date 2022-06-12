@@ -17,10 +17,10 @@ public class BlockCatwalkHatch extends BlockAbstractHorizontalFacingWithActivati
 
     protected static final VoxelShape RDOWN_AABB = Block.box(0, 0, 0, 16, 3, 16);
 
-    protected static final VoxelShape OPEN_NORTH_AABB = Block.box(0, 0, 0, 16, 16, 2);
-    protected static final VoxelShape OPEN_SOUTH_AABB = Block.box(0, 0, 14, 16, 16, 16);
-    protected static final VoxelShape OPEN_WEST_AABB = Block.box(0, 0, 0, 2, 16, 16);
-    protected static final VoxelShape OPEN_EAST_AABB = Block.box(14, 0, 0, 16, 16, 16);
+    protected static final VoxelShape OPEN_NORTH_AABB = Block.box(0, 0, 0, 16, 16, 3);
+    protected static final VoxelShape OPEN_SOUTH_AABB = Block.box(0, 0, 13, 16, 16, 16);
+    protected static final VoxelShape OPEN_WEST_AABB = Block.box(0, 0, 0, 3, 16, 16);
+    protected static final VoxelShape OPEN_EAST_AABB = Block.box(13, 0, 0, 16, 16, 16);
 
     public BlockCatwalkHatch(Properties properties) {
         super(properties);
@@ -51,12 +51,16 @@ public class BlockCatwalkHatch extends BlockAbstractHorizontalFacingWithActivati
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
-        return RDOWN_AABB;
+        return getVoxcelShape(state);
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
+        return getVoxcelShape(state);
+    }
+
+    public VoxelShape getVoxcelShape(BlockState state){
         if (state.getValue(ACTIVE))
         {
             Direction direction = state.getValue(FACING);

@@ -5,11 +5,15 @@ import com.cassiokf.IndustrialRenewal.util.Utils;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
@@ -31,6 +35,13 @@ public class BlockPillar extends BlockAbstractSixWayConnections {
     }
 
     @Override
+    public boolean canBeReplaced(BlockState p_196253_1_, BlockItemUseContext context) {
+        if(!context.getPlayer().isCrouching())
+            return context.getItemInHand().getItem() == this.asItem();
+        return super.canBeReplaced(p_196253_1_, context);
+    }
+
+    @Override
     public boolean canConnectTo(IWorld worldIn, BlockPos currentPos, Direction neighborDirection) {
         final BlockPos neighborPos = currentPos.relative(neighborDirection);
         final BlockState neighborState = worldIn.getBlockState(neighborPos);
@@ -38,14 +49,14 @@ public class BlockPillar extends BlockAbstractSixWayConnections {
         if (neighborDirection != Direction.UP && neighborDirection != Direction.DOWN)
         {
             //return false;
-            return nb instanceof BlockColumn;
-//            return nb instanceof LeverBlock
+//            return nb instanceof BlockColumn
+            return nb instanceof LeverBlock
 //                    || (nb instanceof BlockHVIsolator && neighborState.get(BlockHVIsolator.FACING) == neighborDirection.getOpposite())
-//                    || nb instanceof RedstoneTorchBlock
-//                    || nb instanceof TripWireHookBlock
-//                    || nb instanceof BlockColumn
+                    || nb instanceof RedstoneTorchBlock
+                    || nb instanceof TripWireHookBlock
+                    || nb instanceof BlockColumn
 //                    || (nb instanceof BlockCableTray && neighborState.get(BlockCableTray.BASE).equals(EnumBaseDirection.byIndex(neighborDirection.getOpposite().getIndex())))
-//                    || nb instanceof LadderBlock
+                    || nb instanceof LadderBlock
 //                    || (nb instanceof BlockLight && neighborState.get(BlockLight.FACING) == neighborDirection.getOpposite())
 //                    || nb instanceof BlockRoof
 //                    || (nb instanceof BlockBrace && Objects.equals(neighborState.get(BlockBrace.FACING).getName(), neighborDirection.getOpposite().getName()))
@@ -59,6 +70,7 @@ public class BlockPillar extends BlockAbstractSixWayConnections {
 //                    //start Industrial floor side connection
 //                    || nb instanceof BlockIndustrialFloor || nb instanceof BlockFloorLamp
 //                    || nb instanceof BlockFloorPipe || nb instanceof BlockFloorCable;
+            ;
             //end
         }
         if (neighborDirection == Direction.DOWN)

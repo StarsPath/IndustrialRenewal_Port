@@ -84,6 +84,12 @@ public class ModItems {
     public static final RegistryObject<BlockItem> BARREL = ITEMS.register("barrel",
             ()-> new ItemBarrel(ModBlocks.BARREL.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
 
+    public static final RegistryObject<BlockItem> PILLAR = ITEMS.register("catwalk_pillar",
+            ()-> new ItemBlockPillar(ModBlocks.PILLAR.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> PILLAR_STEEL = ITEMS.register("catwalk_steel_pillar",
+            ()-> new ItemBlockPillar(ModBlocks.PILLAR_STEEL.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
+
     static {
         ingotSteel = new IRBaseItem("ingot_steel", industrialrenewal.IR_TAB);
         stickIron = new IRBaseItem("stick_iron", industrialrenewal.IR_TAB);
