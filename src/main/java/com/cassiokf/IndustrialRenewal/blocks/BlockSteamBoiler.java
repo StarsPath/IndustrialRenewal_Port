@@ -84,7 +84,7 @@ public class BlockSteamBoiler extends Block3x3x3Base<TileEntitySteamBoiler> {
     @Override
     public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult p_225533_6_) {
         TileEntitySteamBoiler tile = (TileEntitySteamBoiler) worldIn.getBlockEntity(pos);
-        Utils.debug("right clicked on tile", tile);
+        //Utils.debug("right clicked on tile", tile);
         if(tile == null) return ActionResultType.FAIL;
         tile = tile.getMaster();
 //        IItemHandler itemHandler = tile.getFireBoxHandler();

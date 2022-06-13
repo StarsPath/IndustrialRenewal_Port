@@ -112,6 +112,10 @@ public class ModItems {
     public static final RegistryObject<BlockItem> PLATFORM = ITEMS.register("platform",
             ()-> new ItemBlockPlatform(ModBlocks.PLATFORM.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
 
+    public static final RegistryObject<BlockItem> SCAFFOLD = ITEMS.register("scaffold",
+            ()-> new ItemBlockScaffold(ModBlocks.SCAFFOLD.get(), new Item.Properties().tab(industrialrenewal.IR_TAB)));
+
+
     static {
         ingotSteel = new IRBaseItem("ingot_steel", industrialrenewal.IR_TAB);
         stickIron = new IRBaseItem("stick_iron", industrialrenewal.IR_TAB);

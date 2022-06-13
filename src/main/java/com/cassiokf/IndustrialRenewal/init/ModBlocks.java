@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.init;
 
+import com.cassiokf.IndustrialRenewal.blocks.BlockScaffold;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.blocks.*;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockEnergyCable;
@@ -163,6 +164,9 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockPlatform> PLATFORM = registerBlock("platform",
             BlockPlatform::new, false);
+
+    public static final RegistryObject<BlockScaffold> SCAFFOLD = registerBlock("scaffold",
+            BlockScaffold::new, false);
 
     public static final RegistryObject<BlockCatwalkGate> CATWALK_GATE = registerBlock("catwalk_gate",
             BlockCatwalkGate::new);
