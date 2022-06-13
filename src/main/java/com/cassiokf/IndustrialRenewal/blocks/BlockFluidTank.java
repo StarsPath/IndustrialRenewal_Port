@@ -2,7 +2,6 @@ package com.cassiokf.IndustrialRenewal.blocks;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockTowerBase;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityFluidTank;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityIndustrialBatteryBank;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntityTowerBase;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;

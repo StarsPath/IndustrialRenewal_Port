@@ -1,7 +1,6 @@
 package com.cassiokf.IndustrialRenewal.item;
 
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
-import net.minecraft.item.Item;
 
 public class ItemFireBox extends IRBaseItem{
     public int type;

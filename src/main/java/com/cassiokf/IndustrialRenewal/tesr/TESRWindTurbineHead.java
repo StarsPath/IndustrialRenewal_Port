@@ -1,6 +1,5 @@
 package com.cassiokf.IndustrialRenewal.tesr;
 
-import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityWindTurbineHead;
 import com.mojang.blaze3d.matrix.MatrixStack;

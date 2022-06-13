@@ -1,7 +1,6 @@
 package com.cassiokf.IndustrialRenewal.tileentity.abstracts;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.Block3x2x2Base;
-import com.cassiokf.IndustrialRenewal.blocks.abstracts.Block3x3x2Base;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

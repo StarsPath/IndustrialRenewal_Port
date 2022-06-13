@@ -1,11 +1,8 @@
 package com.cassiokf.IndustrialRenewal.data.client;
 
 import com.cassiokf.IndustrialRenewal.References;
-import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.init.ModBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 

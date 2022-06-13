@@ -1,6 +1,5 @@
 package com.cassiokf.IndustrialRenewal.item;
 
-import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;

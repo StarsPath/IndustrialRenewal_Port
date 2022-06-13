@@ -2,15 +2,10 @@ package com.cassiokf.IndustrialRenewal.blocks.abstracts;
 
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityBarrel;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityPortableGenerator;
-import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntitySaveContent;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
-import net.minecraft.block.HorizontalFaceBlock;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.HangingEntityItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
@@ -23,7 +18,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fluids.FluidUtil;
 
 import javax.annotation.Nullable;

@@ -1,24 +1,17 @@
 package com.cassiokf.IndustrialRenewal.blocks.pipes;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockConnectedMultiblocks;
-import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TETubeBase;
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityMultiBlocksTube;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.data.ModelProperty;
 
 import javax.annotation.Nullable;
 
@@ -120,22 +113,8 @@ public abstract class BlockPipeBase<TE extends TileEntityMultiBlocksTube> extend
         return true;
     }
 
-//    public abstract boolean canConnectToPipe(final World worldIn, final BlockPos ownPos, final Direction neighbourDirection);
-//
-//    public abstract boolean canConnectToCapability(final World worldIn, final BlockPos ownPos, final Direction neighbourDirection);
-
     public final boolean isConnected(IBlockReader worldIn, BlockPos pos, Direction facing)
     {
-//        TETubeBase pipe = (TETubeBase)worldIn.getBlockEntity(pos);
-//        TETubeBase other = (TETubeBase)worldIn.getBlockEntity(pos.relative(facing));
-
-//        TETubeBase te = (TETubeBase) worldIn.getBlockEntity(pos);
-//        if (te != null)
-//        {
-//            IModelData data = te.getModelData();
-//            return data.hasProperty(property) && data.getData(property);
-//        }
-//        return false;
         if(worldIn.getBlockState(pos).getBlock() instanceof BlockPipeBase)
             return worldIn.getBlockState(pos).getValue(directionToBooleanProp(facing));
         return false;

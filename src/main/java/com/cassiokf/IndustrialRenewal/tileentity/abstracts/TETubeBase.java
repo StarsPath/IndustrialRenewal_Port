@@ -2,7 +2,6 @@ package com.cassiokf.IndustrialRenewal.tileentity.abstracts;
 
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.client.model.data.ModelProperty;
 
 public abstract class TETubeBase extends TE6WayConnection
 {

@@ -4,7 +4,6 @@ import com.cassiokf.IndustrialRenewal.blocks.abstracts.Block3x3x3Base;
 import com.cassiokf.IndustrialRenewal.item.ItemFireBox;
 import com.cassiokf.IndustrialRenewal.item.ItemPowerScrewDrive;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntitySteamBoiler;
-import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -42,7 +41,7 @@ public class BlockSteamBoiler extends Block3x3x3Base<TileEntitySteamBoiler> {
 
         //TODO: add to config
         int waterPtick = 100;
-        int steeamConversion = 1;
+        int steamConversion = 1;
 
         tooltip.add(new StringTextComponent(
                 I18n.get("info.industrialrenewal.requires")
@@ -53,7 +52,7 @@ public class BlockSteamBoiler extends Block3x3x3Base<TileEntitySteamBoiler> {
                         + ": "
                         + waterPtick
                         + " mB/t"));
-        int mult = waterPtick * steeamConversion;
+        int mult = waterPtick * steamConversion;
         tooltip.add(new StringTextComponent(
                 I18n.get("info.industrialrenewal.produces")
                         + " "

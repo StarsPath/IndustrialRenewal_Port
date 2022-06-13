@@ -2,7 +2,6 @@ package com.cassiokf.IndustrialRenewal.tesr;
 
 import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityIndustrialBatteryBank;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityPortableGenerator;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;

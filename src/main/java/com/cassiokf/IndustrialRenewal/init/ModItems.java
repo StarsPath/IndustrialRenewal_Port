@@ -3,7 +3,6 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.item.*;
-import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;

@@ -2,26 +2,18 @@ package com.cassiokf.IndustrialRenewal.containers.screen;
 
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.containers.container.StorageChestContainer;
-//import com.cassiokf.IndustrialRenewal.network.NetworkHandler;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityStorageChest;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 
-import javax.annotation.Nullable;
+//import com.cassiokf.IndustrialRenewal.network.NetworkHandler;
 
 public class StorageChestScreen extends ContainerScreen<StorageChestContainer> {
 

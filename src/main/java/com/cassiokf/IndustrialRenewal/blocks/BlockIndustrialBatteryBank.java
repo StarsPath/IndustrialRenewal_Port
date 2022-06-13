@@ -1,7 +1,6 @@
 package com.cassiokf.IndustrialRenewal.blocks;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockTowerBase;
-import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityIndustrialBatteryBank;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntityTowerBase;
@@ -9,7 +8,6 @@ import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -21,7 +19,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BlockIndustrialBatteryBank extends BlockTowerBase<TileEntityIndustrialBatteryBank> {

@@ -9,7 +9,6 @@ import net.minecraft.data.LootTableProvider;
 import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.loot.*;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,6 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class ModLootTableProvider extends LootTableProvider {
     public ModLootTableProvider(DataGenerator generator) {
@@ -89,10 +87,6 @@ public class ModLootTableProvider extends LootTableProvider {
             list.add(ModBlocks.FLUID_PIPE.get());
 
             return list;
-//            return ModBlocks.BLOCKS.getEntries().stream()
-//                    .map(RegistryObject::get)
-//                    .collect(Collectors.toList());
-            //return super.getKnownBlocks();
         }
     }
 }

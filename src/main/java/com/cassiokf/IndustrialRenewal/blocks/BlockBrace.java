@@ -1,14 +1,10 @@
 package com.cassiokf.IndustrialRenewal.blocks;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractFourConnections;
-import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractNotFullCube;
-import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractSixWayConnections;
-import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
@@ -75,7 +71,7 @@ public class BlockBrace extends BlockAbstractFourConnections {
     }
 
     @Override
-    public void neighborChanged(BlockState state, World level, BlockPos pos, Block block, BlockPos neigbborPos, boolean flag) {
+    public void neighborChanged(BlockState state, World level, BlockPos pos, Block block, BlockPos neighborPos, boolean flag) {
         for(Direction face : Direction.Plane.HORIZONTAL){
             if(state.getValue(FACING).getName().contains("down"))
                 state = state.setValue(getPropertyBasedOnDirection(face.getOpposite()), canConnectTo(level, pos, face));
@@ -83,7 +79,6 @@ public class BlockBrace extends BlockAbstractFourConnections {
                 state = state.setValue(getPropertyBasedOnDirection(face), canConnectTo(level, pos, face));
         }
         level.setBlock(pos, state, 2);
-        //super.neighborChanged(state, level, pos, block, neigbborPos, flag);
     }
 
     //=================================================================
@@ -112,7 +107,7 @@ public class BlockBrace extends BlockAbstractFourConnections {
         private final String name;
         private final Direction facing;
 
-        private EnumOrientation(int meta, String name, Direction facing)
+        EnumOrientation(int meta, String name, Direction facing)
         {
             this.meta = meta;
             this.name = name;

@@ -1,6 +1,5 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
-import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntityTowerBase;
 import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;

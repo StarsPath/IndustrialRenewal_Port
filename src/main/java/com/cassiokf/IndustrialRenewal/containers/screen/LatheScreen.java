@@ -3,7 +3,6 @@ package com.cassiokf.IndustrialRenewal.containers.screen;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.containers.container.LatheContainer;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityLathe;
-import com.cassiokf.IndustrialRenewal.util.Utils;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -11,14 +10,13 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class LatheScreen extends ContainerScreen<LatheContainer> {
 
     private final ResourceLocation GUI = new ResourceLocation(References.MODID, "textures/gui/container/lathe.png");
-    private TileEntityLathe tileEntity;
-    private LatheContainer container;
+    private final TileEntityLathe tileEntity;
+    private final LatheContainer container;
 
     public LatheScreen(LatheContainer latheContainer, PlayerInventory playerInventory, ITextComponent title) {
         super(latheContainer, playerInventory, title);

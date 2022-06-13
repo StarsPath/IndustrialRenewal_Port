@@ -2,8 +2,6 @@ package com.cassiokf.IndustrialRenewal.blocks;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractSixWayConnections;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
-import com.cassiokf.IndustrialRenewal.item.ItemBlockCatwalk;
-import com.cassiokf.IndustrialRenewal.item.ItemBlockCatwalkStair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RailBlock;

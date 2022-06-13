@@ -2,9 +2,7 @@ package com.cassiokf.IndustrialRenewal.blocks;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.Block3x2x2Base;
 import com.cassiokf.IndustrialRenewal.containers.container.LatheContainer;
-import com.cassiokf.IndustrialRenewal.containers.container.StorageChestContainer;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityLathe;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityStorageChest;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -34,12 +32,6 @@ public class BlockLathe extends Block3x2x2Base<TileEntityLathe> {
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new TileEntityLathe();
     }
-//
-//    @Override
-//    public boolean hasTileEntity(BlockState state) {
-//        //return super.hasTileEntity(state);
-//        return false;
-//    }
 
     @Override
     public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult rayTraceResult) {
@@ -49,9 +41,6 @@ public class BlockLathe extends Block3x2x2Base<TileEntityLathe> {
             TileEntityLathe latheMaster = ((TileEntityLathe) world.getBlockEntity(pos)).getMaster();
             BlockPos masterPos = latheMaster.getBlockPos();
             INamedContainerProvider containerProvider = createContainerProvider(world, latheMaster.getBlockPos());
-            //storageChestMaster.openGui(playerEntity, true);
-
-            //Utils.debug("BLOCKS POSES", pos, storageChestMaster.getBlockPos());
             NetworkHooks.openGui((ServerPlayerEntity) playerEntity, containerProvider, masterPos);
         }
         return ActionResultType.SUCCESS;

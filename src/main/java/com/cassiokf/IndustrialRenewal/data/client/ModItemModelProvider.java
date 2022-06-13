@@ -3,7 +3,6 @@ package com.cassiokf.IndustrialRenewal.data.client;
 import com.cassiokf.IndustrialRenewal.References;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class ModItemModelProvider extends ItemModelProvider {

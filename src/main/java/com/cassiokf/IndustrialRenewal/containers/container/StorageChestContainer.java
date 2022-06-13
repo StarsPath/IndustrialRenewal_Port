@@ -1,32 +1,14 @@
 package com.cassiokf.IndustrialRenewal.containers.container;
 
 import com.cassiokf.IndustrialRenewal.containers.ContainerBase;
-import com.cassiokf.IndustrialRenewal.containers.screen.StorageChestScreen;
 import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.init.ModContainers;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityStorageChest;
-import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3x3MachineBase;
-import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIntArray;
 import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
-
-import javax.annotation.Nullable;
-import java.util.Objects;
 
 public class StorageChestContainer extends ContainerBase {
 

@@ -1,7 +1,5 @@
 package com.cassiokf.IndustrialRenewal.item;
 
-import net.minecraft.item.ItemStack;
-
 public class ItemWindBlade extends IRBaseItem{
 
     public static final int MAX_DAMAGE =48 * 60;

@@ -1,7 +1,5 @@
 package com.cassiokf.IndustrialRenewal.item;
 
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityElectricPump;
-import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -10,10 +8,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nullable;
 import java.util.List;

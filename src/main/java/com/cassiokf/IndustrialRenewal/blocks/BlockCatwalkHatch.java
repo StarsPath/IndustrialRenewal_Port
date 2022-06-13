@@ -51,16 +51,16 @@ public class BlockCatwalkHatch extends BlockAbstractHorizontalFacingWithActivati
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
-        return getVoxcelShape(state);
+        return getVoxelShape(state);
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
-        return getVoxcelShape(state);
+        return getVoxelShape(state);
     }
 
-    public VoxelShape getVoxcelShape(BlockState state){
+    public VoxelShape getVoxelShape(BlockState state){
         if (state.getValue(ACTIVE))
         {
             Direction direction = state.getValue(FACING);

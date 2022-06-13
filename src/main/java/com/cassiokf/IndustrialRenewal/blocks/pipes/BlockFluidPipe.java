@@ -1,19 +1,15 @@
 package com.cassiokf.IndustrialRenewal.blocks.pipes;
 
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityFluidPipe;
-import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityFluidPipeBase;
-import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
@@ -30,10 +26,6 @@ public class BlockFluidPipe extends BlockPipeBase<TileEntityFluidPipe>{
                 .setValue(UP, false)
                 .setValue(DOWN, false));
     }
-
-//    public BlockFluidPipe(Properties property, float nodeWidth, float nodeHeight) {
-//        super(property, nodeWidth, nodeHeight);
-//    }
 
     @Override
     public TileEntityFluidPipe createTileEntity(BlockState state, IBlockReader world) {
@@ -74,13 +66,6 @@ public class BlockFluidPipe extends BlockPipeBase<TileEntityFluidPipe>{
     @Override
     public boolean canConnectTo(IBlockReader world, BlockPos pos, Direction facing) {
         TileEntity te = world.getBlockEntity(pos.relative(facing));
-//        Utils.debug("MY TE: ", te, pos, facing);
-//        if(te!=null && te instanceof TileEntityFluidPipe){
-//            //Utils.debug("detect");
-//            return ((TileEntityFluidPipe) te).canConnectToPipe(facing) ||
-//                    ((TileEntityFluidPipe) te).canConnectToCapability(facing);
-//        }
-//        return false;
         return (te != null && te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing.getOpposite()).isPresent());
     }
 }

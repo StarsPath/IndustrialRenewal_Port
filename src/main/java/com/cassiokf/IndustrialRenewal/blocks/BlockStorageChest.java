@@ -3,15 +3,12 @@ package com.cassiokf.IndustrialRenewal.blocks;
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.Block3x3x2Base;
 import com.cassiokf.IndustrialRenewal.containers.container.StorageChestContainer;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityStorageChest;
-import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -22,7 +19,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import org.apache.logging.log4j.core.jmx.Server;
 
 import javax.annotation.Nullable;
 

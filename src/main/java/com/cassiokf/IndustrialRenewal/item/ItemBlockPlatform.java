@@ -1,7 +1,5 @@
 package com.cassiokf.IndustrialRenewal.item;
 
-import com.cassiokf.IndustrialRenewal.blocks.BlockCatwalk;
-import com.cassiokf.IndustrialRenewal.blocks.BlockCatwalkStair;
 import com.cassiokf.IndustrialRenewal.blocks.BlockPlatform;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

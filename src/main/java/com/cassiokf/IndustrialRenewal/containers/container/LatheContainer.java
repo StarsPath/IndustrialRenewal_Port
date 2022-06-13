@@ -4,20 +4,14 @@ import com.cassiokf.IndustrialRenewal.containers.ContainerBase;
 import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.init.ModContainers;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityLathe;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityStorageChest;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.IWorldPosCallable;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class LatheContainer extends ContainerBase {
     private final TileEntityLathe tileEntity;

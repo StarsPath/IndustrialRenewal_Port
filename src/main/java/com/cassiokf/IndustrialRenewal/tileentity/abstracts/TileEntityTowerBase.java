@@ -1,20 +1,14 @@
 package com.cassiokf.IndustrialRenewal.tileentity.abstracts;
 
-import com.cassiokf.IndustrialRenewal.blocks.abstracts.Block3x3x3Base;
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockTowerBase;
-import com.cassiokf.IndustrialRenewal.init.ModBlocks;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityFluidTank;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityIndustrialBatteryBank;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.Property;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class TileEntityTowerBase<TE extends TileEntityTowerBase> extends TileEntity3x3x3MachineBase<TE>{

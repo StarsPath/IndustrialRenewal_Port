@@ -1,7 +1,5 @@
 package com.cassiokf.IndustrialRenewal.blocks.pipes;
 
-import com.cassiokf.IndustrialRenewal.init.ModBlocks;
-import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TETubeBase;
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityEnergyCable;
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityEnergyCableHV;
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityEnergyCableLV;
@@ -10,18 +8,15 @@ import com.cassiokf.IndustrialRenewal.util.enums.EnumCableIn;
 import com.cassiokf.IndustrialRenewal.util.enums.EnumEnergyCableType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.energy.CapabilityEnergy;
