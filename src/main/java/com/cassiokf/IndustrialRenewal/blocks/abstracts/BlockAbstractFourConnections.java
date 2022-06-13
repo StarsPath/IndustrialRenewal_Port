@@ -44,7 +44,10 @@ public abstract class BlockAbstractFourConnections extends BlockAbstractNotFullC
     }
 
     public BlockAbstractFourConnections(Properties props) {
-        super(props);
+        super(props.noOcclusion());
+        this.nodeWidth = 16;
+        this.nodeHeight = 16;
+        this.collisionY = 16;
     }
 
     @Override

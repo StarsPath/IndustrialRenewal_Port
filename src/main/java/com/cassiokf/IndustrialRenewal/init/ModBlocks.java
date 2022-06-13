@@ -129,6 +129,12 @@ public class ModBlocks {
     public static final RegistryObject<BlockPillar> PILLAR_STEEL = registerBlock("catwalk_steel_pillar",
             BlockPillar::new, false);
 
+    public static final RegistryObject<BlockBrace> BRACE = registerBlock("brace",
+            BlockBrace::new);
+
+    public static final RegistryObject<BlockBrace> BRACE_STEEL = registerBlock("brace_steel",
+            BlockBrace::new);
+
     public static final RegistryObject<BlockColumn> COLUMN = registerBlock("catwalk_column",
             BlockColumn::new);
 

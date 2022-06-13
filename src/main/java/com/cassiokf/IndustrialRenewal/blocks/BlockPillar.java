@@ -48,8 +48,6 @@ public class BlockPillar extends BlockAbstractSixWayConnections {
         Block nb = neighborState.getBlock();
         if (neighborDirection != Direction.UP && neighborDirection != Direction.DOWN)
         {
-            //return false;
-//            return nb instanceof BlockColumn
             return nb instanceof LeverBlock
 //                    || (nb instanceof BlockHVIsolator && neighborState.get(BlockHVIsolator.FACING) == neighborDirection.getOpposite())
                     || nb instanceof RedstoneTorchBlock
@@ -59,8 +57,8 @@ public class BlockPillar extends BlockAbstractSixWayConnections {
                     || nb instanceof LadderBlock
 //                    || (nb instanceof BlockLight && neighborState.get(BlockLight.FACING) == neighborDirection.getOpposite())
 //                    || nb instanceof BlockRoof
-//                    || (nb instanceof BlockBrace && Objects.equals(neighborState.get(BlockBrace.FACING).getName(), neighborDirection.getOpposite().getName()))
-//                    || (nb instanceof BlockBrace && Objects.equals(neighborState.get(BlockBrace.FACING).getName(), "down_" + neighborDirection.getName()))
+                    || (nb instanceof BlockBrace && Objects.equals(neighborState.getValue(BlockBrace.FACING).getName(), neighborDirection.getOpposite().getName()))
+                    || (nb instanceof BlockBrace && Objects.equals(neighborState.getValue(BlockBrace.FACING).getName(), "down_" + neighborDirection.getName()))
 //                    || (nb instanceof BlockAlarm && neighborState.get(BlockAlarm.FACING) == neighborDirection)
 //                    || (nb instanceof BlockSignBase && neighborState.get(BlockSignBase.ONWALL) && Objects.equals(neighborState.get(BlockSignBase.FACING).getName(), neighborDirection.getOpposite().getName()))
 //                    || Objects.requireNonNull(nb.getRegistryName()).toString().matches("immersiveengineering:connector")

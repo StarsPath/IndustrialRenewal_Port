@@ -4,7 +4,7 @@
     "0": "industrialrenewal:block/metal",
     "4": "industrialrenewal:block/rust",
     "particle": "industrialrenewal:block/metal",
-    "3_5": "block/anvil_base"
+    "3_5": "industrialrenewal:block/anvil_base"
   },
   "elements": [
     {
