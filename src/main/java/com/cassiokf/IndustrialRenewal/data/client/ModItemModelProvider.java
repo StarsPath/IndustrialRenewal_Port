@@ -74,5 +74,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent("brace", modLoc("block/brace"));
         withExistingParent("brace_steel", modLoc("block/brace_steel"));
 
+        withExistingParent("fence_big_column", modLoc("block/fence_big/fence_big_core_165"));
+        withExistingParent("fence_big_wire", modLoc("block/fence_big_wire_item"));
+
     }
 }

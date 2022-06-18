@@ -38,8 +38,11 @@ public class ModBlocks {
     public static final IRBaseBlock STEELBLOCK = new IRBaseBlock("block_steel", IRBlockItem::new);
     public static final IRBaseBlock CONCRETE = new IRBaseBlock("concrete", IRBlockItem::new);
 
-    public static final RegistryObject<Block> CONCRETEWALL = registerBlock("concrete_wall",
-            () -> new WallBlock(AbstractBlock.Properties.of(Material.STONE).sound(SoundType.STONE).strength(2f).noCollission()));
+//    public static final RegistryObject<Block> CONCRETEWALL = registerBlock("concrete_wall",
+//            () -> new WallBlock(AbstractBlock.Properties.of(Material.STONE).sound(SoundType.STONE).strength(2f).noCollission()));
+
+    public static final RegistryObject<IRBaseWall> CONCRETEWALL = registerBlock("concrete_wall",
+            IRBaseWall::new);
 
     public static final RegistryObject<BlockSolarPanel> SPANEL = registerBlock("solar_panel",
             BlockSolarPanel::new);
@@ -179,6 +182,13 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockCatwalkHatch> CATWALK_HATCH = registerBlock("catwalk_hatch",
             BlockCatwalkHatch::new);
+
+
+    public static final RegistryObject<BlockElectricBigFenceColumn> BIG_FENCE_COLUMN = registerBlock("fence_big_column",
+            BlockElectricBigFenceColumn::new);
+
+    public static final RegistryObject<BlockElectricBigFenceWire> BIF_FENCE_WIRE = registerBlock("fence_big_wire",
+            BlockElectricBigFenceWire::new);
 
 
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);

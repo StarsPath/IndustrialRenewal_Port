@@ -2,7 +2,7 @@
   "multipart": [
     {
       "when": {
-        "up": "true"
+        "core": "true"
       },
       "apply": {
         "model": "industrialrenewal:block/concrete_wall_post"
@@ -10,80 +10,45 @@
     },
     {
       "when": {
-        "north": "low"
+        "core": "false"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/concrete_wall_side_tall"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/concrete_wall_side"
+      }
+    },
+    {
+      "when": {
+        "east": "true"
       },
       "apply": {
         "model": "industrialrenewal:block/concrete_wall_side",
-        "uvlock": true
+        "y": 90
       }
     },
     {
       "when": {
-        "east": "low"
+        "south": "true"
       },
       "apply": {
         "model": "industrialrenewal:block/concrete_wall_side",
-        "y": 90,
-        "uvlock": true
+        "y": 180
       }
     },
     {
       "when": {
-        "south": "low"
+        "west": "true"
       },
       "apply": {
         "model": "industrialrenewal:block/concrete_wall_side",
-        "y": 180,
-        "uvlock": true
-      }
-    },
-    {
-      "when": {
-        "west": "low"
-      },
-      "apply": {
-        "model": "industrialrenewal:block/concrete_wall_side",
-        "y": 270,
-        "uvlock": true
-      }
-    },
-    {
-      "when": {
-        "north": "tall"
-      },
-      "apply": {
-        "model": "industrialrenewal:block/concrete_wall_side_tall",
-        "uvlock": true
-      }
-    },
-    {
-      "when": {
-        "east": "tall"
-      },
-      "apply": {
-        "model": "industrialrenewal:block/concrete_wall_side_tall",
-        "y": 90,
-        "uvlock": true
-      }
-    },
-    {
-      "when": {
-        "south": "tall"
-      },
-      "apply": {
-        "model": "industrialrenewal:block/concrete_wall_side_tall",
-        "y": 180,
-        "uvlock": true
-      }
-    },
-    {
-      "when": {
-        "west": "tall"
-      },
-      "apply": {
-        "model": "industrialrenewal:block/concrete_wall_side_tall",
-        "y": 270,
-        "uvlock": true
+        "y": 270
       }
     }
   ]
