@@ -22,11 +22,13 @@ public class ModItems {
     public static final IRBaseItem spongeIron;
     public static final IRBaseItem smallSlab;
     public static final IRBaseItem sMotor;
-    public static final IRItemCartridge cartridge_plus;
-    public static final IRItemCartridge cartridge_minus;
-    public static final IRItemCartridge cartridge_half;
-    public static final IRItemCartridge cartridge_double;
-    public static final IRItemCartridge cartridge_inverter;
+
+//    public static final IRItemCartridge cartridge_plus;
+//    public static final IRItemCartridge cartridge_minus;
+//    public static final IRItemCartridge cartridge_half;
+//    public static final IRItemCartridge cartridge_double;
+//    public static final IRItemCartridge cartridge_inverter;
+
     //    public static final ItemIronPlow locomotivePlowIron;
 //    public static final ItemCartLinkable cartLinkable;
     public static final ItemPowerScrewDrive screwDrive;
@@ -123,11 +125,11 @@ public class ModItems {
         smallSlab = new IRBaseItem("small_slab", industrialrenewal.IR_TAB);
         sMotor = new IRBaseItem("motor", industrialrenewal.IR_TAB);
 
-        cartridge_plus = new IRItemCartridge("cartridge_plus", industrialrenewal.IR_TAB);
-        cartridge_minus = new IRItemCartridge("cartridge_minus", industrialrenewal.IR_TAB);
-        cartridge_half = new IRItemCartridge("cartridge_half", industrialrenewal.IR_TAB);
-        cartridge_double = new IRItemCartridge("cartridge_double", industrialrenewal.IR_TAB);
-        cartridge_inverter = new IRItemCartridge("cartridge_inverter", industrialrenewal.IR_TAB);
+//        cartridge_plus = new IRItemCartridge("cartridge_plus", industrialrenewal.IR_TAB);
+//        cartridge_minus = new IRItemCartridge("cartridge_minus", industrialrenewal.IR_TAB);
+//        cartridge_half = new IRItemCartridge("cartridge_half", industrialrenewal.IR_TAB);
+//        cartridge_double = new IRItemCartridge("cartridge_double", industrialrenewal.IR_TAB);
+//        cartridge_inverter = new IRItemCartridge("cartridge_inverter", industrialrenewal.IR_TAB);
 
         pointer = new IRBaseItem("pointer");
         limiter = new IRBaseItem("limiter");

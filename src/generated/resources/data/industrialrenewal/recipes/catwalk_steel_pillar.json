@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BAB",
+    "BAB",
+    "BAB"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:ingots/steel"
+    },
+    "B": {
+      "tag": "forge:rods/steel"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:catwalk_steel_pillar",
+    "count": 16
+  }
+}

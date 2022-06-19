@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:rods/iron"
+      "item": "industrialrenewal:scaffold"
     },
     "A": {
       "tag": "forge:chests"

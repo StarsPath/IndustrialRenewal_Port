@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ABA",
+    "ACA",
     "B B",
     "BCB"
   ],
@@ -10,10 +10,10 @@
       "item": "industrialrenewal:energy_cable_hv"
     },
     "B": {
-      "item": "industrialrenewal:stick_steel"
+      "item": "industrialrenewal:frame"
     },
     "C": {
-      "tag": "forge:storage_blocks/steel"
+      "item": "industrialrenewal:scaffold"
     }
   },
   "result": {

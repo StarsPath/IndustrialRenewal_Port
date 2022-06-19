@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "tag": "forge:ingots/steel"
+      "item": "industrialrenewal:frame"
     },
     "B": {
       "item": "industrialrenewal:motor"

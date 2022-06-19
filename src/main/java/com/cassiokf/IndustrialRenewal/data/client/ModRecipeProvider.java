@@ -5,6 +5,7 @@ import com.cassiokf.IndustrialRenewal.init.ModItems;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
@@ -262,9 +263,9 @@ public class ModRecipeProvider extends RecipeProvider {
 
         ShapedRecipeBuilder.shaped(ModBlocks.INDUSTRIAL_BATTERY_BANK.get(), 1)
                 .define('A', ModBlocks.ENERGYCABLE_HV.get())
-                .define('B', ModItems.stickSteel)
-                .define('C', STEEL_BLOCKS)
-                .pattern("ABA")
+                .define('B', ModBlocks.FRAME.get())
+                .define('C', ModBlocks.SCAFFOLD.get())
+                .pattern("ACA")
                 .pattern("B B")
                 .pattern("BCB")
                 .unlockedBy("has_item", has(Items.IRON_INGOT))
@@ -287,7 +288,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('A', ModBlocks.FLUID_PIPE.get())
                 .define('B', ModBlocks.BARREL.get())
                 .define('C', Tags.Items.DUSTS_REDSTONE)
-                .define('D', STEEL_INGOT)
+                .define('D', ModBlocks.FRAME.get())
                 .pattern("ABA")
                 .pattern("CBC")
                 .pattern("DDD")
@@ -298,7 +299,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('A', ModBlocks.FLUID_PIPE.get())
                 .define('B', ModBlocks.BARREL.get())
                 .define('C', Tags.Items.DUSTS_REDSTONE)
-                .define('D', STEEL_INGOT)
+                .define('D', ModBlocks.FRAME.get())
                 .define('E', ModItems.sMotor)
                 .define('F', ModBlocks.BATTERYBANK.get())
                 .pattern("CBA")
@@ -308,7 +309,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(ModBlocks.MINER.get(), 1)
-                .define('A', STEEL_INGOT)
+                .define('A', ModBlocks.FRAME.get())
                 .define('B', ModItems.sMotor)
                 .define('C', Tags.Items.DUSTS_REDSTONE)
                 .define('D', ModBlocks.ELECTRIC_PUMP.get())
@@ -321,7 +322,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(ModBlocks.STORAGE_CHEST.get(), 1)
-                .define('#', IRON_ROD)
+                .define('#', ModBlocks.SCAFFOLD.get())
                 .define('A', Tags.Items.CHESTS)
                 .pattern("AAA")
                 .pattern("AAA")
@@ -446,7 +447,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_item", has(ModBlocks.CONCRETE))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.LATHE.get(), 8)
+        ShapedRecipeBuilder.shaped(ModBlocks.LATHE.get(), 1)
                 .define('A', Tags.Items.INGOTS_IRON)
                 .define('B', ModItems.sMotor)
                 .define('C', STEEL_INGOT)
@@ -457,5 +458,201 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_item", has(STEEL_INGOT))
                 .save(consumer);
         //super.buildShapelessRecipes(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.PILLAR.get(), 16)
+                .define('A', Tags.Items.INGOTS_IRON)
+                .define('B', IRON_ROD)
+                .pattern("BAB")
+                .pattern("BAB")
+                .pattern("BAB")
+                .unlockedBy("has_item", has(Items.IRON_INGOT))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.PILLAR_STEEL.get(), 16)
+                .define('A', STEEL_INGOT)
+                .define('B', STEEL_ROD)
+                .pattern("BAB")
+                .pattern("BAB")
+                .pattern("BAB")
+                .unlockedBy("has_item", has(STEEL_INGOT))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.BRACE.get(), 16)
+                .define('A', Tags.Items.INGOTS_IRON)
+                .define('B', IRON_ROD)
+                .pattern("AB ")
+                .pattern("BAB")
+                .pattern(" BA")
+                .unlockedBy("has_item", has(Items.IRON_INGOT))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.BRACE_STEEL.get(), 16)
+                .define('A', STEEL_INGOT)
+                .define('B', STEEL_ROD)
+                .pattern("AB ")
+                .pattern("BAB")
+                .pattern(" BA")
+                .unlockedBy("has_item", has(STEEL_INGOT))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.COLUMN.get(), 16)
+                .define('A', IRON_ROD)
+                .define('B', Tags.Items.INGOTS_IRON)
+                .pattern("AAA")
+                .pattern("BBB")
+                .pattern("AAA")
+                .unlockedBy("has_item", has(Items.IRON_INGOT))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.COLUMN_STEEL.get(), 16)
+                .define('A', STEEL_ROD)
+                .define('B', STEEL_INGOT)
+                .pattern("AAA")
+                .pattern("BBB")
+                .pattern("AAA")
+                .unlockedBy("has_item", has(STEEL_INGOT))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.CATWALK.get(), 6)
+                .define('A', Items.IRON_BARS)
+                .define('B', IRON_ROD)
+                .pattern("B B")
+                .pattern("AAA")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.CATWALK_STEEL.get(), 6)
+                .define('A', Items.IRON_BARS)
+                .define('B', STEEL_ROD)
+                .pattern("B B")
+                .pattern("AAA")
+                .unlockedBy("has_item", has(STEEL_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.CATWALK_STAIR.get(), 6)
+                .define('A', Items.IRON_BARS)
+                .define('B', IRON_ROD)
+                .pattern("ABB")
+                .pattern(" AB")
+                .pattern("  A")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.CATWALK_STAIR_STEEL.get(), 6)
+                .define('A', Items.IRON_BARS)
+                .define('B', STEEL_ROD)
+                .pattern("ABB")
+                .pattern(" AB")
+                .pattern("  A")
+                .unlockedBy("has_item", has(STEEL_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.HANDRAIL.get(), 4)
+                .define('A', IRON_ROD)
+                .pattern("AA")
+                .pattern("AA")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.HANDRAIL_STEEL.get(), 4)
+                .define('A', STEEL_ROD)
+                .pattern("AA")
+                .pattern("AA")
+                .unlockedBy("has_item", has(STEEL_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.CATWALK_LADDER.get(), 6)
+                .define('A', IRON_ROD)
+                .define('B', Items.LADDER)
+                .pattern("A A")
+                .pattern("ABA")
+                .pattern("A A")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.CATWALK_LADDER_STEEL.get(), 6)
+                .define('A', STEEL_ROD)
+                .define('B', Items.LADDER)
+                .pattern("A A")
+                .pattern("ABA")
+                .pattern("A A")
+                .unlockedBy("has_item", has(STEEL_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.FRAME.get(), 6)
+                .define('A', IRON_ROD)
+                .define('B', STEEL_INGOT)
+                .pattern("ABA")
+                .pattern(" B ")
+                .pattern("ABA")
+                .unlockedBy("has_item", has(STEEL_INGOT))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.PLATFORM.get(), 4)
+                .define('A', IRON_ROD)
+                .define('B', ItemTags.PLANKS)
+                .define('C', ModBlocks.PILLAR.get())
+                .pattern("A A")
+                .pattern("ABA")
+                .pattern(" C ")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.SCAFFOLD.get(), 12)
+                .define('A', IRON_ROD)
+                .define('B', ItemTags.PLANKS)
+                .pattern("ABA")
+                .pattern("A A")
+                .pattern("A A")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.CATWALK_GATE.get(), 2)
+                .define('A', IRON_ROD)
+                .define('B', Tags.Items.INGOTS_IRON)
+                .pattern("ABA")
+                .pattern("ABA")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapelessRecipeBuilder.shapeless(ModBlocks.CATWALK_HATCH.get(), 1)
+                .requires(Items.IRON_TRAPDOOR)
+                .requires(Items.LADDER)
+                .unlockedBy("has_item", has(Tags.Items.INGOTS_IRON))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.BIG_FENCE_COLUMN.get(), 6)
+                .define('A', STEEL_INGOT)
+                .define('B', IRON_ROD)
+                .pattern("ABA")
+                .pattern("ABA")
+                .pattern("ABA")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.BIF_FENCE_WIRE.get(), 6)
+                .define('A', STEEL_INGOT)
+                .define('B', IRON_ROD)
+                .pattern(" B ")
+                .pattern(" B ")
+                .pattern("BAB")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.ELECTRIC_FENCE.get(), 6)
+                .define('A', IRON_ROD)
+                .define('B', STEEL_ROD)
+                .pattern("ABA")
+                .pattern("ABA")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.ELECTRIC_GATE.get(), 4)
+                .define('A', STEEL_ROD)
+                .define('B', Tags.Items.INGOTS_IRON)
+                .pattern("ABA")
+                .pattern("ABA")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
     }
 }

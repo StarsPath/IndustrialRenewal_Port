@@ -16,7 +16,7 @@
       "tag": "forge:dusts/redstone"
     },
     "D": {
-      "tag": "forge:ingots/steel"
+      "item": "industrialrenewal:frame"
     }
   },
   "result": {

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "ABA"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:rods/steel"
+    },
+    "B": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:electric_gate",
+    "count": 4
+  }
+}
