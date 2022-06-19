@@ -58,6 +58,7 @@ public class BlockElectricBigFenceColumn extends BlockAbstractBigFence {
         final BlockState neighborState = worldIn.getBlockState(neighborPos);
         Block nb = neighborState.getBlock();
         return nb instanceof BlockBasicElectricFence
+                || nb instanceof BlockElectricGate
                 || nb instanceof IRBaseWall
                 || neighborState.isFaceSturdy(worldIn, neighborPos, neighborDirection.getOpposite())
                 ;

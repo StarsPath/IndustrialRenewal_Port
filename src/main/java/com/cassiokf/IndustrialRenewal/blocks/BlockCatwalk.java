@@ -126,7 +126,7 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
         {
             return nb instanceof BlockCatwalk
                     || nb instanceof DoorBlock
-                    //|| nb instanceof BlockElectricGate
+                    || nb instanceof BlockElectricGate
                     || (nb instanceof StairsBlock && (neighborState.getValue(StairsBlock.FACING) == neighborDirection || neighborState.getValue(StairsBlock.FACING) == neighborDirection.getOpposite()))
                     || (downstate.getBlock() instanceof StairsBlock && downstate.getValue(StairsBlock.FACING) == neighborDirection.getOpposite())
                     || (nb instanceof BlockCatwalkHatch && neighborState.getValue(BlockCatwalkHatch.FACING) == neighborDirection)

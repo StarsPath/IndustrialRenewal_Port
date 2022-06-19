@@ -49,10 +49,10 @@ public class BlockColumn extends BlockAbstractSixWayConnections {
 //        {
 //            return neighborState.get(BlockLight.FACING) == Direction.UP;
 //        }
-//        if (nb instanceof BlockBrace)
-//        {
-//            return Direction.Plane.HORIZONTAL.test(neighborState.get(BlockBrace.FACING).getFacing());
-//        }
+        if (nb instanceof BlockBrace)
+        {
+            return Direction.Plane.HORIZONTAL.test(neighborState.getValue(BlockBrace.FACING).getFacing());
+        }
 //        if (nb instanceof BlockFluidPipe)
 //        {
 //            return ownState.get(PIPE) > 0;

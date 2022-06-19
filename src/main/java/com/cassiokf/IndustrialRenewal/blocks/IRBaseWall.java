@@ -3,6 +3,7 @@ package com.cassiokf.IndustrialRenewal.blocks;
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractBigFence;
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractFourConnections;
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockBasicElectricFence;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FenceGateBlock;
@@ -68,9 +69,7 @@ public class IRBaseWall extends BlockAbstractFourConnections {
                 || nb instanceof BlockBasicElectricFence
 //                    && (neighborDirection.getCounterClockWise() == neighborState.getValue(BlockAbstractBigFence.FACING)
 //                    || neighborDirection.getClockWise() == neighborState.getValue(BlockAbstractBigFence.FACING)))
-//                || nb instanceof BlockElectricBigFenceWire
-
-//                || nb instanceof BlockElectricGate
+                || nb instanceof BlockElectricGate
 //                || nb instanceof BlockLight
 //                || nb instanceof BlockSignalIndicator
 //                || nb instanceof BlockWindow;
@@ -92,6 +91,18 @@ public class IRBaseWall extends BlockAbstractFourConnections {
         state = state.setValue(CORE, shouldRenderCenter(world, pos));
         world.setBlock(pos, state, Constants.BlockFlags.DEFAULT);
     }
+
+//    @Override
+//    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+//        //return getFullState(stateIn, worldIn, currentPos);
+//        Utils.debug("updateShape");
+//        for(Direction face : Direction.Plane.HORIZONTAL){
+//            stateIn = stateIn.setValue(getBooleanProperty(face), canConnectTo(worldIn, currentPos, face));
+//        }
+//        stateIn = stateIn.setValue(CORE, shouldRenderCenter(worldIn, currentPos));
+//        return stateIn;
+//        //return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos).setValue(CORE, shouldRenderCenter(worldIn, currentPos));
+//    }
 
     public BooleanProperty getBooleanProperty(Direction face){
         switch (face){

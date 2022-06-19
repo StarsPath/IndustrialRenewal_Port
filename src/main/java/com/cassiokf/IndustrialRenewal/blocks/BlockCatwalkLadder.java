@@ -116,7 +116,7 @@ public class BlockCatwalkLadder extends BlockAbstractHorizontalFacingWithActivat
     @Override
     public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos neighbor, boolean flag) {
         //Utils.debug("neighbor changed", state, world, pos, block, neighbor, flag);
-        state = defaultBlockState()
+        state = state
                 .setValue(FACING, state.getValue(FACING))
                 .setValue(ACTIVE, OpenCageIf(world, pos))
                 .setValue(DOWN, downConnection(world, pos));

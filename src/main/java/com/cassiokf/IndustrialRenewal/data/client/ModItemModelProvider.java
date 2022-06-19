@@ -77,5 +77,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent("fence_big_column", modLoc("block/fence_big/fence_big_core_165"));
         withExistingParent("fence_big_wire", modLoc("block/fence_big_wire_item"));
 
+        withExistingParent("electric_fence", modLoc("block/electric_fence_inventory"));
+        withExistingParent("electric_gate", modLoc("block/electric_gate_base"));
+
     }
 }

@@ -59,6 +59,7 @@ public class BlockElectricBigFenceWire extends BlockAbstractBigFence {
         Block nb = neighborState.getBlock();
         return nb instanceof BlockBasicElectricFence
                 || nb instanceof IRBaseWall
+                || nb instanceof BlockElectricGate
 //                    && ((worldIn.getBlockState(currentPos).getValue(FACING).getClockWise() == neighborDirection )
 //                    ||(worldIn.getBlockState(currentPos).getValue(FACING).getCounterClockWise() == neighborDirection )))
                 || neighborState.isFaceSturdy(worldIn, neighborPos, neighborDirection.getOpposite())
