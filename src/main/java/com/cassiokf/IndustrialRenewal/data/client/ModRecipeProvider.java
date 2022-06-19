@@ -630,7 +630,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_item", has(IRON_ROD))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.BIF_FENCE_WIRE.get(), 6)
+        ShapedRecipeBuilder.shaped(ModBlocks.BIG_FENCE_WIRE.get(), 6)
                 .define('A', STEEL_INGOT)
                 .define('B', IRON_ROD)
                 .pattern(" B ")
@@ -651,6 +651,16 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('A', STEEL_ROD)
                 .define('B', Tags.Items.INGOTS_IRON)
                 .pattern("ABA")
+                .pattern("ABA")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.RAZOR_WIRE.get(), 6)
+                .define('A', Tags.Items.RODS_WOODEN)
+                .define('B', Tags.Items.NUGGETS_IRON)
+                .define('C', IRON_ROD)
+                .pattern("B B")
+                .pattern("CCC")
                 .pattern("ABA")
                 .unlockedBy("has_item", has(IRON_ROD))
                 .save(consumer);

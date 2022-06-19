@@ -187,7 +187,7 @@ public class ModBlocks {
     public static final RegistryObject<BlockElectricBigFenceColumn> BIG_FENCE_COLUMN = registerBlock("fence_big_column",
             BlockElectricBigFenceColumn::new);
 
-    public static final RegistryObject<BlockElectricBigFenceWire> BIF_FENCE_WIRE = registerBlock("fence_big_wire",
+    public static final RegistryObject<BlockElectricBigFenceWire> BIG_FENCE_WIRE = registerBlock("fence_big_wire",
             BlockElectricBigFenceWire::new);
 
     public static final RegistryObject<BlockElectricFence> ELECTRIC_FENCE = registerBlock("electric_fence",
@@ -195,6 +195,9 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockElectricGate> ELECTRIC_GATE = registerBlock("electric_gate",
             BlockElectricGate::new);
+
+    public static final RegistryObject<BlockRazorWire> RAZOR_WIRE = registerBlock("razor_wire",
+            BlockRazorWire::new);
 
 
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);

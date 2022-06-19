@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 
 import java.util.function.BiFunction;
 
@@ -25,7 +26,7 @@ public class IRBaseBlock extends Block{
     protected static final VoxelShape FULL_SHAPE = Block.box(0, 0, 0, 16, 16, 16);
 
     public IRBaseBlock(Properties props) {
-        super(props);
+        super(props.strength(2).harvestTool(ToolType.PICKAXE));
     }
 
     public IRBaseBlock(String name, BiFunction<Block, Item.Properties, Item> createItemBlock){

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B B",
+    "CCC",
+    "ABA"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:rods/wooden"
+    },
+    "B": {
+      "tag": "forge:nuggets/iron"
+    },
+    "C": {
+      "tag": "forge:rods/iron"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:razor_wire",
+    "count": 6
+  }
+}
