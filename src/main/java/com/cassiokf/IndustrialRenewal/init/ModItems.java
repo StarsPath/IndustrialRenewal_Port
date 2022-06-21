@@ -3,6 +3,7 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.item.*;
+import com.cassiokf.IndustrialRenewal.item.locomotion.ItemCargoContainer;
 import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -32,6 +33,8 @@ public class ModItems {
     //    public static final ItemIronPlow locomotivePlowIron;
 //    public static final ItemCartLinkable cartLinkable;
     public static final ItemPowerScrewDrive screwDrive;
+
+    public static final ItemCargoContainer cargoContainer;
 //    public static final ItemSteelSaw steelSaw;
 //    public static final ItemMineCartCargoContainer cargoContainer;
 //    public static final ItemHopperCart hopperCart;
@@ -159,6 +162,8 @@ public class ModItems {
 
         fireBoxSolid = new ItemFireBox("firebox_solid", 1);
         fireBoxFluid = new ItemFireBox("firebox_fluid", 2);
+
+        cargoContainer = new ItemCargoContainer("cargo_container");
 
     }
 

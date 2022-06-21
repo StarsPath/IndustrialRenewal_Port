@@ -2,6 +2,8 @@ package com.cassiokf.IndustrialRenewal;
 
 import com.cassiokf.IndustrialRenewal.containers.screen.LatheScreen;
 import com.cassiokf.IndustrialRenewal.containers.screen.StorageChestScreen;
+import com.cassiokf.IndustrialRenewal.entity.EntityCargoContainer;
+import com.cassiokf.IndustrialRenewal.entity.render.RenderCargoContainer;
 import com.cassiokf.IndustrialRenewal.init.*;
 import com.cassiokf.IndustrialRenewal.tesr.*;
 import net.minecraft.block.Block;
@@ -18,6 +20,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -56,6 +59,7 @@ public class industrialrenewal
         ModFluids.init(modEventBus);
         ModContainers.register(modEventBus);
         ModRecipes.register(modEventBus);
+        ModEntity.register(modEventBus);
 
         modEventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -126,6 +130,8 @@ public class industrialrenewal
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.INDUSTRIAL_BATTERY_TILE.get(), TESRIndustrialBatteryBank::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.FLUID_TANK_TILE.get(), TESRFluidTank::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.LATHE_TILE.get(), TESRLathe::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntity.CARGO_CONTAINER.get(), RenderCargoContainer::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
