@@ -12,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -19,6 +20,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -41,12 +43,12 @@ public class EntityCargoContainer extends ContainerMinecartEntity {
 
     @Override
     protected Container createMenu(int p_213968_1_, PlayerInventory p_213968_2_) {
-        return ChestContainer.threeRows(p_213968_1_, p_213968_2_, this);
+        return new ChestContainer(ContainerType.GENERIC_9x4, p_213968_1_, p_213968_2_, this,4);
     }
 
     @Override
     public int getContainerSize() {
-        return 27;
+        return 36;
     }
 
     public void destroy(DamageSource p_94095_1_) {
@@ -65,7 +67,7 @@ public class EntityCargoContainer extends ContainerMinecartEntity {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
-//    @Nullable
+    //    @Nullable
 //    @Override
 //    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
 //        return ChestContainer.threeRows(p_createMenu_1_, p_createMenu_2_);

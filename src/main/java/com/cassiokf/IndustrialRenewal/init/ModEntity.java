@@ -2,6 +2,7 @@ package com.cassiokf.IndustrialRenewal.init;
 
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.entity.EntityCargoContainer;
+import com.cassiokf.IndustrialRenewal.entity.EntityFlatCart;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -17,8 +18,14 @@ public class ModEntity {
     public static final RegistryObject<EntityType<EntityCargoContainer>> CARGO_CONTAINER =
             ENTITY_TYPES.register("cargo_container",
                     ()->EntityType.Builder.<EntityCargoContainer>of(EntityCargoContainer::new,
-                            EntityClassification.MISC)
+                            EntityClassification.MISC).sized(1f, 1f)
                     .build(new ResourceLocation(References.MODID, "cargo_container").toString()));
+
+    public static final RegistryObject<EntityType<EntityFlatCart>> FLAT_CART =
+            ENTITY_TYPES.register("flat_cart",
+                    ()->EntityType.Builder.<EntityFlatCart>of(EntityFlatCart::new,
+                            EntityClassification.MISC).sized(1f, 0.4f)
+                            .build(new ResourceLocation(References.MODID, "flat_cart").toString()));
 
     public static void register(IEventBus bus){
         ENTITY_TYPES.register(bus);
