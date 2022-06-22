@@ -3,6 +3,7 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.entity.EntityCargoContainer;
 import com.cassiokf.IndustrialRenewal.entity.EntityFlatCart;
+import com.cassiokf.IndustrialRenewal.entity.EntityFluidContainer;
 import com.cassiokf.IndustrialRenewal.entity.EntityPassengerCar;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -34,7 +35,11 @@ public class ModEntity {
                             EntityClassification.MISC).sized(1f, 1f)
                             .build(new ResourceLocation(References.MODID, "passenger_car").toString()));
 
-
+    public static final RegistryObject<EntityType<EntityFluidContainer>> FLUID_CONTAINER =
+            ENTITY_TYPES.register("fluid_container",
+                    ()->EntityType.Builder.<EntityFluidContainer>of(EntityFluidContainer::new,
+                            EntityClassification.MISC).sized(1f, 1f)
+                            .build(new ResourceLocation(References.MODID, "fluid_container").toString()));
 
 
 
