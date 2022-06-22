@@ -5,6 +5,7 @@ import com.cassiokf.IndustrialRenewal.containers.screen.StorageChestScreen;
 import com.cassiokf.IndustrialRenewal.entity.EntityCargoContainer;
 import com.cassiokf.IndustrialRenewal.entity.render.RenderCargoContainer;
 import com.cassiokf.IndustrialRenewal.entity.render.RenderFlatCart;
+import com.cassiokf.IndustrialRenewal.entity.render.RenderPassengerCar;
 import com.cassiokf.IndustrialRenewal.init.*;
 import com.cassiokf.IndustrialRenewal.tesr.*;
 import net.minecraft.block.Block;
@@ -134,6 +135,7 @@ public class industrialrenewal
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.CARGO_CONTAINER.get(), RenderCargoContainer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.FLAT_CART.get(), RenderFlatCart::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntity.PASSENGER_CAR.get(), RenderPassengerCar::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

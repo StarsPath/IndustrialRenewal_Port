@@ -1,63 +1,30 @@
 package com.cassiokf.IndustrialRenewal.entity.render;
 
-import com.cassiokf.IndustrialRenewal.init.ModItems;
+import com.cassiokf.IndustrialRenewal.entity.RotatableBase;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.entity.model.MinecartModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 
-public abstract class RenderBase <T extends AbstractMinecartEntity> extends EntityRenderer<T> {
-    private static final ItemStack pointer = new ItemStack(ModItems.pointer);
-
-    protected EntityModel<T> model = new MinecartModel<>();
-
-    protected RenderBase(EntityRendererManager renderManagerIn) {
+public class RenderRotatableBase <T extends RotatableBase> extends RenderBase<T>{
+    protected RenderRotatableBase(EntityRendererManager renderManagerIn) {
         super(renderManagerIn);
-        this.shadowRadius = 0.5f;
+        shadowRadius = 0.5f;
     }
 
-    private static void renderText(MatrixStack matrixStack, String text, double x, double y, double z)
-    {
-        matrixStack.pushPose();
-        matrixStack.scale(0.1F, 0.1F, 0.1F);
-        matrixStack.scale(0.07F, 0.07F, 1F);
-        int xh = -Minecraft.getInstance().font.width(text) / 2;
-        matrixStack.translate(x, y, z);
-        Minecraft.getInstance().font.draw(matrixStack, text, (float)xh, (float)0, 0xFFFFFFFF);
-        matrixStack.popPose();
+    @Override
+    public ResourceLocation getTextureLocation(T p_110775_1_) {
+        return null;
     }
 
-    public static void renderPointer(MatrixStack matrixStack, int combinedLightIn, int combinedOverlayIn, IRenderTypeBuffer buffetIn, double x, double y, double z, float angle, ItemStack pointer)
-    {
-        matrixStack.pushPose();
-        matrixStack.translate(x, y, z);
-        matrixStack.scale(0.15F, 0.15F, 1.0F);
-        matrixStack.mulPose(new Quaternion(0, 0, -90, true));
-        matrixStack.mulPose(new Quaternion(180, 0, 0, true));
-        matrixStack.mulPose(new Quaternion(0, 0, -angle, true));
-        Minecraft.getInstance().getItemRenderer().renderStatic(pointer, ItemCameraTransforms.TransformType.GUI, combinedLightIn, combinedOverlayIn, matrixStack, buffetIn);
-        matrixStack.popPose();
-    }
-
-    public void renderExtra(T p_225623_1_, float p_225623_2_, float p_225623_3_, MatrixStack p_225623_4_, IRenderTypeBuffer p_225623_5_, int p_225623_6_){
-
-    }
-
-    public void render(T entity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLightIn)
-    {
-        super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLightIn);
+    @Override
+    public void render(T entity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLightIn) {
         matrixStack.pushPose();
         long i = (long)entity.getId() * 493286711L;
         i = i * i * 4392167121L + i * 98761L;
@@ -91,6 +58,23 @@ public abstract class RenderBase <T extends AbstractMinecartEntity> extends Enti
             }
         }
 
+        entityYaw = entityYaw % 360;
+        if (entityYaw < 0) {
+            entityYaw += 360;
+        }
+        entityYaw += 360;
+
+        double rotationYaw = (entity.xRot + 180) % 360;
+        if (rotationYaw < 0) {
+            rotationYaw = rotationYaw + 360;
+        }
+        rotationYaw = rotationYaw + 360;
+
+        if (Math.abs(entityYaw - rotationYaw) > 90) {
+            entityYaw += 180;
+            f3 = -f3;
+        }
+
         matrixStack.translate(0.0D, 0.375D, 0.0D);
         matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - entityYaw));
         matrixStack.mulPose(Vector3f.ZP.rotationDegrees(-f3));
@@ -103,6 +87,19 @@ public abstract class RenderBase <T extends AbstractMinecartEntity> extends Enti
         if (f5 > 0.0F) {
             matrixStack.mulPose(Vector3f.XP.rotationDegrees(MathHelper.sin(f5) * f5 * f6 / 10.0F * (float)entity.getHurtDir()));
         }
+
+        boolean flip = entity.getDeltaMovement().x > 0.0 != entity.getDeltaMovement().z > 0.0;
+        Utils.debug("MOTION", entity.getDeltaMovement().x, entity.getDeltaMovement().z);
+        if (entity.cornerFlip)
+        {
+            flip = !flip;
+        }
+        if (entity.getRenderFlippedYaw(entityYaw + (flip ? 0.0f : 180.0f)))
+        {
+            flip = !flip;
+        }
+
+        matrixStack.mulPose(Vector3f.YP.rotationDegrees(flip ? 0.0f : 180.0f));
 
         matrixStack.scale(-1.0F, -1.0F, 1.0F);
         this.model.setupAnim(entity, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F);

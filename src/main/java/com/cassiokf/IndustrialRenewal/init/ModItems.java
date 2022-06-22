@@ -5,6 +5,7 @@ import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.item.*;
 import com.cassiokf.IndustrialRenewal.item.locomotion.ItemCargoContainer;
 import com.cassiokf.IndustrialRenewal.item.locomotion.ItemFlatCart;
+import com.cassiokf.IndustrialRenewal.item.locomotion.ItemPassengerCar;
 import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -37,6 +38,7 @@ public class ModItems {
 
     public static final ItemCargoContainer cargoContainer;
     public static final ItemFlatCart flatCart;
+    public static final ItemPassengerCar passengerCar;
 //    public static final ItemSteelSaw steelSaw;
 //    public static final ItemMineCartCargoContainer cargoContainer;
 //    public static final ItemHopperCart hopperCart;
@@ -167,6 +169,7 @@ public class ModItems {
 
         cargoContainer = new ItemCargoContainer("cargo_container");
         flatCart = new ItemFlatCart("minecart_flat");
+        passengerCar = new ItemPassengerCar("passenger_car");
 
     }
 
