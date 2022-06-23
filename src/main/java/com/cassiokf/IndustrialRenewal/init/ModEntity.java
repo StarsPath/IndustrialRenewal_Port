@@ -1,10 +1,7 @@
 package com.cassiokf.IndustrialRenewal.init;
 
 import com.cassiokf.IndustrialRenewal.References;
-import com.cassiokf.IndustrialRenewal.entity.EntityCargoContainer;
-import com.cassiokf.IndustrialRenewal.entity.EntityFlatCart;
-import com.cassiokf.IndustrialRenewal.entity.EntityFluidContainer;
-import com.cassiokf.IndustrialRenewal.entity.EntityPassengerCar;
+import com.cassiokf.IndustrialRenewal.entity.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -16,6 +13,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModEntity {
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITIES, References.MODID);
+
+    public static final RegistryObject<EntityType<CouplerEntity>> COUPLER_ENTITY =
+            ENTITY_TYPES.register("coupler_entity",
+                    ()->EntityType.Builder.<CouplerEntity>of(CouplerEntity::new,
+                            EntityClassification.MISC).sized(0.2f, 0.2f)
+                            .build(new ResourceLocation(References.MODID, "coupler_entity").toString()));
 
     public static final RegistryObject<EntityType<EntityCargoContainer>> CARGO_CONTAINER =
             ENTITY_TYPES.register("cargo_container",

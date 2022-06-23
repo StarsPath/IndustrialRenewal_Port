@@ -3,11 +3,8 @@ package com.cassiokf.IndustrialRenewal;
 import com.cassiokf.IndustrialRenewal.containers.screen.LatheScreen;
 import com.cassiokf.IndustrialRenewal.containers.screen.StorageChestScreen;
 import com.cassiokf.IndustrialRenewal.entity.EntityCargoContainer;
-import com.cassiokf.IndustrialRenewal.entity.render.RenderCargoContainer;
-import com.cassiokf.IndustrialRenewal.entity.render.RenderFlatCart;
-import com.cassiokf.IndustrialRenewal.entity.render.RenderFluidContainer;
-import com.cassiokf.IndustrialRenewal.entity.render.RenderPassengerCar;
-//import com.cassiokf.IndustrialRenewal.handlers.EventHandler;
+import com.cassiokf.IndustrialRenewal.entity.render.*;
+import com.cassiokf.IndustrialRenewal.handlers.EventHandler;
 import com.cassiokf.IndustrialRenewal.init.*;
 import com.cassiokf.IndustrialRenewal.tesr.*;
 import net.minecraft.block.Block;
@@ -96,7 +93,7 @@ public class industrialrenewal
         LOGGER.info("Industrial Renewal is loading preInit!");
 
         LOGGER.info("Done");
-//        MinecraftForge.EVENT_BUS.register(EventHandler.class);
+        MinecraftForge.EVENT_BUS.register(EventHandler.class);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
@@ -140,6 +137,7 @@ public class industrialrenewal
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.FLAT_CART.get(), RenderFlatCart::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.PASSENGER_CAR.get(), RenderPassengerCar::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.FLUID_CONTAINER.get(), RenderFluidContainer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntity.COUPLER_ENTITY.get(), RenderCouplerEntity::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

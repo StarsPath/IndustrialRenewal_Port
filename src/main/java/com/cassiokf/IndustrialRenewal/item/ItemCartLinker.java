@@ -1,9 +1,11 @@
 package com.cassiokf.IndustrialRenewal.item;
 
 //import com.cassiokf.IndustrialRenewal.util.CouplingHandler;
+import com.cassiokf.IndustrialRenewal.entity.CouplerEntity;
+import com.cassiokf.IndustrialRenewal.entity.EntityFluidContainer;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import com.cassiokf.IndustrialRenewal.util.enums.EnumCouplingType;
-import com.cassiokf.IndustrialRenewal.util.interfaces.ICoupleCart;
+//import com.cassiokf.IndustrialRenewal.util.interfaces.ICoupleCart;
 import com.google.common.collect.MapMaker;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -15,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import java.util.Map;
@@ -29,11 +32,19 @@ public class ItemCartLinker extends IRBaseItem{
         super(name, new Item.Properties().stacksTo(1));
     }
 
-//    public static void onPlayerUseLinkableItemOnCart(PlayerEntity player, AbstractMinecartEntity cart)
-//    {
-//        AbstractMinecartEntity last = linkMap.remove(player);
-//        if (last != null && last.isAlive())
-//        {
+    public static void onPlayerUseLinkableItemOnCart(PlayerEntity player, AbstractMinecartEntity cart)
+    {
+        AbstractMinecartEntity last = linkMap.remove(player);
+        if (last != null && last.isAlive())
+        {
+            if(last.position().distanceTo(cart.position()) > 2f){
+                Utils.sendChatMessage(player, "Coupling FAILED, TOO FAR");
+                return;
+            }
+
+            Vector3d spawnPos = last.position().add(cart.position().subtract(last.position()).multiply(0.5f,0.5f,0.5f));
+            CouplerEntity couplerEntity = new CouplerEntity(player.level, spawnPos.x, spawnPos.y, spawnPos.z, last, cart);
+            player.level.addFreshEntity(couplerEntity);
 //            if (CouplingHandler.isConnected(cart, last))
 //            {
 //                CouplingHandler.removeConnection(cart, last);
@@ -49,14 +60,14 @@ public class ItemCartLinker extends IRBaseItem{
 //                    return;
 //                }
 //            }
-//            Utils.sendChatMessage(player, "Coupling Fail");
-//        }
-//        else
-//        {
-//            linkMap.put(player, cart);
-//            Utils.sendChatMessage(player, "Coupling Start");
-//        }
-//    }
+            Utils.sendChatMessage(player, "Coupling SUCCESS");
+        }
+        else
+        {
+            linkMap.put(player, cart);
+            Utils.sendChatMessage(player, "Coupling Start");
+        }
+    }
 //
 //    public static boolean CoupleCarts(AbstractMinecartEntity cart1, AbstractMinecartEntity cart2)
 //    {
