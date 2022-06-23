@@ -34,7 +34,8 @@ public class ModItems {
 //    public static final IRItemCartridge cartridge_inverter;
 
     //    public static final ItemIronPlow locomotivePlowIron;
-//    public static final ItemCartLinkable cartLinkable;
+    public static final ItemCartLinker cartLinkable;
+
     public static final ItemPowerScrewDrive screwDrive;
 
     public static final ItemCargoContainer cargoContainer;
@@ -173,6 +174,7 @@ public class ModItems {
         flatCart = new ItemFlatCart("minecart_flat");
         passengerCar = new ItemPassengerCar("passenger_car");
         fluidContainer = new ItemFluidContainer("fluid_container");
+        cartLinkable = new ItemCartLinker("cart_linkable");
 
     }
 

@@ -7,6 +7,7 @@ import com.cassiokf.IndustrialRenewal.entity.render.RenderCargoContainer;
 import com.cassiokf.IndustrialRenewal.entity.render.RenderFlatCart;
 import com.cassiokf.IndustrialRenewal.entity.render.RenderFluidContainer;
 import com.cassiokf.IndustrialRenewal.entity.render.RenderPassengerCar;
+//import com.cassiokf.IndustrialRenewal.handlers.EventHandler;
 import com.cassiokf.IndustrialRenewal.init.*;
 import com.cassiokf.IndustrialRenewal.tesr.*;
 import net.minecraft.block.Block;
@@ -95,6 +96,7 @@ public class industrialrenewal
         LOGGER.info("Industrial Renewal is loading preInit!");
 
         LOGGER.info("Done");
+//        MinecraftForge.EVENT_BUS.register(EventHandler.class);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
