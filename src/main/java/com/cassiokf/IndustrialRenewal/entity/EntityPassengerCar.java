@@ -2,6 +2,7 @@ package com.cassiokf.IndustrialRenewal.entity;
 
 import com.cassiokf.IndustrialRenewal.init.ModEntity;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
+import com.cassiokf.IndustrialRenewal.util.CouplingHandler;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -54,6 +55,24 @@ public class EntityPassengerCar extends RotatableBase{
             this.spawnAtLocation(itemstack);
         }
     }
+
+    @Override
+    public void tick() {
+        super.tick();
+        CouplingHandler.onMinecartTick(this);
+    }
+
+//    @Override
+//    protected double getMaxSpeed() {
+//        return 0.20d;
+////        return super.getMaxSpeed();
+//    }
+//
+//    @Override
+//    public float getMaxCartSpeedOnRail() {
+//        return 0.20f;
+//    }
+
 
     @Override
     public Type getMinecartType() {

@@ -3,6 +3,7 @@ package com.cassiokf.IndustrialRenewal.entity;
 import com.cassiokf.IndustrialRenewal.init.ModEntity;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityBarrel;
+import com.cassiokf.IndustrialRenewal.util.CouplingHandler;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
@@ -96,7 +97,7 @@ public class EntityFluidContainer extends AbstractMinecartEntity{
             updateSynchedData();
             changed_flag = false;
         }
-
+        CouplingHandler.onMinecartTick(this);
     }
 
     public FluidStack getFluidStack() {
@@ -133,6 +134,17 @@ public class EntityFluidContainer extends AbstractMinecartEntity{
             this.spawnAtLocation(itemstack);
         }
     }
+
+//    @Override
+//    protected double getMaxSpeed() {
+//        return 0.20d;
+////        return super.getMaxSpeed();
+//    }
+//
+//    @Override
+//    public float getMaxCartSpeedOnRail() {
+//        return 0.20f;
+//    }
 
     @Override
     public Type getMinecartType() {

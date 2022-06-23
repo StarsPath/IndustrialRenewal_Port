@@ -22,7 +22,7 @@ public class EventHandler {
     public static void onPlayerInteractWithMineCarts(PlayerInteractEvent.EntityInteract event){
         if (event.getItemStack().getItem() instanceof ItemCartLinker) {
             event.setCanceled(true);
-            event.setCancellationResult(ActionResultType.PASS);
+            event.setCancellationResult(ActionResultType.FAIL);
         }
         else return;
 
