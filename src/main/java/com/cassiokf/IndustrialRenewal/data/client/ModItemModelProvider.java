@@ -82,5 +82,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         withExistingParent("razor_wire", modLoc("block/razor_wire"));
 
+        withExistingParent("cargo_loader", modLoc("block/cargo_loader"));
+
     }
 }

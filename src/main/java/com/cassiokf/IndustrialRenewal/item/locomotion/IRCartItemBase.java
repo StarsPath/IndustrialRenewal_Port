@@ -2,6 +2,7 @@ package com.cassiokf.IndustrialRenewal.item.locomotion;
 
 import com.cassiokf.IndustrialRenewal.item.IRBaseItem;
 import com.cassiokf.IndustrialRenewal.util.Utils;
+import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RailBlock;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
@@ -25,7 +26,7 @@ public abstract class IRCartItemBase extends IRBaseItem {
         BlockPos pos = context.getClickedPos();
         BlockState state = world.getBlockState(pos);
 
-        if(!state.is(BlockTags.RAILS) || !(state.getBlock() instanceof RailBlock))
+        if(!state.is(BlockTags.RAILS) || !(state.getBlock() instanceof AbstractRailBlock))
             return ActionResultType.FAIL;
 
         ItemStack stack = context.getItemInHand();

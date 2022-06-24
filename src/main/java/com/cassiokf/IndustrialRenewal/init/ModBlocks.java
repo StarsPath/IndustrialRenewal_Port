@@ -3,6 +3,7 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.blocks.BlockScaffold;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.blocks.*;
+import com.cassiokf.IndustrialRenewal.blocks.locomotion.BlockCargoLoader;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockEnergyCable;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockFluidPipe;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
@@ -198,6 +199,9 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockRazorWire> RAZOR_WIRE = registerBlock("razor_wire",
             BlockRazorWire::new);
+
+    public static final RegistryObject<BlockCargoLoader> CARGO_LOADER = registerBlock("cargo_loader",
+            BlockCargoLoader::new);
 
 
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);
