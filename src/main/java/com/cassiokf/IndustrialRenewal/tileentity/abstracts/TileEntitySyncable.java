@@ -27,6 +27,16 @@ public abstract class TileEntitySyncable extends TileEntity{
     }
 
     @Override
+    public CompoundNBT save(CompoundNBT compound) {
+        return super.save(compound);
+    }
+
+    @Override
+    public void load(BlockState state, CompoundNBT compound) {
+        super.load(state, compound);
+    }
+
+    @Override
     public CompoundNBT getUpdateTag() {
         return this.save(super.getUpdateTag());
     }

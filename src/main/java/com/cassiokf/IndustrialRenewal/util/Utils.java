@@ -395,4 +395,43 @@ public class Utils {
             text = preciseForm.format((float) energy / 1000000000) + "B FE";
         return text;
     }
+
+    public static float getInvNorm(IItemHandler inventory)
+    {
+        float items = 0;
+        for (int i = 0; i < inventory.getSlots(); ++i)
+        {
+            ItemStack itemstack = inventory.getStackInSlot(i);
+            if (!itemstack.isEmpty())
+            {
+                items = items + 1;
+            }
+        }
+        return items / (float) inventory.getSlots();
+    }
+
+    public static boolean IsInventoryEmpty(IItemHandler handler)
+    {
+        for (int i = 0; i < handler.getSlots(); i++)
+        {
+            if (!handler.getStackInSlot(i).isEmpty())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean IsInventoryFull(IItemHandler handler)
+    {
+        int slotsFull = 0;
+        for (int i = 0; i < handler.getSlots(); i++)
+        {
+            if (!handler.getStackInSlot(i).isEmpty())
+            {
+                slotsFull++;
+            }
+        }
+        return slotsFull == handler.getSlots();
+    }
 }

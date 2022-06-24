@@ -9,6 +9,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -43,12 +44,12 @@ public class StorageChestScreen extends ContainerScreen<StorageChestContainer> {
         int posX1 = ((this.width - this.getXSize()) / 2);
         int posY1 = ((this.height - this.getYSize()) / 2);
         upB = new Button(posX1 + 206, posY1 + 15, 10, 18,
-            ITextComponent.nullToEmpty("UP"), (button)-> {
+            ITextComponent.nullToEmpty(I18n.get("gui.industrialrenewal.arrowup")), (button)-> {
                 Utils.debug("UP Button Pressed", button);
             storageChestContainer.clickedOn(1);
         });
         downB = new Button(posX1 + 206, posY1 + 105, 10, 18,
-            ITextComponent.nullToEmpty("DN"), (button)-> {
+            ITextComponent.nullToEmpty(I18n.get("gui.industrialrenewal.arrowdown")), (button)-> {
                 Utils.debug("DOWN Button Pressed", button);
                 storageChestContainer.clickedOn(2);
         });

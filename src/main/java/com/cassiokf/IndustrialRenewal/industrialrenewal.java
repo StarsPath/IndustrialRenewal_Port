@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal;
 
+import com.cassiokf.IndustrialRenewal.containers.screen.CargoLoaderScreen;
 import com.cassiokf.IndustrialRenewal.containers.screen.LatheScreen;
 import com.cassiokf.IndustrialRenewal.containers.screen.StorageChestScreen;
 import com.cassiokf.IndustrialRenewal.entity.EntityCargoContainer;
@@ -120,6 +121,7 @@ public class industrialrenewal
 
             ScreenManager.register(ModContainers.STORAGE_CHEST_CONTAINER.get(), StorageChestScreen::new);
             ScreenManager.register(ModContainers.LATHE_CONTAINER.get(), LatheScreen::new);
+            ScreenManager.register(ModContainers.CARGO_LOADER_CONTAINER.get(), CargoLoaderScreen::new);
         });
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.BATTERY_BANK_TILE.get(), TESRBatteryBank::new);

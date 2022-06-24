@@ -1,10 +1,12 @@
 package com.cassiokf.IndustrialRenewal.init;
 
 import com.cassiokf.IndustrialRenewal.References;
+import com.cassiokf.IndustrialRenewal.containers.container.CargoLoaderContainer;
 import com.cassiokf.IndustrialRenewal.containers.container.LatheContainer;
 import com.cassiokf.IndustrialRenewal.containers.container.StorageChestContainer;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityLathe;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityStorageChest;
+import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityCargoLoader;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -33,6 +35,13 @@ public class ModContainers {
                 BlockPos pos = data.readBlockPos();
                 TileEntity tileEntity = inv.player.level.getBlockEntity(pos);
                 return new LatheContainer(windowId, inv, ((TileEntityLathe) Objects.requireNonNull(tileEntity)).getMaster());
+            })));
+
+    public static final RegistryObject<ContainerType<CargoLoaderContainer>> CARGO_LOADER_CONTAINER =
+            CONTAINERS.register("cargo_loader_container", ()-> IForgeContainerType.create(((windowId, inv, data) -> {
+                BlockPos pos = data.readBlockPos();
+                TileEntity tileEntity = inv.player.level.getBlockEntity(pos);
+                return new CargoLoaderContainer(windowId, inv, ((TileEntityCargoLoader) Objects.requireNonNull(tileEntity)).getMaster());
             })));
 
     public static void register(IEventBus bus){
