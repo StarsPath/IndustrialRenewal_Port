@@ -19,6 +19,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -39,6 +40,7 @@ import java.util.Set;
 public class BlockCargoLoader extends BlockAbstractHorizontalFacing {
 
     public static final BooleanProperty MASTER = BooleanProperty.create("master");
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public BlockCargoLoader(Properties properties) {
         super(properties);
@@ -46,6 +48,17 @@ public class BlockCargoLoader extends BlockAbstractHorizontalFacing {
 
     public BlockCargoLoader() {
         super(Block.Properties.of(Material.METAL));
+        registerDefaultState(defaultBlockState().setValue(MASTER, false).setValue(POWERED, false));
+    }
+
+    @Override
+    public boolean isSignalSource(BlockState p_149744_1_) {
+        return true;
+    }
+
+    @Override
+    public int getSignal(BlockState state, IBlockReader p_180656_2_, BlockPos p_180656_3_, Direction p_180656_4_) {
+        return state.getValue(POWERED)? 15 : 0;
     }
 
     public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult rayTraceResult) {
@@ -160,7 +173,7 @@ public class BlockCargoLoader extends BlockAbstractHorizontalFacing {
     @Override
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(MASTER);
+        builder.add(MASTER, POWERED);
     }
 
     @Override

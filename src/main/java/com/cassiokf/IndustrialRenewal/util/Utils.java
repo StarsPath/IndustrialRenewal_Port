@@ -2,10 +2,12 @@ package com.cassiokf.IndustrialRenewal.util;
 
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.HopperBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -324,6 +326,14 @@ public class Utils {
         }
     }
 
+    public static boolean isInventoryFull(IInventory inv){
+        for(int i = 0; i < inv.getContainerSize(); i++){
+            if(inv.getItem(i).isEmpty())
+                return false;
+        }
+        return true;
+    }
+
     public static boolean moveItemToInventory(IItemHandler from, int slot, IItemHandler to)
     {
         boolean movement = false;
@@ -342,6 +352,54 @@ public class Utils {
             }
         }
         return movement;
+    }
+
+    public static boolean moveItemsBetweenInventories(IInventory from, IItemHandler to){
+
+        if(to==null || from == null)
+            return false;
+        for(int i = 0; i < from.getContainerSize(); i++){
+            if(from.getItem(i).isEmpty()) {
+                continue;
+            }
+            ItemStack remainder = null;
+            remainder = from.getItem(i).copy();
+            remainder.setCount(1);
+            for(int j = 0; j < to.getSlots(); j++){
+                remainder = to.insertItem(j, remainder, false);
+                if(remainder.isEmpty()) {
+                    from.getItem(i).shrink(1);
+                    from.setChanged();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean moveItemsBetweenInventories(IItemHandler from, IInventory to)
+    {
+        if(to==null || from==null)
+            return false;
+        for(int i = 0; i < from.getSlots(); i++){
+            ItemStack stack = from.extractItem(i, 1, true);
+            if(stack.isEmpty())
+                continue;
+            for(int j = 0; j < to.getContainerSize(); j++){
+                if(to.getItem(j).isEmpty()){
+                    to.setItem(j, from.extractItem(i, 1, false));
+                    to.setChanged();
+                    return true;
+                }
+                else if(to.getItem(j).sameItem(stack) && to.getItem(j).isStackable() && to.getItem(j).getCount() < to.getItem(j).getMaxStackSize()){
+                    from.extractItem(i, 1, false);
+                    to.getItem(j).grow(1);
+                    to.setChanged();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public static boolean moveItemsBetweenInventories(IItemHandler from, IItemHandler to)
