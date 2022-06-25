@@ -97,5 +97,9 @@ public abstract class TileEntityBaseLoader extends TileEntitySyncable {
             }
             throw new IllegalArgumentException("waitEnum not found");
         }
+
+        public static waitEnum cycle(waitEnum e){
+            return valueOf((e.intValue+1) % waitEnum.values().length);
+        }
     }
 }

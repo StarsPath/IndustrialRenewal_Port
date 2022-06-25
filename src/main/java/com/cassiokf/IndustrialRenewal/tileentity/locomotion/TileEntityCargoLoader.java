@@ -64,7 +64,15 @@ public class TileEntityCargoLoader extends TileEntityBaseLoader implements ITick
 
     @Override
     public boolean isUnload() {
-        return true;
+        return unload;
+    }
+
+    public void toggleUnload(){
+        this.unload = !unload;
+    }
+
+    public void cycleMode(){
+        waitE = waitEnum.cycle(this.waitE);
     }
 
     @Override
@@ -146,9 +154,15 @@ public class TileEntityCargoLoader extends TileEntityBaseLoader implements ITick
             }
             switch (waitE){
                 case WAIT_FULL:
-                    level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, Utils.isInventoryFull(containerInventory)), 3);
+                    if(containerInventory!=null)
+                        level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, Utils.isInventoryFull(containerInventory)), 3);
                 case WAIT_EMPTY:
-                    level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, containerInventory.isEmpty()), 3);
+                    if(containerInventory!=null)
+                        level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, containerInventory.isEmpty()), 3);
+                case NO_ACTIVITY:
+                    level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, true), 3);
+                case NEVER:
+                    level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, false), 3);
             }
         }
     }

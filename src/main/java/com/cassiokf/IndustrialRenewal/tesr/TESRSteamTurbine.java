@@ -26,7 +26,7 @@ public class TESRSteamTurbine extends TESRBase<TileEntitySteamTurbine>{
         int z = 0;
         int y = 0;
 
-        if (tileEntity.isMaster())
+        if (tileEntity!= null && tileEntity.isMaster())
         {
             Direction facing = tileEntity.getMasterFacing();
             //STEAM

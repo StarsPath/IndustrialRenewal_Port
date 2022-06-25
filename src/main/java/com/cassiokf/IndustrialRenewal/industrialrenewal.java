@@ -95,6 +95,7 @@ public class industrialrenewal
 
         LOGGER.info("Done");
         MinecraftForge.EVENT_BUS.register(EventHandler.class);
+        event.enqueueWork(PacketHandler::init);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

@@ -23,10 +23,10 @@ public class TESRIndustrialBatteryBank extends TESRBase<TileEntityIndustrialBatt
         double y = 0;
         double z = 0;
 
-        if (te.isMaster())
+        if (te != null && te.isMaster())
         {
             Direction facing = te.getMasterFacing();
-            if (te.isMaster() && te.isBase())
+            if (te!=null && te.isMaster() && te.isBase())
             {
                 doTheMath(facing, x, z, 1.97, -0.586);
                 renderPointer(matrixStack, combinedLightIn, combinedOverlayIn, renderTypeBuffer, facing, xPos, y + 0.486, zPos, te.getInPutAngle(), pointerLong, 0.6F);

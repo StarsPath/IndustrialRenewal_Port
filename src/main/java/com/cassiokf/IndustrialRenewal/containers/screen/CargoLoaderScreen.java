@@ -3,7 +3,10 @@ package com.cassiokf.IndustrialRenewal.containers.screen;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.containers.container.CargoLoaderContainer;
 import com.cassiokf.IndustrialRenewal.containers.container.LatheContainer;
+import com.cassiokf.IndustrialRenewal.init.PacketHandler;
+import com.cassiokf.IndustrialRenewal.network.ServerBoundCargoLoaderPacket;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityLathe;
+import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityBaseLoader;
 import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityCargoLoader;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -28,38 +31,42 @@ public class CargoLoaderScreen extends ContainerScreen<CargoLoaderContainer> {
 
     private final TileEntityCargoLoader tileEntity;
     private final CargoLoaderContainer container;
+    private boolean unload;
+    private TileEntityBaseLoader.waitEnum waitE;
 
     public CargoLoaderScreen(CargoLoaderContainer cargoLoaderContainer, PlayerInventory playerInventory, ITextComponent textComponent) {
         super(cargoLoaderContainer, playerInventory, textComponent);
         this.container = cargoLoaderContainer;
         this.tileEntity = cargoLoaderContainer.getTileEntity();
+        this.unload = tileEntity.unload;
+        this.waitE = tileEntity.waitE;
     }
 
     private String getGUIButtonText()
     {
-        String waitE;
-        switch (this.tileEntity.getWaitEnum())
+        String msg;
+        switch (waitE)
         {
             case WAIT_FULL:
-                waitE = I18n.get("gui.industrialrenewal.button.waitfull");
+                msg = I18n.get("gui.industrialrenewal.button.waitfull");
                 break;
             case WAIT_EMPTY:
-                waitE = I18n.get("gui.industrialrenewal.button.waitempty");
+                msg = I18n.get("gui.industrialrenewal.button.waitempty");
                 break;
             case NO_ACTIVITY:
-                waitE = I18n.get("gui.industrialrenewal.button.noactivity");
+                msg = I18n.get("gui.industrialrenewal.button.noactivity");
                 break;
             default:
             case NEVER:
-                waitE = I18n.get("gui.industrialrenewal.button.never");
+                msg = I18n.get("gui.industrialrenewal.button.never");
                 break;
         }
-        return waitE;
+        return msg;
     }
 
     private String getGUIModeText()
     {
-        if (tileEntity.isUnload()) return I18n.get("gui.industrialrenewal.button.unloader_mode");
+        if (unload) return I18n.get("gui.industrialrenewal.button.unloader_mode");
         return I18n.get("gui.industrialrenewal.button.loader_mode");
     }
 
@@ -73,8 +80,14 @@ public class CargoLoaderScreen extends ContainerScreen<CargoLoaderContainer> {
         B1 = new Button(posX1 + 7, posY1 + 53, 61, 18,
                 ITextComponent.nullToEmpty(getGUIButtonText()),
             (button)-> {
-                Utils.debug("B1 Pressed", button);
+                Utils.debug("Cycle Wait mode B1 Pressed", button);
+//                tileEntity.waitE = TileEntityBaseLoader.waitEnum.cycle(tileEntity.waitE);
+                waitE = TileEntityBaseLoader.waitEnum.cycle(waitE);
+                PacketHandler.INSTANCE.sendToServer(new ServerBoundCargoLoaderPacket(tileEntity.getBlockPos(), 2));
+                Utils.debug("this waitE", waitE);
+                Utils.debug("te waitE", tileEntity.waitE);
                 button.setMessage(ITextComponent.nullToEmpty(getGUIButtonText()));
+
             },
             (button, matrixStack, mouseX, mouseY)->{
                 onToolTip(matrixStack, mouseX, mouseY);
@@ -83,8 +96,12 @@ public class CargoLoaderScreen extends ContainerScreen<CargoLoaderContainer> {
         B2 = new Button(posX1 + 7, posY1 + 18, 52, 18,
                 ITextComponent.nullToEmpty(getGUIModeText()),
             (button)-> {
-                Utils.debug("B2 Pressed", button);
+                Utils.debug("Setting load/unload B2 Pressed", button);
+//                tileEntity.unload = !tileEntity.unload;
+                unload = !unload;
+                PacketHandler.INSTANCE.sendToServer(new ServerBoundCargoLoaderPacket(tileEntity.getBlockPos(), 1));
                 button.setMessage(ITextComponent.nullToEmpty(getGUIModeText()));
+                //unload = tileEntity.unload;
             }
         );
 

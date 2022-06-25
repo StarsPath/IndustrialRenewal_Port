@@ -22,9 +22,11 @@ public class TESRBatteryBank extends TESRBase<TileEntityBatteryBank> {
         int y = 0;
         int z = 0;
 
-        Direction facing = tileEntity.getBlockState().getValue(BlockBatteryBank.FACING);
-        doTheMath(facing, x, z, 1.023, 0);
-        renderText(matrixStack, facing, xPos, y + 0.43, zPos, tileEntity.getText(), 0.005F);
-        renderBarLevel(matrixStack, combinedLightIn, combinedOverlayIn, renderTypeBuffer, facing, xPos, y + 0.49, zPos, tileEntity.getTankFill(), 0.7F);
+        if(tileEntity!=null){
+            Direction facing = tileEntity.getBlockState().getValue(BlockBatteryBank.FACING);
+            doTheMath(facing, x, z, 1.023, 0);
+            renderText(matrixStack, facing, xPos, y + 0.43, zPos, tileEntity.getText(), 0.005F);
+            renderBarLevel(matrixStack, combinedLightIn, combinedOverlayIn, renderTypeBuffer, facing, xPos, y + 0.49, zPos, tileEntity.getTankFill(), 0.7F);
+        }
     }
 }

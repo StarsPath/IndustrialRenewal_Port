@@ -14,7 +14,7 @@ public class TESRFluidTank extends TESRBase<TileEntityFluidTank>{
     @Override
     public void render(TileEntityFluidTank te, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int combinedLightIn, int combinedOverlayIn) {
         double x = 0, y = 0, z = 0;
-        if (te.isMaster() && te.isBase())
+        if (te!= null && te.isMaster() && te.isBase())
         {
             Direction facing = te.getMasterFacing();
             doTheMath(facing, x, z, 1.98, 0);

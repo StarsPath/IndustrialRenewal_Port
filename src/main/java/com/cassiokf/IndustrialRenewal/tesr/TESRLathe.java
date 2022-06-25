@@ -18,7 +18,7 @@ public class TESRLathe extends TESRBase<TileEntityLathe>{
     public void render(TileEntityLathe te, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int combinedLightIn, int combinedOverlayIn) {
 
         double x = 0, y = 0, z = 0;
-        if (te.isMaster())
+        if (te!= null && te.isMaster())
         {
             Direction facing = te.getMasterFacing();
             //Result Screen

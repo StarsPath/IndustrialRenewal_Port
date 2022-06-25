@@ -21,7 +21,7 @@ public class TESRWindTurbinePillar extends TESRBase<TileEntityWindTurbinePillar>
         int y = 0;
         int z = 0;
 
-        if (tileEntity.isBase())
+        if (tileEntity!=null && tileEntity.isBase())
         {
             Direction facing = tileEntity.getBlockFacing();
             doTheMath(facing, x, z, 0.78, 0);

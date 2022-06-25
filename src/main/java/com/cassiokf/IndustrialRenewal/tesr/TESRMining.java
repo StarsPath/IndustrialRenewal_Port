@@ -21,7 +21,7 @@ public class TESRMining extends TESRBase<TileEntityMiner>{
         int y = 0;
         int z = 0;
 
-        if (tileEntity.isMaster())
+        if (tileEntity!= null && tileEntity.isMaster())
         {
             Direction facing = tileEntity.getMasterFacing();
             if (tileEntity.hasDrill())

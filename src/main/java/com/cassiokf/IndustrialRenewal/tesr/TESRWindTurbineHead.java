@@ -26,7 +26,7 @@ public class TESRWindTurbineHead extends TESRBase<TileEntityWindTurbineHead>{
         int y = 0;
         int z = 0;
 
-        if(tileEntity.hasBlade()){
+        if(tileEntity!=null && tileEntity.hasBlade()){
             Direction facing = tileEntity.getBlockFacing();
             doTheMath(facing, x, z, 0, 0);
             float rotation = smoothAnimation(tileEntity.getRotation(), tileEntity.getRotation(), partialTicks, true);

@@ -125,6 +125,8 @@ public class TileEntityTowerBase<TE extends TileEntityTowerBase> extends TileEnt
     }
 
     public boolean isBase(){
+        if(getMaster()== null || level.getBlockState(getMaster().worldPosition) == null)
+            return false;
         return level.getBlockState(getMaster().worldPosition).getValue(BlockTowerBase.BASE);
     }
     public boolean isTop(){
