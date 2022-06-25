@@ -9,7 +9,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 public class ServerBoundCargoLoaderPacket {
@@ -41,7 +40,6 @@ public class ServerBoundCargoLoaderPacket {
                     ((TileEntityCargoLoader) te).toggleUnload();
                 }
                 else if(this.mode ==2) {
-                    Utils.debug("CYCLE MODE");
                     ((TileEntityCargoLoader) te).cycleMode();
                 }
             }

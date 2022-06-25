@@ -2,6 +2,7 @@ package com.cassiokf.IndustrialRenewal.tileentity.locomotion;
 
 import com.cassiokf.IndustrialRenewal.blocks.locomotion.BlockCargoLoader;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
+import com.cassiokf.IndustrialRenewal.tileentity.TileEntityLathe;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.resources.I18n;
@@ -38,7 +39,7 @@ public class TileEntityCargoLoader extends TileEntityBaseLoader implements ITick
         }
     };
 
-    public final LazyOptional<ItemStackHandler> inventoryHandler = LazyOptional.of(()->inventory);
+    public LazyOptional<ItemStackHandler> inventoryHandler = LazyOptional.of(()->inventory);
 
     //TODO: add to config
     private final int itemsPerTick = 4;//IRConfig.MainConfig.Railroad.maxLoaderItemPerTick;
@@ -47,6 +48,7 @@ public class TileEntityCargoLoader extends TileEntityBaseLoader implements ITick
     private boolean checked = false;
     private boolean master;
     private int noActivity = 0;
+    private boolean firstLoad = true;
 
     public TileEntityCargoLoader() {
         super(ModTileEntities.CARGO_LOADER.get());
@@ -69,100 +71,91 @@ public class TileEntityCargoLoader extends TileEntityBaseLoader implements ITick
 
     public void toggleUnload(){
         this.unload = !unload;
+        sync();
     }
 
     public void cycleMode(){
+        Utils.debug("before cycle", waitE);
         waitE = waitEnum.cycle(this.waitE);
+        Utils.debug("after cycle", waitE);
+        sync();
     }
 
     @Override
     public boolean onMinecartPass(AbstractMinecartEntity entityMinecart) {
         return false;
-//        if (!level.isClientSide)
-//        {
-//            cartActivity = 10;
-//            IItemHandler cartCapability = entityMinecart.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).orElse(null);
-//            if (cartCapability != null)
-//            {
-//                if (isUnload()) //From cart to inventory
-//                {
-//                    if (Utils.moveItemsBetweenInventories(cartCapability, inventory, itemsPerTick))
-//                    {
-//                        noActivity = 0;
-//                        intUnloadActivity = 0;
-//                        loading = true;
-//                        return true;
-//                    }
-//
-//                    intUnloadActivity++;
-//                    loading = false;
-//                    if (waitE == waitEnum.WAIT_EMPTY)
-//                    {
-//                        return !Utils.IsInventoryEmpty(cartCapability);
-//                    }
-//                    else if (waitE == waitEnum.WAIT_FULL)
-//                    {
-//                        return intUnloadActivity < 10 || !Utils.IsInventoryFull(cartCapability);
-//                    }
-//                }
-//                else //From inventory to cart
-//                {
-//                    if (Utils.moveItemsBetweenInventories(inventory, cartCapability, itemsPerTick))
-//                    {
-//                        noActivity = 0;
-//                        intUnloadActivity = 0;
-//                        loading = true;
-//                        return true;
-//                    }
-//
-//                    intUnloadActivity++;
-//                    loading = false;
-//                    if (waitE == waitEnum.WAIT_FULL)
-//                    {
-//                        return intUnloadActivity < 10 || !Utils.IsInventoryFull(cartCapability);
-//                    }
-//                    else if (waitE == waitEnum.WAIT_EMPTY)
-//                    {
-//                        return !Utils.IsInventoryEmpty(cartCapability);
-//                    }
-//                }
-//                if (waitE == waitEnum.NO_ACTIVITY)
-//                {
-//                    noActivity++;
-//                    return noActivity < 10;
-//                }
-//            }
-//        }
-//        return waitE == waitEnum.NEVER; //false
+    }
+
+    @Override
+    public void setRemoved() {
+        super.setRemoved();
+        Utils.dropInventoryItems(level, worldPosition, inventoryHandler.orElse(null));
+    }
+
+    public void firstLoad(){
+        TileEntityCargoLoader masterTE = getMaster();
+
+        TileEntityCargoLoader itemInputTile = (TileEntityCargoLoader) level.getBlockEntity(getBlockPos().above());
+        if(itemInputTile != null)
+            masterTE.inventoryHandler = itemInputTile.inventoryHandler;
     }
 
     @Override
     public void tick() {
         if (!level.isClientSide && isMaster())
         {
+            if(firstLoad){
+                firstLoad();
+                firstLoad = false;
+            }
             BlockPos loaderPosition = worldPosition.relative(getBlockFacing());
+            ItemStackHandler inv = inventoryHandler.orElse(null);
+            if(inv == null)
+                return;
             IInventory containerInventory = getContainerAt(level, loaderPosition.getX(), loaderPosition.getY(), loaderPosition.getZ());
             if(isUnload()) { // from cart to cargoLoader
                 if(containerInventory!=null){
-                    Utils.moveItemsBetweenInventories(containerInventory, inventory);
+                    Utils.moveItemsBetweenInventories(containerInventory, inv);
                 }
             }
             else if (!isUnload()) { // from cargoLoader to cart
                 if(containerInventory!=null){
-                    Utils.moveItemsBetweenInventories(inventory, containerInventory);
+                    Utils.moveItemsBetweenInventories(inv, containerInventory);
                 }
             }
             switch (waitE){
                 case WAIT_FULL:
-                    if(containerInventory!=null)
-                        level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, Utils.isInventoryFull(containerInventory)), 3);
+                    if(containerInventory!=null) {
+                        boolean setBool = Utils.isInventoryFull(containerInventory);
+                        if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED) != setBool)
+                            level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, setBool), 3);
+                    }
+                    else{
+                        if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED))
+                            level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, false), 3);
+                    }
+                    break;
                 case WAIT_EMPTY:
-                    if(containerInventory!=null)
-                        level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, containerInventory.isEmpty()), 3);
-                case NO_ACTIVITY:
-                    level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, true), 3);
-                case NEVER:
-                    level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, false), 3);
+                    if(containerInventory!=null) {
+                        boolean setBool = containerInventory.isEmpty();
+                        if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED) != setBool)
+                            level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, setBool), 3);
+                    }
+                    else{
+                        if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED))
+                            level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, false), 3);
+                    }
+                    break;
+                case NO_ACTIVITY: {
+                    if(!level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED))
+                        level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, true), 3);
+                    break;
+                }
+                case NEVER: {
+                    if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED))
+                        level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, false), 3);
+                    break;
+                }
             }
         }
     }
@@ -204,7 +197,7 @@ public class TileEntityCargoLoader extends TileEntityBaseLoader implements ITick
 
     public IItemHandler getInventory()
     {
-        return inventory;
+        return inventoryHandler.orElse(null);
     }
 
     public String getModeText()
@@ -221,7 +214,7 @@ public class TileEntityCargoLoader extends TileEntityBaseLoader implements ITick
 
     public float getCartFluidAngle()
     {
-        return Utils.getInvNorm(inventory) * 180f;
+        return Utils.getInvNorm(inventoryHandler.orElse(null)) * 180f;
     }
 
     @Override

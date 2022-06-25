@@ -83,9 +83,8 @@ public class CargoLoaderScreen extends ContainerScreen<CargoLoaderContainer> {
                 Utils.debug("Cycle Wait mode B1 Pressed", button);
 //                tileEntity.waitE = TileEntityBaseLoader.waitEnum.cycle(tileEntity.waitE);
                 waitE = TileEntityBaseLoader.waitEnum.cycle(waitE);
+                tileEntity.waitE = waitE;
                 PacketHandler.INSTANCE.sendToServer(new ServerBoundCargoLoaderPacket(tileEntity.getBlockPos(), 2));
-                Utils.debug("this waitE", waitE);
-                Utils.debug("te waitE", tileEntity.waitE);
                 button.setMessage(ITextComponent.nullToEmpty(getGUIButtonText()));
 
             },

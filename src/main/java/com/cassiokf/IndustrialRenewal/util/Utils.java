@@ -175,6 +175,8 @@ public class Utils {
 
     public static void dropInventoryItems(World worldIn, BlockPos pos, ItemStackHandler inventory)
     {
+        if(inventory == null)
+            return;
         for (int i = 0; i < inventory.getSlots(); ++i)
         {
             ItemStack itemstack = inventory.getStackInSlot(i);
@@ -391,7 +393,7 @@ public class Utils {
                     to.setChanged();
                     return true;
                 }
-                else if(to.getItem(j).sameItem(stack) && to.getItem(j).isStackable() && to.getItem(j).getCount() < to.getItem(j).getMaxStackSize()){
+                else if(ItemStack.tagMatches(to.getItem(j), stack) && to.getItem(j).isStackable() && to.getItem(j).getCount() < to.getItem(j).getMaxStackSize()){
                     from.extractItem(i, 1, false);
                     to.getItem(j).grow(1);
                     to.setChanged();
@@ -456,6 +458,8 @@ public class Utils {
 
     public static float getInvNorm(IItemHandler inventory)
     {
+        if(inventory == null)
+            return 0;
         float items = 0;
         for (int i = 0; i < inventory.getSlots(); ++i)
         {
