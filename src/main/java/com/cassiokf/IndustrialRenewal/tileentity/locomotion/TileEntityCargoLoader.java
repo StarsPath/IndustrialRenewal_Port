@@ -2,12 +2,10 @@ package com.cassiokf.IndustrialRenewal.tileentity.locomotion;
 
 import com.cassiokf.IndustrialRenewal.blocks.locomotion.BlockCargoLoader;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityLathe;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -64,18 +62,6 @@ public class TileEntityCargoLoader extends TileEntityBaseLoader implements ITick
         return blockFacing;
     }
 
-    public void toggleUnload(){
-        this.unload = !unload;
-        sync();
-    }
-
-    public void cycleMode(){
-        Utils.debug("before cycle", waitE);
-        waitE = waitEnum.cycle(this.waitE);
-        Utils.debug("after cycle", waitE);
-        sync();
-    }
-
     @Override
     public void setRemoved() {
         super.setRemoved();
@@ -103,6 +89,7 @@ public class TileEntityCargoLoader extends TileEntityBaseLoader implements ITick
             if(inv == null)
                 return;
             IInventory containerInventory = getContainerAt(level, loaderPosition.getX(), loaderPosition.getY(), loaderPosition.getZ());
+//            Utils.debug("", unload, waitE);
             if(isUnload()) { // from cart to cargoLoader
                 if(containerInventory!=null){
                     Utils.moveItemsBetweenInventories(containerInventory, inv);

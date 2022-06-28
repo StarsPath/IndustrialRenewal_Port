@@ -2,10 +2,8 @@ package com.cassiokf.IndustrialRenewal.containers.screen;
 
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.containers.container.CargoLoaderContainer;
-import com.cassiokf.IndustrialRenewal.containers.container.LatheContainer;
 import com.cassiokf.IndustrialRenewal.init.PacketHandler;
-import com.cassiokf.IndustrialRenewal.network.ServerBoundCargoLoaderPacket;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityLathe;
+import com.cassiokf.IndustrialRenewal.network.ServerBoundLoaderPacket;
 import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityBaseLoader;
 import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityCargoLoader;
 import com.cassiokf.IndustrialRenewal.util.Utils;
@@ -19,8 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-
-import java.util.*;
 
 public class CargoLoaderScreen extends ContainerScreen<CargoLoaderContainer> {
 
@@ -81,7 +77,7 @@ public class CargoLoaderScreen extends ContainerScreen<CargoLoaderContainer> {
                 Utils.debug("Cycle Wait mode B1 Pressed", button);
                 waitE = TileEntityBaseLoader.waitEnum.cycle(waitE);
                 tileEntity.waitE = waitE;
-                PacketHandler.INSTANCE.sendToServer(new ServerBoundCargoLoaderPacket(tileEntity.getBlockPos(), 2));
+                PacketHandler.INSTANCE.sendToServer(new ServerBoundLoaderPacket(tileEntity.getBlockPos(), 2));
                 button.setMessage(ITextComponent.nullToEmpty(getGUIButtonText()));
 
             },
@@ -94,7 +90,7 @@ public class CargoLoaderScreen extends ContainerScreen<CargoLoaderContainer> {
             (button)-> {
                 Utils.debug("Setting load/unload B2 Pressed", button);
                 unload = !unload;
-                PacketHandler.INSTANCE.sendToServer(new ServerBoundCargoLoaderPacket(tileEntity.getBlockPos(), 1));
+                PacketHandler.INSTANCE.sendToServer(new ServerBoundLoaderPacket(tileEntity.getBlockPos(), 1));
                 button.setMessage(ITextComponent.nullToEmpty(getGUIModeText()));
             }
         );

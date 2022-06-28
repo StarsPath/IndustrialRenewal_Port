@@ -2,15 +2,11 @@ package com.cassiokf.IndustrialRenewal.entity;
 
 import com.cassiokf.IndustrialRenewal.init.ModEntity;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityBarrel;
 import com.cassiokf.IndustrialRenewal.util.CouplingHandler;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
@@ -32,9 +28,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-import javax.annotation.Nullable;
-
-public class EntityFluidContainer extends AbstractMinecartEntity{
+public class EntityFluidContainer extends AbstractMinecartEntity {
 
     private static final DataParameter<CompoundNBT> FLUID_TAG = EntityDataManager.defineId(EntityFluidContainer.class, DataSerializers.COMPOUND_TAG);
     boolean changed_flag;
@@ -156,9 +150,4 @@ public class EntityFluidContainer extends AbstractMinecartEntity{
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
-//    @Nullable
-//    @Override
-//    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
-//        return null;
-//    }
 }

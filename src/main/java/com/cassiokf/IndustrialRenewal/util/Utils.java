@@ -2,9 +2,7 @@ package com.cassiokf.IndustrialRenewal.util;
 
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.HopperBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -15,6 +13,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.fluids.capability.wrappers.BlockWrapper;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -335,6 +334,17 @@ public class Utils {
         }
         return true;
     }
+
+    public static boolean moveFluidToTank(FluidTank from, IFluidHandler to){
+        to.fill(from.drain(to.fill(from.drain(200, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+        return false;
+    }
+
+    public static boolean moveFluidToTank(IFluidHandler from, FluidTank to){
+        to.fill(from.drain(to.fill(from.drain(200, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+        return false;
+    }
+
 
     public static boolean moveItemToInventory(IItemHandler from, int slot, IItemHandler to)
     {

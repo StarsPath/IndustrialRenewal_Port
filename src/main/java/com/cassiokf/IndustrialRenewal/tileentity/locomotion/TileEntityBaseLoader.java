@@ -2,7 +2,6 @@ package com.cassiokf.IndustrialRenewal.tileentity.locomotion;
 
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntitySyncable;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;

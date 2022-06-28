@@ -32,7 +32,7 @@ public abstract class IRCartItemBase extends IRBaseItem {
         ItemStack stack = context.getItemInHand();
 
         if(!world.isClientSide){
-            RailShape railShape = state.getValue(RailBlock.SHAPE);
+            RailShape railShape = ((AbstractRailBlock) state.getBlock()).getRailDirection(state, world, pos, null);
             double d0 = 0.0D;
 
             if(railShape.isAscending())

@@ -6,17 +6,25 @@ import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.EntityPredicates;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class TileEntityFluidLoader extends TileEntityBaseLoader implements ITickableTileEntity {
 
@@ -25,7 +33,7 @@ public class TileEntityFluidLoader extends TileEntityBaseLoader implements ITick
         @Override
         public boolean canFill()
         {
-            return !TileEntityFluidLoader.this.isUnload();
+            return true;
         }
 
         @Override
@@ -56,7 +64,71 @@ public class TileEntityFluidLoader extends TileEntityBaseLoader implements ITick
 
     @Override
     public void tick() {
+        if (!level.isClientSide && isMaster())
+        {
+            BlockPos loaderPosition = worldPosition.relative(getBlockFacing());
+            FluidTank tank = tankHandler.orElse(null);
+            if(tank == null)
+                return;
 
+            IFluidHandler containerTank = getTankAt(level, loaderPosition.getX(), loaderPosition.getY(), loaderPosition.getZ());
+
+            if(isUnload()) { // from cart to cargoLoader
+                if(containerTank!=null){
+                    Utils.moveFluidToTank(containerTank, tank);
+                }
+            }
+            else if (!isUnload()) { // from cargoLoader to cart
+                if(containerTank!=null){
+                    Utils.moveFluidToTank(tank, containerTank);
+                }
+            }
+            switch (waitE){
+                case WAIT_FULL:
+                    if(containerTank!=null) {
+                        boolean setBool = containerTank.getFluidInTank(0).getAmount()>= containerTank.getTankCapacity(0);
+                        if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED) != setBool)
+                            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, setBool), 3);
+                    }
+                    else{
+                        if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED))
+                            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, false), 3);
+                    }
+                    break;
+                case WAIT_EMPTY:
+                    if(containerTank!=null) {
+                        boolean setBool = containerTank.getFluidInTank(0).getAmount()<=0;
+                        if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED) != setBool)
+                            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, setBool), 3);
+                    }
+                    else{
+                        if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED))
+                            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, false), 3);
+                    }
+                    break;
+                case NO_ACTIVITY: {
+                    if(!level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED))
+                        level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, true), 3);
+                    break;
+                }
+                case NEVER: {
+                    if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED))
+                        level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, false), 3);
+                    break;
+                }
+            }
+        }
+    }
+
+    public IFluidHandler getTankAt(World world, double x, double y, double z){
+        //IFluidHandler inventory = null;
+        IFluidHandler handler = null;
+
+        List<Entity> list = world.getEntities((Entity)null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntityPredicates.ENTITY_STILL_ALIVE);
+        if (!list.isEmpty()) {
+            handler = list.get(world.random.nextInt(list.size())).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).orElse(null);;
+        }
+        return handler;
     }
 
     @Override

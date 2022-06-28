@@ -3,15 +3,10 @@ package com.cassiokf.IndustrialRenewal.containers.container;
 import com.cassiokf.IndustrialRenewal.containers.ContainerBase;
 import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.init.ModContainers;
-import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityCargoLoader;
 import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityFluidLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.IWorldPosCallable;
-import net.minecraftforge.items.SlotItemHandler;
-
-import javax.annotation.Nullable;
 
 public class FluidLoaderContainer extends ContainerBase {
 

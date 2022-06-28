@@ -1,7 +1,7 @@
 package com.cassiokf.IndustrialRenewal.init;
 
 import com.cassiokf.IndustrialRenewal.References;
-import com.cassiokf.IndustrialRenewal.network.ServerBoundCargoLoaderPacket;
+import com.cassiokf.IndustrialRenewal.network.ServerBoundLoaderPacket;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -18,12 +18,10 @@ public final class PacketHandler {
 
     public static void init(){
         int index = 0;
-        INSTANCE.messageBuilder(ServerBoundCargoLoaderPacket.class, index++, NetworkDirection.PLAY_TO_SERVER)
-                .encoder(ServerBoundCargoLoaderPacket::encode)
-                .decoder(ServerBoundCargoLoaderPacket::new)
-                .consumer(ServerBoundCargoLoaderPacket::handle)
+        INSTANCE.messageBuilder(ServerBoundLoaderPacket.class, index++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(ServerBoundLoaderPacket::encode)
+                .decoder(ServerBoundLoaderPacket::new)
+                .consumer(ServerBoundLoaderPacket::handle)
                 .add();
-
-
     }
 }

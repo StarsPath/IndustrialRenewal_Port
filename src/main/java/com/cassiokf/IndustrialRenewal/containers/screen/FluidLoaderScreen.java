@@ -4,7 +4,7 @@ import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.containers.ScreenBase;
 import com.cassiokf.IndustrialRenewal.containers.container.FluidLoaderContainer;
 import com.cassiokf.IndustrialRenewal.init.PacketHandler;
-import com.cassiokf.IndustrialRenewal.network.ServerBoundCargoLoaderPacket;
+import com.cassiokf.IndustrialRenewal.network.ServerBoundLoaderPacket;
 import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityBaseLoader;
 import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityFluidLoader;
 import com.cassiokf.IndustrialRenewal.util.Utils;
@@ -41,29 +41,29 @@ public class FluidLoaderScreen extends ScreenBase<FluidLoaderContainer> {
 
     private String getGUIButtonText()
     {
-        String waitE;
-        switch (this.tileEntity.getWaitEnum())
+        String s;
+        switch (waitE)
         {
             case WAIT_FULL:
-                waitE = I18n.get("gui.industrialrenewal.button.waitfull");
+                s = I18n.get("gui.industrialrenewal.button.waitfull");
                 break;
             case WAIT_EMPTY:
-                waitE = I18n.get("gui.industrialrenewal.button.waitempty");
+                s = I18n.get("gui.industrialrenewal.button.waitempty");
                 break;
             case NO_ACTIVITY:
-                waitE = I18n.get("gui.industrialrenewal.button.noactivity");
+                s = I18n.get("gui.industrialrenewal.button.noactivity");
                 break;
             default:
             case NEVER:
-                waitE = I18n.get("gui.industrialrenewal.button.never");
+                s = I18n.get("gui.industrialrenewal.button.never");
                 break;
         }
-        return waitE;
+        return s;
     }
 
     private String getGUIModeText()
     {
-        if (tileEntity.isUnload()) return I18n.get("gui.industrialrenewal.button.unloader_mode");
+        if (unload) return I18n.get("gui.industrialrenewal.button.unloader_mode");
         return I18n.get("gui.industrialrenewal.button.loader_mode");
     }
 
@@ -81,7 +81,7 @@ public class FluidLoaderScreen extends ScreenBase<FluidLoaderContainer> {
 //                tileEntity.waitE = TileEntityBaseLoader.waitEnum.cycle(tileEntity.waitE);
                     waitE = TileEntityBaseLoader.waitEnum.cycle(waitE);
                     tileEntity.waitE = waitE;
-                    //PacketHandler.INSTANCE.sendToServer(new ServerBoundCargoLoaderPacket(tileEntity.getBlockPos(), 2));
+                    PacketHandler.INSTANCE.sendToServer(new ServerBoundLoaderPacket(tileEntity.getBlockPos(), 2));
                     button.setMessage(ITextComponent.nullToEmpty(getGUIButtonText()));
 
                 },
@@ -93,9 +93,8 @@ public class FluidLoaderScreen extends ScreenBase<FluidLoaderContainer> {
                 ITextComponent.nullToEmpty(getGUIModeText()),
                 (button)-> {
                     Utils.debug("Setting load/unload B2 Pressed", button);
-//                tileEntity.unload = !tileEntity.unload;
                     unload = !unload;
-                    //PacketHandler.INSTANCE.sendToServer(new ServerBoundCargoLoaderPacket(tileEntity.getBlockPos(), 1));
+                    PacketHandler.INSTANCE.sendToServer(new ServerBoundLoaderPacket(tileEntity.getBlockPos(), 1));
                     button.setMessage(ITextComponent.nullToEmpty(getGUIModeText()));
                     //unload = tileEntity.unload;
                 }

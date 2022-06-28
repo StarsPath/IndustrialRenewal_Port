@@ -1,17 +1,13 @@
 package com.cassiokf.IndustrialRenewal.containers;
 
-import com.cassiokf.IndustrialRenewal.containers.container.FluidLoaderContainer;
-import com.cassiokf.IndustrialRenewal.util.Utils;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldVertexBufferUploader;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerInventory;
@@ -22,7 +18,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import org.lwjgl.opengl.GL11;
 
 public class ScreenBase<T extends Container> extends ContainerScreen<T> {
     public ScreenBase(T p_i51105_1_, PlayerInventory p_i51105_2_, ITextComponent p_i51105_3_) {
@@ -60,19 +55,8 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         ResourceLocation stillLocation = fluid.getAttributes().getStillTexture();
         TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(PlayerContainer.BLOCK_ATLAS).apply(stillLocation);
         ResourceLocation spriteLocation = sprite.getName();
-        //Minecraft.getInstance().getTextureManager().bind(new ResourceLocation(spriteLocation.getNamespace(), "textures/" + spriteLocation.getPath() + ".png"));
         Minecraft.getInstance().getTextureManager().bind(PlayerContainer.BLOCK_ATLAS);
-//        blit(matrixStack, guiLeft, guiTop-level, x, y, level, sprite);
 
-        int yCount = level/16;
-        int yRemainder = level%16;
-
-//        for (int i = 1; i <= yCount; i++) {
-//            // matrixstack, left of gui, top of gui, ? , width of rendering, height of render, sprite
-//            blit(matrixStack, guiLeft, guiTop - 16 * i, 0, 16, 16, sprite);
-//        }
-//        blit(matrixStack, guiLeft, guiTop - 16 * yCount - yRemainder, 0, 16, yRemainder, sprite);
-//        GlStateManager._color4f(1f, 1f, 1f, 1f);
         drawTiledTexture(guiLeft, guiTop-level, sprite, 16, level);
         matrixStack.popPose();
     }
@@ -104,14 +88,6 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         float maxV = icon.getV1();
 
         float zLevel = 1.0f;
-
-//        BufferBuilder buffer = Tessellator.getInstance().getBuilder();
-//        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-//        buffer.vertex(x, y + height, zLevel).uv(minU, minV + (maxV - minV) * height / 16F).endVertex();
-//        buffer.vertex(x + width, y + height, zLevel).uv(minU + (maxU - minU) * width / 16F, minV + (maxV - minV) * height / 16F).endVertex();
-//        buffer.vertex(x + width, y, zLevel).uv(minU + (maxU - minU) * width / 16F, minV).endVertex();
-//        buffer.vertex(x, y, zLevel).uv(minU, minV).endVertex();
-//        Tessellator.getInstance().end();
 
         BufferBuilder bufferbuilder = Tessellator.getInstance().getBuilder();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
