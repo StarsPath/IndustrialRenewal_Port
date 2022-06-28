@@ -39,54 +39,6 @@ public class CargoLoaderContainer extends ContainerBase {
                 }
             });
         }
-
-//        this.addSlot(new SlotItemHandler(tileEntity.getInventory(), 0, 62, 20)
-//        {
-//            @Override
-//            public void setChanged()
-//            {
-//                tileEntity.setChanged();
-//                super.setChanged();
-//            }
-//        });
-//        this.addSlot(new SlotItemHandler(tileEntity.getInventory(), 1, 80, 20)
-//        {
-//            @Override
-//            public void setChanged()
-//            {
-//                tileEntity.setChanged();
-//                super.setChanged();
-//            }
-//        });
-//        this.addSlot(new SlotItemHandler(tileEntity.getInventory(), 2, 98, 20)
-//        {
-//            @Override
-//            public void setChanged()
-//            {
-//                tileEntity.setChanged();
-//                super.setChanged();
-//            }
-//        });
-//        this.addSlot(new SlotItemHandler(tileEntity.getInventory(), 3, 71, 38)
-//        {
-//            @Override
-//            public void setChanged()
-//            {
-//                tileEntity.setChanged();
-//                super.setChanged();
-//            }
-//        });
-//
-//        this.addSlot(new SlotItemHandler(tileEntity.getInventory(), 4, 89, 38)
-//        {
-//            @Override
-//            public void setChanged()
-//            {
-//                tileEntity.setChanged();
-//                super.setChanged();
-//            }
-//        });
-
         drawPlayerInv(playerInventory);
     }
 

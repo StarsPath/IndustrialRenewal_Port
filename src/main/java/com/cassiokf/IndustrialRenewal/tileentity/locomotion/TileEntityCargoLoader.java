@@ -64,11 +64,6 @@ public class TileEntityCargoLoader extends TileEntityBaseLoader implements ITick
         return blockFacing;
     }
 
-    @Override
-    public boolean isUnload() {
-        return unload;
-    }
-
     public void toggleUnload(){
         this.unload = !unload;
         sync();
@@ -79,11 +74,6 @@ public class TileEntityCargoLoader extends TileEntityBaseLoader implements ITick
         waitE = waitEnum.cycle(this.waitE);
         Utils.debug("after cycle", waitE);
         sync();
-    }
-
-    @Override
-    public boolean onMinecartPass(AbstractMinecartEntity entityMinecart) {
-        return false;
     }
 
     @Override

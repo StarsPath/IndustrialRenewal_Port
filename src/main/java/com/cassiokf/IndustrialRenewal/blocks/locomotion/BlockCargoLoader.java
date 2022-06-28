@@ -137,6 +137,7 @@ public class BlockCargoLoader extends BlockAbstractHorizontalFacing {
                 }
             }
         }
+        popResource((World)world, pos, new ItemStack(this.asItem()));
         super.destroy(world, pos, state);
     }
 

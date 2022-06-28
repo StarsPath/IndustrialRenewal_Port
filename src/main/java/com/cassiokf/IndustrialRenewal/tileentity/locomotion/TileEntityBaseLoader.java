@@ -49,9 +49,11 @@ public abstract class TileEntityBaseLoader extends TileEntitySyncable {
 
     public abstract Direction getBlockFacing();
 
-    public abstract boolean isUnload();
+    public boolean isUnload(){
+        return unload;
+    }
 
-    public abstract boolean onMinecartPass(AbstractMinecartEntity entityMinecart);
+//    public abstract boolean onMinecartPass(AbstractMinecartEntity entityMinecart);
 
     @Override
     public CompoundNBT save(CompoundNBT compound) {

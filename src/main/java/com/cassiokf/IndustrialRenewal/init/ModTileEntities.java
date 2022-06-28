@@ -3,6 +3,7 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.tileentity.*;
 import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityCargoLoader;
+import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityFluidLoader;
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityEnergyCableHV;
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityEnergyCableLV;
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityEnergyCableMV;
@@ -102,6 +103,10 @@ public class ModTileEntities {
     public static RegistryObject<TileEntityType<TileEntityCargoLoader>> CARGO_LOADER =
             TILE_ENTITIES.register("cargo_loader", ()-> TileEntityType.Builder.of(
                     TileEntityCargoLoader::new, ModBlocks.CARGO_LOADER.get()).build(null));
+
+    public static RegistryObject<TileEntityType<TileEntityFluidLoader>> FLUID_LOADER =
+            TILE_ENTITIES.register("fluid_loader", ()-> TileEntityType.Builder.of(
+                    TileEntityFluidLoader::new, ModBlocks.FLUID_LOADER.get()).build(null));
 
 
     public static void register(IEventBus bus){

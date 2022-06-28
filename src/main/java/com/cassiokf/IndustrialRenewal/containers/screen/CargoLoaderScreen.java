@@ -75,13 +75,10 @@ public class CargoLoaderScreen extends ContainerScreen<CargoLoaderContainer> {
         super.init();
         int posX1 = ((this.width - this.getXSize()) / 2);
         int posY1 = ((this.height - this.getYSize()) / 2);
-//        this.buttonList.add(new GuiButton(0, posX1 + 7, posY1 + 53, 61, 18, ""));
-//        this.buttonList.add(new GuiButton(1, posX1 + 7, posY1 + 18, 52, 18, ""));
         B1 = new Button(posX1 + 7, posY1 + 53, 61, 18,
                 ITextComponent.nullToEmpty(getGUIButtonText()),
             (button)-> {
                 Utils.debug("Cycle Wait mode B1 Pressed", button);
-//                tileEntity.waitE = TileEntityBaseLoader.waitEnum.cycle(tileEntity.waitE);
                 waitE = TileEntityBaseLoader.waitEnum.cycle(waitE);
                 tileEntity.waitE = waitE;
                 PacketHandler.INSTANCE.sendToServer(new ServerBoundCargoLoaderPacket(tileEntity.getBlockPos(), 2));
@@ -96,11 +93,9 @@ public class CargoLoaderScreen extends ContainerScreen<CargoLoaderContainer> {
                 ITextComponent.nullToEmpty(getGUIModeText()),
             (button)-> {
                 Utils.debug("Setting load/unload B2 Pressed", button);
-//                tileEntity.unload = !tileEntity.unload;
                 unload = !unload;
                 PacketHandler.INSTANCE.sendToServer(new ServerBoundCargoLoaderPacket(tileEntity.getBlockPos(), 1));
                 button.setMessage(ITextComponent.nullToEmpty(getGUIModeText()));
-                //unload = tileEntity.unload;
             }
         );
 
@@ -118,8 +113,6 @@ public class CargoLoaderScreen extends ContainerScreen<CargoLoaderContainer> {
     public void onToolTip(MatrixStack matrixStack, int actualMouseX, int actualMouseY){
         String waitE = getGUIButtonText();
         String mode = getGUIModeText();
-//        font.draw(matrixStack, waitE, (getXSize() / 2 - font.width(waitE) / 2) - 50, 59, 0xffffff);
-//        font.draw(matrixStack, mode, (getXSize() / 2 - font.width(mode) / 2) - 55, 24, 0xffffff);
 
         ITextComponent text = new StringTextComponent(TextFormatting.GRAY + I18n.get("gui.industrialrenewal.button.cargoloaderbutton0") + " " + TextFormatting.DARK_GREEN + waitE);
         this.renderTooltip(matrixStack, text, actualMouseX, actualMouseY);
