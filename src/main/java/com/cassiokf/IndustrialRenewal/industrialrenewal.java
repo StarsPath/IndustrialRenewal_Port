@@ -137,6 +137,8 @@ public class industrialrenewal
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.INDUSTRIAL_BATTERY_TILE.get(), TESRIndustrialBatteryBank::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.FLUID_TANK_TILE.get(), TESRFluidTank::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.LATHE_TILE.get(), TESRLathe::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.CARGO_LOADER.get(), TESRCargoLoader::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.FLUID_LOADER.get(), TESRFluidLoader::new);
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.CARGO_CONTAINER.get(), RenderCargoContainer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.FLAT_CART.get(), RenderFlatCart::new);

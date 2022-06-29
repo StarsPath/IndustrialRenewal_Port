@@ -66,6 +66,12 @@ public class TileEntityFluidLoader extends TileEntityBaseLoader implements ITick
     public void tick() {
         if (!level.isClientSide && isMaster())
         {
+            if (cartActivity > 0)
+            {
+                cartActivity--;
+                sync();
+            }
+
             BlockPos loaderPosition = worldPosition.relative(getBlockFacing());
             FluidTank tank = tankHandler.orElse(null);
             if(tank == null)
@@ -75,12 +81,26 @@ public class TileEntityFluidLoader extends TileEntityBaseLoader implements ITick
 
             if(isUnload()) { // from cart to cargoLoader
                 if(containerTank!=null){
+                    cartFluidAmount = containerTank.getFluidInTank(0).getAmount();
+                    cartFluidCapacity = containerTank.getTankCapacity(0);
+                    cartActivity = 10;
+                    loading = true;
                     Utils.moveFluidToTank(containerTank, tank);
+                }
+                else{
+                    loading = false;
                 }
             }
             else if (!isUnload()) { // from cargoLoader to cart
                 if(containerTank!=null){
+                    cartFluidAmount = containerTank.getFluidInTank(0).getAmount();
+                    cartFluidCapacity = containerTank.getTankCapacity(0);
+                    cartActivity = 10;
+                    loading = true;
                     Utils.moveFluidToTank(tank, containerTank);
+                }
+                else{
+                    loading = false;
                 }
             }
             switch (waitE){
@@ -116,6 +136,16 @@ public class TileEntityFluidLoader extends TileEntityBaseLoader implements ITick
                         level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, false), 3);
                     break;
                 }
+            }
+        }
+        else{
+            if (loading)
+            {
+                ySlide = Utils.lerp(ySlide, 0.5f, 0.08f);
+            }
+            else
+            {
+                ySlide = Utils.lerp(ySlide, 0, 0.04f);
             }
         }
     }
@@ -158,7 +188,7 @@ public class TileEntityFluidLoader extends TileEntityBaseLoader implements ITick
     public String getTankText()
     {
         if (tank.getFluid() == null) return I18n.get("gui.industrialrenewal.fluid.empty");
-        return I18n.get("render.industrialrenewal.fluid") + ": " + tank.getFluid().getDisplayName();
+        return I18n.get(this.tank.getFluid().getTranslationKey());
     }
 
     public String getCartName()
