@@ -506,4 +506,8 @@ public class Utils {
         }
         return slotsFull == handler.getSlots();
     }
+
+    public static float logisticFunction(float L, float k, float xo, float x){
+        return (float)(L/(1+Math.exp(-k * (x-xo))));
+    }
 }

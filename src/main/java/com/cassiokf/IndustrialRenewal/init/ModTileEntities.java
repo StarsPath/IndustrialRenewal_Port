@@ -108,6 +108,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("fluid_loader", ()-> TileEntityType.Builder.of(
                     TileEntityFluidLoader::new, ModBlocks.FLUID_LOADER.get()).build(null));
 
+    public static RegistryObject<TileEntityType<TileEntityDamIntake>> DAM_INTAKE =
+            TILE_ENTITIES.register("dam_intake", ()-> TileEntityType.Builder.of(
+                    TileEntityDamIntake::new, ModBlocks.DAM_INTAKE.get()).build(null));
+
 
     public static void register(IEventBus bus){
         TILE_ENTITIES.register(bus);
