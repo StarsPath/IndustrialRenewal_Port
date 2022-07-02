@@ -3,17 +3,19 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.blocks.BlockScaffold;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.blocks.*;
-import com.cassiokf.IndustrialRenewal.blocks.Dam.BlockDamIntake;
+import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamIntake;
+import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamTurbine;
+import com.cassiokf.IndustrialRenewal.blocks.dam.BlockRotationalShaft;
 import com.cassiokf.IndustrialRenewal.blocks.locomotion.BlockCargoLoader;
 import com.cassiokf.IndustrialRenewal.blocks.locomotion.BlockFluidLoader;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockEnergyCable;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockFluidPipe;
+import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockHighPressureFluidPipe;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.util.enums.EnumEnergyCableType;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -210,6 +212,17 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockDamIntake> DAM_INTAKE = registerBlock("dam_intake",
             BlockDamIntake::new);
+
+    public static final RegistryObject<BlockHighPressureFluidPipe> HIGH_PRESSURE_PIPE = registerBlock("high_pressure_pipe",
+            ()-> new BlockHighPressureFluidPipe(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<BlockDamTurbine> DAM_TURBINE = registerBlock("dam_turbine",
+            ()-> new BlockDamTurbine(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<BlockRotationalShaft> ROTATIONAL_SHAFT = registerBlock("dam_axis",
+            BlockRotationalShaft::new);
 
 
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);

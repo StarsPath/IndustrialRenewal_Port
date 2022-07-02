@@ -1,27 +1,22 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
-import com.cassiokf.IndustrialRenewal.blocks.Dam.BlockDamIntake;
+import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamIntake;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntitySyncable;
 import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;
-import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 

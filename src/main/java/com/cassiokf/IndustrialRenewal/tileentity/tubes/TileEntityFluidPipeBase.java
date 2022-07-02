@@ -16,12 +16,17 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public abstract class TileEntityFluidPipeBase extends TileEntityMultiBlocksTube<TileEntityFluidPipeBase> implements ICapabilityProvider {
-    public TileEntityFluidPipeBase(TileEntityType<?> tileEntityTypeIn) {
+public abstract class TileEntityFluidPipeBase<T> extends TileEntityMultiBlocksTube<TileEntityFluidPipeBase> implements ICapabilityProvider {
+    //TODO: add to config
+    public int maxOutput = 1000;
+
+    public TileEntityFluidPipeBase(TileEntityType<?> tileEntityTypeIn, int maxOutput) {
         super(tileEntityTypeIn);
+        this.maxOutput = maxOutput;
     }
     public CustomFluidTank tank = new CustomFluidTank(FluidAttributes.BUCKET_VOLUME)
     {
@@ -31,9 +36,6 @@ public abstract class TileEntityFluidPipeBase extends TileEntityMultiBlocksTube<
             TileEntityFluidPipeBase.this.setChanged();
         }
     };
-
-    //TODO: add to config
-    public int maxOutput = 1000;
 
     @Override
     public void doTick()
@@ -120,6 +122,14 @@ public abstract class TileEntityFluidPipeBase extends TileEntityMultiBlocksTube<
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && getMaster() != null)
             return LazyOptional.of(() -> getMaster().tank).cast();
         return super.getCapability(capability, facing);
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && getMaster() != null)
+            return LazyOptional.of(() -> getMaster().tank).cast();
+        return super.getCapability(cap);
     }
 
     @Override

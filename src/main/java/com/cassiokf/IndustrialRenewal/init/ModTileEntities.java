@@ -4,10 +4,7 @@ import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.tileentity.*;
 import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityCargoLoader;
 import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityFluidLoader;
-import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityEnergyCableHV;
-import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityEnergyCableLV;
-import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityEnergyCableMV;
-import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityFluidPipe;
+import com.cassiokf.IndustrialRenewal.tileentity.tubes.*;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -111,6 +108,14 @@ public class ModTileEntities {
     public static RegistryObject<TileEntityType<TileEntityDamIntake>> DAM_INTAKE =
             TILE_ENTITIES.register("dam_intake", ()-> TileEntityType.Builder.of(
                     TileEntityDamIntake::new, ModBlocks.DAM_INTAKE.get()).build(null));
+
+    public static RegistryObject<TileEntityType<TileEntityHighPressureFluidPipe>> HIGH_PRESSURE_PIPE =
+            TILE_ENTITIES.register("high_pressure_pipe", ()-> TileEntityType.Builder.of(
+                    TileEntityHighPressureFluidPipe::new, ModBlocks.HIGH_PRESSURE_PIPE.get()).build(null));
+
+    public static RegistryObject<TileEntityType<TileEntityDamTurbine>> DAM_TURBINE_TILE =
+            TILE_ENTITIES.register("dam_turbine_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityDamTurbine::new, ModBlocks.DAM_TURBINE.get()).build(null));
 
 
     public static void register(IEventBus bus){

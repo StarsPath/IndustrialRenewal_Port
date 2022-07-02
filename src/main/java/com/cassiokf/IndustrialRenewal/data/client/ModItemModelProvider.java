@@ -86,6 +86,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent("fluid_loader", modLoc("block/fluid_loader"));
 
         withExistingParent("dam_intake", modLoc("block/dam_intake"));
+        withExistingParent("high_pressure_pipe", modLoc("block/press_pipe/pressurized_tube_item"));
+        withExistingParent("dam_turbine", modLoc("block/dam_turbine"));
+        withExistingParent("dam_axis", modLoc("block/dam_axis"));
 
     }
 }

@@ -1,10 +1,9 @@
-package com.cassiokf.IndustrialRenewal.blocks.Dam;
+package com.cassiokf.IndustrialRenewal.blocks.dam;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractHorizontalFacing;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityDamIntake;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
