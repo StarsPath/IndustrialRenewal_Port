@@ -1,5 +1,7 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
+import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamGenerator;
+import com.cassiokf.IndustrialRenewal.blocks.dam.BlockRotationalShaft;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3x3MachineBase;
 import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;
@@ -15,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
@@ -23,7 +26,7 @@ import javax.annotation.Nullable;
 
 public class TileEntityDamTurbine extends TileEntity3x3x3MachineBase<TileEntityDamTurbine> implements ITickableTileEntity {
 
-    private final int MAX_PROCESSING = 160000;
+    public static final int MAX_PROCESSING = 240000;
 
     public CustomFluidTank inTank = new CustomFluidTank(MAX_PROCESSING){
         @Override
@@ -31,24 +34,25 @@ public class TileEntityDamTurbine extends TileEntity3x3x3MachineBase<TileEntityD
             hasFlow = true;
             TileEntityDamTurbine.this.sync();
         }
+
+        @Override
+        public int fill(FluidStack resource, FluidAction action) {
+            int amount = super.fill(resource, action);
+            inputFlowRate = amount;
+            return amount;
+        }
     };
 
-//    public CustomFluidTank outTank = new CustomFluidTank(MAX_PROCESSING){
-//        @Override
-//        protected void onContentsChanged() {
-//            TileEntityDamTurbine.this.sync();
-//        }
-//    };
     private int passedFluid = 0;
     private boolean hasFlow = false;
     private float oldRotation;
     private float rotation;
     private boolean firstLoad = true;
     private int outLetLimit = 160000;
+    private int inputFlowRate = 0;
     private int tick = 0;
 
     public LazyOptional<CustomFluidTank> inTankHandler = LazyOptional.of(()-> inTank);
-//    public LazyOptional<CustomFluidTank> outTankHandler = LazyOptional.of(()->outTank);
 
     public TileEntityDamTurbine(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -58,36 +62,41 @@ public class TileEntityDamTurbine extends TileEntity3x3x3MachineBase<TileEntityD
         super(ModTileEntities.DAM_TURBINE_TILE.get());
     }
 
-//    public void firstLoad(){
-//        firstLoad = false;
-//        TileEntityDamTurbine master = getMaster();
-//        Direction masterFace = getMasterFacing();
-//        TileEntityDamTurbine inTankTile = (TileEntityDamTurbine)level.getBlockEntity(master.getBlockPos().relative(masterFace).relative(masterFace.getClockWise()));
-//        if(inTankTile != null) {
-//            inTankTile.inTank = master.inTank;
-//            inTankTile.inTankHandler = master.inTankHandler;
-//        }
-//
-//        TileEntityDamTurbine outTankTile = (TileEntityDamTurbine)level.getBlockEntity(master.getBlockPos().relative(masterFace.getOpposite()).relative(masterFace.getClockWise()).below());
-//        if(outTankTile != null) {
-//            outTankTile.inTank = master.inTank;
-//            outTankTile.inTankHandler = master.inTankHandler;
-//        }
-//    }
 
     @Override
     public void tick() {
         if(!level.isClientSide && isMaster()){
-//            if (firstLoad)
-//                firstLoad();
+            if(tick >= 10){
+                tick = 0;
+//                Utils.debug("outLimit", outLetLimit);
+////                Utils.debug("inLimit", inputFlowRate);
+//                Utils.debug("rotation", rotation);
+//                Utils.debug("inTank Fluid", inTank.getFluidAmount());
+            }
+            tick++;
             doRotation();
             releaseWater();
-            Utils.debug("rotation", rotation);
-//            if(tick >= 20){
-//                tick = 0;
-//                Utils.debug("Tank", inTank.getFluidAmount());
-//            }
-//            tick++;
+            passRotation();
+
+        }
+    }
+
+    private void passRotation(){
+        BlockPos top = worldPosition.above(2);
+        for(int i = 0; i < 16; i++){
+            if(level.getBlockState(top).getBlock() instanceof BlockDamGenerator){
+                TileEntity te = level.getBlockEntity(top.above());
+                if(te instanceof TileEntityDamGenerator && ((TileEntityDamGenerator) te).isMaster()) {
+                    TileEntityDamGenerator generatorTE = (TileEntityDamGenerator) level.getBlockEntity(top.above());
+                    generatorTE.updateRotation((int)rotation);
+                }
+                break;
+            }
+            else if(level.getBlockState(top).getBlock() instanceof BlockRotationalShaft){
+                top = top.above();
+            }
+            else
+                break;
         }
     }
 
@@ -97,14 +106,21 @@ public class TileEntityDamTurbine extends TileEntity3x3x3MachineBase<TileEntityD
             BlockPos pos = getMaster().getBlockPos().relative(masterFace.getCounterClockWise(), 2).relative(masterFace.getOpposite()).below();
             TileEntity tileEntity = level.getBlockEntity(pos);
             if(tileEntity != null){
-//                Utils.debug("releasing water");
                 tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, masterFace.getClockWise()).ifPresent(tank->{
-//                    Utils.debug("te has fluid handler capability");
-                    int amount = tank.fill(inTank.drain(MAX_PROCESSING, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
-                    outLetLimit = amount;
-                    tank.fill(inTank.drain(amount, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                    FluidStack fluidStack = inTank.drain(MAX_PROCESSING, IFluidHandler.FluidAction.SIMULATE);
+                    int amount = tank.fill(fluidStack, IFluidHandler.FluidAction.SIMULATE);
+//                    Utils.debug("amount", fluidStack.getAmount(), amount, inTank.getFluidAmount());
+
+                    int postFill = tank.fill(inTank.drain(amount, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+//                    Utils.debug("postFill", postFill, inTank.getFluidAmount());
+
+//                    int amount = tank.fill(inTank.drain(MAX_PROCESSING, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
+//                    outLetLimit = amount;
+//                    tank.fill(inTank.drain(amount, IFluidHander.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
                 });
             }
+            else
+                outLetLimit = 0;
         }
     }
 
@@ -118,12 +134,16 @@ public class TileEntityDamTurbine extends TileEntity3x3x3MachineBase<TileEntityD
             if (rotation < max)
             {
                 rotation += Math.min(norm * 10, max - rotation);
-            } else if (rotation > max)
-            {
-                rotation -= 1;
             }
-        } else if (rotation > 0)
+            else if (rotation > max)
+            {
+                rotation *= (1 - 0.05f);
+                rotation -=1;
+            }
+        }
+        else if (rotation > 0)
         {
+            rotation *= (1 - 0.10f);
             rotation -= 10;
         }
         rotation = MathHelper.clamp(rotation, 0, MAX_PROCESSING/20f);

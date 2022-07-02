@@ -4,6 +4,7 @@ import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamIntake;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntitySyncable;
 import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
@@ -34,11 +35,11 @@ public class TileEntityDamIntake extends TileEntitySyncable implements ITickable
         super(ModTileEntities.DAM_INTAKE.get());
     }
 
-    public CustomFluidTank tank = new CustomFluidTank(50000){
+    public CustomFluidTank tank = new CustomFluidTank(0){
+
         @Override
-        protected void onContentsChanged() {
-//            super.onContentsChanged();
-            TileEntityDamIntake.this.sync();
+        public boolean canDrain() {
+            return false;
         }
 
         @Override
@@ -65,13 +66,15 @@ public class TileEntityDamIntake extends TileEntitySyncable implements ITickable
 //            BlockState blockBehind = level.getBlockState();
             TileEntity tileBehind = level.getBlockEntity(posBehind);
             if(tileBehind!= null){
-                tileBehind.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, getFacing()).ifPresent((tank)->{
-                    tank.fill(new FluidStack(Fluids.WATER, currentProduction), IFluidHandler.FluidAction.EXECUTE);
+                tileBehind.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, getFacing()).ifPresent((teTank)->{
+//                    Utils.debug("water production", currentProduction);
+                    teTank.fill(new FluidStack(Fluids.WATER, currentProduction), IFluidHandler.FluidAction.EXECUTE);
                 });
             }
 
             if(tick >= 20){
                 getWaterEfficiency();
+                sync();
                 //currentProduction = (int)(getWaterEfficiency() * MAX_WATER_PRODUCTION);
             }
             tick++;
@@ -108,6 +111,8 @@ public class TileEntityDamIntake extends TileEntitySyncable implements ITickable
             currentProduction = 0;
         else
             currentProduction = (int)(result * MAX_WATER_PRODUCTION);
+
+//        Utils.debug("Production", currentProduction, result);
         return result;
     }
 

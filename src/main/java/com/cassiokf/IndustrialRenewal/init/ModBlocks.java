@@ -3,6 +3,7 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.blocks.BlockScaffold;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.blocks.*;
+import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamGenerator;
 import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamIntake;
 import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamTurbine;
 import com.cassiokf.IndustrialRenewal.blocks.dam.BlockRotationalShaft;
@@ -223,6 +224,10 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockRotationalShaft> ROTATIONAL_SHAFT = registerBlock("dam_axis",
             BlockRotationalShaft::new);
+
+    public static final RegistryObject<BlockDamGenerator> DAM_GENERATOR = registerBlock("dam_generator",
+            ()-> new BlockDamGenerator(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
 
 
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);

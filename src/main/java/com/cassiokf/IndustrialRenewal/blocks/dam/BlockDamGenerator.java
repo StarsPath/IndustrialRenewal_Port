@@ -1,9 +1,11 @@
 package com.cassiokf.IndustrialRenewal.blocks.dam;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.Block3x3x3Base;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityDamTurbine;
+import com.cassiokf.IndustrialRenewal.tileentity.TileEntityDamGenerator;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
@@ -13,17 +15,21 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BlockDamTurbine extends Block3x3x3Base<TileEntityDamTurbine> {
+public class BlockDamGenerator extends Block3x3x3Base<TileEntityDamGenerator> {
     public static BooleanProperty NO_COLLISION = BooleanProperty.create("no_collision");
-
-    public BlockDamTurbine(Properties properties) {
+    public BlockDamGenerator(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState().setValue(NO_COLLISION, false));
     }
+//    public BlockDamGenerator() {
+//        super(AbstractBlock.Properties.of(Material.METAL));
+//        registerDefaultState(defaultBlockState().setValue(NO_COLLISION, false));
+//    }
 
     @Override
     public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity livingEntity, ItemStack itemStack) {
@@ -79,6 +85,6 @@ public class BlockDamTurbine extends Block3x3x3Base<TileEntityDamTurbine> {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new TileEntityDamTurbine();
+        return new TileEntityDamGenerator();
     }
 }

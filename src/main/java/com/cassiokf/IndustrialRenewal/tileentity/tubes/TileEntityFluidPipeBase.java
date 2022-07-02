@@ -3,6 +3,7 @@ package com.cassiokf.IndustrialRenewal.tileentity.tubes;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockFluidPipe;
 import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;
 import com.cassiokf.IndustrialRenewal.util.Utils;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
@@ -13,6 +14,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
@@ -34,8 +36,10 @@ public abstract class TileEntityFluidPipeBase<T> extends TileEntityMultiBlocksTu
         protected void onContentsChanged()
         {
             TileEntityFluidPipeBase.this.setChanged();
+            TileEntityFluidPipeBase.this.sync();
         }
     };
+    public LazyOptional tankHandler = LazyOptional.of(()->tank);
 
     @Override
     public void doTick()
@@ -48,51 +52,44 @@ public abstract class TileEntityFluidPipeBase<T> extends TileEntityMultiBlocksTu
 
             if (quantity > 0)
             {
-                int canAccept = moveFluid(IFluidHandler.FluidAction.SIMULATE, quantity, mapPosSet);
-                outPut = canAccept > 0 ? moveFluid(IFluidHandler.FluidAction.EXECUTE, canAccept, mapPosSet) : 0;
-            } else outPut = 0;
-
-            outPutCount = mapPosSet.size();
-            if ((oldOutPut != outPut) || (oldOutPutCount != outPutCount))
-            {
-                oldOutPut = outPut;
-                oldOutPutCount = outPutCount;
-                this.sync();
+                moveFluid(null, quantity, mapPosSet);
+//                int canAccept = moveFluid(IFluidHandler.FluidAction.SIMULATE, quantity, mapPosSet);
+//                outPut = canAccept > 0 ? moveFluid(IFluidHandler.FluidAction.EXECUTE, canAccept, mapPosSet) : 0;
             }
+//            else outPut = 0;
+//
+//            outPutCount = mapPosSet.size();
+//            if ((oldOutPut != outPut) || (oldOutPutCount != outPutCount))
+//            {
+//                oldOutPut = outPut;
+//                oldOutPutCount = outPutCount;
+//                this.sync();
+//            }
         }
     }
 
-    public int moveFluid(IFluidHandler.FluidAction action, int validOutputs, Map<BlockPos, Direction> mapPosSet)
+    public void moveFluid(IFluidHandler.FluidAction action, int validOutputs, Map<BlockPos, Direction> mapPosSet)
     {
-        int canAccept = 0;
-        int out = 0;
-        int realMaxOutput = Math.min(tank.getFluidAmount() / validOutputs, maxOutput);
+        TileEntityFluidPipeBase master = getMaster();
+        int amountToExtract = Math.min(master.tank.getFluidAmount()/validOutputs, maxOutput);
+        if(master.tank.getFluidAmount()/validOutputs < 1)
+            amountToExtract = master.tank.getFluidAmount();
 
-        //Utils.debug("valid outputs, real outputs", validOutputs, realMaxOutput);
-        for (BlockPos posM : mapPosSet.keySet())
-        {
-            TileEntity te = level.getBlockEntity(posM);
-            Direction face = mapPosSet.get(posM).getOpposite();
-            if (te != null)
-            {
-                IFluidHandler tankStorage = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face).orElse(null);
-                if (tankStorage != null && tankStorage.isFluidValid(0, tank.getFluid()) && tank.drain(maxOutput, IFluidHandler.FluidAction.SIMULATE) != null)
-                {
-                    int fluid = tankStorage.fill(
-                            tank.drain(realMaxOutput, IFluidHandler.FluidAction.SIMULATE),
-                            action == IFluidHandler.FluidAction.SIMULATE ? IFluidHandler.FluidAction.EXECUTE : IFluidHandler.FluidAction.SIMULATE);
-                    if (action == IFluidHandler.FluidAction.SIMULATE)
-                    {
-                        if (fluid > 0) canAccept++;
-                    } else
-                    {
-                        out += fluid;
-                        tank.drain(fluid, IFluidHandler.FluidAction.EXECUTE);
-                    }
+        for(BlockPos pos : mapPosSet.keySet()){
+            TileEntity te = level.getBlockEntity(pos);
+            Direction face = mapPosSet.get(pos).getOpposite();
+            if(te != null){
+                IFluidHandler teFluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face).orElse(null);
+                if(teFluidHandler != null && teFluidHandler.isFluidValid(0, master.tank.getFluid())){
+                    FluidStack fluidStack = master.tank.drain(amountToExtract, IFluidHandler.FluidAction.SIMULATE);
+                    int amountInserted = teFluidHandler.fill(fluidStack, IFluidHandler.FluidAction.SIMULATE);
+//                    Utils.debug("amount", fluidStack.getAmount(), amountToExtract, amountInserted, master.tank.getFluidAmount());
+
+                    int postFill = teFluidHandler.fill(master.tank.drain(amountInserted, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+//                    Utils.debug("After fill", master.tank.getFluidAmount(), postFill);
                 }
             }
         }
-        return action == IFluidHandler.FluidAction.SIMULATE ? canAccept : out;
     }
 
     @Override

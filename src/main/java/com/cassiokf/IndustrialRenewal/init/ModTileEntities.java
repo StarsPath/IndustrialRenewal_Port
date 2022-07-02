@@ -117,6 +117,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("dam_turbine_tile", ()-> TileEntityType.Builder.of(
                     TileEntityDamTurbine::new, ModBlocks.DAM_TURBINE.get()).build(null));
 
+    public static RegistryObject<TileEntityType<TileEntityDamGenerator>> DAM_GENERATOR =
+            TILE_ENTITIES.register("dam_generator", ()-> TileEntityType.Builder.of(
+                    TileEntityDamGenerator::new, ModBlocks.DAM_GENERATOR.get()).build(null));
+
 
     public static void register(IEventBus bus){
         TILE_ENTITIES.register(bus);

@@ -5,6 +5,12 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.energy.EnergyStorage;
 
 public class CustomEnergyStorage extends EnergyStorage implements INBTSerializable<CompoundNBT> {
+
+    public CustomEnergyStorage(int capacity)
+    {
+        super(capacity, capacity, capacity);
+    }
+
     public CustomEnergyStorage(int capacity, int maxReceive, int maxExtract)
     {
         super(capacity, maxReceive, maxExtract);
