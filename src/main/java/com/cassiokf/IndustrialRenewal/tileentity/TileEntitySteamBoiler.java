@@ -115,44 +115,6 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
         super(tileEntityTypeIn);
     }
 
-//    @Override
-//    public void onLoad() {
-//        super.onLoad();
-//    }
-
-    public void setFirstLoad(){
-        if(!level.isClientSide && isMaster()){
-            //Utils.debug("onLoad()......");
-            TileEntitySteamBoiler masterTE = getMaster();
-            Direction face = masterTE.getMasterFacing();
-            TileEntitySteamBoiler waterTankTile = ((TileEntitySteamBoiler)level.getBlockEntity(getBlockPos().below().relative(face)));
-            if(waterTankTile != null) {
-                //Utils.debug("Setting waterTank");
-                waterTank = waterTankTile.waterTank;
-            }
-
-            TileEntitySteamBoiler steamOutputTile = ((TileEntitySteamBoiler)level.getBlockEntity(getBlockPos().above()));
-            if(steamOutputTile != null)
-                steamTank = steamOutputTile.steamTank;
-        }
-        loadFuel();
-    }
-
-    public void loadFuel(){
-        if(!level.isClientSide && isMaster())
-        {
-            TileEntitySteamBoiler masterTE = getMaster();
-            Direction face = masterTE.getMasterFacing();
-            TileEntitySteamBoiler fuelTile = ((TileEntitySteamBoiler) level.getBlockEntity(getBlockPos().below().relative(face.getOpposite()).relative(face.getCounterClockWise())));
-            if (fuelTile != null) {
-                //Utils.debug("test fuel tile inventory", fuelTile.solidFuelInv.isPresent(), fuelTile.solidFuelInv);
-
-                solidFuelInv = fuelTile.solidFuelInv;
-                fuelTank = fuelTile.fuelTank;
-            }
-        }
-    }
-
     private IItemHandler createFuelInv()
     {
         return new CustomItemStackHandler(1)
@@ -212,22 +174,9 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
     public void tick() {
         if (this.isMaster() && !level.isClientSide)
         {
-            if(!firstLoad){
-                firstLoad = true;
-                setFirstLoad();
-                //this.onLoad();
-            }
             if(this.type == 0) fuelLoaded = false;
             if (this.type > 0)
             {
-                if(!fuelLoaded){
-                    loadFuel();
-                    fuelLoaded = true;
-                }
-
-//                Utils.debug("\nliquid fuel tank, solid fuel tank, steam, water, first loaded\n",
-//                        fuelTank.getFluidAmount(), solidFuelInv.orElse(null).getStackInSlot(0),
-//                        steamTank.getFluidAmount(), waterTank.getFluidAmount(), firstLoad);
                 //Fuel to Heat
                 this.sync();
                 switch (this.type)
@@ -330,14 +279,8 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
         this.fuelTime = 0;
         this.type = type;
         BlockState state = getBlockState().setValue(BlockSteamBoiler.TYPE, type);
-        //level.getBlockState(worldPosition).setValue(BlockSteamBoiler.TYPE, type);
-        //getBlockState().cycle(BlockSteamBoiler.TYPE);
         level.setBlockAndUpdate(worldPosition, state);
         level.setBlockEntity(worldPosition, this);
-//        TileEntitySteamBoiler newMaster = ((TileEntitySteamBoiler)level.getBlockEntity(worldPosition));
-//        if(newMaster != null)
-//            newMaster.type = type;
-        //Utils.debug("newMaster", worldPosition, newMaster, newMaster.type);
         this.sync();
     }
 
@@ -504,13 +447,13 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
         Direction face = masterTE.getMasterFacing();
 
         if (facing == Direction.UP && worldPosition.equals(masterTE.getBlockPos().above()) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-            return LazyOptional.of(() -> steamTank).cast();
+            return LazyOptional.of(() -> masterTE.steamTank).cast();
         if (facing == face && worldPosition.equals(masterTE.getBlockPos().below().relative(face)) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-            return LazyOptional.of(() -> waterTank).cast();
+            return LazyOptional.of(() -> masterTE.waterTank).cast();
         if (masterTE.getIntType() == 1 && facing == face.getCounterClockWise() && worldPosition.equals(masterTE.getBlockPos().below().relative(face.getOpposite()).relative(face.getCounterClockWise())) && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-            return solidFuelInv.cast();
+            return masterTE.solidFuelInv.cast();
         if (masterTE.getIntType() == 2 && facing == face.getCounterClockWise() && worldPosition.equals(masterTE.getBlockPos().below().relative(face.getOpposite()).relative(face.getCounterClockWise())) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-            return LazyOptional.of(() -> fuelTank).cast();
+            return LazyOptional.of(() -> masterTE.fuelTank).cast();
         return super.getCapability(capability, facing);
     }
 

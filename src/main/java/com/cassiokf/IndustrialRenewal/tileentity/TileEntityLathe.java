@@ -39,18 +39,13 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
     private ItemStackHandler output;
     private ItemStackHandler hold;
     public boolean inProcess = false;
-    //public ItemStack hold = ItemStack.EMPTY;
     private boolean oldInProcess;
     private int tick;
     private int processTime;
     public float renderCutterProcess;
     private float oldProcessTime;
-    //public ItemStack processingItem = ItemStack.EMPTY;
     private boolean stopping = false;
-    private boolean stopped = true;
-    private boolean oldStopping = false;
 
-    private Boolean firstLoad = false;
     public LazyOptional<CustomEnergyStorage> energyHandler;
     public LazyOptional<ItemStackHandler> inputItemHandler;
     public LazyOptional<ItemStackHandler> outputItemHandler;
@@ -73,7 +68,6 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
         this.input = new ItemStackHandler(1){
             @Override
             protected void onContentsChanged(int slot) {
-                //Utils.debug("onChange Called", slot);
                 super.onContentsChanged(slot);
                 TileEntityLathe.this.sync();
             }
@@ -81,21 +75,18 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return true;
-                //return super.isItemValid(slot, stack);
             }
         };
 
         this.output = new ItemStackHandler(1){
             @Override
             protected void onContentsChanged(int slot) {
-                //super.onContentsChanged(slot);
                 TileEntityLathe.this.sync();
             }
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return true;
-                //return super.isItemValid(slot, stack);
             }
         };
 
@@ -118,34 +109,11 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
 
     }
 
-//    @Override
-//    public void onLoad() {
-//        super.onLoad();
-//    }
-
-    public void setFirstLoad(){
-        TileEntityLathe masterTE = getMaster();
-        Direction face = masterTE.getMasterFacing();
-        TileEntityLathe energyInputTile = (TileEntityLathe) level.getBlockEntity(getBlockPos().relative(face).relative(face.getCounterClockWise()));
-        if(energyInputTile != null)
-            energyInputTile.energyHandler = masterTE.energyHandler;
-
-        TileEntityLathe itemInputTile = (TileEntityLathe) level.getBlockEntity(getBlockPos().relative(getMasterFacing().getCounterClockWise()));
-        if(itemInputTile != null)
-            itemInputTile.inputItemHandler = masterTE.inputItemHandler;
-    }
-
 
     @Override
     public void tick() {
         if(!level.isClientSide){
             if(isMaster()){
-
-                if (!firstLoad) {
-                    //Utils.debug("CALLING ONLOAD", worldPosition);
-                    firstLoad = true;
-                    setFirstLoad();
-                }
 
                 ItemStack inputStack = input.getStackInSlot(0);
                 oldProcessTime = renderCutterProcess;
@@ -174,7 +142,6 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
         processTime = 0;
         tick = 0;
         stopping = true;
-        //hold.extractItem(0, 1, false);
         hold.setStackInSlot(0, ItemStack.EMPTY);
     }
 
@@ -196,7 +163,6 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
 
     private void process()
     {
-        //Utils.debug("PROCESS... Energy", energyContainer.getEnergyStored());
         if (energyContainer.getEnergyStored() < energyPTick) return;
         energyContainer.extractEnergy(energyPTick, false);
         tick++;
@@ -205,15 +171,11 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
             tick = 0;
             processTime = 0;
             inProcess = false;
-            //processingItem = ItemStack.EMPTY;
 
             {
                 if (!level.isClientSide) {
-                    //Utils.debug("PRE OUTPUTING...", hold, output.getStackInSlot(0));
                     input.extractItem(0, 1, false);
                     output.insertItem(0, hold.extractItem(0, 1, false), false);
-                    //hold = ItemStack.EMPTY;
-                    //Utils.debug("OUTPUTING...", hold, output.getStackInSlot(0));
                 }
             }
         }
@@ -223,49 +185,23 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
     {
         Inventory inv = new Inventory(1);
         inv.setItem(0, input.getStackInSlot(0));
-//        inv.setItem(1, output.getStackInSlot(0));
 
         Optional<LatheRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipes.LATHE_RECIPE, inv, level);
 
         recipe.ifPresent(iRecipe -> {
             processTime = iRecipe.getProcessTime();
             ItemStack resultItem = iRecipe.getResultItem();
-            //hold.insertItem(0, resultItem, false);
             hold.setStackInSlot(0, resultItem);
-            //processingItem =
-            //hold = resultItem;
-            //Utils.debug("HOLD", hold, resultItem);
-            //hold = output.insertItem(0, resultItem, false);
             inProcess = true;
         });
 
         sync();
-//        LatheRecipe recipe = LatheRecipe.CACHED_RECIPES.get(inputStack.getItem());
-//        if (recipe != null)
-//        {
-//            ItemStack result = recipe.getRecipeOutput();
-//            if (result != null
-//                    && !result.isEmpty()
-//                    && output.insertItem(0, result, true).isEmpty()
-//                    && energyContainer.getEnergyStored() >= energyPTick)
-//            {
-//                processTime = recipe.getProcessTime();
-//                inProcess = true;
-//                processingItem = inputStack;
-//                if (!level.isClientSide)
-//                {
-//                    inputStack.shrink(recipe.getInput().get(0).getCount());
-//                }
-//                hold = result;
-//            }
-//        }
     }
 
     private void tryOutPutItem()
     {
         if (!level.isClientSide && !output.getStackInSlot(0).isEmpty())
         {
-            //Utils.debug("TRYING OUTPUT ITEM");
             Direction facing = getMasterFacing().getClockWise();
             TileEntity te = level.getBlockEntity(worldPosition.relative(facing, 2));
             if (te != null)
@@ -301,21 +237,10 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
         return output;
     }
 
-//    public IEnergyStorage getEnergyStorage()
-//    {
-//        return energyContainer;
-//    }
-//
-
     public ItemStack getResultItem()
     {
         return hold.getStackInSlot(0);
     }
-
-//    public ItemStack getProcessingItem()
-//    {
-//        return processingItem;
-//    }
 
     public float getNormalizedProcess()
     {
@@ -336,17 +261,15 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
                 && facing.equals(getMasterFacing())
                 && worldPosition.equals(masterTE.getBlockPos().relative(getMasterFacing()).relative(getMasterFacing().getCounterClockWise())))
 
-            return energyHandler.cast();
+            return getMaster().energyHandler.cast();
         if (capability.equals(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY))
         {
             if (facing.equals(getMasterFacing().getCounterClockWise())
                     && worldPosition.equals(masterTE.getBlockPos().relative(getMasterFacing().getCounterClockWise())))
-                return inputItemHandler.cast();
-                //return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(masterTE.input);
+                return getMaster().inputItemHandler.cast();
             if (facing.equals(getMasterFacing().getClockWise())
                     && worldPosition.equals(masterTE.getBlockPos().relative(getMasterFacing().getClockWise())))
-                return outputItemHandler.cast();
-                //return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(masterTE.outPut);
+                return getMaster().outputItemHandler.cast();
         }
         return super.getCapability(capability, facing);
     }
@@ -379,12 +302,6 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
             compound.put("energy", tag);
         });
 
-        //compound.put("input", this.input.serializeNBT());
-        //compound.put("output", this.output.serializeNBT());
-        //compound.put("hold", this.hold.serializeNBT());
-        //compound.put("item", this.processingItem.serializeNBT());
-        //compound.put("energy", this.energyContainer.serializeNBT());
-
         return super.save(compound);
     }
 
@@ -400,12 +317,6 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
         outputItemHandler.ifPresent(output->output.deserializeNBT(compound.getCompound("output")));
         energyHandler.ifPresent(energy->energy.deserializeNBT(compound.getCompound("energy")));
         holdHandler.ifPresent(handler->handler.deserializeNBT(compound.getCompound("hold")));
-
-//        this.input.deserializeNBT(compound.getCompound("input"));
-//        this.output.deserializeNBT(compound.getCompound("output"));
-        //this.hold.deserializeNBT(compound.getCompound("hold"));
-        //this.processingItem.deserializeNBT(compound.getCompound("item"));
-//        this.energyContainer.deserializeNBT(compound.getCompound("StoredIR"));
 
         super.load(state, compound);
     }

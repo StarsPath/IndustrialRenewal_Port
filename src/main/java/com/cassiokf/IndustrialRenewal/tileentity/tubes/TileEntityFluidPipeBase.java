@@ -25,6 +25,7 @@ import java.util.Map;
 public abstract class TileEntityFluidPipeBase<T> extends TileEntityMultiBlocksTube<TileEntityFluidPipeBase> implements ICapabilityProvider {
     //TODO: add to config
     public int maxOutput = 1000;
+    private int t = 0;
 
     public TileEntityFluidPipeBase(TileEntityType<?> tileEntityTypeIn, int maxOutput) {
         super(tileEntityTypeIn);
@@ -52,7 +53,8 @@ public abstract class TileEntityFluidPipeBase<T> extends TileEntityMultiBlocksTu
 
             if (quantity > 0)
             {
-                moveFluid(null, quantity, mapPosSet);
+                moveFluid(null, quantity, mapPosSet, t);
+                t = (t+1)%quantity;
 //                int canAccept = moveFluid(IFluidHandler.FluidAction.SIMULATE, quantity, mapPosSet);
 //                outPut = canAccept > 0 ? moveFluid(IFluidHandler.FluidAction.EXECUTE, canAccept, mapPosSet) : 0;
             }
@@ -67,15 +69,19 @@ public abstract class TileEntityFluidPipeBase<T> extends TileEntityMultiBlocksTu
 //            }
         }
     }
-
-    public void moveFluid(IFluidHandler.FluidAction action, int validOutputs, Map<BlockPos, Direction> mapPosSet)
+    
+    public void moveFluid(IFluidHandler.FluidAction action, int validOutputs, Map<BlockPos, Direction> mapPosSet, int offset)
     {
         TileEntityFluidPipeBase master = getMaster();
         int amountToExtract = Math.min(master.tank.getFluidAmount()/validOutputs, maxOutput);
         if(master.tank.getFluidAmount()/validOutputs < 1)
             amountToExtract = master.tank.getFluidAmount();
 
-        for(BlockPos pos : mapPosSet.keySet()){
+        for(int i = offset ; i < offset+mapPosSet.keySet().size(); i++){
+            BlockPos[] poses = mapPosSet.keySet().toArray(new BlockPos[mapPosSet.keySet().size()]);
+            Utils.debug("poses", poses.length, i);
+            BlockPos pos = poses[i%mapPosSet.keySet().size()];
+//        for(BlockPos pos : mapPosSet.keySet()){
             TileEntity te = level.getBlockEntity(pos);
             Direction face = mapPosSet.get(pos).getOpposite();
             if(te != null){

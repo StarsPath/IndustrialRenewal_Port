@@ -56,23 +56,12 @@ public class TileEntityFluidTank extends TileEntityTowerBase<TileEntityFluidTank
 
     public void setFirstLoad(){
         if(!level.isClientSide && isMaster()){
-            TileEntityFluidTank masterTE = getMaster();
-            TileEntityFluidTank inputTile = (TileEntityFluidTank) level.getBlockEntity(getBlockPos().above());
-            //Utils.debug("INPUT TILE", getBlockPos().above(), inputTile);
-            if(inputTile!= null) {
-                inputTile.tank = masterTE.tank;
-                inputTile.tankHandler = masterTE.tankHandler;
-            }
-
             if(isBase()){
-                if (tower == null || tower.isEmpty()) {
-                    //tower = new ArrayList<>();
+                if (tower == null || tower.isEmpty())
                     loadTower();
-                }
             }
-            else{
+            else
                 this.tower = getBase().tower;
-            }
         }
     }
 
@@ -92,10 +81,8 @@ public class TileEntityFluidTank extends TileEntityTowerBase<TileEntityFluidTank
         if (!level.isClientSide && isMaster())
         {
             if (!firstLoad) {
-                //Utils.debug("CALLING ONLOAD", worldPosition);
                 firstLoad = true;
                 setFirstLoad();
-                //this.onLoad();
             }
             if(isBase()){
                 if (tank.getFluidAmount() > 0) {
@@ -111,7 +98,7 @@ public class TileEntityFluidTank extends TileEntityTowerBase<TileEntityFluidTank
             else if(isTop()){
                 passFluidDown();
             }
-            if(tick >= 20){
+            if(tick >= 5){
                 tick = 0;
                 //Utils.debug("tank", worldPosition, tank.getFluidAmount());
                 maxCapcity = getSumMaxFluid();
@@ -182,9 +169,9 @@ public class TileEntityFluidTank extends TileEntityTowerBase<TileEntityFluidTank
         if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
         {
             if (side == downFace && this.worldPosition.equals(master.worldPosition.below().relative(downFace)))
-                return tankHandler.cast();
+                return getMaster().tankHandler.cast();
             if (side == Direction.UP && this.worldPosition.equals(master.worldPosition.above()))
-                return tankHandler.cast();
+                return getMaster().tankHandler.cast();
         }
 
         return super.getCapability(cap, side);

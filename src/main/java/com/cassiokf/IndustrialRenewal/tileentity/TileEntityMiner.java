@@ -94,28 +94,6 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
     private int particleTick;
     public boolean firstLoad = false;
 
-//    @Override
-//    public void onLoad() {
-//        super.onLoad();
-//    }
-
-    public void setFirstLoad(){
-        if(!level.isClientSide && isMaster()){
-            TileEntityMiner masterTE = getMaster();
-            Direction face = masterTE.getMasterFacing();
-
-            TileEntityMiner waterTankTile = (TileEntityMiner) level.getBlockEntity(getBlockPos().below().relative(face).relative(face.getClockWise()));
-            if(waterTankTile != null) {
-                masterTE.waterTank = waterTankTile.waterTank;
-            }
-
-            TileEntityMiner energyTile = (TileEntityMiner) level.getBlockEntity(getBlockPos().relative(face.getOpposite()).above());
-            if(energyTile != null) {
-                masterTE.energyStorage = energyTile.energyStorage;
-            }
-        }
-    }
-
     public TileEntityMiner()
     {
         super(ModTileEntities.MINER_TILE.get());
@@ -176,14 +154,6 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
             doAnimation();
             if (!level.isClientSide)
             {
-                if(!firstLoad){
-                    //Utils.debug("CALLING ONLOAD");
-                    firstLoad = true;
-                    setFirstLoad();
-                    //this.onLoad();
-                }
-                this.sync();
-
                 //Utils.debug("energy, water", energyStorage.orElse(null).getEnergyStored(), energyStorage.orElse(null).getMaxEnergyStored(), waterTank.getFluidAmount());
                 outputOrSpawn();
                 boolean canCheck = canCheckOre();
@@ -548,7 +518,7 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
         Direction face = masterTE.getMasterFacing();
 
         if (facing == face && this.worldPosition.equals(masterTE.getBlockPos().below().relative(face).relative(face.getClockWise())) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-            return LazyOptional.of(() -> waterTank).cast();
+            return LazyOptional.of(() -> masterTE.waterTank).cast();
         if (facing == Direction.UP && this.worldPosition.equals(masterTE.getBlockPos().relative(face.getOpposite()).above()) && capability == CapabilityEnergy.ENERGY)
             return masterTE.energyStorage.cast();
         return super.getCapability(capability, facing);

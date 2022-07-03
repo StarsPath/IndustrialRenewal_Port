@@ -125,29 +125,12 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
 
     public void setFirstLoad(){
         if(!level.isClientSide && isMaster()){
-            TileEntityIndustrialBatteryBank masterTE = getMaster();
-            Direction face = masterTE.getMasterFacing();
-
-            // Input
-            TileEntityIndustrialBatteryBank energyInputTile = (TileEntityIndustrialBatteryBank) level.getBlockEntity(getBlockPos().relative(face.getCounterClockWise()).above(1));
-            if(energyInputTile != null)
-                energyInputTile.energyStorage = masterTE.energyStorage;
-//                energyInputTile.energyStorage = LazyOptional.of(()-> new CustomEnergyStorage(0, maxTransfer, maxTransfer){
-//                    @Override
-//                    public int receiveEnergy(int maxReceive, boolean simulate) {
-//                        return fillEnergy(this, super.receiveEnergy(maxReceive, simulate));
-//                    }
-//                });
-
             if(isBase()){
-                if (tower == null || tower.isEmpty()) {
-                    //tower = new ArrayList<>();
+                if (tower == null || tower.isEmpty())
                     loadTower();
-                }
             }
-            else{
+            else
                 this.tower = getBase().tower;
-            }
         }
     }
 
@@ -167,10 +150,8 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
         if (!level.isClientSide && isMaster() && isBase())
         {
             if(!firstLoad){
-                //Utils.debug("CALLING ONLOAD");
                 firstLoad = true;
                 setFirstLoad();
-                //this.onLoad();
             }
             if (batteries > 0 && customEnergyStorage.getEnergyStored() > 0)
             {
@@ -224,28 +205,6 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
         }
     }
 
-//    @Override
-//    public void breakMultiBlocks() {
-//        super.breakMultiBlocks();
-//    }
-
-//    public void addToTower(TileEntityIndustrialBatteryBank tile, ArrayList<TileEntityIndustrialBatteryBank> list){
-//        if(tower == null){
-//            tower = new ArrayList<>();
-//        }
-//        this.tower.add(tile);
-//        if(list != null){
-//            tower.addAll(list);
-//        }
-//    }
-//
-//    public void removeTower(TileEntityIndustrialBatteryBank tile){
-//        if(tower.contains(tile)){
-//            int index = tower.indexOf(tile);
-//            ArrayList<TileEntityIndustrialBatteryBank> newTower = new ArrayList<>(tower.subList(0, index));
-//            this.tower = newTower;
-//        }
-//    }
     public int getInput(){
         return input;
     }
@@ -351,11 +310,11 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
 
         if (cap == CapabilityEnergy.ENERGY && worldPosition.equals(masterPos.relative(face.getCounterClockWise()).above()) && side == Direction.UP) {
             // Input
-            return energyStorage.cast();
+            return getMaster().energyStorage.cast();
         }
         if (cap == CapabilityEnergy.ENERGY && worldPosition.equals(masterPos.relative(face.getClockWise()).above()) && side == Direction.UP) {
             // Output
-            return energyStorage.cast();
+            return getMaster().energyStorage.cast();
         }
         return super.getCapability(cap, side);
     }
