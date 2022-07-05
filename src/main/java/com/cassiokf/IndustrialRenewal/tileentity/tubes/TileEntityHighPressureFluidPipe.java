@@ -2,9 +2,13 @@ package com.cassiokf.IndustrialRenewal.tileentity.tubes;
 
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityDamIntake;
+import com.cassiokf.IndustrialRenewal.tileentity.TileEntityDamTurbine;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -16,9 +20,12 @@ public class TileEntityHighPressureFluidPipe extends TileEntityFluidPipeBase<Til
     BlockPos intakePos;
     BlockPos turbinePos;
     BlockPos outletPos;
-    private boolean duplicateIntake = false;
-    private boolean duplicateTurbine = false;
-    private boolean duplicateOutlet = false;
+    private int intakeCount = 0;
+    private int outletCount = 0;
+    private int turbineCount = 0;
+//    private boolean duplicateIntake = false;
+//    private boolean duplicateTurbine = false;
+//    private boolean duplicateOutlet = false;
 
     private int tick = 0;
 
@@ -40,27 +47,49 @@ public class TileEntityHighPressureFluidPipe extends TileEntityFluidPipeBase<Til
 //                if(intakePos == null || !(level.getBlockEntity(intakePos) instanceof TileEntityDamIntake) || duplicateIntake)
 //                    searchIntake();
                 searchIntake();
+                Utils.debug("Pipe Master", intakePos, turbinePos, outletPos, intakeCount, turbineCount, outletCount);
+//                Utils.debug("multiplier", getMultiplier());
             }
             tick++;
         }
     }
 
+    @Override
+    public void doTick() {
+        if(intakeCount<2 && turbineCount<2 && outletCount<2)
+            super.doTick();
+    }
+
+    public float getMultiplier(){
+//        Utils.debug("getMult called", isMaster());
+//        Utils.debug("Pipe Master", intakePos, turbinePos, outletPos, intakeCount, turbineCount, outletCount);
+        if(intakePos!=null && turbinePos!=null && (intakeCount == 1) && (turbineCount == 1)){
+            int heightDiff = intakePos.getY() - turbinePos.getY();
+            heightDiff = Math.min(heightDiff, 16);
+
+            return (heightDiff / 16f) + 1;
+        }
+        return 0f;
+    }
+
     public void searchIntake(){
+        intakeCount = 0;
+        outletCount = 0;
+        turbineCount = 0;
         for(BlockPos pos: getPosSet().keySet()){
             if(!(level.getBlockEntity(pos) instanceof TileEntityFluidPipeBase)){
                 if (level.getBlockEntity(pos) instanceof TileEntityDamIntake) {
-                    if (intakePos == null || !(level.getBlockEntity(intakePos) instanceof TileEntityDamIntake))
+                    if (intakePos == null || !pos.equals(intakePos)) {
                         intakePos = pos;
-                    else {
-                        duplicateIntake = true;
                     }
+                    intakeCount++;
                 }
-//                else if(level.getBlockEntity(pos) instanceof TileEntityDamTurbine){
-//                    if(turbinePos == null || !(level.getBlockEntity(intakePos) instanceof TileEntityDamTurbine))
-//                        turbinePos = pos;
-//                    else
-//                        duplicateTurbine = true;
-//                }
+                else if(level.getBlockEntity(pos) instanceof TileEntityDamTurbine){
+                    if(turbinePos == null || !pos.equals(turbinePos)) {
+                        turbinePos = pos;
+                    }
+                    turbineCount++;
+                }
 //                else if(level.getBlockEntity(pos) instanceof TileEntityDamOutlet){
 //                    if(outletPos == null || !(level.getBlockEntity(outletPos) instanceof TileEntityDamTurbine))
 //                        outletPos = pos;
@@ -69,8 +98,8 @@ public class TileEntityHighPressureFluidPipe extends TileEntityFluidPipeBase<Til
 //                }}
             }
         }
-        duplicateIntake = false;
-        duplicateTurbine = false;
-        duplicateOutlet = false;
+//        duplicateIntake = false;
+//        duplicateTurbine = false;
+//        duplicateOutlet = false;
     }
 }

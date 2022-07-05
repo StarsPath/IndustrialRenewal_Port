@@ -109,6 +109,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("dam_intake", ()-> TileEntityType.Builder.of(
                     TileEntityDamIntake::new, ModBlocks.DAM_INTAKE.get()).build(null));
 
+    public static RegistryObject<TileEntityType<TileEntityDamOutlet>> DAM_OUTLET =
+            TILE_ENTITIES.register("dam_outlet", ()-> TileEntityType.Builder.of(
+                    TileEntityDamOutlet::new, ModBlocks.DAM_OUTLET.get()).build(null));
+
     public static RegistryObject<TileEntityType<TileEntityHighPressureFluidPipe>> HIGH_PRESSURE_PIPE =
             TILE_ENTITIES.register("high_pressure_pipe", ()-> TileEntityType.Builder.of(
                     TileEntityHighPressureFluidPipe::new, ModBlocks.HIGH_PRESSURE_PIPE.get()).build(null));

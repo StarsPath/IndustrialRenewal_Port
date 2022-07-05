@@ -3,10 +3,7 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.blocks.BlockScaffold;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.blocks.*;
-import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamGenerator;
-import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamIntake;
-import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamTurbine;
-import com.cassiokf.IndustrialRenewal.blocks.dam.BlockRotationalShaft;
+import com.cassiokf.IndustrialRenewal.blocks.dam.*;
 import com.cassiokf.IndustrialRenewal.blocks.locomotion.BlockCargoLoader;
 import com.cassiokf.IndustrialRenewal.blocks.locomotion.BlockFluidLoader;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockEnergyCable;
@@ -213,6 +210,9 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockDamIntake> DAM_INTAKE = registerBlock("dam_intake",
             BlockDamIntake::new);
+
+    public static final RegistryObject<BlockDamOutlet> DAM_OUTLET = registerBlock("dam_outflow",
+            BlockDamOutlet::new);
 
     public static final RegistryObject<BlockHighPressureFluidPipe> HIGH_PRESSURE_PIPE = registerBlock("high_pressure_pipe",
             ()-> new BlockHighPressureFluidPipe(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)

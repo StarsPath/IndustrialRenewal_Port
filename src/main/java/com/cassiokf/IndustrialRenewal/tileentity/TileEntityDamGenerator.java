@@ -41,7 +41,7 @@ public class TileEntityDamGenerator extends TileEntity3x3x3MachineBase<TileEntit
     @Override
     public void tick() {
         if(!level.isClientSide && isMaster()){
-            generation = (int) (Utils.normalizeClamped(rotation, 0, TileEntityDamTurbine.MAX_PROCESSING/20f) * maxGeneration);
+            generation = (int) (Utils.normalizeClamped(rotation, 0, TileEntityDamTurbine.MAX_PROCESSING/40f) * maxGeneration);
             if (generation > 0)
                 bank.receiveEnergy(generation, false);
             TileEntity te = level.getBlockEntity(worldPosition.above(2));
@@ -64,6 +64,16 @@ public class TileEntityDamGenerator extends TileEntity3x3x3MachineBase<TileEntit
     public void updateRotation(int newRotation){
         if(rotation != newRotation)
             rotation = newRotation;
+    }
+
+    public String getGenerationText()
+    {
+        return Utils.formatEnergyString(generation) + "/t";
+    }
+
+    public float getGenerationFill()
+    {
+        return Utils.normalizeClamped(generation, 0, maxGeneration) * 90;
     }
 
     @Override

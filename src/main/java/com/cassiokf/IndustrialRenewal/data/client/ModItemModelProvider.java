@@ -90,6 +90,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent("dam_turbine", modLoc("block/dam_turbine"));
         withExistingParent("dam_axis", modLoc("block/dam_axis"));
         withExistingParent("dam_generator", modLoc("block/dam_generator"));
+        withExistingParent("dam_outflow", modLoc("block/dam_outflow"));
 
     }
 }

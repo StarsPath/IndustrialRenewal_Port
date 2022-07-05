@@ -69,7 +69,7 @@ public abstract class TileEntityFluidPipeBase<T> extends TileEntityMultiBlocksTu
 //            }
         }
     }
-    
+
     public void moveFluid(IFluidHandler.FluidAction action, int validOutputs, Map<BlockPos, Direction> mapPosSet, int offset)
     {
         TileEntityFluidPipeBase master = getMaster();
@@ -79,7 +79,7 @@ public abstract class TileEntityFluidPipeBase<T> extends TileEntityMultiBlocksTu
 
         for(int i = offset ; i < offset+mapPosSet.keySet().size(); i++){
             BlockPos[] poses = mapPosSet.keySet().toArray(new BlockPos[mapPosSet.keySet().size()]);
-            Utils.debug("poses", poses.length, i);
+//            Utils.debug("poses", poses.length, i);
             BlockPos pos = poses[i%mapPosSet.keySet().size()];
 //        for(BlockPos pos : mapPosSet.keySet()){
             TileEntity te = level.getBlockEntity(pos);
