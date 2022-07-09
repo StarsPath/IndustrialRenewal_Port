@@ -125,6 +125,18 @@ public class ModTileEntities {
             TILE_ENTITIES.register("dam_generator", ()-> TileEntityType.Builder.of(
                     TileEntityDamGenerator::new, ModBlocks.DAM_GENERATOR.get()).build(null));
 
+    public static RegistryObject<TileEntityType<TileEntityConveyor>> CONVEYOR_TILE =
+            TILE_ENTITIES.register("conveyor_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityConveyor::new, ModBlocks.CONVEYOR.get()).build(null));
+
+    public static RegistryObject<TileEntityType<TileEntityConveyorHopper>> CONVEYOR_HOPPER_TILE =
+            TILE_ENTITIES.register("conveyor_hopper_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityConveyorHopper::new, ModBlocks.CONVEYOR_HOPPER.get()).build(null));
+
+    public static RegistryObject<TileEntityType<TileEntityConveyorInserter>> CONVEYOR_INSERTER_TILE =
+            TILE_ENTITIES.register("conveyor_inserter_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityConveyorInserter::new, ModBlocks.CONVEYOR_INSERTER.get()).build(null));
+
 
     public static void register(IEventBus bus){
         TILE_ENTITIES.register(bus);

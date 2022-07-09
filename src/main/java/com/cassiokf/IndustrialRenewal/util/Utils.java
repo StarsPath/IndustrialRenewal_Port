@@ -171,6 +171,11 @@ public class Utils {
         return a + f * (b - a);
     }
 
+    public static double lerp(double a, double b, double f)
+    {
+        return a + f * (b - a);
+    }
+
 
     public static void dropInventoryItems(World worldIn, BlockPos pos, ItemStackHandler inventory)
     {
@@ -213,7 +218,7 @@ public class Utils {
 //            entityitem.motionX = RANDOM.nextGaussian() * 0.05000000074505806D;
 //            entityitem.motionY = RANDOM.nextGaussian() * 0.05000000074505806D + 0.20000000298023224D;
 //            entityitem.motionZ = RANDOM.nextGaussian() * 0.05000000074505806D;
-            entityitem.push(RANDOM.nextGaussian() * 0.05000000074505806D, RANDOM.nextGaussian() * 0.05000000074505806D + 0.20000000298023224D, RANDOM.nextGaussian() * 0.05000000074505806D);
+            entityitem.setDeltaMovement(RANDOM.nextGaussian() * 0.05000000074505806D, RANDOM.nextGaussian() * 0.05000000074505806D + 0.20000000298023224D, RANDOM.nextGaussian() * 0.05000000074505806D);
             worldIn.addFreshEntity(entityitem);
             //worldIn.spawnEntity(entityitem);
         }

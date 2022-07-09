@@ -10,6 +10,7 @@ import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockEnergyCable;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockFluidPipe;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockHighPressureFluidPipe;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
+import com.cassiokf.IndustrialRenewal.util.enums.EnumConveyorType;
 import com.cassiokf.IndustrialRenewal.util.enums.EnumEnergyCableType;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -228,6 +229,15 @@ public class ModBlocks {
     public static final RegistryObject<BlockDamGenerator> DAM_GENERATOR = registerBlock("dam_generator",
             ()-> new BlockDamGenerator(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
                     .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<BlockConveyor> CONVEYOR = registerBlock("conveyor_bulk",
+            ()-> new BlockConveyor(EnumConveyorType.NORMAL));
+
+    public static final RegistryObject<BlockConveyor> CONVEYOR_HOPPER = registerBlock("conveyor_bulk_hopper",
+            ()-> new BlockConveyor(EnumConveyorType.HOPPER), false);
+
+    public static final RegistryObject<BlockConveyor> CONVEYOR_INSERTER = registerBlock("conveyor_bulk_inserter",
+            ()-> new BlockConveyor(EnumConveyorType.INSERTER), false);
 
 
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);
