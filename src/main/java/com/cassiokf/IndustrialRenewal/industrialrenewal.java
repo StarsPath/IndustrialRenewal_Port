@@ -150,7 +150,8 @@ public class industrialrenewal
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.FLAT_CART.get(), RenderFlatCart::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.PASSENGER_CAR.get(), RenderPassengerCar::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.FLUID_CONTAINER.get(), RenderFluidContainer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntity.COUPLER_ENTITY.get(), RenderCouplerEntity::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntity.PASSENGER_CART_MK2.get(), RenderPassengerCartMk2::new);
+//        RenderingRegistry.registerEntityRenderingHandler(ModEntity.COUPLER_ENTITY.get(), RenderCouplerEntity::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

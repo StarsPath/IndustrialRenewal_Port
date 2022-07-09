@@ -14,11 +14,11 @@ public class ModEntity {
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITIES, References.MODID);
 
-    public static final RegistryObject<EntityType<CouplerEntity>> COUPLER_ENTITY =
-            ENTITY_TYPES.register("coupler_entity",
-                    ()->EntityType.Builder.<CouplerEntity>of(CouplerEntity::new,
-                            EntityClassification.MISC).sized(0.2f, 0.2f)
-                            .build(new ResourceLocation(References.MODID, "coupler_entity").toString()));
+//    public static final RegistryObject<EntityType<CouplerEntity>> COUPLER_ENTITY =
+//            ENTITY_TYPES.register("coupler_entity",
+//                    ()->EntityType.Builder.<CouplerEntity>of(CouplerEntity::new,
+//                            EntityClassification.MISC).sized(0.2f, 0.2f)
+//                            .build(new ResourceLocation(References.MODID, "coupler_entity").toString()));
 
     public static final RegistryObject<EntityType<EntityCargoContainer>> CARGO_CONTAINER =
             ENTITY_TYPES.register("cargo_container",
@@ -43,6 +43,12 @@ public class ModEntity {
                     ()->EntityType.Builder.<EntityFluidContainer>of(EntityFluidContainer::new,
                             EntityClassification.MISC).sized(1f, 1f)
                             .build(new ResourceLocation(References.MODID, "fluid_container").toString()));
+
+    public static final RegistryObject<EntityType<EntityPassengerCartMk2>> PASSENGER_CART_MK2 =
+            ENTITY_TYPES.register("passenger_cart_mk2",
+                    ()->EntityType.Builder.<EntityPassengerCartMk2>of(EntityPassengerCartMk2::new,
+                            EntityClassification.MISC).sized(1f, 1f)
+                            .build(new ResourceLocation(References.MODID, "passenger_cart_mk2").toString()));
 
 
 

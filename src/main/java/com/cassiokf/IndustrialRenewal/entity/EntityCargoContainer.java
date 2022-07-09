@@ -22,6 +22,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -45,6 +46,11 @@ public class EntityCargoContainer extends ContainerMinecartEntity {
     @Override
     protected Container createMenu(int p_213968_1_, PlayerInventory p_213968_2_) {
         return new ChestContainer(ContainerType.GENERIC_9x4, p_213968_1_, p_213968_2_, this,4);
+    }
+
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target) {
+        return new ItemStack(ModItems.cargoContainer);
     }
 
     @Override

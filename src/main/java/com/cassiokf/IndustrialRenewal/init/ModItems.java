@@ -3,10 +3,7 @@ package com.cassiokf.IndustrialRenewal.init;
 import com.cassiokf.IndustrialRenewal.References;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.item.*;
-import com.cassiokf.IndustrialRenewal.item.locomotion.ItemCargoContainer;
-import com.cassiokf.IndustrialRenewal.item.locomotion.ItemFlatCart;
-import com.cassiokf.IndustrialRenewal.item.locomotion.ItemFluidContainer;
-import com.cassiokf.IndustrialRenewal.item.locomotion.ItemPassengerCar;
+import com.cassiokf.IndustrialRenewal.item.locomotion.*;
 import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -41,6 +38,7 @@ public class ModItems {
     public static final ItemCargoContainer cargoContainer;
     public static final ItemFlatCart flatCart;
     public static final ItemPassengerCar passengerCar;
+    public static final ItemPassengerCartMk2 passengerCartMk2;
     public static final ItemFluidContainer fluidContainer;
 //    public static final ItemSteelSaw steelSaw;
 //    public static final ItemMineCartCargoContainer cargoContainer;
@@ -174,6 +172,7 @@ public class ModItems {
         flatCart = new ItemFlatCart("minecart_flat");
         passengerCar = new ItemPassengerCar("passenger_car");
         fluidContainer = new ItemFluidContainer("fluid_container");
+        passengerCartMk2 = new ItemPassengerCartMk2("passenger_cart_mk2");
         cartLinkable = new ItemCartLinker("cart_linkable");
 
     }

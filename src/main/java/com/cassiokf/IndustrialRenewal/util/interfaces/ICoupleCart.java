@@ -6,11 +6,11 @@ public interface ICoupleCart
 {
     default float getMaxCouplingDistance(AbstractMinecartEntity cart)
     {
-        return 1.3f;
+        return 1.0f;
     }
 
     default float getFixedDistance(AbstractMinecartEntity cart)
     {
-        return 0.78f;
+        return 0.87f;
     }
 }

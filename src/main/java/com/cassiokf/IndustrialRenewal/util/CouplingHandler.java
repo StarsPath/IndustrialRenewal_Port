@@ -152,11 +152,11 @@ public class CouplingHandler {
         if (cart1 instanceof ICoupleCart)
             dist += ((ICoupleCart) cart1).getFixedDistance(cart2);
         else
-            dist += 0.78f;
+            dist += 0.87f;
         if (cart2 instanceof ICoupleCart)
             dist += ((ICoupleCart) cart2).getFixedDistance(cart1);
         else
-            dist += 0.78f;
+            dist += 0.87f;
         return dist;
     }
 

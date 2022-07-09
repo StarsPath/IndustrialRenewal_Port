@@ -5,9 +5,14 @@ import com.cassiokf.IndustrialRenewal.util.Utils;
 import com.cassiokf.IndustrialRenewal.util.enums.EnumCouplingType;
 import com.cassiokf.IndustrialRenewal.util.interfaces.ICoupleCart;
 import com.google.common.collect.MapMaker;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 
 import java.util.Map;
 import java.util.UUID;
@@ -26,7 +31,7 @@ public class ItemCartLinker extends IRBaseItem{
         AbstractMinecartEntity last = linkMap.remove(player);
         if (last != null && last.isAlive())
         {
-            if(last.position().distanceTo(cart.position()) > 2f){
+            if(last.position().distanceTo(cart.position()) > 3f){
                 Utils.sendChatMessage(player, "Coupling FAILED, TOO FAR");
                 return;
             }

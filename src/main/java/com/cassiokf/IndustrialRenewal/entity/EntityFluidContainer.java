@@ -16,6 +16,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
@@ -39,6 +40,11 @@ public class EntityFluidContainer extends AbstractMinecartEntity {
 
     public EntityFluidContainer(World world, double x, double y, double z) {
         super(ModEntity.FLUID_CONTAINER.get(), world, x, y, z);
+    }
+
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target) {
+        return new ItemStack(ModItems.fluidContainer);
     }
 
     public class CartTank extends FluidTank {
