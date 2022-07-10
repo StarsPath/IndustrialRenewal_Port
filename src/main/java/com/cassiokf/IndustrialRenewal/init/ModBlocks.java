@@ -6,6 +6,7 @@ import com.cassiokf.IndustrialRenewal.blocks.*;
 import com.cassiokf.IndustrialRenewal.blocks.dam.*;
 import com.cassiokf.IndustrialRenewal.blocks.locomotion.BlockCargoLoader;
 import com.cassiokf.IndustrialRenewal.blocks.locomotion.BlockFluidLoader;
+import com.cassiokf.IndustrialRenewal.blocks.locomotion.rails.BlockBoosterRail;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockEnergyCable;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockFluidPipe;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockHighPressureFluidPipe;
@@ -238,6 +239,9 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockConveyor> CONVEYOR_INSERTER = registerBlock("conveyor_bulk_inserter",
             ()-> new BlockConveyor(EnumConveyorType.INSERTER), false);
+
+    public static final RegistryObject<BlockBoosterRail> BOOSTER_RAIL = registerBlock("booster_rail",
+            BlockBoosterRail::new);
 
 
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);
