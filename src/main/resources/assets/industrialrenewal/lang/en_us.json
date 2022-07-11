@@ -202,5 +202,7 @@
   "gui.industrialrenewal.button.loader_mode" : "Loader",
   "gui.industrialrenewal.button.unloader_mode" : "Unloader",
   "gui.industrialrenewal.arrowup" : "▲",
-  "gui.industrialrenewal.arrowdown" : "▼"
+  "gui.industrialrenewal.arrowdown" : "▼",
+
+  "entity.industrialrenewal.cargo_container": "Cargo Cart"
 }

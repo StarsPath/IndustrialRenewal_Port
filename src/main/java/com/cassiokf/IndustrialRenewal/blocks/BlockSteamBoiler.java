@@ -36,32 +36,32 @@ public class BlockSteamBoiler extends Block3x3x3Base<TileEntitySteamBoiler> {
         super(properties);
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-
-        //TODO: add to config
-        int waterPtick = 100;
-        int steamConversion = 1;
-
-        tooltip.add(new StringTextComponent(
-                I18n.get("info.industrialrenewal.requires")
-                        + ":"));
-        tooltip.add(new StringTextComponent(" -" + I18n.get("info.industrialrenewal.firebox")));
-        tooltip.add(new StringTextComponent(
-                " -" + Blocks.WATER.getName().getContents()
-                        + ": "
-                        + waterPtick
-                        + " mB/t"));
-        int mult = waterPtick * steamConversion;
-        tooltip.add(new StringTextComponent(
-                I18n.get("info.industrialrenewal.produces")
-                        + " "
-                        + "Steam"
-                        + ": "
-                        + mult
-                        + " mB/t"));
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-    }
+//    @Override
+//    public void appendHoverText(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+//
+//        //TODO: add to config
+//        int waterPtick = 100;
+//        int steamConversion = 1;
+//
+//        tooltip.add(new StringTextComponent(
+//                I18n.get("info.industrialrenewal.requires")
+//                        + ":"));
+//        tooltip.add(new StringTextComponent(" -" + I18n.get("info.industrialrenewal.firebox")));
+//        tooltip.add(new StringTextComponent(
+//                " -" + Blocks.WATER.getName().getContents()
+//                        + ": "
+//                        + waterPtick
+//                        + " mB/t"));
+//        int mult = waterPtick * steamConversion;
+//        tooltip.add(new StringTextComponent(
+//                I18n.get("info.industrialrenewal.produces")
+//                        + " "
+//                        + "Steam"
+//                        + ": "
+//                        + mult
+//                        + " mB/t"));
+//        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+//    }
 
     @Override
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {

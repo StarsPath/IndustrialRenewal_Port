@@ -18,22 +18,22 @@ public class BlockSteamTurbine extends Block3x3x3Base<TileEntitySteamTurbine> {
         super(properties);
     }
 
-    public void appendHoverText(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        //TODO: add to config
-        tooltip.add(new StringTextComponent(
-                I18n.get("info.industrialrenewal.requires")
-                        + ": "
-                        + "Steam"
-                        + " "
-                        + 250//(IRConfig.Main.steamTurbineSteamPerTick.get().toString())
-                        + " mB/t"));
-        tooltip.add(new StringTextComponent(
-                I18n.get("info.industrialrenewal.produces")
-                        + ": "
-                        + 512//(IRConfig.Main.steamTurbineEnergyPerTick.get().toString())
-                        + " FE/t"));
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-    }
+//    public void appendHoverText(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+//        //TODO: add to config
+//        tooltip.add(new StringTextComponent(
+//                I18n.get("info.industrialrenewal.requires")
+//                        + ": "
+//                        + "Steam"
+//                        + " "
+//                        + 250//(IRConfig.Main.steamTurbineSteamPerTick.get().toString())
+//                        + " mB/t"));
+//        tooltip.add(new StringTextComponent(
+//                I18n.get("info.industrialrenewal.produces")
+//                        + ": "
+//                        + 512//(IRConfig.Main.steamTurbineEnergyPerTick.get().toString())
+//                        + " FE/t"));
+//        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+//    }
 
     @Nullable
     @Override

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B",
+    "A"
+  ],
+  "key": {
+    "A": {
+      "item": "industrialrenewal:minecart_flat"
+    },
+    "B": {
+      "tag": "forge:chests"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:cargo_container"
+  }
+}

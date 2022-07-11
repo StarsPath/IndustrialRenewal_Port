@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EEE",
+    "DBD",
+    "CAC"
+  ],
+  "key": {
+    "A": {
+      "item": "industrialrenewal:minecart_flat"
+    },
+    "B": {
+      "tag": "minecraft:carpets"
+    },
+    "C": {
+      "tag": "minecraft:planks"
+    },
+    "D": {
+      "tag": "forge:rods/wooden"
+    },
+    "E": {
+      "tag": "minecraft:wooden_slabs"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:passenger_car"
+  }
+}

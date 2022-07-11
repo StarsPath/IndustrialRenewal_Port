@@ -104,7 +104,7 @@ public class BlockConveyor extends BlockAbstractHorizontalFacing {
                     if (!player.isCreative()) heldItem.shrink(1);
                     return ActionResultType.SUCCESS;
                 }
-                if (heldItem.getItem().equals(Blocks.DISPENSER.asItem()))
+                if (heldItem.getItem().equals(Blocks.DROPPER.asItem()))
                 {
                     Direction facing1 = state.getValue(FACING);
                     worldIn.setBlock(pos, ModBlocks.CONVEYOR_INSERTER.get().defaultBlockState().setValue(FACING, facing1).setValue(FRONT, getFront(worldIn, pos, state, 0)).setValue(BACK, getBack(worldIn, pos, state, 0)), 3);
@@ -171,6 +171,15 @@ public class BlockConveyor extends BlockAbstractHorizontalFacing {
     @Override
     public void destroy(IWorld world, BlockPos pos, BlockState state) {
         super.destroy(world, pos, state);
+
+        switch (type){
+            case HOPPER:
+                popResource((World)world, pos, new ItemStack(Items.HOPPER));
+                break;
+            case INSERTER:
+                popResource((World)world, pos, new ItemStack(Items.DROPPER));
+                break;
+        }
 
         BlockPos updatePos = pos.above();
         BlockPos updatePos2 = pos.below();

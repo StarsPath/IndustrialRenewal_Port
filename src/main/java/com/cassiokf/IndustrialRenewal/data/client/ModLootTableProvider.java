@@ -84,6 +84,17 @@ public class ModLootTableProvider extends LootTableProvider {
             dropSelf(ModBlocks.COLUMN_STEEL.get());
             dropSelf(ModBlocks.PILLAR.get());
             dropSelf(ModBlocks.PILLAR_STEEL.get());
+
+            dropSelf(ModBlocks.LIGHT.get());
+            dropSelf(ModBlocks.FLUORESCENT.get());
+            dropSelf(ModBlocks.DAM_OUTLET.get());
+            dropSelf(ModBlocks.DAM_INTAKE.get());
+            dropSelf(ModBlocks.HIGH_PRESSURE_PIPE.get());
+            dropSelf(ModBlocks.ROTATIONAL_SHAFT.get());
+            dropSelf(ModBlocks.CONVEYOR.get());
+            dropSelf(ModBlocks.BOOSTER_RAIL.get());
+            dropSelf(ModBlocks.INDUSTRIAL_FLOOR.get());
+
             //super.addTables();
         }
 
@@ -134,6 +145,16 @@ public class ModLootTableProvider extends LootTableProvider {
             list.add(ModBlocks.COLUMN_STEEL.get());
             list.add(ModBlocks.PILLAR.get());
             list.add(ModBlocks.PILLAR_STEEL.get());
+
+            list.add(ModBlocks.LIGHT.get());
+            list.add(ModBlocks.FLUORESCENT.get());
+            list.add(ModBlocks.DAM_OUTLET.get());
+            list.add(ModBlocks.DAM_INTAKE.get());
+            list.add(ModBlocks.HIGH_PRESSURE_PIPE.get());
+            list.add(ModBlocks.ROTATIONAL_SHAFT.get());
+            list.add(ModBlocks.CONVEYOR.get());
+            list.add(ModBlocks.BOOSTER_RAIL.get());
+            list.add(ModBlocks.INDUSTRIAL_FLOOR.get());
 
             return list;
         }

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABC",
+    "DBE",
+    "ABC"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:hopper"
+    },
+    "B": {
+      "item": "industrialrenewal:frame"
+    },
+    "C": {
+      "tag": "forge:rods/iron"
+    },
+    "D": {
+      "item": "industrialrenewal:motor"
+    },
+    "E": {
+      "tag": "forge:dusts/redstone"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:cargo_loader"
+  }
+}

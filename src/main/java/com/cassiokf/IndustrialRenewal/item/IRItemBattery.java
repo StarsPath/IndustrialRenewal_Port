@@ -28,17 +28,17 @@ public class IRItemBattery extends IRBaseItem implements ICapabilityProvider {
         this.handler = LazyOptional.of(()->this.container);
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new TranslationTextComponent("Energy: " + this.container.getEnergyStored() + " / " + this.container.getMaxEnergyStored()));
-        super.appendHoverText(stack, world, tooltip, flagIn);
-    }
+//    @Override
+//    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+//        tooltip.add(new TranslationTextComponent("Energy: " + this.container.getEnergyStored() + " / " + this.container.getMaxEnergyStored()));
+//        super.appendHoverText(stack, world, tooltip, flagIn);
+//    }
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if(cap == CapabilityEnergy.ENERGY)
-            return this.handler.cast();
+//        if(cap == CapabilityEnergy.ENERGY)
+//            return this.handler.cast();
         return null;
     }
 }
