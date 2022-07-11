@@ -5,7 +5,6 @@ import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.util.CouplingHandler;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.ActionResultType;
@@ -57,12 +56,6 @@ public class EntityPassengerCartMk2 extends TrainBase{
             if (this.isVehicle()) {
                 this.ejectPassengers();
             }
-//            if (this.getHurtTime() == 0) {
-//                this.setHurtDir(-this.getHurtDir());
-//                this.setHurtTime(10);
-//                this.setDamage(50.0F);
-//                this.markHurt();
-//            }
         }
 
     }
@@ -70,7 +63,7 @@ public class EntityPassengerCartMk2 extends TrainBase{
     public void destroy(DamageSource p_94095_1_) {
         this.remove();
         if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
-            ItemStack itemstack = new ItemStack(ModItems.passengerCar);
+            ItemStack itemstack = new ItemStack(ModItems.passengerCartMk2);
             if (this.hasCustomName()) {
                 itemstack.setHoverName(this.getCustomName());
             }

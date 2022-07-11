@@ -2,12 +2,9 @@ package com.cassiokf.IndustrialRenewal.blocks.locomotion;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractHorizontalFacing;
 import com.cassiokf.IndustrialRenewal.containers.container.CargoLoaderContainer;
-import com.cassiokf.IndustrialRenewal.containers.container.LatheContainer;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityLathe;
 import com.cassiokf.IndustrialRenewal.tileentity.locomotion.TileEntityCargoLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,6 +23,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
@@ -40,15 +39,17 @@ import java.util.Set;
 public class BlockCargoLoader extends BlockAbstractHorizontalFacing {
 
     public static final BooleanProperty MASTER = BooleanProperty.create("master");
+    public static final BooleanProperty HAND = BooleanProperty.create("hand");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    protected static final VoxelShape TOP_AABB = Block.box(0.0D, 8.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 
     public BlockCargoLoader(Properties properties) {
         super(properties);
     }
 
     public BlockCargoLoader() {
-        super(Block.Properties.of(Material.METAL));
-        registerDefaultState(defaultBlockState().setValue(MASTER, false).setValue(POWERED, false));
+        super(Block.Properties.of(Material.METAL).noOcclusion());
+        registerDefaultState(defaultBlockState().setValue(MASTER, false).setValue(POWERED, false).setValue(HAND, false));
     }
 
     @Override
@@ -152,6 +153,20 @@ public class BlockCargoLoader extends BlockAbstractHorizontalFacing {
         return positions;
     }
 
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
+        if(state.getValue(HAND))
+            return TOP_AABB;
+        return super.getShape(state, world, pos, context);
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
+        if(state.getValue(HAND))
+            return TOP_AABB;
+        return super.getCollisionShape(state, world, pos, context);
+    }
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
@@ -174,7 +189,7 @@ public class BlockCargoLoader extends BlockAbstractHorizontalFacing {
     @Override
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(MASTER, POWERED);
+        builder.add(MASTER, POWERED, HAND);
     }
 
     @Override
@@ -184,6 +199,7 @@ public class BlockCargoLoader extends BlockAbstractHorizontalFacing {
             world.setBlockAndUpdate(pos1, state);
         }
         world.setBlockAndUpdate(pos.above(), state.setValue(MASTER, true));
+        world.setBlockAndUpdate(pos.above(2).relative(state.getValue(FACING)), state.setValue(HAND, true));
         super.setPlacedBy(world, pos, state, livingEntity, itemStack);
     }
 

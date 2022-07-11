@@ -1,10 +1,13 @@
 package com.cassiokf.IndustrialRenewal.item;
 
+import com.cassiokf.IndustrialRenewal.blocks.locomotion.rails.BlockBoosterRail;
+import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.util.CouplingHandler;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import com.cassiokf.IndustrialRenewal.util.enums.EnumCouplingType;
 import com.cassiokf.IndustrialRenewal.util.interfaces.ICoupleCart;
 import com.google.common.collect.MapMaker;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,6 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.Map;
 import java.util.UUID;
@@ -26,13 +31,25 @@ public class ItemCartLinker extends IRBaseItem{
         super(name, new Item.Properties().stacksTo(1));
     }
 
+    @Override
+    public ActionResultType useOn(ItemUseContext context) {
+        World world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        BlockState state = world.getBlockState(pos);
+        if(state.getBlock().is(ModBlocks.BOOSTER_RAIL.get())){
+            world.setBlock(pos, state.setValue(BlockBoosterRail.FACING, state.getValue(BlockBoosterRail.FACING).getOpposite()), 3);
+            return ActionResultType.SUCCESS;
+        }
+        return super.useOn(context);
+    }
+
     public static void onPlayerUseLinkableItemOnCart(PlayerEntity player, AbstractMinecartEntity cart)
     {
         AbstractMinecartEntity last = linkMap.remove(player);
         if (last != null && last.isAlive())
         {
             if(last.position().distanceTo(cart.position()) > 3f){
-                Utils.sendChatMessage(player, "Coupling FAILED, TOO FAR");
+                Utils.sendChatMessage(player, "Coupling Failed, TOO FAR");
                 return;
             }
 
@@ -54,7 +71,7 @@ public class ItemCartLinker extends IRBaseItem{
                     return;
                 }
             }
-            Utils.sendChatMessage(player, "Coupling SUCCESS");
+            Utils.sendChatMessage(player, "Coupling Canceled");
         }
         else
         {

@@ -100,40 +100,44 @@ public class TileEntityCargoLoader extends TileEntityBaseLoader implements ITick
                     Utils.moveItemsBetweenInventories(inv, containerInventory);
                 }
             }
-            switch (waitE){
-                case WAIT_FULL:
-                    if(containerInventory!=null) {
-                        boolean setBool = Utils.isInventoryFull(containerInventory);
-                        if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED) != setBool)
-                            level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, setBool), 3);
-                    }
-                    else{
-                        if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED))
-                            level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, false), 3);
-                    }
-                    break;
-                case WAIT_EMPTY:
-                    if(containerInventory!=null) {
-                        boolean setBool = containerInventory.isEmpty();
-                        if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED) != setBool)
-                            level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, setBool), 3);
-                    }
-                    else{
-                        if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED))
-                            level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, false), 3);
-                    }
-                    break;
-                case NO_ACTIVITY: {
-                    if(!level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED))
-                        level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, true), 3);
-                    break;
-                }
-                case NEVER: {
-                    if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED))
-                        level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, false), 3);
-                    break;
-                }
+            if(containerInventory == null){
+                level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, true), 3);
             }
+            else
+                switch (waitE){
+                    case WAIT_FULL:
+                        if(containerInventory!=null) {
+                            boolean setBool = Utils.isInventoryFull(containerInventory);
+                            if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED) != setBool)
+                                level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, setBool), 3);
+                        }
+                        else{
+                            if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED))
+                                level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, false), 3);
+                        }
+                        break;
+                    case WAIT_EMPTY:
+                        if(containerInventory!=null) {
+                            boolean setBool = containerInventory.isEmpty();
+                            if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED) != setBool)
+                                level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, setBool), 3);
+                        }
+                        else{
+                            if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED))
+                                level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, false), 3);
+                        }
+                        break;
+                    case NO_ACTIVITY: {
+                        if(!level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED))
+                            level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, true), 3);
+                        break;
+                    }
+                    case NEVER: {
+                        if(level.getBlockState(loaderPosition.below()).getValue(BlockStateProperties.POWERED))
+                            level.setBlock(loaderPosition.below(), level.getBlockState(loaderPosition.below()).setValue(BlockStateProperties.POWERED, false), 3);
+                        break;
+                    }
+                }
         }
     }
 

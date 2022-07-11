@@ -103,40 +103,45 @@ public class TileEntityFluidLoader extends TileEntityBaseLoader implements ITick
                     loading = false;
                 }
             }
-            switch (waitE){
-                case WAIT_FULL:
-                    if(containerTank!=null) {
-                        boolean setBool = containerTank.getFluidInTank(0).getAmount()>= containerTank.getTankCapacity(0);
-                        if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED) != setBool)
-                            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, setBool), 3);
-                    }
-                    else{
-                        if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED))
-                            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, false), 3);
-                    }
-                    break;
-                case WAIT_EMPTY:
-                    if(containerTank!=null) {
-                        boolean setBool = containerTank.getFluidInTank(0).getAmount()<=0;
-                        if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED) != setBool)
-                            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, setBool), 3);
-                    }
-                    else{
-                        if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED))
-                            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, false), 3);
-                    }
-                    break;
-                case NO_ACTIVITY: {
-                    if(!level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED))
-                        level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, true), 3);
-                    break;
-                }
-                case NEVER: {
-                    if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED))
-                        level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, false), 3);
-                    break;
-                }
+
+            if(containerTank == null){
+                level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, true), 3);
             }
+            else
+                switch (waitE){
+                    case WAIT_FULL:
+                        if(containerTank!=null) {
+                            boolean setBool = containerTank.getFluidInTank(0).getAmount()>= containerTank.getTankCapacity(0);
+                            if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED) != setBool)
+                                level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, setBool), 3);
+                        }
+                        else{
+                            if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED))
+                                level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, false), 3);
+                        }
+                        break;
+                    case WAIT_EMPTY:
+                        if(containerTank!=null) {
+                            boolean setBool = containerTank.getFluidInTank(0).getAmount()<=0;
+                            if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED) != setBool)
+                                level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, setBool), 3);
+                        }
+                        else{
+                            if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED))
+                                level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, false), 3);
+                        }
+                        break;
+                    case NO_ACTIVITY: {
+                        if(!level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED))
+                            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, true), 3);
+                        break;
+                    }
+                    case NEVER: {
+                        if(level.getBlockState(worldPosition).getValue(BlockStateProperties.POWERED))
+                            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BlockStateProperties.POWERED, false), 3);
+                        break;
+                    }
+                }
         }
         else{
             if (loading)

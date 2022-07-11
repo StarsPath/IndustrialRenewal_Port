@@ -1,6 +1,5 @@
 package com.cassiokf.IndustrialRenewal.blocks.locomotion.rails;
 
-import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -13,9 +12,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
-import sun.security.provider.SHA;
 
 public class BlockBoosterRail extends BlockRailFacing
 {
@@ -45,7 +42,7 @@ public class BlockBoosterRail extends BlockRailFacing
 
     @Override
     protected void updateState(BlockState state, World world, BlockPos pos, Block block) {
-        Utils.debug("void updateState called", state);
+//        Utils.debug("void updateState called", state);
         boolean flag = state.getValue(POWERED);
         boolean flag1 = world.hasNeighborSignal(pos);
         if(flag!=flag1){
