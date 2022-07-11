@@ -37,11 +37,11 @@ public class BlockColumn extends BlockAbstractSixWayConnections {
             {
                 return Objects.equals(neighborState.getValue(BlockBrace.FACING).getName(), neighborDirection.getOpposite().getName()) || Objects.equals(neighborState.getValue(BlockBrace.FACING).getName(), "down_" + neighborDirection.getName());
             }
-            return nb instanceof BlockColumn || nb instanceof BlockPillar;
+            return nb instanceof BlockColumn || nb instanceof BlockPillar
 //                    || (nb instanceof BlockHVIsolator && neighborState.get(BlockHVIsolator.FACING) == neighborDirection.getOpposite())
 //                    || nb instanceof BlockPillarEnergyCable || nb instanceof BlockPillarFluidPipe
 //                    || (nb instanceof BlockAlarm && neighborState.get(BlockAlarm.FACING) == neighborDirection)
-//                    || (nb instanceof BlockLight && neighborState.get(BlockLight.FACING) == neighborDirection.getOpposite());
+                    || (nb instanceof BlockLight && neighborState.getValue(BlockLight.FACING) == neighborDirection.getOpposite());
         }
         if(nb instanceof BlockColumn)
             return true;

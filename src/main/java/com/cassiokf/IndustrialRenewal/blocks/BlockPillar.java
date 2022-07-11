@@ -40,7 +40,7 @@ public class BlockPillar extends BlockAbstractSixWayConnections {
                     || nb instanceof BlockColumn
 //                    || (nb instanceof BlockCableTray && neighborState.get(BlockCableTray.BASE).equals(EnumBaseDirection.byIndex(neighborDirection.getOpposite().getIndex())))
                     || nb instanceof LadderBlock
-//                    || (nb instanceof BlockLight && neighborState.get(BlockLight.FACING) == neighborDirection.getOpposite())
+                    || (nb instanceof BlockLight && neighborState.getValue(BlockLight.FACING) == neighborDirection.getOpposite())
 //                    || nb instanceof BlockRoof
                     || (nb instanceof BlockBrace && Objects.equals(neighborState.getValue(BlockBrace.FACING).getName(), neighborDirection.getOpposite().getName()))
                     || (nb instanceof BlockBrace && Objects.equals(neighborState.getValue(BlockBrace.FACING).getName(), "down_" + neighborDirection.getName()))

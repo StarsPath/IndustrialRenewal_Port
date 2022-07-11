@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "AAA",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "industrialrenewal:energy_cable_lv"
+    },
+    "A": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:energy_cable_mv",
+    "count": 6
+  }
+}

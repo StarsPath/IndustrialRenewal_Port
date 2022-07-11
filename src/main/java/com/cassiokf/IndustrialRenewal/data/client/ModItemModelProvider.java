@@ -93,7 +93,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent("dam_outflow", modLoc("block/dam_outflow"));
 
         withExistingParent("conveyor_bulk", modLoc("block/conveyor"));
-        withExistingParent("booster_rail", modLoc("block/booster_rail"));
+        withExistingParent("light", modLoc("block/light"));
+        withExistingParent("fluorescent", modLoc("block/fluorescent_inventory"));
 
     }
 }

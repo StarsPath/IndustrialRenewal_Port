@@ -204,11 +204,20 @@ public class ModBlocks {
     public static final RegistryObject<BlockRazorWire> RAZOR_WIRE = registerBlock("razor_wire",
             BlockRazorWire::new);
 
+    public static final RegistryObject<BlockLight> LIGHT = registerBlock("light",
+            BlockLight::new);
+
+    public static final RegistryObject<BlockFluorescent> FLUORESCENT = registerBlock("fluorescent",
+            BlockFluorescent::new);
+
     public static final RegistryObject<BlockCargoLoader> CARGO_LOADER = registerBlock("cargo_loader",
             BlockCargoLoader::new);
 
     public static final RegistryObject<BlockFluidLoader> FLUID_LOADER = registerBlock("fluid_loader",
             BlockFluidLoader::new);
+
+    public static final RegistryObject<BlockBoosterRail> BOOSTER_RAIL = registerBlock("booster_rail",
+            BlockBoosterRail::new);
 
     public static final RegistryObject<BlockDamIntake> DAM_INTAKE = registerBlock("dam_intake",
             BlockDamIntake::new);
@@ -240,8 +249,6 @@ public class ModBlocks {
     public static final RegistryObject<BlockConveyor> CONVEYOR_INSERTER = registerBlock("conveyor_bulk_inserter",
             ()-> new BlockConveyor(EnumConveyorType.INSERTER), false);
 
-    public static final RegistryObject<BlockBoosterRail> BOOSTER_RAIL = registerBlock("booster_rail",
-            BlockBoosterRail::new);
 
 
 //    public static final BlockChimney blockChimney = new BlockChimney("block_chimney", References.CREATIVE_IR_TAB);

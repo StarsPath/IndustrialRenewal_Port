@@ -118,6 +118,8 @@ public class industrialrenewal
             RenderTypeLookup.setRenderLayer(ModBlocks.LATHE.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.ROTATIONAL_SHAFT.get(), RenderType.cutout());
             RenderTypeLookup.setRenderLayer(ModBlocks.BOOSTER_RAIL.get(), RenderType.translucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.LIGHT.get(), RenderType.translucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.FLUORESCENT.get(), RenderType.translucent());
 
             RenderTypeLookup.setRenderLayer(ModFluids.STEAM.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModFluids.STEAM_FLOWING.get(), RenderType.translucent());

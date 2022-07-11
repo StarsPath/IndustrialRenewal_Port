@@ -70,7 +70,7 @@ public class IRBaseWall extends BlockAbstractFourConnections {
 //                    && (neighborDirection.getCounterClockWise() == neighborState.getValue(BlockAbstractBigFence.FACING)
 //                    || neighborDirection.getClockWise() == neighborState.getValue(BlockAbstractBigFence.FACING)))
                 || nb instanceof BlockElectricGate
-//                || nb instanceof BlockLight
+                || (nb instanceof BlockLight && neighborState.getValue(BlockLight.FACING) == neighborDirection.getOpposite())
 //                || nb instanceof BlockSignalIndicator
 //                || nb instanceof BlockWindow;
         ;

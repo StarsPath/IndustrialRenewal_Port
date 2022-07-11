@@ -8,6 +8,7 @@ import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
@@ -172,14 +173,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_item", has(Items.IRON_INGOT))
                 .save(consumer);
 
-//        ShapedRecipeBuilder.shaped(ModBlocks.ENERGYCABLE_MV.get(), 6)
-//                .define('#', ModBlocks.ENERGYCABLE_LV.get())
-//                .define('A', Items.GOLD_INGOT)
-//                .pattern("###")
-//                .pattern("AAA")
-//                .pattern("###")
-//                .unlockedBy("has_item", has(Items.IRON_INGOT))
-//                .save(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.ENERGYCABLE_MV.get(), 6)
+                .define('#', ModBlocks.ENERGYCABLE_LV.get())
+                .define('A', Items.GOLD_INGOT)
+                .pattern("###")
+                .pattern("AAA")
+                .pattern("###")
+                .unlockedBy("has_item", has(Items.IRON_INGOT))
+                .save(consumer, new ResourceLocation("energy_cable_mv_2"));
 
         ShapedRecipeBuilder.shaped(ModBlocks.ENERGYCABLE_HV.get(), 6)
                 .define('#', Items.GLASS_PANE)
@@ -191,15 +192,15 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_item", has(Items.IRON_INGOT))
                 .save(consumer);
 
-//        ShapedRecipeBuilder.shaped(ModBlocks.ENERGYCABLE_HV.get(), 6)
-//                .define('#', ModBlocks.ENERGYCABLE_MV.get())
-//                .define('A', Items.REDSTONE)
-//                .define('X', Items.DIAMOND)
-//                .pattern("###")
-//                .pattern("AXA")
-//                .pattern("###")
-//                .unlockedBy("has_item", has(Items.IRON_INGOT))
-//                .save(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.ENERGYCABLE_HV.get(), 6)
+                .define('#', ModBlocks.ENERGYCABLE_MV.get())
+                .define('A', Items.REDSTONE)
+                .define('X', Items.DIAMOND)
+                .pattern("###")
+                .pattern("AXA")
+                .pattern("###")
+                .unlockedBy("has_item", has(Items.IRON_INGOT))
+                .save(consumer, new ResourceLocation("energy_cable_hv_2"));
 
         ShapedRecipeBuilder.shaped(ModBlocks.BARREL.get(), 1)
                 .define('#', Items.IRON_TRAPDOOR)

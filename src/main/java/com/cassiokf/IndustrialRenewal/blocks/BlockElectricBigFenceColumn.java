@@ -21,7 +21,9 @@ public class BlockElectricBigFenceColumn extends BlockAbstractBigFence {
 
     public BlockElectricBigFenceColumn()
     {
-        super(Block.Properties.of(Material.METAL), 9);
+        super(Block.Properties.of(Material.METAL).lightLevel((blockState)->{
+            return blockState.getValue(INDEX)==2? 15 : 0;
+        }), 9);
         registerDefaultState(defaultBlockState()
                 .setValue(NORTH, false)
                 .setValue(SOUTH, false)
