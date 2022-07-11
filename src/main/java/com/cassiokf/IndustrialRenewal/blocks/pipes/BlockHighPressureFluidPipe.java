@@ -17,13 +17,13 @@ import javax.annotation.Nullable;
 public class BlockHighPressureFluidPipe extends BlockPipeBase<TileEntityHighPressureFluidPipe>{
     public BlockHighPressureFluidPipe(Properties property) {
         super(property, 8, 8);
-        registerDefaultState(this.defaultBlockState()
-                .setValue(NORTH, false)
-                .setValue(SOUTH, false)
-                .setValue(EAST, false)
-                .setValue(WEST, false)
-                .setValue(UP, false)
-                .setValue(DOWN, false));
+//        registerDefaultState(this.defaultBlockState()
+//                .setValue(NORTH, false)
+//                .setValue(SOUTH, false)
+//                .setValue(EAST, false)
+//                .setValue(WEST, false)
+//                .setValue(UP, false)
+//                .setValue(DOWN, false));
     }
 
     @Override

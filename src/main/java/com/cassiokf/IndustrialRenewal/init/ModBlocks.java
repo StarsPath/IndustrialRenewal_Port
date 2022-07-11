@@ -173,6 +173,9 @@ public class ModBlocks {
     public static final RegistryObject<BlockCatwalkLadder> CATWALK_LADDER_STEEL = registerBlock("catwalk_ladder_steel",
             BlockCatwalkLadder::new, false);
 
+    public static final RegistryObject<BlockIndustrialFloor> INDUSTRIAL_FLOOR = registerBlock("industrial_floor",
+            BlockIndustrialFloor::new);
+
     public static final RegistryObject<BlockFrame> FRAME = registerBlock("frame",
             BlockFrame::new);
 

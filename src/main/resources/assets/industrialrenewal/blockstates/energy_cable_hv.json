@@ -63,6 +63,69 @@
         "x": 90,
         "uvlock": false
       }
+    },
+    {
+      "when": {
+        "north": "false",
+        "floor": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/ind_floor/floor_side",
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "east": "false",
+        "floor": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/ind_floor/floor_side",
+        "uvlock": false,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": "false",
+        "floor": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/ind_floor/floor_side",
+        "uvlock": false,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "false",
+        "floor": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/ind_floor/floor_side",
+        "uvlock": false,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": "false",
+        "floor": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/ind_floor/floor_side_up",
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "down": "false",
+        "floor": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/ind_floor/floor_side_down",
+        "uvlock": false
+      }
     }
   ]
 }

@@ -107,7 +107,7 @@ public abstract class TileEntityConveyorBase extends TileEntitySyncable implemen
         {
 //            stack3Pos = Utils.lerp(stack3Pos, 0.99D, speed);
             stack3Pos += speed;
-            stack3Pos = MathHelper.clamp(stack3Pos, 0.66f, 0.99f);
+            stack3Pos = MathHelper.clamp(stack3Pos, 0.66f, 1f);
             yPos = mode == 0 ? 0.47f : mode == 1 ? 1.3f : 0.65f;
             if (mode == 0) stack3YPos = yPos;
             else stack3YPos = Utils.lerp(stack3YPos, yPos, speed);

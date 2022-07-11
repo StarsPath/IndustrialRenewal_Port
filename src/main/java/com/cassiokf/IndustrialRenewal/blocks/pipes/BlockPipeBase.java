@@ -1,17 +1,26 @@
 package com.cassiokf.IndustrialRenewal.blocks.pipes;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockConnectedMultiblocks;
+import com.cassiokf.IndustrialRenewal.init.ModBlocks;
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityMultiBlocksTube;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
@@ -22,6 +31,8 @@ public abstract class BlockPipeBase<TE extends TileEntityMultiBlocksTube> extend
     public static final BooleanProperty SOUTH = BooleanProperty.create("south");
     public static final BooleanProperty EAST = BooleanProperty.create("east");
     public static final BooleanProperty WEST = BooleanProperty.create("west");
+
+    public static final BooleanProperty FLOOR = BooleanProperty.create("floor");
 
     private static float NORTHZ1 = 0.250f;
     private static float SOUTHZ2 = 0.750f;
@@ -38,6 +49,14 @@ public abstract class BlockPipeBase<TE extends TileEntityMultiBlocksTube> extend
         super(property);
         this.nodeWidth = nodeWidth;
         this.nodeHeight = nodeHeight;
+        registerDefaultState(this.defaultBlockState()
+                .setValue(NORTH, false)
+                .setValue(SOUTH, false)
+                .setValue(EAST, false)
+                .setValue(WEST, false)
+                .setValue(UP, false)
+                .setValue(DOWN, false)
+                .setValue(FLOOR, false));
     }
 
     public boolean isMaster(IBlockReader world, BlockPos pos)
@@ -50,7 +69,7 @@ public abstract class BlockPipeBase<TE extends TileEntityMultiBlocksTube> extend
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         //builder.add(MASTER, SOUTH, NORTH, EAST, WEST, UP, DOWN, CSOUTH, CNORTH, CEAST, CWEST, CUP, CDOWN);
-        builder.add(UP, DOWN, NORTH, EAST, SOUTH, WEST);
+        builder.add(UP, DOWN, NORTH, EAST, SOUTH, WEST, FLOOR);
     }
 
     @Nullable
@@ -61,8 +80,31 @@ public abstract class BlockPipeBase<TE extends TileEntityMultiBlocksTube> extend
     }
 
     @Override
+    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult p_225533_6_) {
+        ItemStack playerStack = player.getItemInHand(handIn);
+        if(playerStack.getItem().equals(ModBlocks.INDUSTRIAL_FLOOR.get().asItem()) && !state.getValue(FLOOR)){
+            worldIn.setBlock(pos, state.setValue(FLOOR, true), 3);
+            if (!player.isCreative())
+                playerStack.shrink(1);
+            return ActionResultType.SUCCESS;
+        }
+
+        return super.use(state, worldIn, pos, player, handIn, p_225533_6_);
+    }
+
+    @Override
+    public void destroy(IWorld world, BlockPos pos, BlockState state) {
+        super.destroy(world, pos, state);
+        if(state.getValue(FLOOR))
+            popResource((World)world, pos, new ItemStack(ModBlocks.INDUSTRIAL_FLOOR.get()));
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
+        if(state.getValue(FLOOR)){
+            return FULL_SHAPE;
+        }
         if (isConnected(worldIn, pos, Direction.NORTH))
         {
             NORTHZ1 = 0;

@@ -30,13 +30,13 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable>{
 
     public BlockEnergyCable(EnumEnergyCableType type, Properties props){
         super(props, 4, 4);
-        registerDefaultState(this.defaultBlockState()
-                .setValue(NORTH, false)
-                .setValue(SOUTH, false)
-                .setValue(EAST, false)
-                .setValue(WEST, false)
-                .setValue(UP, false)
-                .setValue(DOWN, false));
+//        registerDefaultState(this.defaultBlockState()
+//                .setValue(NORTH, false)
+//                .setValue(SOUTH, false)
+//                .setValue(EAST, false)
+//                .setValue(WEST, false)
+//                .setValue(UP, false)
+//                .setValue(DOWN, false));
         this.type = type;
     }
 

@@ -18,13 +18,13 @@ public class BlockFluidPipe extends BlockPipeBase<TileEntityFluidPipe>{
 
     public BlockFluidPipe(Properties property) {
         super(property, 4, 4);
-        registerDefaultState(this.defaultBlockState()
-                .setValue(NORTH, false)
-                .setValue(SOUTH, false)
-                .setValue(EAST, false)
-                .setValue(WEST, false)
-                .setValue(UP, false)
-                .setValue(DOWN, false));
+//        registerDefaultState(this.defaultBlockState()
+//                .setValue(NORTH, false)
+//                .setValue(SOUTH, false)
+//                .setValue(EAST, false)
+//                .setValue(WEST, false)
+//                .setValue(UP, false)
+//                .setValue(DOWN, false));
     }
 
     @Override
