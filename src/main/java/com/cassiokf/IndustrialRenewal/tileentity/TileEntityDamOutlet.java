@@ -1,6 +1,7 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
 import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamOutlet;
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntitySyncable;
 import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;
@@ -22,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class TileEntityDamOutlet extends TileEntitySyncable implements ITickableTileEntity {
-    public static final int MAX_PROCESSING = 200000;
+    public static final int MAX_PROCESSING = Config.DAM_OUTLET_WATER_CONSUMPTION.get();
     public static final int AMOUNT_PER_BLOCK = 40000;
 
     public CustomFluidTank tank = new CustomFluidTank(MAX_PROCESSING){

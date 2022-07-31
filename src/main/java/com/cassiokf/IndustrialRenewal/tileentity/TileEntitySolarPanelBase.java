@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TEBase;
 import com.cassiokf.IndustrialRenewal.util.CustomEnergyStorage;
@@ -23,6 +24,7 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
     private int tick;
     private final int random;
     private int energyCanGenerate;
+    private final int forceGeneration = Config.SOLAR_FORCE_GENERATION.get();
 //    private RFEnergyStorage energyStorage = createEnergy();
     private final CustomEnergyStorage container;
     private LazyOptional<CustomEnergyStorage> energy;
@@ -31,7 +33,7 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
     {
         super(tileEntityTypeIn);
         random = ThreadLocalRandom.current().nextInt(10);
-        container = new CustomEnergyStorage(0, 0, 15){
+        container = new CustomEnergyStorage(0, 0, forceGeneration >= 0? forceGeneration : 15){
             @Override
             public boolean canReceive() {
                 return false;
@@ -44,7 +46,7 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
     {
         super(ModTileEntities.SOLAR_PANEL_BASE.get());
         random = ThreadLocalRandom.current().nextInt(10);
-        container = new CustomEnergyStorage(0, 0, 15){
+        container = new CustomEnergyStorage(0, 0, forceGeneration >= 0? forceGeneration : 15){
             @Override
             public boolean canReceive() {
                 return false;
@@ -109,7 +111,7 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
 
     public void getEnergyFromSun()
     {
-        energyCanGenerate = getGeneration(this.level, this.worldPosition);
+        energyCanGenerate = forceGeneration >= 0? forceGeneration : getGeneration(this.level, this.worldPosition);
     }
 
     @Override

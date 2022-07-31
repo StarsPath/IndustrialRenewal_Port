@@ -177,7 +177,7 @@ public class TileEntityWindTurbinePillar extends TileEntityMultiBlocksTube<TileE
     public float getGenerationforGauge()
     {
         float currentAmount = getEnergyGenerated();
-        float totalCapacity = TileEntityWindTurbineHead.getMaxGeneration();
+        float totalCapacity = TileEntityWindTurbineHead.energyGeneration;
         currentAmount = currentAmount / totalCapacity;
         amount = Utils.lerp(amount, currentAmount, 0.1f);
         return Math.min(amount, 1) * 90f;

@@ -14,9 +14,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, References.MODID);
 
-
-    // TODO: add more Items
-
     public static final IRBaseItem ingotSteel;
     public static final IRBaseItem stickIron;
     public static final IRBaseItem stickSteel;

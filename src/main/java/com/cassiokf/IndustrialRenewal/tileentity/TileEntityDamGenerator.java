@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3x3MachineBase;
 import com.cassiokf.IndustrialRenewal.util.CustomEnergyStorage;
@@ -19,7 +20,8 @@ import javax.annotation.Nullable;
 
 public class TileEntityDamGenerator extends TileEntity3x3x3MachineBase<TileEntityDamGenerator> implements ITickableTileEntity {
 
-    public CustomEnergyStorage bank = new CustomEnergyStorage(1000000){
+    private final int energyCapacity = Config.DAM_GENERATOR_ENERGY_CAPACITY.get();
+    public CustomEnergyStorage bank = new CustomEnergyStorage(energyCapacity){
         @Override
         public void onEnergyChange() {
             TileEntityDamGenerator.this.sync();
@@ -29,9 +31,9 @@ public class TileEntityDamGenerator extends TileEntity3x3x3MachineBase<TileEntit
     private int oldGeneration;
     private int generation;
     private int rotation;
-    // TODO: add to config
-    public static final int maxGeneration = 1024;//IRConfig.MainConfig.Main.damGeneratorEnergyPerTick;
-    public static final int transferRate = 2048;
+
+    public static final int maxGeneration = Config.DAM_GENERATOR_RF_PER_TICK.get();//IRConfig.MainConfig.Main.damGeneratorEnergyPerTick;
+    public static final int transferRate = Config.DAM_GENERATOR_TRANSFER_RATE.get();
 
 
     public TileEntityDamGenerator() {

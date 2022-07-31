@@ -1,6 +1,7 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
 import com.cassiokf.IndustrialRenewal.blocks.BlockElectricPump;
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntitySyncable;
 import com.cassiokf.IndustrialRenewal.util.CustomEnergyStorage;
@@ -51,13 +52,15 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
     private int index = -1;
     //private int everyXtick = 10;
     private int tick;
-    private int energyPerTick = 10;
+    private int energyPerTick = Config.PUMP_RF_PER_TICK.get();
+    private int energyCapacity = Config.PUMP_ENERGY_CAPACITY.get();
+    private int maxRadius = Config.PUMP_RADIUS.get();
+    private boolean config = Config.PUMP_INFINITE_WATER.get();
+    private boolean replaceCobbleConfig = Config.PUMP_REPLACE_COBBLE.get();
+
     private Direction facing;
 
     private List<BlockPos> fluidSet = new ArrayList<>();
-
-    //TODO: Add to config
-    private int maxRadius = 16;
 
     //IEnergyStorage motorEnergy = null;
 
@@ -68,7 +71,7 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
     private boolean firstLoad = false;
 
     private IEnergyStorage createEnergy() {
-        return new CustomEnergyStorage(200, 200, 200) {
+        return new CustomEnergyStorage(energyCapacity, energyCapacity, energyCapacity) {
             @Override
             public boolean canExtract() {
                 return true;
@@ -122,7 +125,6 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
         }
 //        else
 //        {
-//            TODO: add sound handler
 //            if (getIdex() == 1)
 //            {
 //                handleSound();
@@ -150,11 +152,7 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
     {
         if (tank.getFluidAmount() <= 0 && isRunning)
         {
-            //TODO: Add to Config
-            boolean config = true;
-            boolean replaceCobbleConfig = true;
             if (config
-            //if (IRConfig.Main.pumpInfinityWater.get()
                     && level.getBlockState(worldPosition.below()).getBlock().equals(Blocks.WATER))
             {
                 tank.fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.EXECUTE);

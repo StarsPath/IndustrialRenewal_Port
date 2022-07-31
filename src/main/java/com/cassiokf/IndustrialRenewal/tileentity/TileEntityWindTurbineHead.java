@@ -1,6 +1,7 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
 import com.cassiokf.IndustrialRenewal.blocks.BlockWindTurbineHead;
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.item.ItemWindBlade;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntitySyncable;
@@ -34,6 +35,10 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
     private LazyOptional<IEnergyStorage> energyStorage = LazyOptional.of(this::createEnergy);
     private float rotation;
     private int energyGenerated;
+
+    public static final int energyGeneration = Config.WIND_TURBINE_ENERGY_PER_TICK.get();
+    private final int energyCapacity = Config.WIND_TURBINE_CAPACITY.get();
+    private final int energyTransfer = Config.WIND_TURBINE_TRANSFER_RATE.get();
     private int tickToDamage;
 
     private final Random random = new Random();
@@ -42,10 +47,10 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
         super(ModTileEntities.WIND_TURBINE_TILE.get());
     }
 
-    public static int getMaxGeneration()
-    {
-        return 128;
-    }
+//    public static int getMaxGeneration()
+//    {
+//        return 128;
+//    }
 
     private IItemHandler createHandler()
     {
@@ -69,7 +74,7 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
 
     private IEnergyStorage createEnergy()
     {
-        return new CustomEnergyStorage(32000, 1024, 1024)
+        return new CustomEnergyStorage(energyCapacity, energyTransfer, energyTransfer)
         {
             @Override
             public void onEnergyChange()
@@ -93,7 +98,7 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
             IEnergyStorage thisEnergy = energyStorage.orElse(null);
             if (hasBlade())
             {
-                int energyGen = Math.round(getMaxGeneration() * getEfficiency());
+                int energyGen = Math.round(energyGeneration * getEfficiency());
                 energyGenerated = thisEnergy.receiveEnergy(energyGen, false);
                 if (tickToDamage >= 1200 && energyGen > 0)
                 {

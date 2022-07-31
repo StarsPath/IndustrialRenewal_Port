@@ -6,7 +6,11 @@ import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
@@ -17,6 +21,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.awt.*;
 
 public class ModFluids {
+
+    public static final ITag.INamedTag<Fluid> STEAM_TAG = FluidTags.bind("forge:steam");
+
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, References.MODID);
 
     public static final RegistryObject<FlowingFluid> STEAM =

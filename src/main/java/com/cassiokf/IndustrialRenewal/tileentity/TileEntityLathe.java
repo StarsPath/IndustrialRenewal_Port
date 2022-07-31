@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModRecipes;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.recipes.LatheRecipe;
@@ -31,8 +32,7 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
         super(tileEntityTypeIn);
     }
 
-    //TODO: Add to config
-    private static final int energyPTick = 128;//IRConfig.MainConfig.Main.energyPerTickLatheMachine;
+    private static final int energyPTick = Config.LATHE_ENERGY_PER_TICK.get();//IRConfig.MainConfig.Main.energyPerTickLatheMachine;
     //private static final float volume = 0.2f * IRConfig.MainConfig.Sounds.masterVolumeMult;
     private CustomEnergyStorage energyContainer;
     private ItemStackHandler input;
@@ -52,7 +52,7 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
     public LazyOptional<ItemStackHandler> holdHandler;
 
     public int currentEnergy;
-    public final int MAX_ENERGY = 10240;
+    public final int MAX_ENERGY = Config.LATHE_ENERGY_CAPACITY.get();
 
     public TileEntityLathe(){
         super(ModTileEntities.LATHE_TILE.get());
@@ -62,6 +62,11 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
                 //super.onEnergyChange();
                 currentEnergy = this.getEnergyStored();
                 TileEntityLathe.this.sync();
+            }
+
+            @Override
+            public boolean canExtract() {
+                return false;
             }
         };
 

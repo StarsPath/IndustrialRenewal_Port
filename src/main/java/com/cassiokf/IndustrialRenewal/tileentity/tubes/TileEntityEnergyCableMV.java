@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.tileentity.tubes;
 
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -13,10 +14,9 @@ public class TileEntityEnergyCableMV extends TileEntityEnergyCable{
         super(ModTileEntities.ENERGYCABLE_MV_TILE.get());
     }
 
-    //TODO: add to config
     @Override
     public int getMaxEnergyToTransport() {
-        return 1024;
+        return Config.MV_CABLE_TRANSFER_RATE.get();
     }
 
     @Override

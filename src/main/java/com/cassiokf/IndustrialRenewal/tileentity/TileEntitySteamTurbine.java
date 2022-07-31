@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModFluids;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3x3MachineBase;
@@ -10,12 +11,15 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -29,7 +33,13 @@ import javax.annotation.Nullable;
 
 public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntitySteamTurbine> implements ITickableTileEntity {
 
-    public CustomFluidTank waterTank = new CustomFluidTank(32000)
+    private final int waterTankCapacity = Config.STEAM_TURBINE_WATER_TANK_CAPACITY.get();
+    private final int steamTankCapacity = Config.STEAM_TURBINE_STEAM_TANK_CAPACITY.get();
+    private final int energyCapacity = Config.STEAM_TURBINE_ENERGY_CAPACITY.get();
+    private final int energyCapacityExtract = Config.STEAM_TURBINE_ENERGY_EXTRACT.get();
+
+
+    public CustomFluidTank waterTank = new CustomFluidTank(waterTankCapacity)
     {
         @Override
         public boolean canFill()
@@ -43,13 +53,13 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
             TileEntitySteamTurbine.this.sync();
         }
     };
-    public CustomFluidTank steamTank = new CustomFluidTank(320000)
+    public CustomFluidTank steamTank = new CustomFluidTank(steamTankCapacity)
     {
         @Override
         public boolean isFluidValid(FluidStack stack)
         {
             //TODO MAKE STEAM TAG
-            return stack != null;
+            return stack != null && stack.getFluid().is(ModFluids.STEAM_TAG);
         }
 
         @Override
@@ -67,15 +77,14 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
 
     private LazyOptional<IEnergyStorage> energyStorage = LazyOptional.of(this::createEnergy);
 
-    //TODO: add to config
     private float volume = 0.8f;//IRConfig.MAIN.TurbineVolume.get().floatValue();
-    private int maxRotation = 16000;
+    private final int maxRotation = Config.STEAM_TURBINE_MAX_ROTATION.get();
     private int rotation;
-    private int energyPerTick = 512;//IRConfig.Main.steamTurbineEnergyPerTick.get();
+    private final int energyPerTick = Config.STEAM_TURBINE_ENERGY_PER_TICK.get();//IRConfig.Main.steamTurbineEnergyPerTick.get();
     private int oldRotation;
-    private int steamPerTick = 250;//IRConfig.Main.steamTurbineSteamPerTick.get();
+    private final int steamPerTick = Config.STEAM_TURBINE_STEAM_PER_TICK.get();//IRConfig.Main.steamTurbineSteamPerTick.get();
 
-    private int steamBoilerConversionFactor = 5;
+    private final float steamBoilerConversionFactor = Config.STEAM_TURBINE_STEAM_WATER_CONVERSION.get();
     private boolean firstLoad = false;
 
 
@@ -86,7 +95,7 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
 
     private IEnergyStorage createEnergy()
     {
-        return new CustomEnergyStorage(100000, 0, 10240)
+        return new CustomEnergyStorage(energyCapacity, 0, energyCapacityExtract)
         {
             @Override
             public void onEnergyChange()
@@ -113,7 +122,7 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
                 {
                     FluidStack stack = steamTank.drainInternal(steamPerTick, IFluidHandler.FluidAction.EXECUTE);
                     float amount = stack != null ? stack.getAmount() : 0f;
-                    FluidStack waterStack = new FluidStack(Fluids.WATER, Math.round(amount / (float) steamBoilerConversionFactor));
+                    FluidStack waterStack = new FluidStack(Fluids.WATER, Math.round(amount / steamBoilerConversionFactor));
                     waterTank.fillInternal(waterStack, IFluidHandler.FluidAction.EXECUTE);
                     float factor = amount / (float) steamPerTick;
                     rotation += (10 * factor);

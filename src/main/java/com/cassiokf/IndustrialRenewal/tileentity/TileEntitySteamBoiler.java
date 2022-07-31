@@ -1,6 +1,7 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
 import com.cassiokf.IndustrialRenewal.blocks.BlockSteamBoiler;
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModFluids;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
@@ -10,6 +11,7 @@ import com.cassiokf.IndustrialRenewal.util.CustomItemStackHandler;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.ai.brain.task.CongregateTask;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
@@ -35,7 +37,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntitySteamBoiler> implements ITickableTileEntity {
-    public CustomFluidTank waterTank = new CustomFluidTank(32000)
+
+    private int waterTankCapacity = Config.STEAM_BOILER_WATER_TANK_CAPACITY.get();
+    private int SteamTankCapacity = Config.STEAM_BOILER_STEAM_TANK_CAPACITY.get();
+    private int FuelTankCapacity = Config.STEAM_BOILER_FUEL_TANK_CAPACITY.get();
+
+    public CustomFluidTank waterTank = new CustomFluidTank(waterTankCapacity)
     {
         @Override
         public boolean isFluidValid(FluidStack stack)
@@ -50,7 +57,7 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
             TileEntitySteamBoiler.this.sync();
         }
     };
-    public CustomFluidTank steamTank = new CustomFluidTank(320000)
+    public CustomFluidTank steamTank = new CustomFluidTank(SteamTankCapacity)
     {
         @Override
         public boolean canFill()
@@ -65,14 +72,16 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
         }
     };
 
-    public CustomFluidTank fuelTank = new CustomFluidTank(32000)
+    public CustomFluidTank fuelTank = new CustomFluidTank(FuelTankCapacity)
     {
         @Override
         public boolean isFluidValid(FluidStack stack)
         {
+//            Utils.debug("Fluid", stack.getFluid().getRegistryName());
+            return stack != null && Config.getFuelHash().containsKey(stack.getFluid().getRegistryName().toString());
             //TODO FLUIDSET CONFIG
-            //return stack != null && IRConfig.Main.fluidFuel.containsKey(stack.getFluid().getDefaultState().getBlockState().getBlock().getNameTextComponent().getString());
-            return true;
+//            return stack != null && IRConfig.Main.fluidFuel.containsKey(stack.getFluid().getDefaultState().getBlockState().getBlock().getNameTextComponent().getString());
+//            return true;
         }
 
         @Override
@@ -88,24 +97,23 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
 
     private int type;
 
-    private int maxHeat = 32000;
+    private int maxHeat = Config.STEAM_BOILER_MAX_HEAT.get();
     private int heat;
     private int oldHeat;
-    private int waterPtick = 100;
+    private int waterPtick = Config.STEAM_BOILER_WATER_PER_TICK.get();
     //private int waterPtick = IRConfig.Main.steamBoilerWaterPerTick.get();
 
     private int fuelTime;
     private int maxFuelTime;
     private int oldFuelTime;
 
-    private int solidPerTick = 2;
-    private int fluidPerTick = 1;
+    private int solidPerTick = Config.STEAM_BOILER_SOLID_FUEL_PER_TICK.get();
+    private int fluidPerTick = Config.STEAM_BOILER_LIQUID_FUEL_PER_TICK.get();
 
     private boolean firstLoad = false;
     private boolean fuelLoaded = false;
 
-    //TODO: Add to config
-    float steamBoilerConversionConfig = 5.0f;
+    float steamBoilerConversionConfig = Config.STEAM_BOILER_WATER_STEAM_CONVERSION.get();
 
     public TileEntitySteamBoiler() {
         super(ModTileEntities.STEAM_BOILER_TILE.get());
@@ -203,7 +211,7 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
                             if (fuelTime <= 0)
                             {
                                 //TODO Fluid Set Config
-                                fuelTime = 50;//IRConfig.Main.fluidFuel.get(fuel.getFluid().getRegistryName().toString()) != null ? IRConfig.Main.fluidFuel.get(fuel.getFluid().getRegistryName().toString()) : 0;
+                                fuelTime = Config.getFuelHash().get(fuel.getFluid().getRegistryName().toString());//IRConfig.Main.fluidFuel.get(fuel.getFluid().getRegistryName().toString()) != null ? IRConfig.Main.fluidFuel.get(fuel.getFluid().getRegistryName().toString()) : 0;
                                 maxFuelTime = fuelTime;
                                 fuel.setAmount(fuel.getAmount() - FluidAttributes.BUCKET_VOLUME);
                                 this.setChanged();

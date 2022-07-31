@@ -1,6 +1,7 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractHorizontalFacing;
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TE6WayConnection;
 import com.cassiokf.IndustrialRenewal.util.CustomEnergyStorage;
@@ -41,10 +42,11 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
         super(ModTileEntities.BATTERY_BANK_TILE.get());
     }
 
-    // TODO: Add to config
+    int config_energy = Config.BATTERY_BANK_ENERGY_CAPACITY.get();
+
     private IEnergyStorage createEnergy()
     {
-        return new CustomEnergyStorage(1000000, 10000, 10000)
+        return new CustomEnergyStorage(config_energy, config_energy, config_energy)
         {
             @Override
             public void onEnergyChange()
@@ -90,7 +92,7 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
                     IEnergyStorage eStorage = te.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).orElse(null);
                     if (eStorage != null && eStorage.canReceive())
                     {
-                        thisStorage.extractEnergy(eStorage.receiveEnergy(thisStorage.extractEnergy(10000, true), false), false);
+                        thisStorage.extractEnergy(eStorage.receiveEnergy(thisStorage.extractEnergy(config_energy/100, true), false), false);
                     }
                 }
             }

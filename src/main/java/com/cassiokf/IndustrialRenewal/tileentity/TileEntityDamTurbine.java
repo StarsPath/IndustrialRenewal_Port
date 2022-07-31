@@ -2,6 +2,7 @@ package com.cassiokf.IndustrialRenewal.tileentity;
 
 import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamGenerator;
 import com.cassiokf.IndustrialRenewal.blocks.dam.BlockRotationalShaft;
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x3x3MachineBase;
 import com.cassiokf.IndustrialRenewal.tileentity.tubes.TileEntityHighPressureFluidPipe;
@@ -27,7 +28,7 @@ import javax.annotation.Nullable;
 
 public class TileEntityDamTurbine extends TileEntity3x3x3MachineBase<TileEntityDamTurbine> implements ITickableTileEntity {
 
-    public static final int MAX_PROCESSING = 240000;
+    public static final int MAX_PROCESSING = Config.DAM_TURBINE_WATER_TANK_CAPACITY.get();
 
     public CustomFluidTank inTank = new CustomFluidTank(MAX_PROCESSING){
         @Override
@@ -46,7 +47,7 @@ public class TileEntityDamTurbine extends TileEntity3x3x3MachineBase<TileEntityD
     private boolean hasFlow = false;
     private float oldRotation;
     private float rotation;
-    private int outLetLimit = 160000;
+    private int outLetLimit = Config.DAM_TURBINE_WATER_OUTPUT_RATE.get();
     private int tick = 0;
     private float multiplier = 1f;
 

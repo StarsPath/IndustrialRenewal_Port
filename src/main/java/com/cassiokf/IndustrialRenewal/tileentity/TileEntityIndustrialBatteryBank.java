@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntityTowerBase;
 import com.cassiokf.IndustrialRenewal.util.CustomEnergyStorage;
@@ -23,7 +24,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 
-// TODO: need to optimize energy transfer
 public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEntityIndustrialBatteryBank> implements ITickableTileEntity {
     //public ArrayList<TileEntityIndustrialBatteryBank> tower = null;
 
@@ -31,9 +31,9 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
         super(tileEntityTypeIn);
     }
 
-    public static final int CAPACITY_PER_BATTERY = 6480000; //6480000
+    public static final int CAPACITY_PER_BATTERY = Config.INDUSTRIAL_BATTERY_BANK_ENERGY_PER_BATTERY.get(); //6480000
     // Typical car battery is 720Wh = 2592000J = 6480000RF
-    private static final int maxTransfer = 102400;
+    private static final int maxTransfer = Config.INDUSTRIAL_BATTERY_BANK_TRANSFER_RATE.get();
     private static final int maxBatteries = 24;
 
     private CustomEnergyStorage customEnergyStorage = new CustomEnergyStorage(0, maxTransfer, maxTransfer){

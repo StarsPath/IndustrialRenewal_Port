@@ -1,6 +1,7 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
 import com.cassiokf.IndustrialRenewal.blocks.dam.BlockDamIntake;
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntitySyncable;
 import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;
@@ -55,7 +56,7 @@ public class TileEntityDamIntake extends TileEntitySyncable implements ITickable
     private final int DEPTH = 3;
     private final int MAX_WATER = WIDTH*HEIGHT*DEPTH;
     // 40 buckets per tick; max 160 min 8
-    public final int MAX_WATER_PRODUCTION = 40000;
+    public final int MAX_WATER_PRODUCTION = Config.DAM_INTAKE_WATER_PRODUCTION.get();
     public int currentProduction = 0;
     public int tick = 0;
 

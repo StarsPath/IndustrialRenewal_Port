@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.item.IRItemDrill;
@@ -42,7 +43,10 @@ import java.util.*;
 
 public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner> implements ITickableTileEntity {
 
-    public CustomFluidTank waterTank = new CustomFluidTank(32000)
+    private int fluidTankCapacity = Config.MINER_WATER_CAPACITY.get();
+    private int fluidEnergyCapacity = Config.MINER_ENERGY_CAPACITY.get();
+    private int fluidEnergyReceive = Config.MINER_ENERGY_RECEIVE.get();
+    public CustomFluidTank waterTank = new CustomFluidTank(fluidTankCapacity)
     {
         @Override
         public boolean isFluidValid(FluidStack stack)
@@ -61,15 +65,14 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
     public LazyOptional<IItemHandler> drillInv = LazyOptional.of(this::createHandler);
     public LazyOptional<IItemHandler> internalInv = LazyOptional.of(this::createInternalHandler);
     private LazyOptional<IEnergyStorage> energyStorage = LazyOptional.of(this::createEnergy);
-    private int maxHeat = 18000;
+    private int maxHeat = Config.MINER_MAX_HEAT.get();
     private int drillHeat;
     private int oldDrillHeat;
 
-    // TODO: add to config
-    private int waterPerTick = 10;
-    private int energyPerTick = 500;
-    private int deepEnergyPerTick = 1000;
-    private static final int cooldown = 120;
+    private int waterPerTick = Config.MINER_WATER_PER_TICK.get();
+    private int energyPerTick = Config.MINER_ENERGY_PER_TICK.get();
+    private int deepEnergyPerTick = Config.MINER_ENERGY_PER_TICK.get();
+    private static final int cooldown = Config.MINER_MINING_SPEED.get();
     private static final int damageAmount = 1;
 
 
@@ -105,12 +108,17 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
 
     private IEnergyStorage createEnergy()
     {
-        return new CustomEnergyStorage(100000, 10240, 0)
+        return new CustomEnergyStorage(fluidEnergyCapacity, fluidEnergyReceive, 0)
         {
             @Override
             public void onEnergyChange()
             {
                 TileEntityMiner.this.sync();
+            }
+
+            @Override
+            public boolean canExtract() {
+                return false;
             }
         };
     }
@@ -260,7 +268,7 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
 
     private void damageDrill()
     {
-        int damage = drillHeat <= 13000 ? damageAmount : damageAmount * 4;
+        int damage = drillHeat <= Config.MINER_HEAT_DAMAGE_THRESHOLD.get() ? damageAmount : damageAmount * 4;
         ItemStack stack = drillInv.orElse(null).getStackInSlot(0);
         if (stack.hurt(damage, level.random, null))
         {

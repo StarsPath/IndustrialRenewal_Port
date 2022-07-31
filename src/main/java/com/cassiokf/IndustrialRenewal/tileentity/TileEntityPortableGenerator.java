@@ -56,17 +56,19 @@ public class TileEntityPortableGenerator extends TileEntitySaveContent implement
     {
         if (generator.energyStorage.getEnergyStored() >= 0)
         {
-            TileEntity te = level.getBlockEntity(worldPosition.offset(getBlockFacing().getNormal()));
+            TileEntity te = level.getBlockEntity(worldPosition.relative(getBlockFacing()));
             if (te != null)
             {
                 te.getCapability(CapabilityEnergy.ENERGY, getBlockFacing()).ifPresent(cap->{
-                    if(cap.canReceive())
-                        generator.energyStorage.extractEnergy(cap.receiveEnergy(128, false), false);
+                    if(cap.canReceive()){
+                        int amount = cap.receiveEnergy(generator.energyStorage.extractEnergy(128, true), true);
+                        Utils.debug("amount", amount);
+                        generator.energyStorage.extractEnergy(cap.receiveEnergy(amount, false), false);
+                    }
                 });
             }
         }
     }
-    // TODO: Fix Sound
     private void handleSound()
     {
 

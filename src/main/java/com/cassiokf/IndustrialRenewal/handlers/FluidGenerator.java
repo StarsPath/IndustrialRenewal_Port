@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.handlers;
 
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntitySyncable;
 import com.cassiokf.IndustrialRenewal.util.Utils;
@@ -21,19 +22,18 @@ public class FluidGenerator {
             super.onContentsChanged();
             FluidGenerator.this.sync();
         }
+
+        @Override
+        public boolean isFluidValid(FluidStack stack) {
+            return Config.getFuelHash().get(stack.getFluid().getRegistryName().toString()) != null;
+        }
     };
     public final CustomEnergyStorage energyStorage = new CustomEnergyStorage(128, 128, energyPerTick)
     {
         @Override
         public void onEnergyChange()
         {
-            FluidGenerator.this.setChanged();
-        }
-
-        @Override
-        public boolean canExtract()
-        {
-            return false;
+            FluidGenerator.this.sync();
         }
     };
 
@@ -86,14 +86,16 @@ public class FluidGenerator {
         if (resource.getAmount() <= 0) return;
 
         //int fuel = IRConfig.MainConfig.Main.fluidFuel.get(resource.getFluid().getName()) != null ? IRConfig.MainConfig.Main.fluidFuel.get(resource.getFluid().getName()) : 0;
+//        int fuel = Config.getFuelHash().get(resource.getFluid().getRegistryName().toString()) !=null? Config.getFuelHash().get(resource.getFluid().getRegistryName().toString()) : 0;
         int fuel = resource.getAmount();
-        industrialrenewal.LOGGER.info("fuel: "+fuel);
+//        industrialrenewal.LOGGER.info("fuel: "+fuel);
         if (fuel > 0)
         {
             int amount = Math.min(FluidAttributes.BUCKET_VOLUME, resource.getAmount());
             float norm = Utils.normalizeClamped(amount, 0, FluidAttributes.BUCKET_VOLUME);
 
-            fuelTime = (int) (fuel * norm) * 4;
+//            fuelTime = (int) (fuel * norm) * 4;
+            fuelTime = Config.getFuelHash().get(resource.getFluid().getRegistryName().toString()) !=null? Config.getFuelHash().get(resource.getFluid().getRegistryName().toString()) : 0;
             tank.drain(amount, IFluidHandler.FluidAction.EXECUTE);
             //maxFuelTime = fuelTime;
             //fuelName = resource.getLocalizedName();
