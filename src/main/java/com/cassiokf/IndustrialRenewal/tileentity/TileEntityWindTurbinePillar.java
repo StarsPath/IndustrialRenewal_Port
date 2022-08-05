@@ -185,6 +185,8 @@ public class TileEntityWindTurbinePillar extends TileEntityMultiBlocksTube<TileE
 
     public int getEnergyGenerated()
     {
+        if(getMaster() == null || getMaster().getTurbinePos() == null)
+            return 0;
         return getMaster().outPut;
     }
 
