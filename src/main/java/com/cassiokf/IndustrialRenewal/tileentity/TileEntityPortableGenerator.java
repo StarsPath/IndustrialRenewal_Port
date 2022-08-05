@@ -62,7 +62,6 @@ public class TileEntityPortableGenerator extends TileEntitySaveContent implement
                 te.getCapability(CapabilityEnergy.ENERGY, getBlockFacing()).ifPresent(cap->{
                     if(cap.canReceive()){
                         int amount = cap.receiveEnergy(generator.energyStorage.extractEnergy(128, true), true);
-                        Utils.debug("amount", amount);
                         generator.energyStorage.extractEnergy(cap.receiveEnergy(amount, false), false);
                     }
                 });
@@ -74,15 +73,31 @@ public class TileEntityPortableGenerator extends TileEntitySaveContent implement
 
     }
 
-    public String getChatQuantity(){
-        String message = "";
-        if(!generator.isGenerating()){
-            message += "NOT RUNNING: Out of fuel or no signal.\n";
-        }
-
-        message += String.format("%s: %d mB, %d FE/t", I18n.get(generator.getTankContent()), generator.getTankAmount(), generator.getGenerateAmount());
-        return message;
+    public boolean isGenerating(){
+        return generator.isGenerating();
     }
+
+    public String getTankContent(){
+        return generator.getTankContent();
+    }
+
+    public int getTankAmount(){
+        return generator.getTankAmount();
+    }
+
+    public int getGenerateAmount(){
+        return generator.getGenerateAmount();
+    }
+
+//    public String getChatQuantity(){
+//        String message = "";
+//        if(!generator.isGenerating()){
+//            message += "NOT RUNNING: Out of fuel or no signal.\n";
+//        }
+//
+//        message += String.format("%s: %d mB, %d FE/t", I18n.get(generator.getTankContent()), generator.getTankAmount(), generator.getGenerateAmount());
+//        return message;
+//    }
 
     @Override
     public void setRemoved() {
@@ -113,6 +128,7 @@ public class TileEntityPortableGenerator extends TileEntitySaveContent implement
 
     public String getTankText()
     {
+        //return getTank().getFluidAmount() > 0 ? getTank().getFluid().getTranslationKey() : "Empty";//I18n.get(getTank().getFluid().getTranslationKey()) : "Empty";
         return getTank().getFluidAmount() > 0 ? I18n.get(getTank().getFluid().getTranslationKey()) : "Empty";
     }
 

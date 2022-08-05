@@ -254,7 +254,7 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
                 List<ItemStack> drops = block.getDrops(ore.state, level.getServer().getLevel(this.level.dimension()), ore.pos, this, null, getDrill());
                 tempStack.addAll(drops);
                 level.setBlock(ore.pos, Blocks.COBBLESTONE.defaultBlockState(), Constants.BlockFlags.DEFAULT);
-                Utils.debug("Ore mined, set block cobble");
+//                Utils.debug("Ore mined, set block cobble");
             }
             ItemStack s = tempStack.get(0);
             if (!s.isEmpty())

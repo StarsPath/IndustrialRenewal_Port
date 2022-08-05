@@ -74,7 +74,7 @@ public class CargoLoaderScreen extends ContainerScreen<CargoLoaderContainer> {
         B1 = new Button(posX1 + 7, posY1 + 53, 61, 18,
                 ITextComponent.nullToEmpty(getGUIButtonText()),
             (button)-> {
-                Utils.debug("Cycle Wait mode B1 Pressed", button);
+//                Utils.debug("Cycle Wait mode B1 Pressed", button);
                 waitE = TileEntityBaseLoader.waitEnum.cycle(waitE);
                 tileEntity.waitE = waitE;
                 PacketHandler.INSTANCE.sendToServer(new ServerBoundLoaderPacket(tileEntity.getBlockPos(), 2));
@@ -88,7 +88,7 @@ public class CargoLoaderScreen extends ContainerScreen<CargoLoaderContainer> {
         B2 = new Button(posX1 + 7, posY1 + 18, 52, 18,
                 ITextComponent.nullToEmpty(getGUIModeText()),
             (button)-> {
-                Utils.debug("Setting load/unload B2 Pressed", button);
+//                Utils.debug("Setting load/unload B2 Pressed", button);
                 unload = !unload;
                 PacketHandler.INSTANCE.sendToServer(new ServerBoundLoaderPacket(tileEntity.getBlockPos(), 1));
                 button.setMessage(ITextComponent.nullToEmpty(getGUIModeText()));

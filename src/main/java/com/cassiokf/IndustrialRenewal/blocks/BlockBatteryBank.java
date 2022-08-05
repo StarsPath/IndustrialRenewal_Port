@@ -72,7 +72,7 @@ public class BlockBatteryBank extends BlockAbstractHorizontalFacing {
             Direction facehit = hit.getDirection();
             TileEntityBatteryBank batteryBank = (TileEntityBatteryBank)worldIn.getBlockEntity(pos);
             batteryBank.toggleFacing(facehit);
-            Utils.debug("hit with screwdriver", facehit);
+//            Utils.debug("hit with screwdriver", facehit);
             worldIn.setBlockAndUpdate(pos, state.cycle(toggleOutput(facehit)));
         }
         return super.use(state, worldIn, pos, player, handIn, hit);

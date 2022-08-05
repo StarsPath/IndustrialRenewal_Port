@@ -77,7 +77,7 @@ public class FluidLoaderScreen extends ScreenBase<FluidLoaderContainer> {
         B1 = new Button(posX1 + 7, posY1 + 53, 61, 18,
                 ITextComponent.nullToEmpty(getGUIButtonText()),
                 (button)-> {
-                    Utils.debug("Cycle Wait mode B1 Pressed", button);
+//                    Utils.debug("Cycle Wait mode B1 Pressed", button);
 //                tileEntity.waitE = TileEntityBaseLoader.waitEnum.cycle(tileEntity.waitE);
                     waitE = TileEntityBaseLoader.waitEnum.cycle(waitE);
                     tileEntity.waitE = waitE;
@@ -92,7 +92,7 @@ public class FluidLoaderScreen extends ScreenBase<FluidLoaderContainer> {
         B2 = new Button(posX1 + 7, posY1 + 18, 52, 18,
                 ITextComponent.nullToEmpty(getGUIModeText()),
                 (button)-> {
-                    Utils.debug("Setting load/unload B2 Pressed", button);
+//                    Utils.debug("Setting load/unload B2 Pressed", button);
                     unload = !unload;
                     PacketHandler.INSTANCE.sendToServer(new ServerBoundLoaderPacket(tileEntity.getBlockPos(), 1));
                     button.setMessage(ITextComponent.nullToEmpty(getGUIModeText()));

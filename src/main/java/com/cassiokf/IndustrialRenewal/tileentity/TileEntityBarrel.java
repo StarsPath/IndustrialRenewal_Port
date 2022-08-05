@@ -37,12 +37,24 @@ public class TileEntityBarrel extends TileEntitySaveContent {
         this.handler = LazyOptional.of(()->this.tank);
     }
 
-    public String getChatQuantity()
-    {
-        if (this.tank.getFluidAmount() > 0)
-            return String.format("%s: %d/%d mB", I18n.get(this.tank.getFluid().getTranslationKey()), this.tank.getFluidAmount(), MAX_CAPACITY);
-        return "Empty";
+    public String getFluid(){
+        return this.tank.getFluid().getTranslationKey();
     }
+
+    public int getFluidAmount(){
+        return this.tank.getFluidAmount();
+    }
+
+    public int getMAX_CAPACITY(){
+        return MAX_CAPACITY;
+    }
+
+//    public String getChatQuantity()
+//    {
+//        if (this.tank.getFluidAmount() > 0)
+//            return String.format("%s: %d/%d mB", I18n.get(this.tank.getFluid().getTranslationKey()), this.tank.getFluidAmount(), MAX_CAPACITY);
+//        return "Empty";
+//    }
 
     @Override
     public void setRemoved() {

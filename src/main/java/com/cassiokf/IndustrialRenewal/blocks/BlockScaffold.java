@@ -93,7 +93,7 @@ public class BlockScaffold extends BlockAbstractSixWayConnections {
         if(entityIn instanceof LivingEntity&&isLadder(state, worldIn, pos, (LivingEntity)entityIn))
             applyLadderLogic(entityIn);
             //entityIn.setDeltaMovement(handleOnClimbable((LivingEntity)entityIn, entityIn.getDeltaMovement()));
-        Utils.debug("INSIDE", entityIn.getDeltaMovement());
+//        Utils.debug("INSIDE", entityIn.getDeltaMovement());
     }
 
     public static void applyLadderLogic(Entity entityIn)
@@ -121,7 +121,7 @@ public class BlockScaffold extends BlockAbstractSixWayConnections {
             }
             //Utils.debug("FINAL", motion);
             entityIn.setDeltaMovement(motion);
-            Utils.debug("RESULT", entityIn.getDeltaMovement());
+//            Utils.debug("RESULT", entityIn.getDeltaMovement());
         }
     }
 

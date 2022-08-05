@@ -62,7 +62,7 @@ public class BlockPortableGenerator extends BlockSaveContent {
         //industrialrenewal.LOGGER.info(active);
         if(te instanceof TileEntityPortableGenerator){
             ((TileEntityPortableGenerator) te).setCanGenerate(getNeighborSignal(world, pos1));
-            industrialrenewal.LOGGER.info(getNeighborSignal(world, pos1));
+//            industrialrenewal.LOGGER.info(getNeighborSignal(world, pos1));
         }
         super.neighborChanged(state, world, pos1, block, pos2, flag);
     }

@@ -45,12 +45,12 @@ public class StorageChestScreen extends ContainerScreen<StorageChestContainer> {
         int posY1 = ((this.height - this.getYSize()) / 2);
         upB = new Button(posX1 + 206, posY1 + 15, 10, 18,
             ITextComponent.nullToEmpty(I18n.get("gui.industrialrenewal.arrowup")), (button)-> {
-                Utils.debug("UP Button Pressed", button);
+//                Utils.debug("UP Button Pressed", button);
             storageChestContainer.clickedOn(1);
         });
         downB = new Button(posX1 + 206, posY1 + 105, 10, 18,
             ITextComponent.nullToEmpty(I18n.get("gui.industrialrenewal.arrowdown")), (button)-> {
-                Utils.debug("DOWN Button Pressed", button);
+//                Utils.debug("DOWN Button Pressed", button);
                 storageChestContainer.clickedOn(2);
         });
 

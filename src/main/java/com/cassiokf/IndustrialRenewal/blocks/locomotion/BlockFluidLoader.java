@@ -55,7 +55,7 @@ public class BlockFluidLoader extends BlockAbstractHorizontalFacing {
             BlockPos masterPos = loaderMaster.getBlockPos();
 
             boolean acceptFluid = FluidUtil.interactWithFluidHandler(playerEntity, hand, loaderMaster.getFluidHandler().orElse(null));
-            Utils.debug("accept Fluid", acceptFluid);
+//            Utils.debug("accept Fluid", acceptFluid);
             if(acceptFluid)
                 return ActionResultType.SUCCESS;
 

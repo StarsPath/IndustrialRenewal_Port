@@ -89,7 +89,7 @@ public class RenderRotatableBase <T extends RotatableBase> extends RenderBase<T>
         }
 
         boolean flip = entity.getDeltaMovement().x > 0.0 != entity.getDeltaMovement().z > 0.0;
-        Utils.debug("MOTION", entity.getDeltaMovement().x, entity.getDeltaMovement().z);
+//        Utils.debug("MOTION", entity.getDeltaMovement().x, entity.getDeltaMovement().z);
         if (entity.cornerFlip)
         {
             flip = !flip;
