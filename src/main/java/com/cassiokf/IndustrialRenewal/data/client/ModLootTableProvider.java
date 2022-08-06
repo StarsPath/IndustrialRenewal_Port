@@ -74,6 +74,7 @@ public class ModLootTableProvider extends LootTableProvider {
             dropSelf(ModBlocks.CATWALK_LADDER.get());
             dropSelf(ModBlocks.CATWALK_LADDER_STEEL.get());
             dropSelf(ModBlocks.CATWALK_STAIR.get());
+            dropSelf(ModBlocks.CATWALK_STAIR_STEEL.get());
             dropSelf(ModBlocks.CATWALK_HATCH.get());
             dropSelf(ModBlocks.SCAFFOLD.get());
             dropSelf(ModBlocks.PLATFORM.get());
@@ -135,6 +136,7 @@ public class ModLootTableProvider extends LootTableProvider {
             list.add(ModBlocks.CATWALK_LADDER.get());
             list.add(ModBlocks.CATWALK_LADDER_STEEL.get());
             list.add(ModBlocks.CATWALK_STAIR.get());
+            list.add(ModBlocks.CATWALK_STAIR_STEEL.get());
             list.add(ModBlocks.CATWALK_HATCH.get());
             list.add(ModBlocks.SCAFFOLD.get());
             list.add(ModBlocks.PLATFORM.get());

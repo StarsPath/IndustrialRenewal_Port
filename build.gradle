@@ -123,13 +123,18 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.16.5-36.2.20'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.21'
 
     runtimeOnly fg.deobf("curse.maven:justenoughitems(jei)-238222:3681294")
     runtimeOnly fg.deobf("curse.maven:mekanism-268560:3202681")
     runtimeOnly fg.deobf("curse.maven:wawlawhatarewelookingat-224712:3732265")
     runtimeOnly fg.deobf("curse.maven:hwyla-253449:3033593")
     runtimeOnly fg.deobf("curse.maven:bookshelf-228525:3732239")
+
+    runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3809596")
+    runtimeOnly fg.deobf("curse.maven:immersivepetroleum-268250:3912339")
+    runtimeOnly fg.deobf("curse.maven:pneumaticcraftrepressurized-281849:3378481")
+    runtimeOnly fg.deobf("curse.maven:patchouli-306770:3459118")
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"

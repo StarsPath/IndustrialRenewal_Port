@@ -108,17 +108,12 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
 
     private IEnergyStorage createEnergy()
     {
-        return new CustomEnergyStorage(fluidEnergyCapacity, fluidEnergyReceive, 0)
+        return new CustomEnergyStorage(fluidEnergyCapacity, fluidEnergyReceive, energyPerTick)
         {
             @Override
             public void onEnergyChange()
             {
                 TileEntityMiner.this.sync();
-            }
-
-            @Override
-            public boolean canExtract() {
-                return false;
             }
         };
     }

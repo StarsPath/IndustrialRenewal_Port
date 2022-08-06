@@ -2,6 +2,7 @@ package com.cassiokf.IndustrialRenewal.blocks;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractSixWayConnections;
 import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockEnergyCable;
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.item.ItemBlockCatwalk;
 import com.cassiokf.IndustrialRenewal.item.ItemBlockCatwalkStair;
@@ -41,7 +42,7 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
 
     public BlockCatwalk()
     {
-        super(Block.Properties.of(Material.METAL).speedFactor(1.2F), 16, 2);
+        super(Block.Properties.of(Material.METAL).speedFactor(Config.CATWALK_SPEED.get()), 16, 2);
     }
 
     @Nullable

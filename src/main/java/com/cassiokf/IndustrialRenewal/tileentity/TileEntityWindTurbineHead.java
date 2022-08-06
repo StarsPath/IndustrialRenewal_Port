@@ -183,14 +183,14 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
     }
 
 
-    @Override
-    @Nullable
-    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing)
-    {
-        if (capability == CapabilityEnergy.ENERGY)
-            return energyStorage.cast();
-        return super.getCapability(capability, facing);
-    }
+//    @Override
+//    @Nullable
+//    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing)
+//    {
+//        if (capability == CapabilityEnergy.ENERGY && facing == Direction.DOWN)
+//            return energyStorage.cast();
+//        return super.getCapability(capability, facing);
+//    }
 
     @Override
     public CompoundNBT save(CompoundNBT compound) {

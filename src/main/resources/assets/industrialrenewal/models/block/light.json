@@ -3,7 +3,9 @@
   "textures": {
     "0": "industrialrenewal:block/anvil_base",
     "1": "industrialrenewal:block/pipe",
-    "2": "minecraft:block/glass"
+    "2": "minecraft:block/glass",
+    "particle": "block/glass"
+
   },
   "display": {
     "gui": {

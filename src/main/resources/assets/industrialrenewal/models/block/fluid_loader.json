@@ -8,7 +8,9 @@
     "6": "industrialrenewal:block/fluid_pipe",
     "9": "industrialrenewal:block/pipe_water",
     "1_0": "industrialrenewal:block/pipe",
-    "2_0": "industrialrenewal:block/pipe_blue"
+    "2_0": "industrialrenewal:block/pipe_blue",
+    "particle": "industrialrenewal:block/anvil_base"
+
   },
   "elements": [
     {
