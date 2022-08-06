@@ -177,12 +177,35 @@ public final class Config {
     {
         Map<String, Integer> fluidFuel = new HashMap<String, Integer>();
         fluidFuel.put("minecraft:lava", 200);
-        fluidFuel.put("mekanism:ethene", 800);
+        fluidFuel.put("mekanism:ethene", 600);
         fluidFuel.put("mekanism:oxygen", 50);
         fluidFuel.put("mekanism:hydrogen", 100);
 
-        fluidFuel.put("immersiveengineering:biodiesel", 600);
+        fluidFuel.put("immersiveengineering:biodiesel", 800);
         fluidFuel.put("immersiveengineering:ethanol", 600);
+
+        fluidFuel.put("immersivepetroleum:oil", 600);
+        fluidFuel.put("immersivepetroleum:diesel", 900);
+        fluidFuel.put("immersivepetroleum:gasoline", 1000);
+
+        fluidFuel.put("pneumaticcraft:biodiesel", 800);
+        fluidFuel.put("pneumaticcraft:ethanol", 600);
+        fluidFuel.put("pneumaticcraft:oil", 600);
+        fluidFuel.put("pneumaticcraft:diesel", 900);
+        fluidFuel.put("pneumaticcraft:gasoline", 1000);
+        fluidFuel.put("pneumaticcraft:kerosene", 1200);
+        fluidFuel.put("pneumaticcraft:lpg", 1600);
+
+        fluidFuel.put("vehicle:fuelium", 900);
+
+        fluidFuel.put("thermal:crude_oil", 800);
+
+        fluidFuel.put("industrialforegoing:biofuel", 800);
+        fluidFuel.put("industrialforegoing:biofuel_fluid", 800);
+
+        fluidFuel.put("forestry:bio_ethanol", 800);
+        fluidFuel.put("forestry:biomass", 600);
+
 
 //        fluidFuel.put("rocket_fuel", 3200);
 //        fluidFuel.put("pyrotheum", 3200);
