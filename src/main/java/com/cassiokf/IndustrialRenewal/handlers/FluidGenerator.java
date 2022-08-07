@@ -35,6 +35,11 @@ public class FluidGenerator {
         {
             FluidGenerator.this.sync();
         }
+
+        @Override
+        public boolean canReceive() {
+            return false;
+        }
     };
 
     public final LazyOptional<FluidTank> tankHandler;
@@ -65,7 +70,8 @@ public class FluidGenerator {
             if (fuelTime > 0)
             {
                 isGenerating = true;
-                energyStorage.receiveEnergy(energyPerTick, false);
+                //energyStorage.receiveEnergy(energyPerTick, false);
+                energyStorage.addEnergy(energyPerTick);
                 fuelTime--;
             }
             else isGenerating = false;

@@ -4,6 +4,7 @@ import com.cassiokf.IndustrialRenewal.blocks.abstracts.BlockAbstractHorizontalFa
 import com.cassiokf.IndustrialRenewal.item.ItemPowerScrewDrive;
 import com.cassiokf.IndustrialRenewal.item.ItemWindBlade;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityWindTurbineHead;
+import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
@@ -50,8 +51,9 @@ public class BlockWindTurbineHead extends BlockAbstractHorizontalFacing {
             {
                 if (!world.isClientSide())
                 {
-                    itemHandler.insertItem(0, new ItemStack(heldItem.getItem(), 1), false);
-                    if (!playerEntity.isCreative()) heldItem.shrink(1);
+                    ItemStack insertedItem = itemHandler.insertItem(0, heldItem, false);
+                    if(insertedItem.isEmpty())
+                        if (!playerEntity.isCreative()) heldItem.shrink(1);
                 }
                 return ActionResultType.SUCCESS;
             }

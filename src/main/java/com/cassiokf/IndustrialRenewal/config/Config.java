@@ -181,6 +181,9 @@ public final class Config {
         fluidFuel.put("mekanism:oxygen", 50);
         fluidFuel.put("mekanism:hydrogen", 100);
 
+        fluidFuel.put("mekanismgenerators:bioethanol", 800);
+        fluidFuel.put("mekanismgenerators:flowing_bioethanol", 800);
+
         fluidFuel.put("immersiveengineering:biodiesel", 800);
         fluidFuel.put("immersiveengineering:ethanol", 600);
 

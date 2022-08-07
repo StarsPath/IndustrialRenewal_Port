@@ -8,6 +8,7 @@ import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntitySyncable;
 import com.cassiokf.IndustrialRenewal.util.CustomEnergyStorage;
 import com.cassiokf.IndustrialRenewal.util.CustomItemStackHandler;
 import com.cassiokf.IndustrialRenewal.util.Utils;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -59,7 +60,6 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack)
             {
-                if (stack.isEmpty()) return false;
                 return stack.getItem() instanceof ItemWindBlade;
             }
 
@@ -86,7 +86,10 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
 
     @Override
     public void setRemoved() {
-        Utils.dropInventoryItems(level, worldPosition, bladeInv.orElse(null));
+        //Utils.dropInventoryItems(level, worldPosition, bladeInv.orElse(null));
+        ItemStack stack = bladeInv.orElse(null).getStackInSlot(0);
+        Utils.debug("destroy stack damage", stack, stack.getDamageValue(), stack.getMaxDamage());
+        Block.popResource(level, worldPosition, stack);
         super.setRemoved();
     }
 
@@ -100,14 +103,21 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
             {
                 int energyGen = Math.round(energyGeneration * getEfficiency());
                 energyGenerated = thisEnergy.receiveEnergy(energyGen, false);
-                if (tickToDamage >= 1200 && energyGen > 0)
+                if (++tickToDamage >= 1200 && energyGen > 0)
                 {
                     tickToDamage = 0;
-                    bladeInv.orElse(null).getStackInSlot(0).hurt(1, new Random(), null);
-                    if (bladeInv.orElse(null).getStackInSlot(0).getDamageValue() < 0)
-                        bladeInv.ifPresent(e -> ((CustomItemStackHandler) e).setStackInSlot(0, ItemStack.EMPTY));
+                    ItemStack bladeInvStack = bladeInv.orElse(null).getStackInSlot(0);
+//                    Utils.debug("damage", bladeInvStack.getDamageValue());
+
+                    if(bladeInvStack != null){
+                        if(bladeInvStack.getDamageValue() <= 0) {
+//                            Utils.debug("damage", bladeInvStack.getDamageValue());
+                            bladeInvStack.shrink(1);
+//                            Utils.debug("inv", bladeInvStack);
+                        }
+                        bladeInvStack.hurt(1, new Random(), null);
+                    }
                 }
-                if (tickToDamage < 1201) tickToDamage++;
             } else
             {
                 energyGenerated = 0;

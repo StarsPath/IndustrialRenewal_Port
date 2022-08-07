@@ -117,6 +117,16 @@ repositories {
     maven{
         url "https://www.cursemaven.com"
     }
+    maven {
+        // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
 }
 
 dependencies {
@@ -125,7 +135,11 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.21'
 
-    runtimeOnly fg.deobf("curse.maven:justenoughitems(jei)-238222:3681294")
+    // compile against the JEI API but do not include it at runtime
+    compileOnly fg.deobf("mezz.jei:jei-1.16.5:7.7.1.152:api")
+    // at runtime, use the full JEI jar
+    runtimeOnly fg.deobf("mezz.jei:jei-1.16.5:7.7.1.152")
+
     runtimeOnly fg.deobf("curse.maven:mekanism-268560:3659389")
     runtimeOnly fg.deobf("curse.maven:wawlawhatarewelookingat-224712:3732265")
     runtimeOnly fg.deobf("curse.maven:hwyla-253449:3033593")
@@ -133,7 +147,7 @@ dependencies {
 
 //    runtimeOnly fg.deobf("curse.maven:immersive-engineering-231951:3809596")
 //    runtimeOnly fg.deobf("curse.maven:pneumaticcraft-repressurized-281849:3874893")
-    runtimeOnly fg.deobf("curse.maven:patchouli-306770:3459118")
+//    runtimeOnly fg.deobf("curse.maven:patchouli-306770:3459118")
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
