@@ -51,7 +51,7 @@ public class BlockWindTurbineHead extends BlockAbstractHorizontalFacing {
             {
                 if (!world.isClientSide())
                 {
-                    ItemStack insertedItem = itemHandler.insertItem(0, heldItem, false);
+                    ItemStack insertedItem = itemHandler.insertItem(0, heldItem.copy(), false);
                     if(insertedItem.isEmpty())
                         if (!playerEntity.isCreative()) heldItem.shrink(1);
                 }

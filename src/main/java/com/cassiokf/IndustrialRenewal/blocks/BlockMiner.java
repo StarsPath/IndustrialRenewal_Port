@@ -40,8 +40,11 @@ public class BlockMiner extends Block3x3x3Base<TileEntityMiner> {
             {
                 if (!worldIn.isClientSide)
                 {
-                    itemHandler.insertItem(0, new ItemStack(heldItem.getItem(), 1), false);
-                    heldItem.shrink(1);
+                    ItemStack insertedItem = itemHandler.insertItem(0, heldItem.copy(), false);
+                    if(insertedItem.isEmpty())
+                        if (!player.isCreative()) heldItem.shrink(1);
+//                    itemHandler.insertItem(0, new ItemStack(heldItem.getItem(), 1), false);
+//                    heldItem.shrink(1);
                 }
                 return ActionResultType.SUCCESS;
             }

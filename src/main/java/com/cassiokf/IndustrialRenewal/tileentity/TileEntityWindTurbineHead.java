@@ -86,9 +86,7 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
 
     @Override
     public void setRemoved() {
-        //Utils.dropInventoryItems(level, worldPosition, bladeInv.orElse(null));
         ItemStack stack = bladeInv.orElse(null).getStackInSlot(0);
-        Utils.debug("destroy stack damage", stack, stack.getDamageValue(), stack.getMaxDamage());
         Block.popResource(level, worldPosition, stack);
         super.setRemoved();
     }

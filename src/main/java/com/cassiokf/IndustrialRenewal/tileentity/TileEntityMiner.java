@@ -125,7 +125,6 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack)
             {
-                if (stack.isEmpty()) return false;
                 return stack.getItem() instanceof IRItemDrill;
             }
 
@@ -265,10 +264,11 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
     {
         int damage = drillHeat <= Config.MINER_HEAT_DAMAGE_THRESHOLD.get() ? damageAmount : damageAmount * 4;
         ItemStack stack = drillInv.orElse(null).getStackInSlot(0);
-        if (stack.hurt(damage, level.random, null))
-        {
-            stack.shrink(stack.getCount());
-        }
+        stack.hurt(damage, level.random, null);
+//        if ()
+//        {
+//            stack.shrink(stack.getCount());
+//        }
     }
 
     private void consumeEnergy()
@@ -424,7 +424,8 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
 
     public void dropAllItems()
     {
-        Utils.dropInventoryItems(level, worldPosition, drillInv.orElse(null));
+        Block.popResource(level, worldPosition, drillInv.orElse(null).getStackInSlot(0));
+        //Utils.dropInventoryItems(level, worldPosition, drillInv.orElse(null));
     }
 
     public String getWaterText(int line)
