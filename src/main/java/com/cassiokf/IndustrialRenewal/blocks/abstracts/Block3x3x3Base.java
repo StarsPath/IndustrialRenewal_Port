@@ -26,7 +26,7 @@ public abstract class Block3x3x3Base <TE extends TileEntity3x3x3MachineBase> ext
 
     public static final BooleanProperty MASTER = BooleanProperty.create("master");
     public Block3x3x3Base(Properties properties) {
-        super(properties);
+        super(properties.strength(10f, 10f));
         registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH).setValue(MASTER, false));
     }
 

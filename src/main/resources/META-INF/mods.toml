@@ -37,3 +37,24 @@ description='''
 An industrial style mod that aims to make the aesthetic part of your industry much more real.
 This is a 1.16.5 port. Original 1.12.2 author: CassioKF, Ported to 1.16.5 by: StarsPath
 '''
+
+[[dependencies.industrialrenewal]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.industrialrenewal]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5]"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.industrialrenewal]]
+    modId="patchouli"
+    mandatory=false
+    versionRange="[1.16.4-53.3]"
+    ordering="NONE"
+    side="BOTH"

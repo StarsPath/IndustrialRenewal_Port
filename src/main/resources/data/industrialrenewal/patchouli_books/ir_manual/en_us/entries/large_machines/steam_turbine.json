@@ -1,0 +1,11 @@
+{
+  "name": "Steam Turbine",
+  "icon": "industrialrenewal:steam_turbine",
+  "category": "industrialrenewal:large_machines_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A large machine uses steam to produce power. The machine will produce water as byproduct. Water buildup in the turbine will reduce RF Production by 50%"
+    }
+  ]
+}

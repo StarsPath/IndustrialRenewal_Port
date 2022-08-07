@@ -18,7 +18,7 @@ import java.util.List;
 
 public abstract class Block3x2x2Base <TE extends TileEntity3x2x2MachineBase> extends Block3x3x3Base<TE>{
     public Block3x2x2Base(Properties properties) {
-        super(properties);
+        super(properties.strength(10f, 10f));
     }
 
     @Override

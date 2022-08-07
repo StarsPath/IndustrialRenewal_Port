@@ -1,0 +1,11 @@
+{
+  "name": "Steam Boiler",
+  "icon": "industrialrenewal:steam_boiler",
+  "category": "industrialrenewal:large_machines_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A large machine that burns fuel to heat up water to produce steam $(br2)Right click steam boiler with solid fuel firebox or liquid fuel firebox to indicate fuel type."
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntityTowerBase;
 import com.cassiokf.IndustrialRenewal.util.CustomFluidTank;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 public class TileEntityFluidTank extends TileEntityTowerBase<TileEntityFluidTank> implements ITickableTileEntity {
 
 
-    public static final int CAPACITY = 640000;
+    public static final int CAPACITY = Config.FLUID_TANK_CAPACITY.get();
     private CustomFluidTank tank = new CustomFluidTank(CAPACITY){
         @Override
         public void onFluidChange() {
@@ -33,7 +34,7 @@ public class TileEntityFluidTank extends TileEntityTowerBase<TileEntityFluidTank
         }
     };
     private LazyOptional<FluidTank> tankHandler = LazyOptional.of(()->tank);
-    private static final int MAX_TRANSFER = 128000;
+    private static final int MAX_TRANSFER = Config.FLUID_TANK_TRANSFER_RATE.get();
 
     private boolean firstLoad = false;
     private int tick = 0;

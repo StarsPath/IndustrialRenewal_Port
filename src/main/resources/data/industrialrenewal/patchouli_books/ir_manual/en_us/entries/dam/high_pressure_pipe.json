@@ -1,0 +1,11 @@
+{
+  "name": "High Pressure Pipe",
+  "icon": "industrialrenewal:high_pressure_pipe",
+  "category": "industrialrenewal:dam_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Can transfer 200 buckets (default) per tick. $(br2)Can generate bonus rotation for dam turbines based on the height (y-level) difference between dam intake and dam turbine (location of input) up to 16 blocks for addition 100% bonus in gaining rotation energy."
+    }
+  ]
+}

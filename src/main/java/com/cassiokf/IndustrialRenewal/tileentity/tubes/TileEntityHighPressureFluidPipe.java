@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.tileentity.tubes;
 
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityDamIntake;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityDamTurbine;
@@ -22,7 +23,7 @@ public class TileEntityHighPressureFluidPipe extends TileEntityFluidPipeBase<Til
     }
 
     public TileEntityHighPressureFluidPipe(){
-        super(ModTileEntities.HIGH_PRESSURE_PIPE.get(), 200000);
+        super(ModTileEntities.HIGH_PRESSURE_PIPE.get(), Config.HIGH_PRESSURE_PIPE_TRANSFER_RATE.get());
     }
 
     @Override

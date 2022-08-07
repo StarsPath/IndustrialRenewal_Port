@@ -20,6 +20,9 @@ public final class Config {
     public static final ForgeConfigSpec.ConfigValue<Integer> INDUSTRIAL_BATTERY_BANK_ENERGY_PER_BATTERY;
     public static final ForgeConfigSpec.ConfigValue<Integer> INDUSTRIAL_BATTERY_BANK_TRANSFER_RATE;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> FLUID_TANK_CAPACITY;
+    public static final ForgeConfigSpec.ConfigValue<Integer> FLUID_TANK_TRANSFER_RATE;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> LATHE_ENERGY_CAPACITY;
     public static final ForgeConfigSpec.ConfigValue<Integer> LATHE_ENERGY_PER_TICK;
 
@@ -71,6 +74,7 @@ public final class Config {
     public static final ForgeConfigSpec.ConfigValue<Integer> DAM_GENERATOR_ENERGY_CAPACITY;
     public static final ForgeConfigSpec.ConfigValue<Integer> DAM_GENERATOR_RF_PER_TICK;
     public static final ForgeConfigSpec.ConfigValue<Integer> DAM_GENERATOR_TRANSFER_RATE;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HIGH_PRESSURE_PIPE_TRANSFER_RATE;
 
     public static final ForgeConfigSpec.ConfigValue<Float> CATWALK_SPEED;
 
@@ -90,6 +94,11 @@ public final class Config {
         BUILDER.push("Industrial Battery Bank");
         INDUSTRIAL_BATTERY_BANK_ENERGY_PER_BATTERY = BUILDER.comment("Industrial Battery Bank Energy Per Battery (default 6480000)").define("industrial_battery_bank_energy_per_battery", 6480000);
         INDUSTRIAL_BATTERY_BANK_TRANSFER_RATE = BUILDER.comment("Industrial Battery Bank Energy Transfer Rate (default 102400)").define("industrial_battery_bank_transfer_rate", 102400);
+        BUILDER.pop();
+
+        BUILDER.push("Fluid Tank");
+        FLUID_TANK_CAPACITY = BUILDER.comment("Fluid tank capacity in mb (default 640000)").define("fluid_tank_capacity", 640000);
+        FLUID_TANK_TRANSFER_RATE = BUILDER.comment("Fluid tank transfer rate in mb (default 128000)").define("fluid_tank_transfer_rate", 128000);
         BUILDER.pop();
 
         BUILDER.push("Lathe");
@@ -140,6 +149,8 @@ public final class Config {
         DAM_GENERATOR_ENERGY_CAPACITY = BUILDER.comment("Dam Generator Energy Capacity (default 1000000)").define("dam_generator_energy_capacity", 1000000);
         DAM_GENERATOR_RF_PER_TICK = BUILDER.comment("Dam Generator Energy Per Tick (default 1024)").define("dam_generator_rf_per_tick", 1024);
         DAM_GENERATOR_TRANSFER_RATE = BUILDER.comment("Dam Generator Energy Transfer Rate (default 2048)").define("dam_generator_transfer_rate", 2048);
+
+        HIGH_PRESSURE_PIPE_TRANSFER_RATE = BUILDER.comment("High Pressure Pipe Fluid Transfer Rate in mb (default 200000)").define("high_pressure_pipe_transfer_rate", 200000);
         BUILDER.pop();
 
         BUILDER.push("Cables");

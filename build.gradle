@@ -53,6 +53,8 @@ minecraft {
             // You can set various levels here.
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 industrialrenewal {
@@ -127,6 +129,9 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
+    maven {
+        url 'https://maven.blamejared.com'
+    }
 }
 
 dependencies {
@@ -144,6 +149,9 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:wawlawhatarewelookingat-224712:3732265")
     runtimeOnly fg.deobf("curse.maven:hwyla-253449:3033593")
     runtimeOnly fg.deobf("curse.maven:bookshelf-228525:3732239")
+
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3")
 
 //    runtimeOnly fg.deobf("curse.maven:immersive-engineering-231951:3809596")
 //    runtimeOnly fg.deobf("curse.maven:pneumaticcraft-repressurized-281849:3874893")
