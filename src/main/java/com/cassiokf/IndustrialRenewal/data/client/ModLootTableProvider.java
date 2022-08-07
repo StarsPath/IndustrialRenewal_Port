@@ -93,6 +93,8 @@ public class ModLootTableProvider extends LootTableProvider {
             dropSelf(ModBlocks.HIGH_PRESSURE_PIPE.get());
             dropSelf(ModBlocks.ROTATIONAL_SHAFT.get());
             dropSelf(ModBlocks.CONVEYOR.get());
+//            dropSelf(ModBlocks.CONVEYOR_INSERTER.get());
+//            dropSelf(ModBlocks.CONVEYOR_HOPPER.get());
             dropSelf(ModBlocks.BOOSTER_RAIL.get());
             dropSelf(ModBlocks.INDUSTRIAL_FLOOR.get());
 
@@ -155,6 +157,8 @@ public class ModLootTableProvider extends LootTableProvider {
             list.add(ModBlocks.HIGH_PRESSURE_PIPE.get());
             list.add(ModBlocks.ROTATIONAL_SHAFT.get());
             list.add(ModBlocks.CONVEYOR.get());
+//            list.add(ModBlocks.CONVEYOR_INSERTER.get());
+//            list.add(ModBlocks.CONVEYOR_HOPPER.get());
             list.add(ModBlocks.BOOSTER_RAIL.get());
             list.add(ModBlocks.INDUSTRIAL_FLOOR.get());
 

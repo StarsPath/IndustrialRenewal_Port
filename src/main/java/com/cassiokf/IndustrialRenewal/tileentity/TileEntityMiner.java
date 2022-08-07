@@ -264,11 +264,10 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
     {
         int damage = drillHeat <= Config.MINER_HEAT_DAMAGE_THRESHOLD.get() ? damageAmount : damageAmount * 4;
         ItemStack stack = drillInv.orElse(null).getStackInSlot(0);
-        stack.hurt(damage, level.random, null);
-//        if ()
-//        {
-//            stack.shrink(stack.getCount());
-//        }
+        if (stack.hurt(damage, level.random, null))
+        {
+            stack.shrink(stack.getCount());
+        }
     }
 
     private void consumeEnergy()

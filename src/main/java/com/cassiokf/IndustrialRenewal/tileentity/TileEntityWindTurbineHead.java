@@ -108,12 +108,15 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
 //                    Utils.debug("damage", bladeInvStack.getDamageValue());
 
                     if(bladeInvStack != null){
-                        if(bladeInvStack.getDamageValue() <= 0) {
-//                            Utils.debug("damage", bladeInvStack.getDamageValue());
+//                        if(bladeInvStack.getDamageValue() <= 0) {
+////                            Utils.debug("damage", bladeInvStack.getDamageValue());
+//                            bladeInvStack.shrink(1);
+////                            Utils.debug("inv", bladeInvStack);
+//                        }
+                        if(bladeInvStack.hurt(1, new Random(), null))
+                        {
                             bladeInvStack.shrink(1);
-//                            Utils.debug("inv", bladeInvStack);
                         }
-                        bladeInvStack.hurt(1, new Random(), null);
                     }
                 }
             } else
