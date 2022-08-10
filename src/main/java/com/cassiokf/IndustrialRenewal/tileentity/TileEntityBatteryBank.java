@@ -90,7 +90,7 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
                 {
                     IEnergyStorage thisStorage = energyStorage.orElse(null);
                     IEnergyStorage eStorage = te.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).orElse(null);
-                    if (eStorage != null && eStorage.canReceive())
+                    if (thisStorage != null && eStorage != null && eStorage.canReceive())
                     {
                         thisStorage.extractEnergy(eStorage.receiveEnergy(thisStorage.extractEnergy(config_energy/100, true), false), false);
                     }
@@ -120,8 +120,10 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
     }
 
     public String getText() {
-        int energy = energyStorage.orElse(null).getEnergyStored();
-        //industrialrenewal.LOGGER.info(energy);
+        IEnergyStorage energyStorage1 = energyStorage.orElse(null);
+        if(energyStorage1 == null)
+            return "NULL";
+        int energy = energyStorage1.getEnergyStored();
         return Utils.formatEnergyString(energy);
     }
 
@@ -139,8 +141,11 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
 
     public float getTankFill() //0 ~ 180
     {
-        float currentAmount = energyStorage.orElse(null).getEnergyStored() / 1000F;
-        float totalCapacity = energyStorage.orElse(null).getMaxEnergyStored() / 1000F;
+        IEnergyStorage iEnergyStorage = energyStorage.orElse(null);
+        if(iEnergyStorage == null)
+            return 0;
+        float currentAmount = iEnergyStorage.getEnergyStored() / 1000F;
+        float totalCapacity = iEnergyStorage.getMaxEnergyStored() / 1000F;
         currentAmount = currentAmount / totalCapacity;
         return currentAmount;
     }

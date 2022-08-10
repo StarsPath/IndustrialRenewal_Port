@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nonnull;
@@ -36,6 +37,7 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
     private static final int maxTransfer = Config.INDUSTRIAL_BATTERY_BANK_TRANSFER_RATE.get();
     private static final int maxBatteries = 24;
 
+    private CustomEnergyStorage customDummyStorage = new CustomEnergyStorage(0, 0, 0);
     private CustomEnergyStorage customEnergyStorage = new CustomEnergyStorage(0, maxTransfer, maxTransfer){
         @Override
         public void onEnergyChange() {
@@ -50,6 +52,7 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
     };
 
     private LazyOptional<IEnergyStorage> energyStorage = LazyOptional.of(()->customEnergyStorage);
+    private LazyOptional<IEnergyStorage> dummyStorage = LazyOptional.of(()->customDummyStorage);
 
     public int input;
     private int avrIn;
@@ -96,7 +99,8 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
             IEnergyStorage energyStorage = te.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).orElse(null);
             if (energyStorage != null)
             {
-                if (container == null) out = energyStorage.receiveEnergy(maxReceive, simulate);
+                if (container == null)
+                    out = energyStorage.receiveEnergy(maxReceive, simulate);
                 else
                     out = container.extractEnergy(energyStorage.receiveEnergy(container.extractEnergy(maxReceive, true), simulate), simulate);
             }
@@ -106,7 +110,6 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
 
     public boolean placeBattery(PlayerEntity player, ItemStack batteryStack)
     {
-        //Utils.debug("PLACE BATTERY CALLED", batteries, energyStorage.orElse(null).getMaxEnergyStored(), energyStorage.orElse(null).getEnergyStored());
         if (!level.isClientSide)
         {
             if (batteries >= maxBatteries) return false;
@@ -206,7 +209,9 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
     }
 
     public int getInput(){
-        return input;
+        if(getTop() == null)
+            return 0;
+        return getTop().input;
     }
 
     public int getSumMaxEnergy(){
@@ -314,7 +319,7 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
         }
         if (cap == CapabilityEnergy.ENERGY && worldPosition.equals(masterPos.relative(face.getClockWise()).above()) && side == Direction.UP) {
             // Output
-            return getMaster().energyStorage.cast();
+            return getMaster().dummyStorage.cast();
         }
         return super.getCapability(cap, side);
     }

@@ -86,8 +86,9 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
 
     @Override
     public void setRemoved() {
-        ItemStack stack = bladeInv.orElse(null).getStackInSlot(0);
-        Block.popResource(level, worldPosition, stack);
+        bladeInv.ifPresent(inv->{
+            Block.popResource(level, worldPosition, inv.getStackInSlot(0));
+        });
         super.setRemoved();
     }
 
@@ -97,6 +98,8 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
         {
             //Generate Energy
             IEnergyStorage thisEnergy = energyStorage.orElse(null);
+            if(!energyStorage.isPresent())
+                return;
             if (hasBlade())
             {
                 int energyGen = Math.round(energyGeneration * getEfficiency());
@@ -104,20 +107,13 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
                 if (++tickToDamage >= 1200 && energyGen > 0)
                 {
                     tickToDamage = 0;
-                    ItemStack bladeInvStack = bladeInv.orElse(null).getStackInSlot(0);
-//                    Utils.debug("damage", bladeInvStack.getDamageValue());
-
-                    if(bladeInvStack != null){
-//                        if(bladeInvStack.getDamageValue() <= 0) {
-////                            Utils.debug("damage", bladeInvStack.getDamageValue());
-//                            bladeInvStack.shrink(1);
-////                            Utils.debug("inv", bladeInvStack);
-//                        }
-                        if(bladeInvStack.hurt(1, new Random(), null))
-                        {
-                            bladeInvStack.shrink(1);
+                    bladeInv.ifPresent(inv->{
+                        ItemStack stack = inv.getStackInSlot(0);
+                        if(stack != null && !stack.isEmpty()){
+                            if(stack.hurt(1, new Random(), null))
+                                stack.shrink(1);
                         }
-                    }
+                    });
                 }
             } else
             {
@@ -156,7 +152,11 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
 
     public boolean hasBlade()
     {
-        return !bladeInv.orElse(null).getStackInSlot(0).isEmpty();
+        if(bladeInv.isPresent()) {
+            IItemHandler iItemHandler = bladeInv.orElse(null);
+            return !iItemHandler.getStackInSlot(0).isEmpty();
+        }
+        return false;
     }
 
     private float getEfficiency()

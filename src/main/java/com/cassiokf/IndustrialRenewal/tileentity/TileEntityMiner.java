@@ -156,7 +156,6 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
             doAnimation();
             if (!level.isClientSide)
             {
-                //Utils.debug("energy, water", energyStorage.orElse(null).getEnergyStored(), energyStorage.orElse(null).getMaxEnergyStored(), waterTank.getFluidAmount());
                 outputOrSpawn();
                 boolean canCheck = canCheckOre();
                 if (canCheck && getOreSize() == 0) getOres();
@@ -216,7 +215,10 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
 
     private int getFortune()
     {
-        return drillInv.orElse(null).getStackInSlot(0).getItem().equals(ModItems.drillDiamond) ? 2 : 1;
+        IItemHandler iItemHandler = drillInv.orElse(null);
+        if(iItemHandler == null)
+            return 0;
+        return iItemHandler.getStackInSlot(0).getItem().equals(ModItems.drillDiamond) ? 2 : 1;
     }
 
     private int getMaxCooldown()
@@ -243,7 +245,7 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
                 OreMining ore = ores.pop();
                 if (level.getBlockState(ore.pos).getBlock() != ore.state.getBlock()) return;
                 currentTick = 0;
-                int fortune = getFortune();
+                //int fortune = getFortune();
                 Block block = ore.state.getBlock();
                 List<ItemStack> drops = block.getDrops(ore.state, level.getServer().getLevel(this.level.dimension()), ore.pos, this, null, getDrill());
                 tempStack.addAll(drops);
@@ -253,7 +255,9 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
             ItemStack s = tempStack.get(0);
             if (!s.isEmpty())
             {
-                internalInv.orElse(null).insertItem(0, s, false);
+                internalInv.ifPresent(inv ->{
+                    inv.insertItem(0, s, false);
+                });
                 tempStack.remove(s);
             }
             damageDrill();
@@ -263,16 +267,19 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
     private void damageDrill()
     {
         int damage = drillHeat <= Config.MINER_HEAT_DAMAGE_THRESHOLD.get() ? damageAmount : damageAmount * 4;
-        ItemStack stack = drillInv.orElse(null).getStackInSlot(0);
+        IItemHandler itemHandler = drillInv.orElse(null);
+        if(itemHandler == null)
+            return;
+        ItemStack stack = itemHandler.getStackInSlot(0);
         if (stack.hurt(damage, level.random, null))
-        {
             stack.shrink(stack.getCount());
-        }
     }
 
     private void consumeEnergy()
     {
-        energyStorage.orElse(null).extractEnergy(isDeepMine() ? deepEnergyPerTick : energyPerTick, false);
+        energyStorage.ifPresent(iEnergyStorage -> {
+            iEnergyStorage.extractEnergy(isDeepMine() ? deepEnergyPerTick : energyPerTick, false);
+        });
         waterTank.drain(waterPerTick, IFluidHandler.FluidAction.EXECUTE);
     }
 
@@ -290,23 +297,24 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
             ItemStack s = tempStack.get(0);
             if (!s.isEmpty())
             {
-                internalInv.orElse(null).insertItem(0, s, false);
+                internalInv.ifPresent(inv ->{
+                    inv.insertItem(0, s, false);
+                });
                 tempStack.remove(s);
             }
             return;
         }
-        if (internalInv.orElse(null).getStackInSlot(0).isEmpty()) return;
+        IItemHandler itemHandler = internalInv.orElse(null);
+        if (internalInv.isPresent() && itemHandler.getStackInSlot(0).isEmpty()) return;
 
         BlockPos outPos = worldPosition.relative(getMasterFacing(), 2).below();
         TileEntity te = level.getBlockEntity(outPos);
-        if (te != null && te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, getMasterFacing().getOpposite()).orElse(null) != null)
+        if (te != null && te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, getMasterFacing().getOpposite()).isPresent())
         {
-            IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, getMasterFacing().getOpposite()).orElse(null);
-            if (handler != null)
-            {
+                IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, getMasterFacing().getOpposite()).orElse(null);
                 Utils.moveItemToInventory(internalInv.orElse(null), 0, handler);
-            }
-        } else
+        }
+        else
         {
             BlockState state = level.getBlockState(outPos);
             if (state.getBlock().isAir(state, level, outPos))
@@ -438,7 +446,10 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
     {
         //if (line == 1) return I18n.get("render.industrialrenewal.energy") + ":";
         if (line == 1) return "Energy: ";
-        return energyStorage.orElse(null).getEnergyStored() + " FE";
+        IEnergyStorage iEnergyStorage = energyStorage.orElse(null);
+        if(iEnergyStorage != null)
+            return iEnergyStorage.getEnergyStored() + " FE";
+        return "NULL FE";
     }
 
 
@@ -461,8 +472,12 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
 
     public float getEnergyFill() //0 ~ 180
     {
-        float currentAmount = energyStorage.orElse(null).getEnergyStored() / 1000F;
-        float totalCapacity = energyStorage.orElse(null).getMaxEnergyStored() / 1000F;
+        IEnergyStorage iEnergyStorage = energyStorage.orElse(null);
+        if(iEnergyStorage == null)
+            return 0;
+
+        float currentAmount = iEnergyStorage.getEnergyStored() / 1000F;
+        float totalCapacity = iEnergyStorage.getMaxEnergyStored() / 1000F;
         currentAmount = currentAmount / totalCapacity;
         return currentAmount;
     }
@@ -495,12 +510,16 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
 
     public boolean hasDrill()
     {
-        return !drillInv.orElse(null).getStackInSlot(0).isEmpty();
+        IItemHandler iItemHandler = drillInv.orElse(null);
+        return iItemHandler != null && !iItemHandler.getStackInSlot(0).isEmpty();
     }
 
     public ItemStack getDrill()
     {
-        return drillInv.orElse(null).getStackInSlot(0);
+        IItemHandler iItemHandler = drillInv.orElse(null);
+        if(iItemHandler != null)
+            return drillInv.orElse(null).getStackInSlot(0);
+        return null;
     }
 
     public float getRotation()
@@ -529,7 +548,9 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
 
     public IItemHandler getDrillHandler()
     {
-        return getMaster().drillInv.orElse(null);
+        if(getMaster() != null && getMaster().drillInv.isPresent())
+            return getMaster().drillInv.orElse(null);
+        return null;
     }
 
     public class OreMining

@@ -51,13 +51,17 @@ public class CustomEnergyStorage extends EnergyStorage implements INBTSerializab
         this.energy = energy;
     }
 
-    public void addEnergy(int energy)
+    public int addEnergy(int maxReceive)
     {
-        this.energy += energy;
-        if (this.energy > getMaxEnergyStored())
-        {
-            this.energy = getEnergyStored();
-        }
+        int energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
+        energy += energyReceived;
+        return energyReceived;
+    }
+
+    public int subtractEnergy(int maxExtract){
+        int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
+        energy -= energyExtracted;
+        return energyExtracted;
     }
 
     @Override

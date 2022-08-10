@@ -191,18 +191,19 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
                 {
                     default:
                     case 1:
-                        if (fuelTime >= solidPerTick || !solidFuelInv.orElse(null).getStackInSlot(0).isEmpty())
-                        {
-                            ItemStack fuel = solidFuelInv.orElse(null).getStackInSlot(0);
-                            if (fuelTime <= 0)
-                            {
-                                fuelTime = ForgeHooks.getBurnTime(fuel);
-                                maxFuelTime = fuelTime;
-                                fuel.shrink(1);
-                            }
-                            heat += 8;
-                            fuelTime -= solidPerTick;
-                        } else heat -= 2;
+                        IItemHandler iItemHandler = solidFuelInv.orElse(null);
+                        if(iItemHandler != null) {
+                            if (fuelTime >= solidPerTick || !iItemHandler.getStackInSlot(0).isEmpty()) {
+                                ItemStack fuel = iItemHandler.getStackInSlot(0);
+                                if (fuelTime <= 0) {
+                                    fuelTime = ForgeHooks.getBurnTime(fuel);
+                                    maxFuelTime = fuelTime;
+                                    fuel.shrink(1);
+                                }
+                                heat += 8;
+                                fuelTime -= solidPerTick;
+                            } else heat -= 2;
+                        }
                         break;
                     case 2:
                         if (fuelTime >= fluidPerTick || this.fuelTank.getFluidAmount() > 0)
@@ -243,8 +244,10 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
                 TileEntity upTE = level.getBlockEntity(worldPosition.above(2));
                 if (this.steamTank.getFluidAmount() > 0 && upTE != null && upTE.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.DOWN).isPresent())
                 {
-                    IFluidHandler upTank = upTE.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
-                    this.steamTank.drain(upTank.fill(this.steamTank.drain(10000, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                    if(upTE.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.DOWN).isPresent()) {
+                        IFluidHandler upTank = upTE.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
+                        this.steamTank.drain(upTank.fill(this.steamTank.drain(10000, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                    }
                 }
 
                 //Steam to Water if no Heat
@@ -310,9 +313,13 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
 
     private void dropItemsInGround(LazyOptional<IItemHandler> inventory)
     {
-        //Utils.debug("tesitng inventory", inventory, inventory.orElse(null));
-        if(inventory == null || !inventory.isPresent()) return;
-        ItemStack stack = inventory.orElse(null).getStackInSlot(0);
+        if(inventory == null || !inventory.isPresent())
+            return;
+        IItemHandler iItemHandler = inventory.orElse(null);
+        if(iItemHandler == null)
+            return;
+
+        ItemStack stack = iItemHandler.getStackInSlot(0);
         if (!stack.isEmpty())
         {
             ItemEntity item = new ItemEntity(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), stack);
@@ -339,10 +346,15 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
             case 0:
                 return "No Firebox";
             case 1:
-                int energy = solidFuelInv.orElse(null).getStackInSlot(0).getCount();
-                if (energy == 0) return "No Fuel";
-                return energy + " Fuel";
+                IItemHandler handler = solidFuelInv.orElse(null);
+                if(solidFuelInv.isPresent()) {
+                    int energy = handler.getStackInSlot(0).getCount();
+                    return energy == 0 ? "No Fuel" : energy + " Fuel";
+                }
+                return "NULL Fuel";
             case 2:
+                if(fuelTank == null)
+                    return "No Fuel";
                 return fuelTank.getFluidAmount() > 0 ? fuelTank.getFluid().getDisplayName().getString() : "No Fuel";
         }
     }
@@ -464,9 +476,4 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
             return LazyOptional.of(() -> masterTE.fuelTank).cast();
         return super.getCapability(capability, facing);
     }
-
-//    public IItemHandler getFireBoxHandler()
-//    {
-//        return getMaster().fireBoxInv.orElse(null);
-//    }
 }

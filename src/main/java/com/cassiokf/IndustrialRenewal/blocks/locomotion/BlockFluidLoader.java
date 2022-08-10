@@ -30,6 +30,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -54,11 +55,13 @@ public class BlockFluidLoader extends BlockAbstractHorizontalFacing {
             TileEntityFluidLoader loaderMaster = ((TileEntityFluidLoader) world.getBlockEntity(pos)).getMaster();
             BlockPos masterPos = loaderMaster.getBlockPos();
 
-            boolean acceptFluid = FluidUtil.interactWithFluidHandler(playerEntity, hand, loaderMaster.getFluidHandler().orElse(null));
+            IFluidHandler fluidHandler = loaderMaster.getFluidHandler().orElse(null);
+            if(fluidHandler != null) {
+                boolean acceptFluid = FluidUtil.interactWithFluidHandler(playerEntity, hand, fluidHandler);
 //            Utils.debug("accept Fluid", acceptFluid);
-            if(acceptFluid)
-                return ActionResultType.SUCCESS;
-
+                if (acceptFluid)
+                    return ActionResultType.SUCCESS;
+            }
             INamedContainerProvider containerProvider = createContainerProvider(world, loaderMaster.getBlockPos());
             NetworkHooks.openGui((ServerPlayerEntity) playerEntity, containerProvider, masterPos);
         }

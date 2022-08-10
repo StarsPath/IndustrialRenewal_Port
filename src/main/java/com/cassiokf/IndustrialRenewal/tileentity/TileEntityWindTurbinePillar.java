@@ -77,7 +77,7 @@ public class TileEntityWindTurbinePillar extends TileEntityMultiBlocksTube<TileE
                 {
                     TileEntity te = level.getBlockEntity(currentPos);
                     Direction face = getPosSet().get(currentPos);
-                    if (te != null)
+                    if (thisEnergy != null && te != null)
                     {
                         IEnergyStorage eStorage = te.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).orElse(null);
                         if (eStorage != null && eStorage.canReceive())
@@ -138,6 +138,11 @@ public class TileEntityWindTurbinePillar extends TileEntityMultiBlocksTube<TileE
                 TileEntity te = level.getBlockEntity(currentPos);
                 boolean hasMachine = !(state.getBlock() instanceof BlockWindTurbinePillar)
                         && te != null && te.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).isPresent();
+
+//                if(te == null)
+//                    return;
+//                IEnergyStorage energyStorage = te.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).orElse(null);
+//                if (hasMachine && energyStorage != null && energyStorage.canReceive())
 
                 if (hasMachine && te.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).orElse(null).canReceive())
                     if (!isMasterInvalid()) getMaster().addMachine(currentPos, face);

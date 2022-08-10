@@ -107,6 +107,9 @@ public abstract class TileEntityEnergyCable extends TileEntityMultiBlocksTube<Ti
         int canAccept = 0;
         int out = 0;
         IEnergyStorage thisStorage = energyStorage.orElse(null);
+        if(thisStorage == null)
+            return 0;
+
         int realMaxOutput = Math.min(thisStorage.getEnergyStored() / validOutputs, getMaxEnergyToTransport());
         for (BlockPos posM : mapPosSet.keySet())
         {
@@ -143,6 +146,12 @@ public abstract class TileEntityEnergyCable extends TileEntityMultiBlocksTube<Ti
             boolean hasMachine = te != null
                     && !(te instanceof TileEntityEnergyCable)
                     && te.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).isPresent();
+
+//            if(te == null)
+//                return;
+//            IEnergyStorage energyStorage = te.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).orElse(null);
+//            if (hasMachine && energyStorage!= null && energyStorage.canReceive())
+
             if (hasMachine && te.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).orElse(null).canReceive())
                 if (!isMasterInvalid()) getMaster().addMachine(currentPos, face);
                 else if (!isMasterInvalid()) getMaster().removeMachine(worldPosition, currentPos);
@@ -156,7 +165,7 @@ public abstract class TileEntityEnergyCable extends TileEntityMultiBlocksTube<Ti
     public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing)
     {
         if (capability == CapabilityEnergy.ENERGY && getMaster() != null)
-            return energyStorage.cast();
+            return getMaster().energyStorage.cast();
         return super.getCapability(capability, facing);
     }
 

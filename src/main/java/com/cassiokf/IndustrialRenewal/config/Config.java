@@ -122,10 +122,10 @@ public final class Config {
         STEAM_BOILER_STEAM_TANK_CAPACITY = BUILDER.comment("Steam Boiler Steam Tank Capacity (default 32000)").define("steam_boiler_steam_tank_capacity", 32000);
         STEAM_BOILER_FUEL_TANK_CAPACITY = BUILDER.comment("Steam Boiler Fuel Tank Capacity (default 32000)").define("steam_boiler_fuel_tank_capacity", 32000);
         STEAM_BOILER_MAX_HEAT = BUILDER.comment("Steam Boiler Max Heat (default 32000)").define("steam_boiler_max_heat", 32000);
-        STEAM_BOILER_WATER_PER_TICK = BUILDER.comment("Steam Water Consume Per Tick (default 100)").define("steam_boiler_water_per_tick", 100);
+        STEAM_BOILER_WATER_PER_TICK = BUILDER.comment("Steam Water Consume Per Tick (default 100)").define("steam_boiler_water_per_tick", 78);
         STEAM_BOILER_SOLID_FUEL_PER_TICK = BUILDER.comment("Steam Boiler Sold Fuel Burn Time Consume Per Tick (default 2)").define("steam_boiler_solid_fuel_per_tick", 2);
         STEAM_BOILER_LIQUID_FUEL_PER_TICK = BUILDER.comment("Steam Boiler Liquid Fuel Burn Time onsume Per Tick (default 1)").define("steam_boiler_liquid_fuel_per_tick", 1);
-        STEAM_BOILER_WATER_STEAM_CONVERSION = BUILDER.comment("Steam Boiler Water to Steam Conversion Ratio (1 water to x steam)(default 5.0f)").define("steam_boiler_water_steam_conversion", 5.0f);
+        STEAM_BOILER_WATER_STEAM_CONVERSION = BUILDER.comment("Steam Boiler Water to Steam Conversion Ratio (1 water to x steam)(default 5.0f)").define("steam_boiler_water_steam_conversion", 5f);
         BUILDER.pop();
 
         BUILDER.push("Steam Turbine");

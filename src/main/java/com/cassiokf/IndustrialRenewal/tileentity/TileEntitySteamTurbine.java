@@ -117,7 +117,6 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
             if (this.isMaster())
             {
                 this.sync();
-                //Utils.debug("energy tile", energyStorage, energyStorage.orElse(null).getEnergyStored(), energyStorage.orElse(null).getMaxEnergyStored());
                 if (this.steamTank.getFluidAmount() > 0)
                 {
                     FluidStack stack = steamTank.drainInternal(steamPerTick, IFluidHandler.FluidAction.EXECUTE);
@@ -125,11 +124,12 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
                     FluidStack waterStack = new FluidStack(Fluids.WATER, Math.round(amount / steamBoilerConversionFactor));
                     waterTank.fillInternal(waterStack, IFluidHandler.FluidAction.EXECUTE);
                     float factor = amount / (float) steamPerTick;
-                    rotation += (10 * factor);
+                    if(amount >= steamPerTick)
+                        rotation += (10 * factor);
                 } else rotation -= 4;
 
                 IEnergyStorage thisEnergy = energyStorage.orElse(null);
-                if (rotation >= 6000 && thisEnergy.getEnergyStored() < thisEnergy.getMaxEnergyStored())
+                if (energyStorage.isPresent() && rotation >= 6000 && thisEnergy.getEnergyStored() < thisEnergy.getMaxEnergyStored())
                 {
                     //int energy = Math.min(thisEnergy.getMaxEnergyStored(), thisEnergy.getEnergyStored() + getEnergyProduction());
                     int energy = getEnergyProduction();
@@ -145,14 +145,17 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
                 TileEntity eTE = level.getBlockEntity(worldPosition.relative(facing.getOpposite()).below().relative(facing.getCounterClockWise(), 2));
                 if (eTE != null && thisEnergy.getEnergyStored() > 0)
                 {
-                    IEnergyStorage upTank = eTE.getCapability(CapabilityEnergy.ENERGY, facing.getClockWise()).orElse(null);
-                    thisEnergy.extractEnergy(upTank.receiveEnergy(thisEnergy.extractEnergy(10240, true), false), false);
+                    eTE.getCapability(CapabilityEnergy.ENERGY, facing.getClockWise()).ifPresent(tank ->{
+                        thisEnergy.extractEnergy(tank.receiveEnergy(thisEnergy.extractEnergy(10240, true), false), false);
+                    });
                 }
                 TileEntity wTE = level.getBlockEntity(worldPosition.relative(facing, 2).below());
                 if (wTE != null && waterTank.getFluidAmount() > 0)
                 {
-                    IFluidHandler wTank = wTE.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing.getOpposite()).orElse(null);
-                    waterTank.drain(wTank.fill(waterTank.drain(2000, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                    wTE.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing.getOpposite()).ifPresent(tank ->{
+                        waterTank.drain(tank.fill(waterTank.drain(2000, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                    });
+
                 }
 
                 if (oldRotation != rotation)
@@ -196,13 +199,19 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
 
     public String getGenerationText()
     {
-        int energy = (rotation >= 6000 && energyStorage.orElse(null).getEnergyStored() < energyStorage.orElse(null).getMaxEnergyStored()) ? getEnergyProduction() : 0;
+        IEnergyStorage iEnergyStorage = energyStorage.orElse(null);
+        if(iEnergyStorage == null)
+            return  "NULL /t";
+        int energy = (rotation >= 6000 && iEnergyStorage.getEnergyStored() < iEnergyStorage.getMaxEnergyStored()) ? getEnergyProduction() : 0;
         return Utils.formatEnergyString(energy) + "/t";
     }
 
     public String getEnergyText()
     {
-        int energy = energyStorage.orElse(null).getEnergyStored();
+        IEnergyStorage iEnergyStorage = energyStorage.orElse(null);
+        if(iEnergyStorage == null)
+            return  "NULL";
+        int energy = iEnergyStorage.getEnergyStored();
         return Utils.formatEnergyString(energy);
     }
 
@@ -213,8 +222,11 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
 
     public float getEnergyFill() //0 ~ 1
     {
-        float currentAmount = energyStorage.orElse(null).getEnergyStored() / 1000F;
-        float totalCapacity = energyStorage.orElse(null).getMaxEnergyStored() / 1000F;
+        IEnergyStorage iEnergyStorage = energyStorage.orElse(null);
+        if(iEnergyStorage == null)
+            return 0;
+        float currentAmount = iEnergyStorage.getEnergyStored() / 1000F;
+        float totalCapacity = iEnergyStorage.getMaxEnergyStored() / 1000F;
         currentAmount = currentAmount / totalCapacity;
         //Utils.debug("energy", currentAmount, totalCapacity);
         return currentAmount;
@@ -227,7 +239,10 @@ public class TileEntitySteamTurbine extends TileEntity3x3x3MachineBase<TileEntit
 
     public float getGenerationFill() //0 ~ 180
     {
-        float currentAmount = ((rotation >= 6000 && energyStorage.orElse(null).getEnergyStored() < energyStorage.orElse(null).getMaxEnergyStored()) ? getEnergyProduction() : 0) / 100f;
+        IEnergyStorage iEnergyStorage = energyStorage.orElse(null);
+        if(iEnergyStorage == null)
+            return 0;
+        float currentAmount = ((rotation >= 6000 && iEnergyStorage.getEnergyStored() < iEnergyStorage.getMaxEnergyStored()) ? getEnergyProduction() : 0) / 100f;
         float totalCapacity = energyPerTick / 100f;
         currentAmount = currentAmount / totalCapacity;
         return currentAmount * 90f;

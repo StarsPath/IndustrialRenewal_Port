@@ -63,25 +63,28 @@ public class TileEntityConveyorHopper extends TileEntityConveyorBase {
 
     private boolean getInvAbove()
     {
-        if (hopperInv.orElse(null).getStackInSlot(0).isEmpty())
+        IItemHandler hopper = hopperInv.orElse(null);
+        if (hopperInv.isPresent() && hopper.getStackInSlot(0).isEmpty())
         {
             TileEntity te = level.getBlockEntity(worldPosition.above());
             if (te != null)
             {
-                IItemHandler itemHandler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
-                if (itemHandler != null)
+                if (te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).isPresent())
                 {
+                    IItemHandler itemHandler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
                     int itemsPerTick = 8;
                     for (int i = 0; i < itemHandler.getSlots(); i++)
                     {
                         ItemStack stack = itemHandler.extractItem(i, itemsPerTick, true);
-                        ItemStack left = hopperInv.orElse(null).insertItem(0, stack, false);
-                        if (!ItemStack.isSame(stack, left))
-                        {
-                            int toExtract = stack.getCount() - left.getCount();
-                            itemHandler.extractItem(i, toExtract, false);
-                            sync();
-                            break;
+                        if(hopperInv.isPresent()) {
+                            IItemHandler itemHandler1 = hopperInv.orElse(null);
+                            ItemStack left = itemHandler1.insertItem(0, stack, false);
+                            if (!ItemStack.isSame(stack, left)) {
+                                int toExtract = stack.getCount() - left.getCount();
+                                itemHandler.extractItem(i, toExtract, false);
+                                sync();
+                                break;
+                            }
                         }
                     }
                 }
@@ -93,17 +96,20 @@ public class TileEntityConveyorHopper extends TileEntityConveyorBase {
 
     private void hopperToConveyor()
     {
-        if (!hopperInv.orElse(null).getStackInSlot(0).isEmpty())
-        {
-            ItemStack stack = hopperInv.orElse(null).getStackInSlot(0).copy();
-            ItemStack stack1 = inventory.orElse(null).insertItem(1, stack, false);
-            hopperInv.orElse(null).getStackInSlot(0).shrink(stack.getCount() - stack1.getCount());
+        IItemHandler iItemHandler = hopperInv.orElse(null);
+        IItemHandler iItemHandler1 = inventory.orElse(null);
+
+        if(hopperInv.isPresent() && inventory.isPresent() && !iItemHandler.getStackInSlot(0).isEmpty()){
+            ItemStack stack = iItemHandler.getStackInSlot(0).copy();
+            ItemStack stack1 = iItemHandler1.insertItem(1, stack, false);
+            iItemHandler.getStackInSlot(0).shrink(stack.getCount() - stack1.getCount());
         }
     }
 
     private void getEntityItemAbove()
     {
-        if (hopperInv.orElse(null).getStackInSlot(0).isEmpty())
+        IItemHandler itemHandler = hopperInv.orElse(null);
+        if (hopperInv.isPresent() && itemHandler.getStackInSlot(0).isEmpty())
         {
             BlockPos posAbove = worldPosition.above();
             List<Entity> list = level.getEntitiesOfClass(ItemEntity.class, new AxisAlignedBB(posAbove.getX(), posAbove.getY(), posAbove.getZ(), posAbove.getX() + 2D, posAbove.getY() + 1D, posAbove.getZ() + 1D), EntityPredicates.ENTITY_STILL_ALIVE);
@@ -111,7 +117,7 @@ public class TileEntityConveyorHopper extends TileEntityConveyorBase {
             {
                 ItemEntity entityItem = (ItemEntity) list.get(0);
                 ItemStack stack = entityItem.getItem().copy();
-                ItemStack stack1 = hopperInv.orElse(null).insertItem(0, stack, false);
+                ItemStack stack1 = itemHandler.insertItem(0, stack, false);
                 if (stack1.isEmpty()) entityItem.remove();
                 else entityItem.setItem(stack1);
             }
