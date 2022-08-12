@@ -195,6 +195,7 @@ public final class Config {
         fluidFuel.put("mekanismgenerators:bioethanol", 800);
         fluidFuel.put("mekanismgenerators:flowing_bioethanol", 800);
 
+        fluidFuel.put("immersiveengineering:creosote", 150);
         fluidFuel.put("immersiveengineering:biodiesel", 800);
         fluidFuel.put("immersiveengineering:ethanol", 600);
 
@@ -212,6 +213,7 @@ public final class Config {
 
         fluidFuel.put("vehicle:fuelium", 900);
 
+        fluidFuel.put("thermal:creosote", 150);
         fluidFuel.put("thermal:crude_oil", 800);
 
         fluidFuel.put("industrialforegoing:biofuel", 800);

@@ -1,5 +1,7 @@
 package com.cassiokf.IndustrialRenewal.entity;
 
+import net.minecraft.block.AbstractRailBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RailBlock;
 import net.minecraft.entity.EntityType;
@@ -48,8 +50,12 @@ public class RotatableBase extends TrainBase{
     @Override
     protected void moveAlongTrack(BlockPos pos, BlockState blockState) {
         super.moveAlongTrack(pos, blockState);
-        RailShape railDirection = ((RailBlock) blockState.getBlock()).getRailDirection(blockState, level, pos, this);
-        cornerFlip = ((railDirection == RailShape.SOUTH_EAST || railDirection == RailShape.SOUTH_WEST) && this.getDeltaMovement().x < 0.0)
-                || ((railDirection == RailShape.NORTH_EAST || railDirection == RailShape.NORTH_WEST) && this.getDeltaMovement().x > 0.0);
+        Block b = blockState.getBlock();
+        if(b instanceof AbstractRailBlock) {
+            AbstractRailBlock railBlock = (AbstractRailBlock) b;
+            RailShape railDirection = railBlock.getRailDirection(blockState, level, pos, this);
+            cornerFlip = ((railDirection == RailShape.SOUTH_EAST || railDirection == RailShape.SOUTH_WEST) && this.getDeltaMovement().x < 0.0)
+                    || ((railDirection == RailShape.NORTH_EAST || railDirection == RailShape.NORTH_WEST) && this.getDeltaMovement().x > 0.0);
+        }
     }
 }
