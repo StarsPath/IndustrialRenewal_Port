@@ -850,5 +850,15 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("CAC")
                 .unlockedBy("has_item", has(ModItems.flatCart))
                 .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.SPANEL_FRAME.get(), 1)
+                .define('A', IRON_ROD)
+                .define('B', ModItems.battery)
+                .define('C', ModBlocks.ENERGYCABLE_LV.get())
+                .pattern("A  ")
+                .pattern("AA ")
+                .pattern("CBA")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
     }
 }

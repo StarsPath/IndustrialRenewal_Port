@@ -218,18 +218,7 @@ public abstract class TileEntityMultiBlocksTube<TE extends TileEntityMultiBlocks
     {
         isMaster = compound.getBoolean("isMaster");
         outPut = compound.getInt("out");
-        //industrialrenewal.LOGGER.info("load out: " + outPut + worldPosition);
         outPutCount = compound.getInt("count");
-
-//        BlockPos[] blockPos = Arrays.stream(compound.getLongArray("posKey")).mapToObj(longPos -> BlockPos.of(longPos)).toArray(BlockPos[]::new);
-//        Direction[] faces = Arrays.stream(compound.getIntArray("posValue")).mapToObj(intFace -> Direction.from3DDataValue(intFace)).toArray(Direction[]::new);
-//        if(isMaster) {
-//            for (int i = 0; i < blockPos.length; i++) {
-//                industrialrenewal.LOGGER.info("LAODING... : " + blockPos[i] + faces[i]);
-//                posSet.put(blockPos[i], faces[i]);
-//            }
-//            industrialrenewal.LOGGER.info("load posSet: " + posSet + worldPosition);
-//        }
 
         super.load(state, compound);
     }
@@ -237,35 +226,9 @@ public abstract class TileEntityMultiBlocksTube<TE extends TileEntityMultiBlocks
     @Override
     public CompoundNBT save(CompoundNBT compound)
     {
-//        industrialrenewal.LOGGER.info("save out: " + outPut + worldPosition);
-//        industrialrenewal.LOGGER.info("save posSet: " + posSet);
         compound.putBoolean("isMaster", isMaster);
         compound.putInt("out", outPut);
         compound.putInt("count", outPutCount);
-
-//        compound.putLongArray("posKey", posSet.keySet().stream().map(blockPos->blockPos.asLong()).collect(Collectors.toList()));
-//        compound.putIntArray("posValue", posSet.values().stream().map(face->face.get3DDataValue()).collect(Collectors.toList()));
         return super.save(compound);
     }
-
-//    @Override
-//    public CompoundNBT getUpdateTag() {
-//        return this.save(super.getUpdateTag());
-//    }
-//
-//    @Override
-//    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-//        this.load(state, tag);
-//    }
-//
-//    @Nullable
-//    @Override
-//    public SUpdateTileEntityPacket getUpdatePacket() {
-//        return new SUpdateTileEntityPacket(worldPosition, 1, getUpdateTag());
-//    }
-//
-//    @Override
-//    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-//        handleUpdateTag(level.getBlockState(pkt.getPos()), pkt.getTag());
-//    }
 }

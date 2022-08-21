@@ -55,18 +55,7 @@ public abstract class TileEntityFluidPipeBase<T> extends TileEntityMultiBlocksTu
             {
                 moveFluid(null, quantity, mapPosSet, t);
                 t = (t+1)%quantity;
-//                int canAccept = moveFluid(IFluidHandler.FluidAction.SIMULATE, quantity, mapPosSet);
-//                outPut = canAccept > 0 ? moveFluid(IFluidHandler.FluidAction.EXECUTE, canAccept, mapPosSet) : 0;
             }
-//            else outPut = 0;
-//
-//            outPutCount = mapPosSet.size();
-//            if ((oldOutPut != outPut) || (oldOutPutCount != outPutCount))
-//            {
-//                oldOutPut = outPut;
-//                oldOutPutCount = outPutCount;
-//                this.sync();
-//            }
         }
     }
 

@@ -21,6 +21,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
 
@@ -33,6 +34,7 @@ public abstract class BlockPipeBase<TE extends TileEntityMultiBlocksTube> extend
     public static final BooleanProperty WEST = BooleanProperty.create("west");
 
     public static final BooleanProperty FLOOR = BooleanProperty.create("floor");
+    public static final BooleanProperty UPFlOOR = BooleanProperty.create("upfloor");
 
     private static float NORTHZ1 = 0.250f;
     private static float SOUTHZ2 = 0.750f;
@@ -56,7 +58,8 @@ public abstract class BlockPipeBase<TE extends TileEntityMultiBlocksTube> extend
                 .setValue(WEST, false)
                 .setValue(UP, false)
                 .setValue(DOWN, false)
-                .setValue(FLOOR, false));
+                .setValue(FLOOR, false)
+                .setValue(UPFlOOR, false));
     }
 
     public boolean isMaster(IBlockReader world, BlockPos pos)
@@ -69,7 +72,7 @@ public abstract class BlockPipeBase<TE extends TileEntityMultiBlocksTube> extend
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         //builder.add(MASTER, SOUTH, NORTH, EAST, WEST, UP, DOWN, CSOUTH, CNORTH, CEAST, CWEST, CUP, CDOWN);
-        builder.add(UP, DOWN, NORTH, EAST, SOUTH, WEST, FLOOR);
+        builder.add(UP, DOWN, NORTH, EAST, SOUTH, WEST, FLOOR, UPFlOOR);
     }
 
     @Nullable
@@ -83,13 +86,43 @@ public abstract class BlockPipeBase<TE extends TileEntityMultiBlocksTube> extend
     public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult p_225533_6_) {
         ItemStack playerStack = player.getItemInHand(handIn);
         if(playerStack.getItem().equals(ModBlocks.INDUSTRIAL_FLOOR.get().asItem()) && !state.getValue(FLOOR)){
-            worldIn.setBlock(pos, state.setValue(FLOOR, true), 3);
+            state = state.setValue(FLOOR, true);
+            BlockState stateAbove = worldIn.getBlockState(pos.above());
+            if(stateAbove.getBlock() instanceof BlockPipeBase) {
+                worldIn.setBlock(pos, state.setValue(UPFlOOR, stateAbove.getValue(FLOOR)), 3);
+            }
+            else{
+                worldIn.setBlock(pos, state.setValue(UPFlOOR, false), 3);
+            }
             if (!player.isCreative())
                 playerStack.shrink(1);
             return ActionResultType.SUCCESS;
         }
 
         return super.use(state, worldIn, pos, player, handIn, p_225533_6_);
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+        if(!worldIn.isClientSide){
+            for(Direction direction : Direction.values()){
+                if(canConnectTo(worldIn, pos, direction)){
+                    worldIn.setBlock(pos, worldIn.getBlockState(pos).setValue(directionToBooleanProp(direction), true), Constants.BlockFlags.DEFAULT);
+                }
+                else{
+                    worldIn.setBlock(pos, worldIn.getBlockState(pos).setValue(directionToBooleanProp(direction), false), Constants.BlockFlags.DEFAULT);
+                }
+            }
+
+            BlockState stateAbove = worldIn.getBlockState(pos.above());
+            if(stateAbove.getBlock() instanceof BlockPipeBase){
+                worldIn.setBlock(pos, worldIn.getBlockState(pos).setValue(UPFlOOR, stateAbove.getValue(FLOOR)), 3);
+            }
+            else{
+                worldIn.setBlock(pos, worldIn.getBlockState(pos).setValue(UPFlOOR, false), 3);
+            }
+        }
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
     }
 
     @Override

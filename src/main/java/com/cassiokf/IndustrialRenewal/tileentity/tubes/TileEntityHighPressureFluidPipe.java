@@ -3,7 +3,11 @@ package com.cassiokf.IndustrialRenewal.tileentity.tubes;
 import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityDamIntake;
+import com.cassiokf.IndustrialRenewal.tileentity.TileEntityDamOutlet;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityDamTurbine;
+import com.cassiokf.IndustrialRenewal.util.Utils;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 
@@ -33,7 +37,9 @@ public class TileEntityHighPressureFluidPipe extends TileEntityFluidPipeBase<Til
             // 5 seconds per update
             if(tick >= 20 * 5){
                 tick = 0;
+                validateTileEntities();
                 searchIntake();
+                sync();
             }
             tick++;
         }
@@ -41,7 +47,7 @@ public class TileEntityHighPressureFluidPipe extends TileEntityFluidPipeBase<Til
 
     @Override
     public void doTick() {
-        if(intakeCount<2 && turbineCount<2 && outletCount<2)
+        if(intakeCount<2 && turbineCount<2)
             super.doTick();
     }
 
@@ -53,6 +59,26 @@ public class TileEntityHighPressureFluidPipe extends TileEntityFluidPipeBase<Til
             return (heightDiff / 16f) + 1;
         }
         return 0f;
+    }
+
+    public void validateTileEntities(){
+        intakePos = hasIntake()? intakePos : null;
+        turbinePos = hasTurbine()? turbinePos : null;
+        outletPos = hasOutlet()? outletPos : null;
+    }
+
+    public boolean hasIntake(){
+        return intakePos != null && (level.getBlockEntity(intakePos) instanceof TileEntityDamIntake);
+    }
+
+    public boolean hasTurbine(){
+        return turbinePos != null && (level.getBlockEntity(turbinePos) instanceof TileEntityDamTurbine);
+    }
+
+    public boolean hasOutlet(){
+//        if(outletPos != null)
+//            Utils.debug("has outlet", outletPos, level.getBlockEntity(outletPos) instanceof TileEntityDamOutlet);
+        return outletPos != null && (level.getBlockEntity(outletPos) instanceof TileEntityDamOutlet);
     }
 
     public void searchIntake(){
@@ -73,7 +99,32 @@ public class TileEntityHighPressureFluidPipe extends TileEntityFluidPipeBase<Til
                     }
                     turbineCount++;
                 }
+                else if(level.getBlockEntity(pos) instanceof TileEntityDamOutlet){
+                    if(outletPos == null || !pos.equals(outletPos)) {
+                        outletPos = pos;
+                    }
+                    outletCount++;
+                }
             }
         }
+    }
+
+    @Override
+    public CompoundNBT save(CompoundNBT compound) {
+        if(intakePos != null)
+            compound.putLong("intakePos", intakePos.asLong());
+        if(turbinePos != null)
+            compound.putLong("turbinePos", turbinePos.asLong());
+        if(outletPos != null)
+            compound.putLong("outletPos", outletPos.asLong());
+        return super.save(compound);
+    }
+
+    @Override
+    public void load(BlockState state, CompoundNBT compound) {
+        intakePos = BlockPos.of(compound.getLong("intakePos"));
+        turbinePos = BlockPos.of(compound.getLong("turbinePos"));
+        outletPos = BlockPos.of(compound.getLong("outletPos"));
+        super.load(state, compound);
     }
 }

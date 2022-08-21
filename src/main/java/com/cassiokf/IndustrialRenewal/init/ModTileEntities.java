@@ -20,6 +20,10 @@ public class ModTileEntities {
             TILE_ENTITIES.register("solar_panel_tile", ()-> TileEntityType.Builder.of(
                     TileEntitySolarPanelBase::new, ModBlocks.SPANEL.get()).build(null));
 
+    public static RegistryObject<TileEntityType<TileEntitySolarPanelFrame>> SOLAR_PANEL_FRAME =
+            TILE_ENTITIES.register("solar_panel_frame", ()-> TileEntityType.Builder.of(
+                    TileEntitySolarPanelFrame::new, ModBlocks.SPANEL_FRAME.get()).build(null));
+
     public static RegistryObject<TileEntityType<TileEntityBatteryBank>> BATTERY_BANK_TILE =
             TILE_ENTITIES.register("battery_bank_tile", ()-> TileEntityType.Builder.of(
                     TileEntityBatteryBank::new, ModBlocks.BATTERYBANK.get()).build(null));

@@ -88,20 +88,20 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable>{
         tooltip.add(new StringTextComponent(amount + " FE/t"));
     }
 
-    @Override
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-        if(!worldIn.isClientSide){
-            for(Direction direction : Direction.values()){
-                if(canConnectTo(worldIn, pos, direction)){
-                    worldIn.setBlock(pos, worldIn.getBlockState(pos).setValue(directionToBooleanProp(direction), true), Constants.BlockFlags.DEFAULT);
-                }
-                else{
-                    worldIn.setBlock(pos, worldIn.getBlockState(pos).setValue(directionToBooleanProp(direction), false), Constants.BlockFlags.DEFAULT);
-                }
-            }
-        }
-        super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
-    }
+//    @Override
+//    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+//        if(!worldIn.isClientSide){
+//            for(Direction direction : Direction.values()){
+//                if(canConnectTo(worldIn, pos, direction)){
+//                    worldIn.setBlock(pos, worldIn.getBlockState(pos).setValue(directionToBooleanProp(direction), true), Constants.BlockFlags.DEFAULT);
+//                }
+//                else{
+//                    worldIn.setBlock(pos, worldIn.getBlockState(pos).setValue(directionToBooleanProp(direction), false), Constants.BlockFlags.DEFAULT);
+//                }
+//            }
+//        }
+//        super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
+//    }
 
 
     @Nullable

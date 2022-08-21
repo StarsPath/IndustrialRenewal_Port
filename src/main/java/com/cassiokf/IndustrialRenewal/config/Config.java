@@ -2,7 +2,9 @@ package com.cassiokf.IndustrialRenewal.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class Config {
@@ -58,6 +60,13 @@ public final class Config {
     public static final ForgeConfigSpec.ConfigValue<Integer> HV_CABLE_TRANSFER_RATE;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> SOLAR_FORCE_GENERATION;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SOLAR_DECORATIVE;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SOLAR_FRAME_DECORATIVE;
+    public static final ForgeConfigSpec.ConfigValue<Float> SOLAR_FRAME_MULTIPLIER;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SOLAR_FRAME_CAPACITY;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SOLAR_FRAME_TRANSFER_RATE;
+
     public static final ForgeConfigSpec.ConfigValue<Integer> PORTABLE_GENERATOR_ENERGY_PER_TICK;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> WIND_TURBINE_CAPACITY;
@@ -68,7 +77,7 @@ public final class Config {
     public static final ForgeConfigSpec.ConfigValue<Integer> DAM_INTAKE_WATER_PRODUCTION;
     public static final ForgeConfigSpec.ConfigValue<Integer> DAM_OUTLET_WATER_CONSUMPTION;
     public static final ForgeConfigSpec.ConfigValue<Integer> DAM_TURBINE_WATER_TANK_CAPACITY;
-    public static final ForgeConfigSpec.ConfigValue<Integer> DAM_TURBINE_WATER_OUTPUT_RATE;
+    public static final ForgeConfigSpec.ConfigValue<Integer> DAM_TURBINE_MAX_EFFICIENCY;
 
 
     public static final ForgeConfigSpec.ConfigValue<Integer> DAM_GENERATOR_ENERGY_CAPACITY;
@@ -77,6 +86,9 @@ public final class Config {
     public static final ForgeConfigSpec.ConfigValue<Integer> HIGH_PRESSURE_PIPE_TRANSFER_RATE;
 
     public static final ForgeConfigSpec.ConfigValue<Float> CATWALK_SPEED;
+
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> MINER_ORE_BLACKLIST;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> MINER_BLACKLIST_AS_WHITE;
 
     static {
         BUILDER.push("Battery Bank");
@@ -144,7 +156,7 @@ public final class Config {
         DAM_INTAKE_WATER_PRODUCTION = BUILDER.comment("Dam Intake Water Production (default 40000)").define("dam_intake_water_production", 40000);
         DAM_OUTLET_WATER_CONSUMPTION = BUILDER.comment("Dam Outlet Water Consumption (default 200000)").define("dam_outlet_water_consumption", 200000);
         DAM_TURBINE_WATER_TANK_CAPACITY = BUILDER.comment("Dam Turbine Water Tank Capacity (default 240000)").define("dam_turbine_water_tank_capacity", 240000);
-        DAM_TURBINE_WATER_OUTPUT_RATE = BUILDER.comment("Dam Turbine Water Output Rate (default 160000)").define("dam_turbine_water_output_rate", 160000);
+        DAM_TURBINE_MAX_EFFICIENCY = BUILDER.comment("Amount of water per tick required to reach max rotation").define("dam_turbine_max_efficiency", 200000);
 
         DAM_GENERATOR_ENERGY_CAPACITY = BUILDER.comment("Dam Generator Energy Capacity (default 1000000)").define("dam_generator_energy_capacity", 1000000);
         DAM_GENERATOR_RF_PER_TICK = BUILDER.comment("Dam Generator Energy Per Tick (default 1024)").define("dam_generator_rf_per_tick", 1024);
@@ -160,7 +172,15 @@ public final class Config {
         BUILDER.pop();
 
         BUILDER.push("Solar");
-        SOLAR_FORCE_GENERATION = BUILDER.comment("Force Solar to Generate (-1 let game decide, 0 no energy, 1 RF, 2 RF ,3 RF ...)(default -1)").define("solar_force_generation", -1);
+        SOLAR_DECORATIVE = BUILDER.comment("Make Solar panels decorative (default false)").define("solar_decorative", false);
+        SOLAR_FORCE_GENERATION = BUILDER.comment("Force Solar to Generate (-1 let game decide, 0 no energy, 1 RF, 2 RF ,3 RF ... ALSO Changes Solar Frames)(default -1)").define("solar_force_generation", -1);
+        BUILDER.pop();
+
+        BUILDER.push("Solar Frame");
+        SOLAR_FRAME_DECORATIVE = BUILDER.comment("Make Solar panel frames decorative (default false)").define("solar_frame_decorative", false);
+        SOLAR_FRAME_MULTIPLIER = BUILDER.comment("How many time the energy generation of a normal solar panel (default 2f)").define("solar_frame_multiplier", 2f);
+        SOLAR_FRAME_CAPACITY = BUILDER.comment("Solar Frame Max Capacity (default 600)").define("solar_frame_capacity", 600);
+        SOLAR_FRAME_TRANSFER_RATE = BUILDER.comment("Solar Frame Transfer Rate (default 1024)").define("solar_frame_transfer_rate", 1024);
         BUILDER.pop();
 
         BUILDER.push("Portable Generator");
@@ -179,9 +199,20 @@ public final class Config {
         CATWALK_SPEED = BUILDER.comment("Catwalk speed factor(default 1.2f)").define("catwalk_speed", 1.2f);
         BUILDER.pop();
 
+        BUILDER.push("Miner Ore List");
+        MINER_ORE_BLACKLIST = BUILDER.comment("Miner Ore Black list").defineList("miner_ore_blacklist", Config::DefaultBlackList, obj->true);
+        MINER_BLACKLIST_AS_WHITE = BUILDER.comment("Use Blacklist as Whitelist (default false)").define("blacklist_as_white", false);
+        BUILDER.pop();
 
 
         SPEC = BUILDER.build();
+    }
+
+    public static List<String> DefaultBlackList(){
+        List<String> list = new ArrayList<>();
+        list.add("minecraft:ancient_debris");
+
+        return list;
     }
 
     public static Map<String, Integer> getFuelHash()

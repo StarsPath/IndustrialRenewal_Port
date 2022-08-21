@@ -352,7 +352,16 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
 //
 //                    }
                     if(state.is(Tags.Blocks.ORES)){
-                        ores.add(new OreMining(state, actualPosition));
+                        if(Config.MINER_BLACKLIST_AS_WHITE.get()){
+                            if(Config.MINER_ORE_BLACKLIST.get().contains(state.getBlock().getRegistryName().toString())){
+                                ores.add(new OreMining(state, actualPosition));
+                            }
+                        }
+                        else{
+                            if(!Config.MINER_ORE_BLACKLIST.get().contains(state.getBlock().getRegistryName().toString())){
+                                ores.add(new OreMining(state, actualPosition));
+                            }
+                        }
                         //tempStack.add(new ItemStack(state.getBlock().asItem()));
                         //Utils.debug("adding ore to list", state.getBlock(), actualPosition);
                     }

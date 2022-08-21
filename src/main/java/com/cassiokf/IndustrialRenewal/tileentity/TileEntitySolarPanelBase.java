@@ -10,6 +10,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -25,6 +26,8 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
     private final int random;
     private int energyCanGenerate;
     private final int forceGeneration = Config.SOLAR_FORCE_GENERATION.get();
+    private boolean DECORATIVE = Config.SOLAR_DECORATIVE.get();
+
 //    private RFEnergyStorage energyStorage = createEnergy();
     private final CustomEnergyStorage container;
     private LazyOptional<CustomEnergyStorage> energy;
@@ -64,7 +67,7 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
 
     @Override
     public void tick(){
-        if(level.isClientSide()){
+        if(level.isClientSide() || DECORATIVE){
             return;
         }
 
@@ -94,7 +97,7 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
 
     public static int getGeneration(World world, BlockPos pos)
     {
-        int i = world.getLightEmission(pos) - world.getMaxLightLevel();
+        int i = world.getBrightness(LightType.SKY, pos);
         float f = world.getSunAngle(1.0F);
         if (i > 0)
         {
@@ -105,8 +108,8 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
         i = MathHelper.clamp(i, 0, 15);
         float normalize = i / 15f;
         if (world.isRaining()) normalize = normalize / 2;
-        //return Math.round(normalize * IRConfig.MainConfig.Main.baseSolarPanelMaxGeneration);
-        return 15;
+        return Math.round(normalize * 15);
+        //return 15;
     }
 
     public void getEnergyFromSun()
@@ -117,6 +120,6 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
     @Override
     @Nullable
     public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-        return capability == CapabilityEnergy.ENERGY ? this.energy.cast() : super.getCapability(capability, facing);
+        return capability == CapabilityEnergy.ENERGY && facing == Direction.DOWN ? this.energy.cast() : super.getCapability(capability, facing);
     }
 }

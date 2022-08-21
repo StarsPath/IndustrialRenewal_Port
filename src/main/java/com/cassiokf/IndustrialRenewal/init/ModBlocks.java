@@ -52,6 +52,10 @@ public class ModBlocks {
     public static final RegistryObject<BlockSolarPanel> SPANEL = registerBlock("solar_panel",
             BlockSolarPanel::new);
 
+    public static final RegistryObject<BlockSolarPanelFrame> SPANEL_FRAME = registerBlock("solar_panel_frame",
+            () -> new BlockSolarPanelFrame(AbstractBlock.Properties.of(Material.METAL).strength(2f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+
     public static final RegistryObject<BlockBatteryBank> BATTERYBANK = registerBlock("battery_bank",
             () -> new BlockBatteryBank(AbstractBlock.Properties.of(Material.METAL).strength(2f)
                     .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()), false);

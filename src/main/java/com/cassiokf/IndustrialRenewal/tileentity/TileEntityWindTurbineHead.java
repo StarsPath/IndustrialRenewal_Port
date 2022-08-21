@@ -223,7 +223,7 @@ public class TileEntityWindTurbineHead extends TileEntitySyncable implements ITi
 
     @Override
     public void load(BlockState state, CompoundNBT compound) {
-        energyStorage.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(compound.getCompound("StoredIR")));
+        energyStorage.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(compound.getCompound("energy")));
         CompoundNBT invTag = compound.getCompound("inv");
         bladeInv.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(invTag));
         energyGenerated = compound.getInt("generation");

@@ -109,6 +109,7 @@ public class industrialrenewal
 
         event.enqueueWork(()->{
             RenderTypeLookup.setRenderLayer(ModBlocks.SPANEL.get(), RenderType.cutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.SPANEL_FRAME.get(), RenderType.cutout());
             RenderTypeLookup.setRenderLayer(ModBlocks.BATTERYBANK.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.PORTABLE_GENERATOR.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.TRASH.get(), RenderType.translucent());
@@ -135,6 +136,7 @@ public class industrialrenewal
             ScreenManager.register(ModContainers.FLUID_LOADER_CONTAINER.get(), FluidLoaderScreen::new);
         });
 
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.SOLAR_PANEL_FRAME.get(), TESRSolarPanelFrame::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.BATTERY_BANK_TILE.get(), TESRBatteryBank::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.PORTABLE_GENERATOR_TILE.get(), TESRPortableGenerator::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.TURBINE_PILLAR_TILE.get(), TESRWindTurbinePillar::new);

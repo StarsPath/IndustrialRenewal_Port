@@ -97,5 +97,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent("fluorescent", modLoc("block/fluorescent_inventory"));
         withExistingParent("industrial_floor", modLoc("block/ind_floor/floor_inventory"));
 
+        withExistingParent("solar_panel_frame", modLoc("block/solar_panel_frame"));
+
     }
 }

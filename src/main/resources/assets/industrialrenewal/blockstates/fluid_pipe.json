@@ -109,7 +109,7 @@
     },
     {
       "when": {
-        "up": "false",
+        "upfloor": "false",
         "floor": "true"
       },
       "apply": {
