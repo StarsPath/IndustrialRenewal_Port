@@ -85,8 +85,11 @@ public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntit
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        TileEntityStorageChest masterTE = getMaster();
+        if(masterTE == null) return super.getCapability(cap, side);
+
         if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
-            return getMaster().inventoryHandler.cast();
+            return masterTE.inventoryHandler.cast();
         }
         return super.getCapability(cap, side);
     }

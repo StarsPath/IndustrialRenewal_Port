@@ -46,6 +46,9 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
     private int fluidTankCapacity = Config.MINER_WATER_CAPACITY.get();
     private int fluidEnergyCapacity = Config.MINER_ENERGY_CAPACITY.get();
     private int fluidEnergyReceive = Config.MINER_ENERGY_RECEIVE.get();
+
+    private int CHUNK_RADIUS = Config.MINER_RADIUS.get();
+
     public CustomFluidTank waterTank = new CustomFluidTank(fluidTankCapacity)
     {
         @Override
@@ -337,41 +340,37 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
             return;
         }
         IChunk chunk = level.getChunk(worldPosition);
-        int a = chunk.getPos().x * 16;
-        int b = chunk.getPos().z * 16;
-        for (double y = 1; y <= worldPosition.getY() - 2; y++)
-        {
-            for (double x = 0; x <= 15; x++)
-            {
-                for (double z = 0; z <= 15; z++)
+        for(int q = -(CHUNK_RADIUS-1); q < CHUNK_RADIUS; q++){
+            for(int r = -(CHUNK_RADIUS-1); r < CHUNK_RADIUS; r++){
+                int a = (chunk.getPos().x + q) * 16;
+                int b = (chunk.getPos().z + r) * 16;
+                for (double y = 1; y <= worldPosition.getY() - 2; y++)
                 {
-                    BlockPos actualPosition = new BlockPos(a + x, y, b + z);
-                    BlockState state = chunk.getBlockState(actualPosition);
-//                    Block block = state.getBlock();
-//                    if(block.getName().getContents().toLowerCase(Locale.ROOT).contains("ore")){
-//
-//                    }
-                    if(state.is(Tags.Blocks.ORES)){
-                        if(Config.MINER_BLACKLIST_AS_WHITE.get()){
-                            if(Config.MINER_ORE_BLACKLIST.get().contains(state.getBlock().getRegistryName().toString())){
-                                ores.add(new OreMining(state, actualPosition));
+                    for (double x = 0; x <= 15; x++)
+                    {
+                        for (double z = 0; z <= 15; z++)
+                        {
+                            BlockPos actualPosition = new BlockPos(a + x, y, b + z);
+                            BlockState state = chunk.getBlockState(actualPosition);
+
+                            if(state.is(Tags.Blocks.ORES)){
+                                if(Config.MINER_BLACKLIST_AS_WHITE.get()){
+                                    if(Config.MINER_ORE_BLACKLIST.get().contains(state.getBlock().getRegistryName().toString())){
+                                        ores.add(new OreMining(state, actualPosition));
+                                    }
+                                }
+                                else{
+                                    if(!Config.MINER_ORE_BLACKLIST.get().contains(state.getBlock().getRegistryName().toString())){
+                                        ores.add(new OreMining(state, actualPosition));
+                                    }
+                                }
                             }
                         }
-                        else{
-                            if(!Config.MINER_ORE_BLACKLIST.get().contains(state.getBlock().getRegistryName().toString())){
-                                ores.add(new OreMining(state, actualPosition));
-                            }
-                        }
-                        //tempStack.add(new ItemStack(state.getBlock().asItem()));
-                        //Utils.debug("adding ore to list", state.getBlock(), actualPosition);
                     }
-//                    if (OreGeneration.MINERABLE_ORES.contains(Item.byBlock(state.getBlock())))
-//                    {
-//                        ores.add(new OreMining(state, actualPosition));
-//                    }
                 }
             }
         }
+
         size = ores.size();
         depleted = (size == 0);
         sync();

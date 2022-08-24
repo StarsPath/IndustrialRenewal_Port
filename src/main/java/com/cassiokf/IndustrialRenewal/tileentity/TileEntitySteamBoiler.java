@@ -177,6 +177,7 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
         return false;
     }
 
+    ;private int tick = 0;
 
     @Override
     public void tick() {
@@ -232,7 +233,8 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
                     waterTank.drain(amount, IFluidHandler.FluidAction.EXECUTE);
 
                     FluidStack steamStack = new FluidStack(ModFluids.STEAM.get(), (int) (amount * steamBoilerConversionConfig));//IRConfig.Main.steamBoilerConversionFactor.get());
-                    steamTank.fillInternal(steamStack, IFluidHandler.FluidAction.EXECUTE);
+                    int amountStack = steamTank.fillInternal(steamStack, IFluidHandler.FluidAction.EXECUTE);
+//                    Utils.debug("generating", steamStack.getAmount(), amountStack);
                     heat -= 2;
                 }
 
@@ -246,7 +248,8 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
                 {
                     if(upTE.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.DOWN).isPresent()) {
                         IFluidHandler upTank = upTE.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
-                        this.steamTank.drain(upTank.fill(this.steamTank.drain(10000, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                        FluidStack stack = this.steamTank.drain(upTank.fill(this.steamTank.drain(10000, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+//                        Utils.debug("Auto outputing", stack.getAmount());
                     }
                 }
 
@@ -291,7 +294,7 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
         this.type = type;
         BlockState state = getBlockState().setValue(BlockSteamBoiler.TYPE, type);
         level.setBlockAndUpdate(worldPosition, state);
-        level.setBlockEntity(worldPosition, this);
+        //level.setBlockEntity(worldPosition, this);
         this.sync();
     }
 

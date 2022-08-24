@@ -36,6 +36,7 @@ public final class Config {
     public static final ForgeConfigSpec.ConfigValue<Integer> MINER_ENERGY_PER_TICK;
     public static final ForgeConfigSpec.ConfigValue<Integer> MINER_MINING_SPEED;
     public static final ForgeConfigSpec.ConfigValue<Integer> MINER_HEAT_DAMAGE_THRESHOLD;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MINER_RADIUS;
 
     public static final ForgeConfigSpec.ConfigValue<Integer> STEAM_BOILER_WATER_TANK_CAPACITY;
     public static final ForgeConfigSpec.ConfigValue<Integer> STEAM_BOILER_STEAM_TANK_CAPACITY;
@@ -127,6 +128,7 @@ public final class Config {
         MINER_ENERGY_PER_TICK = BUILDER.comment("Miner Energy Per Tick (default 500)").define("miner_energy_per_tick", 500);
         MINER_MINING_SPEED = BUILDER.comment("Miner Mining Speed In Ticks per Block (default 120)").define("miner_mining_speed", 120);
         MINER_HEAT_DAMAGE_THRESHOLD = BUILDER.comment("Miner Amount of Heat Until Extra Damage to Drill (default 13000)").define("miner_heat_damage_threshold", 13000);
+        MINER_RADIUS = BUILDER.comment("Miner mining radius (default 1: 1x1 chunk, 2: 3x3, 3: 5x5 ...)").define("miner_radius", 1);
         BUILDER.pop();
 
         BUILDER.push("Steam Boiler");

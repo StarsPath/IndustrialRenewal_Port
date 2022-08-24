@@ -22,9 +22,16 @@ public class CustomFluidTank extends FluidTank
 
     }
 
+    public int fillInternal(FluidStack resource, FluidAction action)
+    {
+        onFluidChange();
+        return super.fill(resource, action);
+    }
+
     @Override
     public int fill(FluidStack resource, FluidAction action)
     {
+        onFluidChange();
         return canFill() ? super.fill(resource, action) : 0;
     }
 
@@ -40,12 +47,6 @@ public class CustomFluidTank extends FluidTank
     {
         onFluidChange();
         return canDrain() ? super.drain(maxDrain, action) : super.drain(0, action);
-    }
-
-    public int fillInternal(FluidStack resource, FluidAction action)
-    {
-        onFluidChange();
-        return super.fill(resource, action);
     }
 
     public boolean canFill()
