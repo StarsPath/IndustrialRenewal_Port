@@ -141,6 +141,21 @@ public class ModTileEntities {
             TILE_ENTITIES.register("conveyor_inserter_tile", ()-> TileEntityType.Builder.of(
                     TileEntityConveyorInserter::new, ModBlocks.CONVEYOR_INSERTER.get()).build(null));
 
+    public static RegistryObject<TileEntityType<TileEntityFluidValve>> FLUID_VALVE_TILE =
+            TILE_ENTITIES.register("fluid_valve_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityFluidValve::new, ModBlocks.FLUID_VALVE.get()).build(null));
+
+    public static RegistryObject<TileEntityType<TileEntityEnergySwitch>> ENERGY_SWITCH_TILE =
+            TILE_ENTITIES.register("energy_switch_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityEnergySwitch::new, ModBlocks.ENERGY_SWITCH.get()).build(null));
+
+    public static RegistryObject<TileEntityType<TileEntityTransformer>> TRANSFORMER_TILE =
+            TILE_ENTITIES.register("transformer_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityTransformer::new, ModBlocks.TRANSFORMER.get()).build(null));
+
+    public static RegistryObject<TileEntityType<TileEntityWireIsolator>> ISOLATOR_TILE =
+            TILE_ENTITIES.register("isolator_tile", ()-> TileEntityType.Builder.of(
+                    TileEntityWireIsolator::new, ModBlocks.HV_ISOLATOR.get()).build(null));
 
     public static void register(IEventBus bus){
         TILE_ENTITIES.register(bus);

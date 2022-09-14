@@ -216,6 +216,9 @@ public class TileEntityWindTurbinePillar extends TileEntityMultiBlocksTube<TileE
     @Nullable
     public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing)
     {
+        if (facing == null)
+            return super.getCapability(capability, facing);
+
         if (capability == CapabilityEnergy.ENERGY && (facing == Direction.UP))
             return getMaster().energyStorage.cast();
         if (capability == CapabilityEnergy.ENERGY && (isBase()))

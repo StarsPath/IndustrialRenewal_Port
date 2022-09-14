@@ -99,5 +99,10 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         withExistingParent("solar_panel_frame", modLoc("block/solar_panel_frame"));
 
+        withExistingParent("valve_pipe_large", modLoc("block/valves/valve_large"));
+        withExistingParent("energy_switch", modLoc("block/switch/energy_switch_off"));
+        withExistingParent("transformer_hv", modLoc("block/hv/transformer"));
+        withExistingParent("isolator_hv", modLoc("block/hv/hv_isolator"));
+
     }
 }

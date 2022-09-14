@@ -502,7 +502,7 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
     {
         //if (energyContainer.getEnergyStored() <= 0) return EMPTY_ARRAY;
         List<String> texts = new ArrayList<>();
-        texts.add("Mining Drill Status: " + (running ? "Running" : TextFormatting.RED + " Stoped"));
+        texts.add("Mining Drill Status: " + (running ? "Running" : TextFormatting.RED + " Stopped"));
         texts.add("Mining Drill Mode: " + TextFormatting.BLUE + (isDeepMine ? "Deep Mine" : "Surface Mine"));
         texts.add("Vein Size: " + (depleted ? "Depleted" :size));
         //Utils.debug("displayed size", ores.size(), isMaster(), worldPosition);
@@ -546,6 +546,9 @@ public class TileEntityMiner extends TileEntity3x3x3MachineBase<TileEntityMiner>
         TileEntityMiner masterTE = this.getMaster();
         if (masterTE == null) return super.getCapability(capability, facing);
         Direction face = masterTE.getMasterFacing();
+
+        if (facing == null)
+            return super.getCapability(capability, facing);
 
         if (facing == face && this.worldPosition.equals(masterTE.getBlockPos().below().relative(face).relative(face.getClockWise())) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
             return LazyOptional.of(() -> masterTE.waterTank).cast();

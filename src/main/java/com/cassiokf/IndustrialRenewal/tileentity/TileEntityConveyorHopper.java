@@ -152,6 +152,9 @@ public class TileEntityConveyorHopper extends TileEntityConveyorBase {
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing)
     {
+        if (facing == null)
+            return super.getCapability(capability, facing);
+
         if (capability.equals(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) && facing != Direction.DOWN)
             return hopperInv.cast();
         return super.getCapability(capability, facing);

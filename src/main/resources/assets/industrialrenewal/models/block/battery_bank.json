@@ -5,8 +5,8 @@
     "1": "industrialrenewal:block/battery_pack",
     "2": "industrialrenewal:block/pipe",
     "3": "industrialrenewal:block/traffic_light",
-    "particle": "industrialrenewal:block/battery_pack",
-    "1_0": "industrialrenewal:block/energy_level"
+    "1_0": "industrialrenewal:block/energy_level",
+    "particle": "industrialrenewal:block/battery_pack"
   },
   "elements": [
     {

@@ -164,6 +164,9 @@ public abstract class TileEntityEnergyCable extends TileEntityMultiBlocksTube<Ti
     @Nullable
     public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing)
     {
+        if (facing == null)
+            return super.getCapability(capability, facing);
+
         if (capability == CapabilityEnergy.ENERGY && getMaster() != null)
             return getMaster().energyStorage.cast();
         return super.getCapability(capability, facing);

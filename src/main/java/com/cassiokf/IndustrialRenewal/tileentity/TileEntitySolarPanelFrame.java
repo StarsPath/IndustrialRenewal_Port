@@ -260,6 +260,10 @@ public class TileEntitySolarPanelFrame extends TileEntityMultiBlocksTube<TileEnt
     public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing)
     {
         Direction face = getBlockFacing();
+
+        if (facing == null)
+            return super.getCapability(capability, facing);
+
         boolean canConnect = facing == face || facing == face.getClockWise() || facing == face.getCounterClockWise();
         if (capability == CapabilityEnergy.ENERGY && canConnect)
             return getMaster().energyStorage.cast();

@@ -69,7 +69,7 @@ public class ModItems {
     public static final IRBaseItem discR;
     public static final IRItemBattery battery;
     public static final IRItemBattery battery_lithium;
-    //    public static final ItemCoilHV coilHV;
+    public static final ItemWireCoil coilHV;
 //    public static final ItemBarrel barrel;
     public static final ItemFireBox fireBoxSolid;
     public static final ItemFireBox fireBoxFluid;
@@ -172,6 +172,7 @@ public class ModItems {
         passengerCartMk2 = new ItemPassengerCartMk2("passenger_cart_mk2");
         cartLinkable = new ItemCartLinker("cart_linkable");
 
+        coilHV = new ItemWireCoil("coil_hv");
     }
 
     public static void register(final IForgeRegistry<Item> registry) {

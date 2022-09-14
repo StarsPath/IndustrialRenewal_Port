@@ -469,6 +469,9 @@ public class TileEntitySteamBoiler extends TileEntity3x3x3MachineBase<TileEntity
         if (masterTE == null) return super.getCapability(capability, facing);
         Direction face = masterTE.getMasterFacing();
 
+        if (facing == null)
+            return super.getCapability(capability, facing);
+
         if (facing == Direction.UP && worldPosition.equals(masterTE.getBlockPos().above()) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
             return LazyOptional.of(() -> masterTE.steamTank).cast();
         if (facing == face && worldPosition.equals(masterTE.getBlockPos().below().relative(face)) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)

@@ -159,6 +159,9 @@ public class TileEntityBatteryBank extends TE6WayConnection implements ICapabili
     @Nullable
     public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing)
     {
+        if (facing == null)
+            return super.getCapability(capability, facing);
+
         if (capability == CapabilityEnergy.ENERGY && isFacingOutput(facing))
             return dummyEnergy.cast();
         if (capability == CapabilityEnergy.ENERGY && facing != getBlockFacing().getOpposite())

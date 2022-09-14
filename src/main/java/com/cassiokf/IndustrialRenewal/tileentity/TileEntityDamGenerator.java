@@ -103,7 +103,7 @@ public class TileEntityDamGenerator extends TileEntity3x3x3MachineBase<TileEntit
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         TileEntityDamGenerator masterTE = getMaster();
-        if (masterTE == null) return super.getCapability(cap, side);
+        if (masterTE == null || side == null) return super.getCapability(cap, side);
 
         if(cap == CapabilityEnergy.ENERGY &&
                 side == Direction.UP &&

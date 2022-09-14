@@ -120,6 +120,10 @@ public class TileEntitySolarPanelBase extends TEBase implements ITickableTileEnt
     @Override
     @Nullable
     public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+
+        if (facing == null)
+            return super.getCapability(capability, facing);
+
         return capability == CapabilityEnergy.ENERGY && facing == Direction.DOWN ? this.energy.cast() : super.getCapability(capability, facing);
     }
 }

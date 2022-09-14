@@ -146,6 +146,9 @@ public class TileEntityPortableGenerator extends TileEntitySaveContent implement
     @Override
     public <T> LazyOptional<T> getCapability(final Capability<T> capability, @Nullable final Direction facing)
     {
+        if (facing == null)
+            return super.getCapability(capability, facing);
+
         if (capability == CapabilityEnergy.ENERGY && facing == getBlockFacing())
         {
             return generator.energyHandler.cast();

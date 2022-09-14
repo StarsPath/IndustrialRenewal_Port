@@ -7,9 +7,7 @@ import com.cassiokf.IndustrialRenewal.blocks.dam.*;
 import com.cassiokf.IndustrialRenewal.blocks.locomotion.BlockCargoLoader;
 import com.cassiokf.IndustrialRenewal.blocks.locomotion.BlockFluidLoader;
 import com.cassiokf.IndustrialRenewal.blocks.locomotion.rails.BlockBoosterRail;
-import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockEnergyCable;
-import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockFluidPipe;
-import com.cassiokf.IndustrialRenewal.blocks.pipes.BlockHighPressureFluidPipe;
+import com.cassiokf.IndustrialRenewal.blocks.pipes.*;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.util.enums.EnumConveyorType;
 import com.cassiokf.IndustrialRenewal.util.enums.EnumEnergyCableType;
@@ -255,6 +253,22 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockConveyor> CONVEYOR_INSERTER = registerBlock("conveyor_bulk_inserter",
             ()-> new BlockConveyor(EnumConveyorType.INSERTER), false);
+
+    public static final RegistryObject<BlockFluidValve> FLUID_VALVE = registerBlock("valve_pipe_large",
+            ()-> new BlockFluidValve(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<BlockEnergySwitch> ENERGY_SWITCH = registerBlock("energy_switch",
+            ()-> new BlockEnergySwitch(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<BlockTransformer> TRANSFORMER = registerBlock("transformer_hv",
+            ()-> new BlockTransformer(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<BlockHVIsolator> HV_ISOLATOR = registerBlock("isolator_hv",
+            ()-> new BlockHVIsolator(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)
+                    .harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).noOcclusion()));
 
 
 

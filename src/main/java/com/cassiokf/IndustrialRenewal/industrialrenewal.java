@@ -125,6 +125,7 @@ public class industrialrenewal
             RenderTypeLookup.setRenderLayer(ModBlocks.BOOSTER_RAIL.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.LIGHT.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.FLUORESCENT.get(), RenderType.translucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.ROTATIONAL_SHAFT.get(), RenderType.cutout());
 
             RenderTypeLookup.setRenderLayer(ModFluids.STEAM.get(), RenderType.translucent());
             RenderTypeLookup.setRenderLayer(ModFluids.STEAM_FLOWING.get(), RenderType.translucent());
@@ -154,6 +155,8 @@ public class industrialrenewal
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.CONVEYOR_TILE.get(), TESRConveyor::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.CONVEYOR_HOPPER_TILE.get(), TESRConveyor::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.CONVEYOR_INSERTER_TILE.get(), TESRConveyor::new);
+
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.ISOLATOR_TILE.get(), TESRWire::new);
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.CARGO_CONTAINER.get(), RenderCargoContainer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.FLAT_CART.get(), RenderFlatCart::new);

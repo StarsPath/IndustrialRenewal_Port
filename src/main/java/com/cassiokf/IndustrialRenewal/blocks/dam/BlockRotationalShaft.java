@@ -9,7 +9,7 @@ import net.minecraft.world.IBlockReader;
 
 public class BlockRotationalShaft extends IRBaseBlock {
     public BlockRotationalShaft() {
-        super(AbstractBlock.Properties.of(Material.METAL));
+        super(AbstractBlock.Properties.of(Material.METAL).noOcclusion());
     }
 
     @Override

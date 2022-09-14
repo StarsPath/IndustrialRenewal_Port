@@ -87,6 +87,9 @@ public class TileEntityBarrel extends TileEntitySaveContent {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (side == null)
+            return super.getCapability(cap, side);
+
         if(cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
             return this.handler.cast();
         }

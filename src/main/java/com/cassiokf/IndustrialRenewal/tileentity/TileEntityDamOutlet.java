@@ -140,6 +140,9 @@ public class TileEntityDamOutlet extends TileEntitySyncable implements ITickable
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         Direction facing = level.getBlockState(worldPosition).getValue(BlockDamOutlet.FACING);
+        if(side == null)
+            return super.getCapability(cap, side);
+        
         if(cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && side.equals(facing.getOpposite()))
             return LazyOptional.of(()->tank).cast();
         return super.getCapability(cap, side);

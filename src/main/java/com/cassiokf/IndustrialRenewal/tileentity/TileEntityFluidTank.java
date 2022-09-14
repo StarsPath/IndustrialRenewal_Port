@@ -167,6 +167,10 @@ public class TileEntityFluidTank extends TileEntityTowerBase<TileEntityFluidTank
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         Direction downFace = getMasterFacing().getOpposite();
         TileEntityFluidTank master = getMaster();
+
+        if (side == null)
+            return super.getCapability(cap, side);
+
         if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
         {
             if (side == downFace && this.worldPosition.equals(master.worldPosition.below().relative(downFace)))

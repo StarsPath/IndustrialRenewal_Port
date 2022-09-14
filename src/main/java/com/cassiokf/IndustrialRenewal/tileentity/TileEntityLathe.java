@@ -163,7 +163,7 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
         if(iRecipe == null)
             return false;
         ItemStack resultItem = iRecipe.getResultItem();
-        return resultItem.sameItem(outputSlot) && outputSlot.isStackable() && outputSlot.getCount() < outputSlot.getMaxStackSize();
+        return resultItem.sameItem(outputSlot) && outputSlot.isStackable() && outputSlot.getCount() <= outputSlot.getMaxStackSize() - hold.getStackInSlot(0).getCount();
     }
 
     private void process()
@@ -180,7 +180,12 @@ public class TileEntityLathe extends TileEntity3x2x2MachineBase<TileEntityLathe>
             {
                 if (!level.isClientSide) {
                     input.extractItem(0, 1, false);
-                    output.insertItem(0, hold.extractItem(0, 1, false), false);
+//                    ItemStack simulatedStack = hold.extractItem(0, 64, true);
+//                    ItemStack remainderStack = output.insertItem(0, simulatedStack, true);
+//                    Utils.debug("extracting from hold", simulatedStack);
+//                    Utils.debug("remainder stack", remainderStack);
+
+                    output.insertItem(0, hold.extractItem(0, 64, false), false);
                 }
             }
         }

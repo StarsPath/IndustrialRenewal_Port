@@ -7,7 +7,8 @@
     "21": "block/redstone_block",
     "2_0": "industrialrenewal:block/signs/sign_hv",
     "3_0": "industrialrenewal:block/energy_meter_10240",
-    "3_2": "industrialrenewal:block/traffic_light"
+    "3_2": "industrialrenewal:block/traffic_light",
+    "particle": "industrialrenewal:block/anvil_base"
   },
   "elements": [
     {

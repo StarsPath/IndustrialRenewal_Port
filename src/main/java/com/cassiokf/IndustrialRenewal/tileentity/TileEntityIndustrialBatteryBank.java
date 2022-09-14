@@ -310,6 +310,10 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         TileEntityIndustrialBatteryBank masterTE = getMaster();
         if (masterTE == null) return super.getCapability(cap, side);
+
+        if (side == null)
+            return super.getCapability(cap, side);
+
         Direction face = getMasterFacing();
         BlockPos masterPos = masterTE.getBlockPos();
 

@@ -231,7 +231,7 @@ public class TileEntityDamTurbine extends TileEntity3x3x3MachineBase<TileEntityD
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         TileEntityDamTurbine master = getMaster();
-        if(master == null)
+        if(master == null || side == null)
             return super.getCapability(cap, side);
         Direction masterFace = getMasterFacing();
         if(cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && worldPosition.equals(master.getBlockPos().relative(masterFace).relative(masterFace.getClockWise())) && side == masterFace)

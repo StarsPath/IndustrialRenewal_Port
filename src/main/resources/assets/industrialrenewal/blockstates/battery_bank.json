@@ -1,11 +1,6 @@
 {
   "multipart": [
     {
-      "apply": {
-        "model": "industrialrenewal:block/dummy"
-      }
-    },
-    {
       "when": {
         "facing": "north"
       },

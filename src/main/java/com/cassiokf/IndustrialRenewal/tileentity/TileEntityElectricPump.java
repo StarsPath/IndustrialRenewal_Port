@@ -284,6 +284,9 @@ public class TileEntityElectricPump extends TileEntitySyncable implements ICapab
     public <T> LazyOptional<T> getCapability(final Capability<T> capability, @Nullable final Direction facing)
     {
         int index = getIdex();
+
+        if (facing == null)
+            return super.getCapability(capability, facing);
         //Utils.debug("index, capability, facing", index, capability, facing);
         if (index == 1 && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing == Direction.UP)
             return LazyOptional.of(() -> tank).cast();

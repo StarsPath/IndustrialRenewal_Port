@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -240,6 +241,22 @@ public class Utils {
     {
         List<BlockPos> list = new ArrayList<BlockPos>();
         for (int y = -1; y < 2; y++)
+        {
+            for (int z = -1; z < 2; z++)
+            {
+                for (int x = -1; x < 2; x++)
+                {
+                    list.add(new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ() + z));
+                }
+            }
+        }
+        return list;
+    }
+
+    public static List<BlockPos> getBlocksIn3x2x3Centered(BlockPos pos)
+    {
+        List<BlockPos> list = new ArrayList<BlockPos>();
+        for (int y = -1; y <1; y++)
         {
             for (int z = -1; z < 2; z++)
             {
@@ -514,5 +531,27 @@ public class Utils {
 
     public static float logisticFunction(float L, float k, float xo, float x){
         return (float)(L/(1+Math.exp(-k * (x-xo))));
+    }
+
+    public static Vector3d midPoint(Vector3d start, Vector3d end, double yOffset){
+        double x = (start.x + end.x)/2;
+        double y = (start.y + end.y)/2;
+        double z = (start.z + end.z)/2;
+//        double x = Math.sqrt(Math.pow(start.x, 2) + Math.pow(end.x, 2));
+//        double y = Math.sqrt(Math.pow(start.y, 2) + Math.pow(end.y, 2));
+//        double z = Math.sqrt(Math.pow(start.z, 2) + Math.pow(end.z, 2));
+        return new Vector3d(x, y + yOffset, z);
+    }
+
+    public static Vector3d midPoint(Vector3d start, Vector3d end){
+        return  midPoint(start, end, 0);
+    }
+
+    public static Vector3d lerp(Vector3d start, Vector3d end, double amount){
+        amount = MathHelper.clamp(amount, 0, 1);
+        double x = lerp(start.x, end.x, amount);
+        double y = lerp(start.y, end.y, amount);
+        double z = lerp(start.z, end.z, amount);
+        return new Vector3d(x, y, z);
     }
 }
