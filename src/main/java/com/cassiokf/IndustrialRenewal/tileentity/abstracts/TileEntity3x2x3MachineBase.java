@@ -20,16 +20,28 @@ public class TileEntity3x2x3MachineBase<TE extends TileEntity3x2x3MachineBase> e
 
     @Override
     public TE getMaster() {
-        //return super.getMaster();
         TileEntity te = level.getBlockEntity(masterPos);
-        //Utils.debug("master pos", worldPosition, masterPos, te);
-        if(te instanceof TileEntity3x2x3MachineBase
+        if(te != null && te instanceof TileEntity3x2x3MachineBase
                 && ((TileEntity3x2x3MachineBase) te).isMaster()
-                && instanceOf(te))
-        {
+                && instanceOf(te)) {
             masterTE = (TE) te;
             return masterTE;
         }
+        else if (te == null){
+            List<BlockPos> list = Utils.getBlocksIn3x2x3Centered(worldPosition);
+            for (BlockPos currentPos : list)
+            {
+                TileEntity te2 = level.getBlockEntity(currentPos);
+                if (te2 != null && te2 instanceof TileEntity3x3x3MachineBase
+                        && ((TileEntity3x2x3MachineBase) te2).isMaster()
+                        && instanceOf(te2))
+                {
+                    masterTE = (TE) te2;
+                    return masterTE;
+                }
+            }
+        }
+
         return null;
     }
 
@@ -45,8 +57,18 @@ public class TileEntity3x2x3MachineBase<TE extends TileEntity3x2x3MachineBase> e
     public Direction getMasterFacing()
     {
         if (faceChecked) return Direction.from3DDataValue(faceIndex);
+        if(level == null || getMaster() == null || level.getBlockState(getMaster().worldPosition) == null)
+            return Direction.NORTH;
 
         Direction facing = level.getBlockState(getMaster().worldPosition).getValue(Block3x2x3Base.FACING);
+        faceChecked = true;
+        faceIndex = facing.get3DDataValue();
+        return facing;
+    }
+
+    public Direction getMasterFacingDirect(){
+        if (faceChecked) return Direction.from3DDataValue(faceIndex);
+        Direction facing = level.getBlockState(worldPosition).getValue(Block3x2x3Base.FACING);
         faceChecked = true;
         faceIndex = facing.get3DDataValue();
         return facing;

@@ -1,6 +1,7 @@
 package com.cassiokf.IndustrialRenewal.util;
 
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
@@ -11,6 +12,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -553,5 +555,9 @@ public class Utils {
         double y = lerp(start.y, end.y, amount);
         double z = lerp(start.z, end.z, amount);
         return new Vector3d(x, y, z);
+    }
+
+    public static double distance(BlockPos start, BlockPos end){
+        return Math.sqrt(start.distSqr(end));
     }
 }

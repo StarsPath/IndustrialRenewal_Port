@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ACA",
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:ingots/steel"
+    },
+    "B": {
+      "item": "industrialrenewal:battery_lithium"
+    },
+    "C": {
+      "tag": "forge:rods/steel"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:transformer_hv"
+  }
+}

@@ -1,10 +1,10 @@
 package com.cassiokf.IndustrialRenewal.blocks;
 
 import com.cassiokf.IndustrialRenewal.blocks.abstracts.Block3x2x3Base;
-import com.cassiokf.IndustrialRenewal.tileentity.TileEntityPortableGenerator;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityTransformer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
@@ -48,8 +48,10 @@ public class BlockTransformer extends Block3x2x3Base<TileEntityTransformer> {
             TileEntity te = world.getBlockEntity(pos1);
             if(te instanceof TileEntityTransformer){
                 TileEntityTransformer transformerTile = (TileEntityTransformer) te;
-                BlockState masterState = world.getBlockState(transformerTile.masterPos);
-                world.setBlockAndUpdate(transformerTile.masterPos, masterState.setValue(OUTPUT, getNeighborSignal(world, pos1)? 2 : 1));
+                if(transformerTile.masterPos != null && !world.getBlockState(transformerTile.masterPos).getBlock().is(Blocks.AIR)){
+                    BlockState masterState = world.getBlockState(transformerTile.masterPos);
+                    world.setBlockAndUpdate(transformerTile.masterPos, masterState.setValue(OUTPUT, getNeighborSignal(world, pos1)? 2 : 1));
+                }
             }
         }
         super.neighborChanged(state, world, pos1, block, pos2, flag);

@@ -86,6 +86,8 @@ public final class Config {
     public static final ForgeConfigSpec.ConfigValue<Integer> DAM_GENERATOR_TRANSFER_RATE;
     public static final ForgeConfigSpec.ConfigValue<Integer> HIGH_PRESSURE_PIPE_TRANSFER_RATE;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> TRANSFORMER_TRANSFER_RATE;
+
     public static final ForgeConfigSpec.ConfigValue<Float> CATWALK_SPEED;
 
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> MINER_ORE_BLACKLIST;
@@ -194,6 +196,10 @@ public final class Config {
         WIND_TURBINE_CAPACITY = BUILDER.comment("Wind Turbine Energy Capacity (default 32000)").define("wind_turbine_capacity", 32000);
         WIND_TURBINE_TRANSFER_RATE = BUILDER.comment("Wind Turbine Energy Transfer Rate (default 1024)").define("wind_turbine_transfer_rate", 1024);
         WIND_TURBINE_ENERGY_PER_TICK = BUILDER.comment("Wind Turbine Max Energy Generation Per Tick (default 128)").define("wind_turbine_energy_per_tick", 128);
+        BUILDER.pop();
+
+        BUILDER.push("Wind Turbine");
+        TRANSFORMER_TRANSFER_RATE = BUILDER.comment("HV Transformer Transfer Rate (default 1000000)").define("transformer_transfer_rate", 1000000);
         BUILDER.pop();
 
 

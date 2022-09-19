@@ -1,17 +1,15 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
 import com.cassiokf.IndustrialRenewal.blocks.BlockTransformer;
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
-//import com.cassiokf.IndustrialRenewal.tileentity.abstracts.HvNode;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntity3x2x3MachineBase;
 import com.cassiokf.IndustrialRenewal.util.CustomEnergyStorage;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.state.IntegerProperty;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
@@ -28,8 +26,8 @@ import java.util.stream.Collectors;
 
 public class TileEntityTransformer extends TileEntity3x2x3MachineBase<TileEntityTransformer> implements ITickableTileEntity {
 
-    public int MAX_CAPACITY = 1000000;
-    public int TRANSFER_SPEED = 1000000;
+    public int MAX_CAPACITY = Config.TRANSFORMER_TRANSFER_RATE.get();
+    public int TRANSFER_SPEED = Config.TRANSFORMER_TRANSFER_RATE.get();
     private int tick = 0;
 
     public CustomEnergyStorage energyStorage = new CustomEnergyStorage(MAX_CAPACITY, TRANSFER_SPEED, TRANSFER_SPEED){
@@ -55,9 +53,6 @@ public class TileEntityTransformer extends TileEntity3x2x3MachineBase<TileEntity
                 requestEnergy();
                 extractEnergy();
             }
-//            if(hasIsolator()){
-//                initializeIsolator();
-//            }
         }
     }
 
@@ -87,21 +82,23 @@ public class TileEntityTransformer extends TileEntity3x2x3MachineBase<TileEntity
             Set<BlockPos> allNodesPos = isolator.allNodes;
             Set<TileEntityTransformer> availableTransformers = allNodesPos.stream()
                     .filter(x -> level.getBlockEntity(x.below()) instanceof TileEntityTransformer)
-                    .filter(x -> !((TileEntityTransformer)level.getBlockEntity(x.below())).extract())
                     .map(x -> (TileEntityTransformer)level.getBlockEntity(x.below()))
+                    .filter(x -> x.isMaster() && !x.extract())
                     .collect(Collectors.toSet());
 
-            int quota = Math.min(TRANSFER_SPEED, energyStorage.getMaxEnergyStored()-energyStorage.getEnergyStored());
+            int quota = Math.min(TRANSFER_SPEED, this.energyStorage.getMaxEnergyStored() - this.energyStorage.getEnergyStored());
 
             for (TileEntityTransformer transformer : availableTransformers){
                 EnergyStorage e = transformer.energyStorageHandler.orElse(null);
-                int amount = energyStorage.receiveEnergy(e.extractEnergy(quota, true), true);
-                energyStorage.receiveEnergy(e.extractEnergy(quota, false), false);
-                quota -= amount;
+                if(e != null){
+                    int amount = this.energyStorage.receiveEnergy(e.extractEnergy(quota, true), true);
+                    this.energyStorage.receiveEnergy(e.extractEnergy(quota, false), false);
+//                    Utils.debug("REQUEST", worldPosition, transformer, quota, amount, this.energyStorage.getMaxEnergyStored()-this.energyStorage.getEnergyStored());
+                    quota -= amount;
+                }
                 if(quota <= 0)
                     break;
             }
-
         }
     }
 
@@ -115,20 +112,21 @@ public class TileEntityTransformer extends TileEntity3x2x3MachineBase<TileEntity
             return (TileEntityWireIsolator)TE;
         return null;
     }
-//
-//    public void initializeIsolator(){
-//        TileEntity teAbove = level.getBlockEntity(worldPosition.above());
-//        if(teAbove instanceof TileEntityWireIsolator){
-////            TileEntityWireIsolator isolatorTE = (TileEntityWireIsolator) teAbove;
-////            if(isolatorTE.node == null){
-////                isolatorTE.node = new HvNode(energyStorageHandler.orElse(null), extract(), worldPosition.above());
-////            }
-////            else{
-////                isolatorTE.node.setEnergyStorage(energyStorageHandler.orElse(null));
-////                isolatorTE.node.setProvider(extract());
-////            }
-//        }
-//    }
+
+    public String getGenerationText(){
+        return extract()? "EXTRACTING" : "INSERTING";
+    }
+
+    public float getGenerationFill(){
+        IEnergyStorage iEnergyStorage = energyStorageHandler.orElse(null);
+        if(iEnergyStorage == null)
+            return 0;
+        float currentAmount = iEnergyStorage.getEnergyStored();
+        float totalCapacity = iEnergyStorage.getMaxEnergyStored();
+//        Utils.debug("G", currentAmount, totalCapacity);
+        currentAmount = currentAmount / totalCapacity;
+        return currentAmount * 90f;
+    }
 
     @Nonnull
     @Override
@@ -141,10 +139,12 @@ public class TileEntityTransformer extends TileEntity3x2x3MachineBase<TileEntity
 
         if(cap == CapabilityEnergy.ENERGY){
             if(worldPosition.equals(masterPos.below().relative(masterFacing.getOpposite())) && side == masterFacing.getOpposite()){
-                if(getMaster().extract())
-                    return getMaster().dummyHandler.cast();
-                else
-                    return getMaster().energyStorageHandler.cast();
+                if(getMaster() != null){
+                    if(getMaster().extract())
+                        return getMaster().dummyHandler.cast();
+                    else
+                        return getMaster().energyStorageHandler.cast();
+                }
                 //return dummyHandler.cast();
             }
         }
@@ -155,7 +155,7 @@ public class TileEntityTransformer extends TileEntity3x2x3MachineBase<TileEntity
 
     @Override
     public CompoundNBT save(CompoundNBT compound) {
-        energyStorageHandler.ifPresent(energy-> compound.put("ernergy", ((INBTSerializable<CompoundNBT>) energy).serializeNBT()));
+        energyStorageHandler.ifPresent(energy-> compound.put("energy", ((INBTSerializable<CompoundNBT>) energy).serializeNBT()));
         return super.save(compound);
     }
 

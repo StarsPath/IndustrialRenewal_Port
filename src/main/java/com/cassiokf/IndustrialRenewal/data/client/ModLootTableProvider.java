@@ -99,6 +99,10 @@ public class ModLootTableProvider extends LootTableProvider {
             dropSelf(ModBlocks.INDUSTRIAL_FLOOR.get());
             dropSelf(ModBlocks.SPANEL_FRAME.get());
 
+            dropSelf(ModBlocks.HV_ISOLATOR.get());
+            dropSelf(ModBlocks.FLUID_VALVE.get());
+            dropSelf(ModBlocks.ENERGY_SWITCH.get());
+
             //super.addTables();
         }
 
@@ -163,6 +167,10 @@ public class ModLootTableProvider extends LootTableProvider {
             list.add(ModBlocks.BOOSTER_RAIL.get());
             list.add(ModBlocks.INDUSTRIAL_FLOOR.get());
             list.add(ModBlocks.SPANEL_FRAME.get());
+
+            list.add(ModBlocks.HV_ISOLATOR.get());
+            list.add(ModBlocks.FLUID_VALVE.get());
+            list.add(ModBlocks.ENERGY_SWITCH.get());
 
             return list;
         }

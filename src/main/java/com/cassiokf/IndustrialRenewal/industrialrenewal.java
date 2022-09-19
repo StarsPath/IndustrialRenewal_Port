@@ -157,6 +157,7 @@ public class industrialrenewal
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.CONVEYOR_INSERTER_TILE.get(), TESRConveyor::new);
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.ISOLATOR_TILE.get(), TESRWire::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.TRANSFORMER_TILE.get(), TESRTransformerHV::new);
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.CARGO_CONTAINER.get(), RenderCargoContainer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntity.FLAT_CART.get(), RenderFlatCart::new);

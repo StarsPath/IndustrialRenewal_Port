@@ -41,7 +41,7 @@ public abstract class Block3x2x3Base<TE extends TileEntity3x2x3MachineBase> exte
                                 //Utils.debug("placing", currentPos, x, y, z);
                                 world.setBlockAndUpdate(currentPos, state.setValue(MASTER, false));
                                 TileEntity3x2x3MachineBase te = (TileEntity3x2x3MachineBase) world.getBlockEntity(currentPos);
-                                te.masterPos =  pos.above();
+                                te.masterPos = pos.above();
                                 //te.getMaster();
                                 //Utils.debug("Master pos", te.getMaster().getBlockPos());
                             }

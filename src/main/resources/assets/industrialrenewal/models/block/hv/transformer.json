@@ -6,7 +6,7 @@
 		"4": "industrialrenewal:block/pipe_water",
 		"21": "block/redstone_block",
 		"2_0": "industrialrenewal:block/signs/sign_hv",
-		"3_0": "industrialrenewal:block/energy_meter_10240",
+		"3_0": "industrialrenewal:block/energy_meter_1m",
 		"3_2": "industrialrenewal:block/traffic_light",
 		"particle": "industrialrenewal:block/metal"
 	},

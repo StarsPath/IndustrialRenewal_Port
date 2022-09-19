@@ -1,11 +1,13 @@
 package com.cassiokf.IndustrialRenewal.tileentity;
 
+import com.cassiokf.IndustrialRenewal.init.ModItems;
 import com.cassiokf.IndustrialRenewal.init.ModTileEntities;
 //import com.cassiokf.IndustrialRenewal.tileentity.abstracts.HvNode;
 import com.cassiokf.IndustrialRenewal.tileentity.abstracts.TileEntitySyncable;
 import com.cassiokf.IndustrialRenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -29,11 +31,18 @@ public class TileEntityWireIsolator extends TileEntitySyncable {
 
     @Override
     public void setRemoved() {
-        unlinkAll();
+        if(!level.isClientSide){
+            Block.popResource(level, worldPosition, new ItemStack(ModItems.coilHV, neighbors.size()));
+            unlinkAll();
+        }
         super.setRemoved();
     }
 
-    public void link(TileEntityWireIsolator neighbor){
+    public boolean link(TileEntityWireIsolator neighbor){
+        if(neighbors.contains(neighbor.worldPosition) && neighbor.neighbors.contains(this.worldPosition)){
+            return false;
+        }
+
         neighbors.add(neighbor.worldPosition);
         neighbor.neighbors.add(this.worldPosition);
 
@@ -42,6 +51,7 @@ public class TileEntityWireIsolator extends TileEntitySyncable {
 
         update();
         neighbor.update();
+        return true;
     }
 
     public void unlinkAll(){
@@ -115,10 +125,6 @@ public class TileEntityWireIsolator extends TileEntitySyncable {
 
         for(long blockPos : savedNeighbors){
             neighbors.add(BlockPos.of(blockPos));
-//            TileEntity te = level.getBlockEntity(BlockPos.of(blockPos));
-//            if(te instanceof TileEntityWireIsolator){
-//                neighbors.add(((TileEntityWireIsolator) te).getPosition());
-//            }
         }
     }
 
@@ -130,15 +136,7 @@ public class TileEntityWireIsolator extends TileEntitySyncable {
 
         for(long blockPos : savedAllNodes){
             allNodes.add(BlockPos.of(blockPos));
-//            TileEntity te = level.getBlockEntity(BlockPos.of(blockPos));
-//            if(te instanceof TileEntityWireIsolator){
-//                allNodes.add(((TileEntityWireIsolator) te).getPosition());
-//            }
         }
-    }
-
-    public BlockPos getPosition(){
-        return worldPosition;
     }
 
     @Override

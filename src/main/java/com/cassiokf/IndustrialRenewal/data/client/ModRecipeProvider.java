@@ -860,5 +860,43 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("CBA")
                 .unlockedBy("has_item", has(IRON_ROD))
                 .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.HV_ISOLATOR.get(), 1)
+                .define('A', STEEL_ROD)
+                .define('B', STEEL_INGOT)
+                .pattern("A")
+                .pattern("B")
+                .unlockedBy("has_item", has(STEEL_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.TRANSFORMER.get(), 1)
+                .define('A', STEEL_INGOT)
+                .define('B', ModItems.battery_lithium.getItem())
+                .define('C', STEEL_ROD)
+                .pattern("ACA")
+                .pattern("BBB")
+                .pattern("BBB")
+                .unlockedBy("has_item", has(STEEL_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.FLUID_VALVE.get(), 1)
+                .define('A', Items.LEVER)
+                .define('B', ModBlocks.HIGH_PRESSURE_PIPE.get())
+                .define('C', Blocks.IRON_TRAPDOOR)
+                .pattern(" A ")
+                .pattern("BCB")
+                .pattern(" A ")
+                .unlockedBy("has_item", has(ModBlocks.HIGH_PRESSURE_PIPE.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.ENERGY_SWITCH.get(), 1)
+                .define('A', Items.LEVER)
+                .define('B', ModBlocks.ENERGYCABLE_HV.get())
+                .define('C', Tags.Items.STORAGE_BLOCKS_REDSTONE)
+                .pattern(" A ")
+                .pattern("BCB")
+                .pattern(" A ")
+                .unlockedBy("has_item", has(ModBlocks.ENERGYCABLE_HV.get()))
+                .save(consumer);
     }
 }
