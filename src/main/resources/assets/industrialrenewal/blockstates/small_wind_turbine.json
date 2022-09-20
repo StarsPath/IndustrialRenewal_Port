@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": {"model": "industrialrenewal:block/small_wind_turbine"},
-    "facing=south": {"model": "industrialrenewal:block/small_wind_turbine", "y": 180},
-    "facing=west": {"model": "industrialrenewal:block/small_wind_turbine", "y": 270},
-    "facing=east": {"model": "industrialrenewal:block/small_wind_turbine", "y": 90}
-  }
-}

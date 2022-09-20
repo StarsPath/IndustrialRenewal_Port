@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": {"model": "industrialrenewal:block/portable_generator"},
-    "facing=south": {"model": "industrialrenewal:block/portable_generator", "y":  180},
-    "facing=west": {"model": "industrialrenewal:block/portable_generator", "y": 270},
-    "facing=east": {"model": "industrialrenewal:block/portable_generator", "y": 90}
-  }
-}
