@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "industrialrenewal:block/light",
+      "x": 90
+    },
+    "facing=up": {
+      "model": "industrialrenewal:block/light",
+      "x": -90
+    },
+    "facing=north": {
+      "model": "industrialrenewal:block/light"
+    },
+    "facing=west": {
+      "model": "industrialrenewal:block/light",
+      "y": -90
+    },
+    "facing=south": {
+      "model": "industrialrenewal:block/light",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "industrialrenewal:block/light",
+      "y": 90
+    }
+  }
+}

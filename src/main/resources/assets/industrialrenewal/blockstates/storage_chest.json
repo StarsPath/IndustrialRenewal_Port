@@ -1,0 +1,43 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "facing": "north",
+        "master": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block//storage/master_chest"
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "master": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block//storage/master_chest",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "master": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block//storage/master_chest",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "master": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/storage/master_chest",
+        "y": 270
+      }
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "variants": {
+    "facing=north,index=0": {
+      "model": "industrialrenewal:block/fence_big_wire_down_165"
+    },
+    "facing=south,index=0": {
+      "model": "industrialrenewal:block/fence_big_wire_down_165",
+      "y": 180
+    },
+    "facing=east,index=0": {
+      "model": "industrialrenewal:block/fence_big_wire_down_165",
+      "y": 90
+    },
+    "facing=west,index=0": {
+      "model": "industrialrenewal:block/fence_big_wire_down_165",
+      "y": -90
+    },
+    "facing=north,index=1": {
+      "model": "industrialrenewal:block/fence_big_wire_center"
+    },
+    "facing=south,index=1": {
+      "model": "industrialrenewal:block/fence_big_wire_center",
+      "y": 180
+    },
+    "facing=east,index=1": {
+      "model": "industrialrenewal:block/fence_big_wire_center",
+      "y": 90
+    },
+    "facing=west,index=1": {
+      "model": "industrialrenewal:block/fence_big_wire_center",
+      "y": -90
+    },
+    "facing=north,index=2": {
+      "model": "industrialrenewal:block/fence_big_wire_center"
+    },
+    "facing=south,index=2": {
+      "model": "industrialrenewal:block/fence_big_wire_center",
+      "y": 180
+    },
+    "facing=east,index=2": {
+      "model": "industrialrenewal:block/fence_big_wire_center",
+      "y": 90
+    },
+    "facing=west,index=2": {
+      "model": "industrialrenewal:block/fence_big_wire_center",
+      "y": -90
+    }
+  }
+}

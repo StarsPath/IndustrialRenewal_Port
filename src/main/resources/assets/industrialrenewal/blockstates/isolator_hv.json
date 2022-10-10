@@ -1,0 +1,29 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "industrialrenewal:block/hv/hv_isolator"
+    },
+    "facing=up": {
+      "model": "industrialrenewal:block/hv/hv_isolator",
+      "x": -180
+    },
+    "facing=north": {
+      "model": "industrialrenewal:block/hv/hv_isolator",
+      "x": -90
+    },
+    "facing=south": {
+      "model": "industrialrenewal:block/hv/hv_isolator",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "industrialrenewal:block/hv/hv_isolator",
+      "x": -90,
+      "y": 90
+    },
+    "facing=west": {
+      "model": "industrialrenewal:block/hv/hv_isolator",
+      "x": -90,
+      "y": -90
+    }
+  }
+}

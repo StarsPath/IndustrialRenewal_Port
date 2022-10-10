@@ -1,10 +1,17 @@
 package com.cassiokf.industrialrenewal;
 
+import com.cassiokf.industrialrenewal.init.ModBlocks;
+import com.cassiokf.industrialrenewal.init.ModItems;
 import com.mojang.logging.LogUtils;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -15,6 +22,8 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -23,16 +32,33 @@ public class IndustrialRenewal
 {
     // Directly reference a slf4j logger
     public static final String MODID = "industrialrenewal";
+
+    public static List<Block> registeredIRBlocks = new ArrayList<>();
+    public static List<Item> registeredIRItems = new ArrayList<>();
+
     private static final Logger LOGGER = LogUtils.getLogger();
+
+    public static final CreativeModeTab IR_TAB = new CreativeModeTab(MODID) {
+        @Override
+        public ItemStack makeIcon() {
+            return Items.IRON_BLOCK.asItem().getDefaultInstance();
+        }
+    };
 
     public IndustrialRenewal()
     {
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        ModBlocks.registerInit(modEventBus);
+        ModItems.registerInit(modEventBus);
+
+
         // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        modEventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+        modEventBus.addListener(this::enqueueIMC);
         // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        modEventBus.addListener(this::processIMC);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

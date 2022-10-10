@@ -1,0 +1,13 @@
+{
+  "type": "industrialrenewal:lathe",
+  "process_time": 40,
+  "input": {
+    "type": "forge:ore_dict",
+    "ore": "ingotIron"
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore": "stickIron",
+    "count": 4
+  }
+}

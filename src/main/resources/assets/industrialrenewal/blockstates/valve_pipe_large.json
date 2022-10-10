@@ -1,0 +1,65 @@
+{
+  "variants": {
+    "facing=north,on_off=true,handle_facing=0": {"model": "industrialrenewal:block/valves/valve_large_open"},
+    "facing=north,on_off=true,handle_facing=1": {"model": "industrialrenewal:block/valves/valve_large_open_side_1"},
+    "facing=north,on_off=true,handle_facing=2": {"model": "industrialrenewal:block/valves/valve_large_open_side_2"},
+    "facing=north,on_off=true,handle_facing=3": {"model": "industrialrenewal:block/valves/valve_large_open_side_3"},
+
+    "facing=south,on_off=true,handle_facing=0": {"model": "industrialrenewal:block/valves/valve_large_open", "y": 180},
+    "facing=south,on_off=true,handle_facing=1": {"model": "industrialrenewal:block/valves/valve_large_open_side_1", "y": 180},
+    "facing=south,on_off=true,handle_facing=2": {"model": "industrialrenewal:block/valves/valve_large_open_side_2", "y": 180},
+    "facing=south,on_off=true,handle_facing=3": {"model": "industrialrenewal:block/valves/valve_large_open_side_3", "y": 180},
+
+    "facing=west,on_off=true,handle_facing=0": {"model": "industrialrenewal:block/valves/valve_large_open", "y": 270},
+    "facing=west,on_off=true,handle_facing=1": {"model": "industrialrenewal:block/valves/valve_large_open_side_1", "y": 270},
+    "facing=west,on_off=true,handle_facing=2": {"model": "industrialrenewal:block/valves/valve_large_open_side_2", "y": 270},
+    "facing=west,on_off=true,handle_facing=3": {"model": "industrialrenewal:block/valves/valve_large_open_side_3", "y": 270},
+
+    "facing=east,on_off=true,handle_facing=0": {"model": "industrialrenewal:block/valves/valve_large_open", "y": 90},
+    "facing=east,on_off=true,handle_facing=1": {"model": "industrialrenewal:block/valves/valve_large_open_side_1", "y": 90},
+    "facing=east,on_off=true,handle_facing=2": {"model": "industrialrenewal:block/valves/valve_large_open_side_2", "y": 90},
+    "facing=east,on_off=true,handle_facing=3": {"model": "industrialrenewal:block/valves/valve_large_open_side_3", "y": 90},
+
+    "facing=up,on_off=true,handle_facing=0": {"model": "industrialrenewal:block/valves/valve_large_up_open", "x": 180},
+    "facing=up,on_off=true,handle_facing=1": {"model": "industrialrenewal:block/valves/valve_large_up_open", "x": 180, "y": 90},
+    "facing=up,on_off=true,handle_facing=2": {"model": "industrialrenewal:block/valves/valve_large_up_open", "x": 180, "y": 180},
+    "facing=up,on_off=true,handle_facing=3": {"model": "industrialrenewal:block/valves/valve_large_up_open", "x": 180, "y": 270},
+
+    "facing=down,on_off=true,handle_facing=0": {"model": "industrialrenewal:block/valves/valve_large_up_open"},
+    "facing=down,on_off=true,handle_facing=1": {"model": "industrialrenewal:block/valves/valve_large_up_open", "y": 90},
+    "facing=down,on_off=true,handle_facing=2": {"model": "industrialrenewal:block/valves/valve_large_up_open", "y": 180},
+    "facing=down,on_off=true,handle_facing=3": {"model": "industrialrenewal:block/valves/valve_large_up_open", "y": 270},
+
+
+
+    "facing=north,on_off=false,handle_facing=0": {"model": "industrialrenewal:block/valves/valve_large"},
+    "facing=north,on_off=false,handle_facing=1": {"model": "industrialrenewal:block/valves/valve_large_side_1"},
+    "facing=north,on_off=false,handle_facing=2": {"model": "industrialrenewal:block/valves/valve_large_side_2"},
+    "facing=north,on_off=false,handle_facing=3": {"model": "industrialrenewal:block/valves/valve_large_side_3"},
+
+    "facing=south,on_off=false,handle_facing=0": {"model": "industrialrenewal:block/valves/valve_large", "y": 180},
+    "facing=south,on_off=false,handle_facing=1": {"model": "industrialrenewal:block/valves/valve_large_side_1", "y": 180},
+    "facing=south,on_off=false,handle_facing=2": {"model": "industrialrenewal:block/valves/valve_large_side_2", "y": 180},
+    "facing=south,on_off=false,handle_facing=3": {"model": "industrialrenewal:block/valves/valve_large_side_3", "y": 180},
+
+    "facing=west,on_off=false,handle_facing=0": {"model": "industrialrenewal:block/valves/valve_large", "y": 270},
+    "facing=west,on_off=false,handle_facing=1": {"model": "industrialrenewal:block/valves/valve_large_side_1", "y": 270},
+    "facing=west,on_off=false,handle_facing=2": {"model": "industrialrenewal:block/valves/valve_large_side_2", "y": 270},
+    "facing=west,on_off=false,handle_facing=3": {"model": "industrialrenewal:block/valves/valve_large_side_3", "y": 270},
+
+    "facing=east,on_off=false,handle_facing=0": {"model": "industrialrenewal:block/valves/valve_large", "y": 90},
+    "facing=east,on_off=false,handle_facing=1": {"model": "industrialrenewal:block/valves/valve_large_side_1", "y": 90},
+    "facing=east,on_off=false,handle_facing=2": {"model": "industrialrenewal:block/valves/valve_large_side_2", "y": 90},
+    "facing=east,on_off=false,handle_facing=3": {"model": "industrialrenewal:block/valves/valve_large_side_3", "y": 90},
+
+    "facing=up,on_off=false,handle_facing=0": {"model": "industrialrenewal:block/valves/valve_large_up_closed", "x": 180},
+    "facing=up,on_off=false,handle_facing=1": {"model": "industrialrenewal:block/valves/valve_large_up_closed", "x": 180, "y": 90},
+    "facing=up,on_off=false,handle_facing=2": {"model": "industrialrenewal:block/valves/valve_large_up_closed", "x": 180, "y": 180},
+    "facing=up,on_off=false,handle_facing=3": {"model": "industrialrenewal:block/valves/valve_large_up_closed", "x": 180, "y": 270},
+
+    "facing=down,on_off=false,handle_facing=0": {"model": "industrialrenewal:block/valves/valve_large_up_closed"},
+    "facing=down,on_off=false,handle_facing=1": {"model": "industrialrenewal:block/valves/valve_large_up_closed", "y": 90},
+    "facing=down,on_off=false,handle_facing=2": {"model": "industrialrenewal:block/valves/valve_large_up_closed", "y": 180},
+    "facing=down,on_off=false,handle_facing=3": {"model": "industrialrenewal:block/valves/valve_large_up_closed", "y": 270}
+  }
+}
