@@ -1,6 +1,8 @@
 package com.cassiokf.industrialrenewal.init;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
+import com.cassiokf.industrialrenewal.blocks.BlockBatteryBank;
+import com.cassiokf.industrialrenewal.blocks.BlockSolarPanel;
 import com.cassiokf.industrialrenewal.blocks.abstracts.IRBaseBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -10,6 +12,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
@@ -31,8 +34,9 @@ public class ModBlocks {
 
 
 
+    public static final RegistryObject<Block> SOLAR_PANEL = registerBlock("solar_panel", BlockSolarPanel::new);
 
-
+    public static final RegistryObject<Block> BATTERY_BANK = registerBlock("battery_bank", BlockBatteryBank::new);
 
 
 
@@ -57,6 +61,11 @@ public class ModBlocks {
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
                 new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+    }
+
+    public static void register(IForgeRegistry<Block> registry){
+        for(Block block : IndustrialRenewal.registeredIRBlocks)
+            registry.register(block);
     }
 
     public  static void registerInit(IEventBus bus){

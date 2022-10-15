@@ -1,5 +1,6 @@
 package com.cassiokf.industrialrenewal;
 
+import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModBlocks;
 import com.cassiokf.industrialrenewal.init.ModItems;
 import com.mojang.logging.LogUtils;
@@ -15,6 +16,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
@@ -36,7 +38,7 @@ public class IndustrialRenewal
     public static List<Block> registeredIRBlocks = new ArrayList<>();
     public static List<Item> registeredIRItems = new ArrayList<>();
 
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final CreativeModeTab IR_TAB = new CreativeModeTab(MODID) {
         @Override
@@ -49,8 +51,9 @@ public class IndustrialRenewal
     {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ModBlocks.registerInit(modEventBus);
         ModItems.registerInit(modEventBus);
+        ModBlocks.registerInit(modEventBus);
+        ModBlockEntity.registerInit(modEventBus);
 
 
         // Register the setup method for modloading
@@ -68,7 +71,7 @@ public class IndustrialRenewal
     {
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+//        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
@@ -99,10 +102,16 @@ public class IndustrialRenewal
     public static class RegistryEvents
     {
         @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent)
-        {
-            // Register a new block here
+        public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
+            ModBlocks.register(event.getRegistry());
             LOGGER.info("HELLO from Register Block");
+        }
+
+        @SubscribeEvent
+        public static void registerItems(RegistryEvent.Register<Item> event)
+        {
+            ModItems.register(event.getRegistry());
+            LOGGER.info("HELLO from Register Item");
         }
     }
 }
