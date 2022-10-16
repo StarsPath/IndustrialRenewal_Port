@@ -1,7 +1,6 @@
 package com.cassiokf.industrialrenewal.items;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
-import com.cassiokf.industrialrenewal.blocks.abstracts.IRBaseBlock;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 

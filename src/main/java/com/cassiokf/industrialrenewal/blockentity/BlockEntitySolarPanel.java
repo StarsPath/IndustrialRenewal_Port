@@ -28,14 +28,6 @@ public class BlockEntitySolarPanel extends BlockEntity {
         super(ModBlockEntity.SOLAR_PANEL.get(), pos, state);
     }
 
-
-    @Override
-    public void setRemoved() {
-        super.setRemoved();
-        energyHandler.invalidate();
-        setChanged();
-    }
-
     public void tick(){
         if(level.isClientSide || DECORATIVE){
             return;
@@ -84,6 +76,12 @@ public class BlockEntitySolarPanel extends BlockEntity {
     public void getEnergyFromSun()
     {
         energyCanGenerate = getGeneration(this.level, this.worldPosition);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        energyHandler.invalidate();
     }
 
     @NotNull

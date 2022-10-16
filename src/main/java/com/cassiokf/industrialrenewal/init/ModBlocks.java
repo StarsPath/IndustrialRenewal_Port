@@ -4,9 +4,12 @@ import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.blocks.BlockBatteryBank;
 import com.cassiokf.industrialrenewal.blocks.BlockSolarPanel;
 import com.cassiokf.industrialrenewal.blocks.abstracts.IRBaseBlock;
+import com.cassiokf.industrialrenewal.blocks.transport.BlockEnergyCable;
+import com.cassiokf.industrialrenewal.util.enums.EnumEnergyCableType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -39,7 +42,14 @@ public class ModBlocks {
     public static final RegistryObject<Block> BATTERY_BANK = registerBlock("battery_bank", BlockBatteryBank::new);
 
 
+    public static final RegistryObject<BlockEnergyCable> ENERGYCABLE_LV = registerBlock("energy_cable_lv",
+            () -> new BlockEnergyCable(EnumEnergyCableType.LV));
 
+    public static final RegistryObject<BlockEnergyCable> ENERGYCABLE_MV = registerBlock("energy_cable_mv",
+            () -> new BlockEnergyCable(EnumEnergyCableType.MV));
+
+    public static final RegistryObject<BlockEnergyCable> ENERGYCABLE_HV = registerBlock("energy_cable_hv",
+            () -> new BlockEnergyCable(EnumEnergyCableType.HV));
 
 
 

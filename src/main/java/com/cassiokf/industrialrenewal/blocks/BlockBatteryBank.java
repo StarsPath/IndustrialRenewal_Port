@@ -1,7 +1,6 @@
 package com.cassiokf.industrialrenewal.blocks;
 
 import com.cassiokf.industrialrenewal.blockentity.BlockEntityBatteryBank;
-import com.cassiokf.industrialrenewal.blockentity.BlockEntitySolarPanel;
 import com.cassiokf.industrialrenewal.blocks.abstracts.BlockAbstractHorizontalFacing;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import net.minecraft.core.BlockPos;
