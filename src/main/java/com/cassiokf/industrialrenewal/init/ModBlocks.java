@@ -5,6 +5,8 @@ import com.cassiokf.industrialrenewal.blocks.BlockBatteryBank;
 import com.cassiokf.industrialrenewal.blocks.BlockSolarPanel;
 import com.cassiokf.industrialrenewal.blocks.abstracts.IRBaseBlock;
 import com.cassiokf.industrialrenewal.blocks.transport.BlockEnergyCable;
+import com.cassiokf.industrialrenewal.blocks.transport.BlockFluidPipe;
+import com.cassiokf.industrialrenewal.blocks.transport.BlockHighPressureFluidPipe;
 import com.cassiokf.industrialrenewal.util.enums.EnumEnergyCableType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -50,6 +52,12 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockEnergyCable> ENERGYCABLE_HV = registerBlock("energy_cable_hv",
             () -> new BlockEnergyCable(EnumEnergyCableType.HV));
+
+
+    public static final RegistryObject<BlockFluidPipe> FLUID_PIPE = registerBlock("fluid_pipe", BlockFluidPipe::new);
+
+
+    public static final RegistryObject<BlockHighPressureFluidPipe> HIGH_PRESSURE_PIPE = registerBlock("high_pressure_pipe", BlockHighPressureFluidPipe::new);
 
 
 

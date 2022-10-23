@@ -1,6 +1,5 @@
-package com.cassiokf.industrialrenewal.blockentity.tubes;
+package com.cassiokf.industrialrenewal.blockentity.abstracts;
 
-import com.cassiokf.industrialrenewal.blockentity.abstracts.BETubeBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -30,23 +29,18 @@ public abstract class BlockEntityMultiBlocksTube<TE extends BlockEntityMultiBloc
         super(tileEntityTypeIn, pos, state);
     }
 
-//    @Override
-//    public void tick()
-//    {
-//        if (!firstTick && this.hasLevel())
-//        {
-//            firstTick = true;
-//            initializeMultiblockIfNecessary(true);
-//            onFirstLoad();
-//        }
-//        if (this.hasLevel() && !isRemoved()) doTick();
-//    }
-
-    public void onFirstLoad()
+    public void tick()
     {
+        if (!firstTick && this.hasLevel())
+        {
+            firstTick = true;
+            initializeMultiblockIfNecessary(true);
+            onFirstLoad();
+        }
+//        if (this.hasLevel() && !isRemoved()) doTick();
     }
 
-    public void doTick()
+    public void onFirstLoad()
     {
     }
 

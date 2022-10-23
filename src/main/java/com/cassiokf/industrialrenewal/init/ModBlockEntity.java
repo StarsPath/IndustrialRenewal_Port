@@ -3,11 +3,7 @@ package com.cassiokf.industrialrenewal.init;
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.blockentity.BlockEntityBatteryBank;
 import com.cassiokf.industrialrenewal.blockentity.BlockEntitySolarPanel;
-import com.cassiokf.industrialrenewal.blockentity.tubes.BlockEntityEnergyCableHV;
-import com.cassiokf.industrialrenewal.blockentity.tubes.BlockEntityEnergyCableLV;
-import com.cassiokf.industrialrenewal.blockentity.tubes.BlockEntityEnergyCableMV;
-import com.cassiokf.industrialrenewal.blocks.BlockSolarPanel;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import com.cassiokf.industrialrenewal.blockentity.tubes.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -41,6 +37,13 @@ public class ModBlockEntity {
             BLOCK_ENTITIES.register("energycable_hv_tile", ()-> BlockEntityType.Builder.of(
                     BlockEntityEnergyCableHV::new, ModBlocks.ENERGYCABLE_HV.get()).build(null));
 
+    public static RegistryObject<BlockEntityType<BlockEntityFluidPipe>> FLUIDPIPE_TILE =
+            BLOCK_ENTITIES.register("fluidpipe_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityFluidPipe::new, ModBlocks.FLUID_PIPE.get()).build(null));
+
+    public static RegistryObject<BlockEntityType<BlockEntityHighPressureFluidPipe>> HIGH_PRESSURE_PIPE =
+            BLOCK_ENTITIES.register("high_pressure_pipe", ()-> BlockEntityType.Builder.of(
+                    BlockEntityHighPressureFluidPipe::new, ModBlocks.HIGH_PRESSURE_PIPE.get()).build(null));
 
     public static void registerInit(IEventBus bus){
         BLOCK_ENTITIES.register(bus);

@@ -1,8 +1,7 @@
 package com.cassiokf.industrialrenewal.blockentity.tubes;
 
-import com.cassiokf.industrialrenewal.blocks.transport.BlockEnergyCable;
+import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntityEnergyCable;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
-import com.cassiokf.industrialrenewal.util.enums.EnumEnergyCableType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;

@@ -1,7 +1,7 @@
 package com.cassiokf.industrialrenewal.blocks.transport;
 
-import com.cassiokf.industrialrenewal.blockentity.BlockEntityBatteryBank;
-import com.cassiokf.industrialrenewal.blockentity.tubes.BlockEntityEnergyCable;
+import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntityEnergyCable;
+import com.cassiokf.industrialrenewal.blocks.abstracts.BlockPipeBase;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.util.enums.EnumCableIn;
 import com.cassiokf.industrialrenewal.util.enums.EnumEnergyCableType;
@@ -88,7 +88,7 @@ public class BlockEnergyCable extends BlockPipeBase<BlockEntityEnergyCable> impl
     }
 
     @Override
-    public @org.jetbrains.annotations.Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         return getState(context.getLevel(), context.getClickedPos(), defaultBlockState());
 
     }
@@ -124,13 +124,5 @@ public class BlockEnergyCable extends BlockPipeBase<BlockEntityEnergyCable> impl
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState p_153213_, BlockEntityType<T> p_153214_) {
         return level.isClientSide? null : ($0, $1, $2, blockEntity) -> ((BlockEntityEnergyCable)blockEntity).tick();
-//        return EntityBlock.super.getTicker(p_153212_, p_153213_, p_153214_);
     }
-
-//    @Override
-//    public boolean hasTileEntity(BlockState state) {
-//        return true;
-//    }
-
-
 }

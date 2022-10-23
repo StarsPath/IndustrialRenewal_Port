@@ -1,15 +1,12 @@
-package com.cassiokf.industrialrenewal.blocks.transport;
+package com.cassiokf.industrialrenewal.blocks.abstracts;
 
-import com.cassiokf.industrialrenewal.blockentity.tubes.BlockEntityMultiBlocksTube;
-import com.cassiokf.industrialrenewal.blocks.abstracts.BlockConnectedMultiblocks;
-import com.cassiokf.industrialrenewal.init.ModBlocks;
+import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntityMultiBlocksTube;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -19,7 +16,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 public abstract class BlockPipeBase<TE extends BlockEntityMultiBlocksTube> extends BlockConnectedMultiblocks<TE> {
     public static final BooleanProperty UP = BooleanProperty.create("up");

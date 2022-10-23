@@ -1,6 +1,6 @@
 package com.cassiokf.industrialrenewal.blocks.abstracts;
 
-import com.cassiokf.industrialrenewal.blockentity.tubes.BlockEntityMultiBlocksTube;
+import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntityMultiBlocksTube;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
