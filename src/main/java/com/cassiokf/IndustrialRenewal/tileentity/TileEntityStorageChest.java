@@ -78,7 +78,10 @@ public class TileEntityStorageChest extends TileEntity3x3x2MachineBase<TileEntit
     public void onMasterBreak()
     {
         super.onMasterBreak();
-        //for(CustomItemStackHandler inv : inventory)
+        dropResources();
+    }
+
+    public void dropResources(){
         Utils.dropInventoryItems(level, worldPosition, inventory);
     }
 

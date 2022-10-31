@@ -35,11 +35,22 @@ public abstract class TileEntity3x3x2MachineBase<TE extends TileEntity3x3x2Machi
 
     @Override
     public void setRemoved() {
-        TileEntity3x3x2MachineBase te = (TileEntity3x3x2MachineBase) level.getBlockEntity(masterPos);
-        if(te != null)
-            te.breakMultiBlocks();
-        super.setRemoved();
+        if(!level.isClientSide){
+            if(this.isMaster()){
+                dropResources();
+                super.setRemoved();
+                return;
+            }
+
+            TileEntity3x3x2MachineBase te = (TileEntity3x3x2MachineBase) level.getBlockEntity(masterPos);
+            if(te != null)
+                te.breakMultiBlocks();
+            super.setRemoved();
+        }
     }
+
+    public abstract void dropResources();
+
 
     @Override
     public Direction getMasterFacing()
