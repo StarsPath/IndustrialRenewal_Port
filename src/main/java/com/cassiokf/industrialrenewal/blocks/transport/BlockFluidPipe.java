@@ -1,6 +1,6 @@
 package com.cassiokf.industrialrenewal.blocks.transport;
 
-import com.cassiokf.industrialrenewal.blockentity.tubes.BlockEntityFluidPipe;
+import com.cassiokf.industrialrenewal.blockentity.transport.BlockEntityFluidPipe;
 import com.cassiokf.industrialrenewal.blocks.abstracts.BlockPipeBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

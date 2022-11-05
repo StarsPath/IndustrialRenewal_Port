@@ -1,9 +1,8 @@
-package com.cassiokf.industrialrenewal.blockentity.tubes;
+package com.cassiokf.industrialrenewal.blockentity.transport;
 
 import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntityFluidPipeBase;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class BlockEntityHighPressureFluidPipe extends BlockEntityFluidPipeBase<BlockEntityHighPressureFluidPipe> {

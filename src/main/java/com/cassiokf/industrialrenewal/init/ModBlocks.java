@@ -1,12 +1,11 @@
 package com.cassiokf.industrialrenewal.init;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
+import com.cassiokf.industrialrenewal.blocks.BlockBarrel;
 import com.cassiokf.industrialrenewal.blocks.BlockBatteryBank;
 import com.cassiokf.industrialrenewal.blocks.BlockSolarPanel;
 import com.cassiokf.industrialrenewal.blocks.abstracts.IRBaseBlock;
-import com.cassiokf.industrialrenewal.blocks.transport.BlockEnergyCable;
-import com.cassiokf.industrialrenewal.blocks.transport.BlockFluidPipe;
-import com.cassiokf.industrialrenewal.blocks.transport.BlockHighPressureFluidPipe;
+import com.cassiokf.industrialrenewal.blocks.transport.*;
 import com.cassiokf.industrialrenewal.util.enums.EnumEnergyCableType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -59,6 +58,17 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockHighPressureFluidPipe> HIGH_PRESSURE_PIPE = registerBlock("high_pressure_pipe", BlockHighPressureFluidPipe::new);
 
+    public static final RegistryObject<BlockBarrel> BARREL = registerBlock("barrel", BlockBarrel::new);
+
+
+    public static final RegistryObject<BlockEnergySwitch> ENERGY_SWITCH = registerBlock("energy_switch",
+            ()-> new BlockEnergySwitch(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
+
+
+    public static final RegistryObject<BlockFluidValve> FLUID_VALVE = registerBlock("valve_pipe_large",
+            ()-> new BlockFluidValve(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
 
 
 

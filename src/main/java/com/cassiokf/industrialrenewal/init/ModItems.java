@@ -2,6 +2,7 @@ package com.cassiokf.industrialrenewal.init;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.items.IRBaseItem;
+import com.cassiokf.industrialrenewal.items.ItemPowerScrewDrive;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -31,6 +32,9 @@ public class ModItems {
     public static final RegistryObject<Item> switch_off = registerItem("switch_off", IRBaseItem::new);
     public static final RegistryObject<Item> push_button = registerItem("push_button", IRBaseItem::new);
     public static final RegistryObject<Item> label_5 = registerItem("label_5", IRBaseItem::new);
+
+
+    public static final RegistryObject<Item> SCREW_DRIVE = registerItem("screwdrive", ItemPowerScrewDrive::new);
 
     public static void register(final IForgeRegistry<Item> registry) {
         for (Item item : IndustrialRenewal.registeredIRItems) {

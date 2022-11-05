@@ -1,4 +1,4 @@
-package com.cassiokf.industrialrenewal.blockentity.tubes;
+package com.cassiokf.industrialrenewal.blockentity.transport;
 
 import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntityEnergyCable;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
