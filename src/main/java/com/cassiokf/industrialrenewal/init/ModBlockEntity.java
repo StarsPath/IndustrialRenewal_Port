@@ -56,6 +56,14 @@ public class ModBlockEntity {
             BLOCK_ENTITIES.register("fluid_valve_tile", ()-> BlockEntityType.Builder.of(
                     BlockEntityFluidValve::new, ModBlocks.FLUID_VALVE.get()).build(null));
 
+    public static RegistryObject<BlockEntityType<BlockEntityWindTurbinePillar>> TURBINE_PILLAR_TILE =
+            BLOCK_ENTITIES.register("turbine_pillar_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityWindTurbinePillar::new, ModBlocks.TURBINE_PILLAR.get()).build(null));
+
+    public static RegistryObject<BlockEntityType<BlockEntityWindTurbineHead>> WIND_TURBINE_TILE =
+            BLOCK_ENTITIES.register("wind_turbine_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityWindTurbineHead::new, ModBlocks.WIND_TURBINE.get()).build(null));
+
     public static void registerInit(IEventBus bus){
         BLOCK_ENTITIES.register(bus);
     }

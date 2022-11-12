@@ -1,9 +1,7 @@
 package com.cassiokf.industrialrenewal.init;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
-import com.cassiokf.industrialrenewal.blocks.BlockBarrel;
-import com.cassiokf.industrialrenewal.blocks.BlockBatteryBank;
-import com.cassiokf.industrialrenewal.blocks.BlockSolarPanel;
+import com.cassiokf.industrialrenewal.blocks.*;
 import com.cassiokf.industrialrenewal.blocks.abstracts.IRBaseBlock;
 import com.cassiokf.industrialrenewal.blocks.transport.*;
 import com.cassiokf.industrialrenewal.util.enums.EnumEnergyCableType;
@@ -36,8 +34,6 @@ public class ModBlocks {
     public static final RegistryObject<Block> STEELBLOCK = registerBlock("block_steel", IRBaseBlock::new);
     public static final RegistryObject<Block> CONCRETE = registerBlock("concrete", IRBaseBlock::new);
 
-
-
     public static final RegistryObject<Block> SOLAR_PANEL = registerBlock("solar_panel", BlockSolarPanel::new);
 
     public static final RegistryObject<Block> BATTERY_BANK = registerBlock("battery_bank", BlockBatteryBank::new);
@@ -55,22 +51,24 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockFluidPipe> FLUID_PIPE = registerBlock("fluid_pipe", BlockFluidPipe::new);
 
-
     public static final RegistryObject<BlockHighPressureFluidPipe> HIGH_PRESSURE_PIPE = registerBlock("high_pressure_pipe", BlockHighPressureFluidPipe::new);
 
     public static final RegistryObject<BlockBarrel> BARREL = registerBlock("barrel", BlockBarrel::new);
 
-
     public static final RegistryObject<BlockEnergySwitch> ENERGY_SWITCH = registerBlock("energy_switch",
             ()-> new BlockEnergySwitch(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
                     .sound(SoundType.METAL).noOcclusion()));
-
-
     public static final RegistryObject<BlockFluidValve> FLUID_VALVE = registerBlock("valve_pipe_large",
             ()-> new BlockFluidValve(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
                     .sound(SoundType.METAL).noOcclusion()));
 
+    public static final RegistryObject<BlockWindTurbinePillar> TURBINE_PILLAR = registerBlock("small_wind_turbine_pillar",
+            () -> new BlockWindTurbinePillar(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
 
+    public static final RegistryObject<BlockWindTurbineHead> WIND_TURBINE = registerBlock("small_wind_turbine",
+            () -> new BlockWindTurbineHead(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
 
 
 

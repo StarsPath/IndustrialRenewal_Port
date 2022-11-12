@@ -1,6 +1,7 @@
 package com.cassiokf.industrialrenewal.blockentity.transport;
 
 import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntityFluidPipeBase;
+import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,7 +18,7 @@ public class BlockEntityHighPressureFluidPipe extends BlockEntityFluidPipeBase<B
     private int tick = 0;
 
     public BlockEntityHighPressureFluidPipe(BlockPos pos, BlockState state){
-        super(ModBlockEntity.HIGH_PRESSURE_PIPE.get(), pos, state,1000 * 40);
+        super(ModBlockEntity.HIGH_PRESSURE_PIPE.get(), pos, state, Config.HIGH_PRESSURE_PIPE_TRANSFER_RATE.get());
     }
 
     @Override

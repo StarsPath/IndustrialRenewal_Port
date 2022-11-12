@@ -13,4 +13,8 @@ public class ItemPowerScrewDrive extends IRBaseItem{
     public ItemPowerScrewDrive() {
         super(new Properties().stacksTo(1).tab(IndustrialRenewal.IR_TAB));
     }
+
+    public ItemPowerScrewDrive(Properties props) {
+        super(props);
+    }
 }

@@ -1,6 +1,7 @@
 package com.cassiokf.industrialrenewal.blockentity.transport;
 
 import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntityEnergyCable;
+import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -13,8 +14,7 @@ public class BlockEntityEnergyCableLV extends BlockEntityEnergyCable {
     }
     @Override
     public int getMaxEnergyToTransport() {
-//        return Config.LV_CABLE_TRANSFER_RATE.get();
-        return 256;
+        return Config.LV_CABLE_TRANSFER_RATE.get();
     }
 
     @Override

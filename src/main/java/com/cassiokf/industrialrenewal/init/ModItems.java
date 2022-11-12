@@ -3,6 +3,7 @@ package com.cassiokf.industrialrenewal.init;
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.items.IRBaseItem;
 import com.cassiokf.industrialrenewal.items.ItemPowerScrewDrive;
+import com.cassiokf.industrialrenewal.items.ItemWindBlade;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -34,7 +35,13 @@ public class ModItems {
     public static final RegistryObject<Item> label_5 = registerItem("label_5", IRBaseItem::new);
 
 
-    public static final RegistryObject<Item> SCREW_DRIVE = registerItem("screwdrive", ItemPowerScrewDrive::new);
+//    public static final RegistryObject<Item> SCREW_DRIVE = registerItem("screwdrive", ItemPowerScrewDrive::new);
+    public static final RegistryObject<Item> SCREW_DRIVE = registerItem("screwdrive", ()->
+            new ItemPowerScrewDrive(new Item.Properties().stacksTo(1).tab(IndustrialRenewal.IR_TAB)));
+
+    public static final RegistryObject<Item> WIND_BLADE = registerItem("small_wind_blade", ()->
+            new ItemWindBlade(new Item.Properties().durability(48 * 60).tab(IndustrialRenewal.IR_TAB)));
+
 
     public static void register(final IForgeRegistry<Item> registry) {
         for (Item item : IndustrialRenewal.registeredIRItems) {
