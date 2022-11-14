@@ -6,15 +6,18 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -166,7 +169,10 @@ public abstract class TESRBase <T extends BlockEntity> implements BlockEntityRen
         BakedModel model = Minecraft.getInstance().getItemRenderer().getModel(stack, world, null, 0);
         model = ForgeHooksClient.handleCameraTransforms(matrixStack, model, ItemTransforms.TransformType.GROUND, false);
 
+
+//        Utils.debug("", combinedLightIn);
         Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, matrixStack, buffetIn, combinedLightIn, combinedOverlayIn, model);
+//        Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE, combinedLightIn, combinedOverlayIn, matrixStack, buffetIn, 0);
 
         matrixStack.popPose();
     }

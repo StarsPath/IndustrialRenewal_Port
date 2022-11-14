@@ -105,6 +105,6 @@ public class BlockWindTurbineHead extends BlockAbstractHorizontalFacing implemen
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState p_153213_, BlockEntityType<T> p_153214_) {
-        return level.isClientSide? null : ($0, $1, $2, blockEntity) -> ((BlockEntityWindTurbineHead)blockEntity).tick();
+        return ($0, $1, $2, blockEntity) -> ((BlockEntityWindTurbineHead)blockEntity).tick();
     }
 }

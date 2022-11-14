@@ -3,6 +3,7 @@ package com.cassiokf.industrialrenewal.util;
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.mojang.math.Vector3d;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TextComponent;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
@@ -558,5 +560,11 @@ public class Utils {
 
     public static double distance(BlockPos start, BlockPos end){
         return Math.sqrt(start.distSqr(end));
+    }
+
+    public static int getLightLevel(Level level, BlockPos pos){
+        int bLight = level.getBrightness(LightLayer.BLOCK, pos);
+        int sLight = level.getBrightness(LightLayer.SKY, pos);
+        return LightTexture.pack(bLight, sLight);
     }
 }

@@ -7,6 +7,7 @@ import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.items.ItemWindBlade;
 import com.cassiokf.industrialrenewal.util.CustomEnergyStorage;
 import com.cassiokf.industrialrenewal.util.CustomItemStackHandler;
+import com.cassiokf.industrialrenewal.util.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -124,9 +125,9 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
                     }
                 }
             }
-        } else
-        {
-            rotation += 4.5f * getEfficiency();
+        }
+        else{
+            rotation += 2.5f * getEfficiency();
             if (rotation > 360) rotation = 0;
         }
     }
@@ -138,6 +139,7 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
 
     public float getRotation()
     {
+//        Utils.debug("getrotation===========", -rotation);
         return -rotation;
     }
 
@@ -204,6 +206,7 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
             compoundTag.put("inv", tag);
         });
         compoundTag.putInt("generation", this.energyGenerated);
+        compoundTag.putFloat("rotation", this.rotation);
         compoundTag.putInt("damageTick", tickToDamage);
         super.saveAdditional(compoundTag);
     }
@@ -215,6 +218,7 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
         CompoundTag invTag = compoundTag.getCompound("inv");
         bladeInv.ifPresent(h -> ((INBTSerializable<CompoundTag>) h).deserializeNBT(invTag));
         energyGenerated = compoundTag.getInt("generation");
+        rotation = compoundTag.getFloat("rotation");
         tickToDamage = compoundTag.getInt("damageTick");
         super.load(compoundTag);
     }
