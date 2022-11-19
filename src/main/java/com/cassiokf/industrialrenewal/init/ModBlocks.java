@@ -70,6 +70,12 @@ public class ModBlocks {
             () -> new BlockWindTurbineHead(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
                     .sound(SoundType.METAL).noOcclusion()));
 
+    public static final RegistryObject<BlockPortableGenerator> PORTABLE_GENERATOR = registerBlock("portable_generator",
+            () -> new BlockPortableGenerator(BlockBehaviour.Properties.of(Material.METAL).strength(2f)
+                    .sound(SoundType.METAL).noOcclusion()));
+
+
+
 
 
 

@@ -3,6 +3,7 @@ package com.cassiokf.industrialrenewal.events;
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.tesr.TESRBatteryBank;
+import com.cassiokf.industrialrenewal.tesr.TESRPortableGenerator;
 import com.cassiokf.industrialrenewal.tesr.TESRWindTurbineHead;
 import com.cassiokf.industrialrenewal.tesr.TESRWindTurbinePillar;
 import net.minecraftforge.api.distmarker.Dist;
@@ -24,5 +25,6 @@ public final class ClientModEvents {
         event.registerBlockEntityRenderer(ModBlockEntity.BATTERY_BANK.get(), TESRBatteryBank::new);
         event.registerBlockEntityRenderer(ModBlockEntity.WIND_TURBINE_TILE.get(), TESRWindTurbineHead::new);
         event.registerBlockEntityRenderer(ModBlockEntity.TURBINE_PILLAR_TILE.get(), TESRWindTurbinePillar::new);
+        event.registerBlockEntityRenderer(ModBlockEntity.PORTABLE_GENERATOR_TILE.get(), TESRPortableGenerator::new);
     }
 }

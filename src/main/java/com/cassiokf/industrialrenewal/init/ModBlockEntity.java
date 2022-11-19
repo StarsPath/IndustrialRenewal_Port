@@ -64,6 +64,10 @@ public class ModBlockEntity {
             BLOCK_ENTITIES.register("wind_turbine_tile", ()-> BlockEntityType.Builder.of(
                     BlockEntityWindTurbineHead::new, ModBlocks.WIND_TURBINE.get()).build(null));
 
+    public static RegistryObject<BlockEntityType<BlockEntityPortableGenerator>> PORTABLE_GENERATOR_TILE =
+            BLOCK_ENTITIES.register("portable_generator_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityPortableGenerator::new, ModBlocks.PORTABLE_GENERATOR.get()).build(null));
+
     public static void registerInit(IEventBus bus){
         BLOCK_ENTITIES.register(bus);
     }
