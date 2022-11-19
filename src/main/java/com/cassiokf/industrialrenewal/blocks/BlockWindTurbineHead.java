@@ -10,6 +10,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -106,5 +108,18 @@ public class BlockWindTurbineHead extends BlockAbstractHorizontalFacing implemen
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState p_153213_, BlockEntityType<T> p_153214_) {
         return ($0, $1, $2, blockEntity) -> ((BlockEntityWindTurbineHead)blockEntity).tick();
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean flag) {
+        if (!state.is(oldState.getBlock())) {
+            BlockEntity blockentity = world.getBlockEntity(pos);
+            if (blockentity instanceof BlockEntityWindTurbineHead) {
+                ((BlockEntityWindTurbineHead)blockentity).dropContents();
+                world.updateNeighbourForOutputSignal(pos, this);
+            }
+
+            super.onRemove(state, world, pos, oldState, flag);
+        }
     }
 }

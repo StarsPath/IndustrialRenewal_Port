@@ -76,11 +76,14 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
         };
     }
 
-    @Override
-    public void setRemoved() {
+    public void dropContents(){
         bladeInv.ifPresent(inv->{
             Block.popResource(level, worldPosition, inv.getStackInSlot(0));
         });
+    }
+
+    @Override
+    public void setRemoved() {
         super.setRemoved();
     }
 
@@ -206,7 +209,7 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
             compoundTag.put("inv", tag);
         });
         compoundTag.putInt("generation", this.energyGenerated);
-        compoundTag.putFloat("rotation", this.rotation);
+//        compoundTag.putFloat("rotation", this.rotation);
         compoundTag.putInt("damageTick", tickToDamage);
         super.saveAdditional(compoundTag);
     }
@@ -218,7 +221,7 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
         CompoundTag invTag = compoundTag.getCompound("inv");
         bladeInv.ifPresent(h -> ((INBTSerializable<CompoundTag>) h).deserializeNBT(invTag));
         energyGenerated = compoundTag.getInt("generation");
-        rotation = compoundTag.getFloat("rotation");
+//        rotation = compoundTag.getFloat("rotation");
         tickToDamage = compoundTag.getInt("damageTick");
         super.load(compoundTag);
     }

@@ -4,6 +4,8 @@ import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.blocks.*;
 import com.cassiokf.industrialrenewal.blocks.abstracts.IRBaseBlock;
 import com.cassiokf.industrialrenewal.blocks.transport.*;
+import com.cassiokf.industrialrenewal.util.enums.EnumConveyorTier;
+import com.cassiokf.industrialrenewal.util.enums.EnumConveyorType;
 import com.cassiokf.industrialrenewal.util.enums.EnumEnergyCableType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -73,6 +75,29 @@ public class ModBlocks {
     public static final RegistryObject<BlockPortableGenerator> PORTABLE_GENERATOR = registerBlock("portable_generator",
             () -> new BlockPortableGenerator(BlockBehaviour.Properties.of(Material.METAL).strength(2f)
                     .sound(SoundType.METAL).noOcclusion()));
+
+
+    public static final RegistryObject<BlockConveyor> CONVEYOR_BASIC = registerBlock("conveyor_bulk_basic",
+            ()-> new    BlockConveyor(EnumConveyorTier.BASIC));
+
+    public static final RegistryObject<BlockConveyor> CONVEYOR_FAST = registerBlock("conveyor_bulk_fast",
+            ()-> new BlockConveyor(EnumConveyorTier.FAST));
+
+    public static final RegistryObject<BlockConveyor> CONVEYOR_EXPRESS = registerBlock("conveyor_bulk_express",
+            ()-> new BlockConveyor(EnumConveyorTier.EXPRESS));
+
+//    public static final RegistryObject<BlockConveyor> CONVEYOR_HOPPER = registerBlock("conveyor_bulk_hopper",
+//            ()-> new BlockConveyor(EnumConveyorType.HOPPER), false);
+//
+//    public static final RegistryObject<BlockConveyor> CONVEYOR_INSERTER = registerBlock("conveyor_bulk_inserter",
+//            ()-> new BlockConveyor(EnumConveyorType.INSERTER), false);
+
+
+
+
+
+
+
 
 
 
