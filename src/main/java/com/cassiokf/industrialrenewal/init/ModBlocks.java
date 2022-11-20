@@ -78,7 +78,7 @@ public class ModBlocks {
 
 
     public static final RegistryObject<BlockConveyor> CONVEYOR_BASIC = registerBlock("conveyor_bulk_basic",
-            ()-> new    BlockConveyor(EnumConveyorTier.BASIC));
+            ()-> new BlockConveyor(EnumConveyorTier.BASIC));
 
     public static final RegistryObject<BlockConveyor> CONVEYOR_FAST = registerBlock("conveyor_bulk_fast",
             ()-> new BlockConveyor(EnumConveyorTier.FAST));

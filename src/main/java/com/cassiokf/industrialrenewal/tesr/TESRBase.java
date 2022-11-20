@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -169,10 +170,9 @@ public abstract class TESRBase <T extends BlockEntity> implements BlockEntityRen
         BakedModel model = Minecraft.getInstance().getItemRenderer().getModel(stack, world, null, 0);
         model = ForgeHooksClient.handleCameraTransforms(matrixStack, model, ItemTransforms.TransformType.GROUND, false);
 
-
 //        Utils.debug("", combinedLightIn);
-        Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, matrixStack, buffetIn, combinedLightIn, combinedOverlayIn, model);
-//        Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE, combinedLightIn, combinedOverlayIn, matrixStack, buffetIn, 0);
+        Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, true, matrixStack, buffetIn, combinedLightIn, OverlayTexture.NO_OVERLAY, model);
+//        Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, combinedLightIn, OverlayTexture.NO_OVERLAY, matrixStack, buffetIn, 1);
 
         matrixStack.popPose();
     }

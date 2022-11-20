@@ -1,6 +1,9 @@
 package com.cassiokf.industrialrenewal.blocks.transport;
 
+import com.cassiokf.industrialrenewal.blockentity.BlockEntityWindTurbineHead;
+import com.cassiokf.industrialrenewal.blockentity.transport.BlockEntityConveyor;
 import com.cassiokf.industrialrenewal.blocks.abstracts.BlockAbstractHorizontalFacing;
+import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModBlocks;
 import com.cassiokf.industrialrenewal.init.ModItems;
 import com.cassiokf.industrialrenewal.util.enums.EnumConveyorTier;
@@ -21,6 +24,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -31,10 +38,9 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.fml.common.Mod;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-
-public class BlockConveyor extends BlockAbstractHorizontalFacing {
+public class BlockConveyor extends BlockAbstractHorizontalFacing implements EntityBlock {
 
     public static final IntegerProperty MODE = IntegerProperty.create("mode", 0, 2);
 
@@ -310,5 +316,29 @@ public class BlockConveyor extends BlockAbstractHorizontalFacing {
             FINAL_SHAPE = FULL_SHAPE;
         }
         return FINAL_SHAPE;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return ModBlockEntity.CONVEYOR_TILE.get().create(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_) {
+        return ($0, $1, $2, blockEntity) -> ((BlockEntityConveyor)blockEntity).tick();
+    }
+
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean flag) {
+        if (!state.is(oldState.getBlock())) {
+            BlockEntity blockentity = world.getBlockEntity(pos);
+            if (blockentity instanceof BlockEntityConveyor) {
+                ((BlockEntityConveyor)blockentity).dropContents();
+                world.updateNeighbourForOutputSignal(pos, this);
+            }
+
+            super.onRemove(state, world, pos, oldState, flag);
+        }
     }
 }
