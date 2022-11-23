@@ -73,13 +73,13 @@ public class ModBlockEntity {
             BLOCK_ENTITIES.register("conveyor_tile", ()-> BlockEntityType.Builder.of(
                     BlockEntityConveyor::new, ModBlocks.CONVEYOR_BASIC.get(), ModBlocks.CONVEYOR_FAST.get(), ModBlocks.CONVEYOR_EXPRESS.get()).build(null));
 
-//    public static RegistryObject<TileEntityType<TileEntityConveyorHopper>> CONVEYOR_HOPPER_TILE =
-//            TILE_ENTITIES.register("conveyor_hopper_tile", ()-> TileEntityType.Builder.of(
-//                    TileEntityConveyorHopper::new, ModBlocks.CONVEYOR_HOPPER.get()).build(null));
-//
-//    public static RegistryObject<TileEntityType<TileEntityConveyorInserter>> CONVEYOR_INSERTER_TILE =
-//            TILE_ENTITIES.register("conveyor_inserter_tile", ()-> TileEntityType.Builder.of(
-//                    TileEntityConveyorInserter::new, ModBlocks.CONVEYOR_INSERTER.get()).build(null));
+    public static RegistryObject<BlockEntityType<BlockEntitySteamBoiler>> STEAM_BOILER_TILE =
+            BLOCK_ENTITIES.register("steam_boiler_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntitySteamBoiler::new, ModBlocks.STEAM_BOILER.get()).build(null));
+
+    public static RegistryObject<BlockEntityType<BlockEntitySteamTurbine>> STEAM_TURBINE_TILE =
+            BLOCK_ENTITIES.register("steam_turbine_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntitySteamTurbine::new, ModBlocks.STEAM_TURBINE.get()).build(null));
 
     public static void registerInit(IEventBus bus){
         BLOCK_ENTITIES.register(bus);

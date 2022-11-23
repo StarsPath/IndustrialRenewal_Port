@@ -26,10 +26,10 @@ public class TESRBatteryBank extends TESRBase<BlockEntityBatteryBank> {
 
         if(blockEntity!=null){
             Direction facing = blockEntity.getBlockState().getValue(BlockBatteryBank.FACING);
-            doTheMath(facing, x, z, 1.030, 0);
+            doTheMath(facing, x, z, 1.023, 0);
             renderText(stack, facing, xPos, y + 0.43, zPos, blockEntity.getText(), 0.005F);
 //            Utils.debug("RENDERING", blockEntity.getTankFill());
-            renderBarLevel(stack, Utils.getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), combinedOverlay, buffer, facing, xPos, y + 0.49, zPos, blockEntity.getTankFill(), 0.7F);
+            renderBarLevel(stack, lighting(blockEntity), combinedOverlay, buffer, facing, xPos, y + 0.49, zPos, blockEntity.getTankFill(), 0.7F);
         }
     }
 }

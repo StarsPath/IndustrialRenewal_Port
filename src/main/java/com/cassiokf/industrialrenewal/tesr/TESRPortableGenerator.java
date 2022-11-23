@@ -29,12 +29,12 @@ public class TESRPortableGenerator extends TESRBase<BlockEntityPortableGenerator
             doTheMath(facing, x, z, 1.02, -0.26);
             renderText(stack, facing, xPos, y + 0.514, zPos, blockEntity.getTankText(), 0.005F);
             //renderText(facing, xPos, y + 0.514, zPos, tileEntity.getTankText(), 0.005F);
-            renderPointer(stack, Utils.getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), combinedOverlay, buffer, facing, xPos, y + 0.68, zPos, blockEntity.getTankFill(), pointer, 0.2F);
+            renderPointer(stack, lighting(blockEntity), combinedOverlay, buffer, facing, xPos, y + 0.68, zPos, blockEntity.getTankFill(), pointer, 0.2F);
 
             doTheMath(facing, x, z, 1.02, 0.27);
             renderText(stack, facing, xPos, y + 0.514, zPos, blockEntity.getEnergyText(), 0.005F);
             doTheMath(facing, x, z, 1.02, 0.332);
-            renderPointer(stack, Utils.getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), combinedOverlay, buffer, facing, xPos, y + 0.627, zPos, blockEntity.getEnergyFill(), pointerLong, 0.35F);
+            renderPointer(stack, lighting(blockEntity), combinedOverlay, buffer, facing, xPos, y + 0.627, zPos, blockEntity.getEnergyFill(), pointerLong, 0.35F);
         }
         super.render(blockEntity, partialTick, stack, buffer, combinedOverlay, packedLight);
     }

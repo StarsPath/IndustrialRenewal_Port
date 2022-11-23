@@ -25,7 +25,7 @@ public class TESRConveyor extends TESRBase<BlockEntityConveyorBase>{
         Direction facing = blockEntity.getBlockFacing();
         int mode = blockEntity.getMode();
 
-//        Utils.debug("light", Utils.getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), packedLight);
+//        Utils.debug("light", lighting(blockEntity), packedLight);
 
         if (!stack3.isEmpty())
         {
@@ -35,21 +35,21 @@ public class TESRConveyor extends TESRBase<BlockEntityConveyorBase>{
 //            float stack3Progress = smoothAnimation(offset, oldOffset, partialTicks, false);
             double stack3Progress = blockEntity.stack3Pos;
             doTheMath(facing, x, z, 1 - (1 * stack3Progress), 0);
-            render3dItem(stack, Utils.getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), combinedOverlay, buffer, facing, blockEntity.getLevel(), xPos, (y + blockEntity.getMinYOffset(2, mode)) + (blockEntity.getMaxYOffset(mode) * stack3Progress), zPos, stack3, 1, false, 90, 1, 0, 0);
+            render3dItem(stack, lighting(blockEntity), combinedOverlay, buffer, facing, blockEntity.getLevel(), xPos, (y + blockEntity.getMinYOffset(2, mode)) + (blockEntity.getMaxYOffset(mode) * stack3Progress), zPos, stack3, 1, false, 90, 1, 0, 0);
         }
         if (!stack2.isEmpty())
         {
             double stack2Pos = blockEntity.stack2Pos;
             //float stack2Pos = smoothAnimation(tileEntity.getStackOffset(1, false), tileEntity.getStackOffset(1, true), partialTicks, false);
             doTheMath(facing, x, z, 1 - (1 * stack2Pos), 0);
-            render3dItem(stack, Utils.getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), combinedOverlay, buffer, facing, blockEntity.getLevel(), xPos, (y + blockEntity.getMinYOffset(1, mode)) + (blockEntity.getMaxYOffset(mode) * stack2Pos), zPos, stack2, 1, false, 90, 1, 0, 0);
+            render3dItem(stack, lighting(blockEntity), combinedOverlay, buffer, facing, blockEntity.getLevel(), xPos, (y + blockEntity.getMinYOffset(1, mode)) + (blockEntity.getMaxYOffset(mode) * stack2Pos), zPos, stack2, 1, false, 90, 1, 0, 0);
         }
         if (!stack1.isEmpty())
         {
             double stack1Pos = blockEntity.stack1Pos;
 //            float stack1Pos = smoothAnimation(tileEntity.getStackOffset(0, false), tileEntity.getStackOffset(0, true), partialTicks, false);
             doTheMath(facing, x, z, 1 - (1 * stack1Pos), 0);
-            render3dItem(stack, Utils.getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), combinedOverlay, buffer, facing, blockEntity.getLevel(), xPos, (y + blockEntity.getMinYOffset(0, mode)) + (blockEntity.getMaxYOffset(mode) * stack1Pos), zPos, stack1, 1, false, 90, 1, 0, 0);
+            render3dItem(stack, lighting(blockEntity), combinedOverlay, buffer, facing, blockEntity.getLevel(), xPos, (y + blockEntity.getMinYOffset(0, mode)) + (blockEntity.getMaxYOffset(mode) * stack1Pos), zPos, stack1, 1, false, 90, 1, 0, 0);
         }
         super.render(blockEntity, partialTick, stack, buffer, combinedOverlay, packedLight);
     }

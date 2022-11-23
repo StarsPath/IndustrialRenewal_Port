@@ -86,11 +86,14 @@ public class ModBlocks {
     public static final RegistryObject<BlockConveyor> CONVEYOR_EXPRESS = registerBlock("conveyor_bulk_express",
             ()-> new BlockConveyor(EnumConveyorTier.EXPRESS));
 
-//    public static final RegistryObject<BlockConveyor> CONVEYOR_HOPPER = registerBlock("conveyor_bulk_hopper",
-//            ()-> new BlockConveyor(EnumConveyorType.HOPPER), false);
-//
-//    public static final RegistryObject<BlockConveyor> CONVEYOR_INSERTER = registerBlock("conveyor_bulk_inserter",
-//            ()-> new BlockConveyor(EnumConveyorType.INSERTER), false);
+
+    public static final RegistryObject<BlockSteamBoiler> STEAM_BOILER = registerBlock("steam_boiler",
+            ()-> new BlockSteamBoiler(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<BlockSteamTurbine> STEAM_TURBINE = registerBlock("steam_turbine",
+            ()-> new BlockSteamTurbine(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
 
 
 

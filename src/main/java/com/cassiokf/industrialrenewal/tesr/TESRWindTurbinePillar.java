@@ -29,8 +29,8 @@ public class TESRWindTurbinePillar extends TESRBase<BlockEntityWindTurbinePillar
             doTheMath(facing, x, z, 0.78, 0);
             renderText(stack, facing, xPos, y + 0.72, zPos, blockEntity.getText(), 0.006F);
             doTheMath(facing, x, z, 0.78, 0.1f);
-            renderPointer(stack, combinedOverlay, combinedOverlay, buffer, facing, xPos, y + 0.845, zPos, blockEntity.getGenerationforGauge(), pointerLong, 0.38F);
-            renderPointer(stack, combinedOverlay, combinedOverlay, buffer, facing, xPos, y + 0.845, zPos, blockEntity.getEnergyGenerated(), limiter, 0.57F);
+            renderPointer(stack, lighting(blockEntity), combinedOverlay, buffer, facing, xPos, y + 0.845, zPos, blockEntity.getGenerationforGauge(), pointerLong, 0.38F);
+            renderPointer(stack, lighting(blockEntity), combinedOverlay, buffer, facing, xPos, y + 0.845, zPos, blockEntity.getEnergyGenerated(), limiter, 0.57F);
         }
     }
 }

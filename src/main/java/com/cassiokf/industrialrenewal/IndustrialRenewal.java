@@ -1,7 +1,9 @@
 package com.cassiokf.industrialrenewal;
 
+import com.cassiokf.industrialrenewal.events.EventHandler;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModBlocks;
+import com.cassiokf.industrialrenewal.init.ModFluids;
 import com.cassiokf.industrialrenewal.init.ModItems;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.item.CreativeModeTab;
@@ -54,6 +56,7 @@ public class IndustrialRenewal
         ModItems.registerInit(modEventBus);
         ModBlocks.registerInit(modEventBus);
         ModBlockEntity.registerInit(modEventBus);
+        ModFluids.init(modEventBus);
 
 
         // Register the setup method for modloading
@@ -71,6 +74,7 @@ public class IndustrialRenewal
     {
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
+        MinecraftForge.EVENT_BUS.register(EventHandler.class);
 //        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     }
 

@@ -124,7 +124,7 @@ public abstract class TESRBase <T extends BlockEntity> implements BlockEntityRen
     public static void renderBarLevel(PoseStack matrixStack, int combinedLightIn, int combinedOverlayIn, MultiBufferSource buffetIn, Direction facing, double x, double y, double z, float fill, float scale)
     {
         matrixStack.pushPose();
-        matrixStack.translate(x,y,z+0.007);
+        matrixStack.translate(x,y,z);
         rotateAccordingly(facing, matrixStack);
         matrixStack.scale(scale, fill * scale, 0.05f);
 
@@ -201,5 +201,10 @@ public abstract class TESRBase <T extends BlockEntity> implements BlockEntityRen
                 matrixStack.mulPose(new Quaternion(0, -90, 0, true));
                 break;
         }
+    }
+
+    public static int lighting(BlockEntity blockEntity){
+        return LightTexture.FULL_BRIGHT;
+//        return Utils.getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos());
     }
 }

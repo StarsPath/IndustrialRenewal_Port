@@ -34,7 +34,7 @@ public class TESRWindTurbineHead extends TESRBase<BlockEntityWindTurbineHead>{
             doTheMath(facing, x, z, 0, 0);
             float rotation = smoothAnimation(blockEntity.getRotation(), blockEntity.getRotation(), partialTick, true);
 //            Utils.debug("r", rotation);
-            render3dItem(stack, Utils.getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos()), combinedOverlay, buffer, facing, blockEntity.getLevel(), xPos, y + 0.5f, zPos, blade, 12, false, true, rotation, 0, 1, 0, true, false);
+            render3dItem(stack, lighting(blockEntity), combinedOverlay, buffer, facing, blockEntity.getLevel(), xPos, y + 0.5f, zPos, blade, 12, false, true, rotation, 0, 1, 0, true, false);
         }
     }
 }

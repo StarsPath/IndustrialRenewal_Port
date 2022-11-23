@@ -2,9 +2,13 @@ package com.cassiokf.industrialrenewal.init;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.items.IRBaseItem;
+import com.cassiokf.industrialrenewal.items.ItemFireBox;
 import com.cassiokf.industrialrenewal.items.ItemPowerScrewDrive;
 import com.cassiokf.industrialrenewal.items.ItemWindBlade;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -17,6 +21,10 @@ import java.util.function.Supplier;
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS
             = DeferredRegister.create(ForgeRegistries.ITEMS, IndustrialRenewal.MODID);
+
+    public static final RegistryObject<Item> STEAM_BUCKET = ITEMS.register("steam_bucket",
+            () -> new BucketItem(() -> ModFluids.STEAM.get(),
+                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(CreativeModeTab.TAB_MATERIALS)));
 
 //    public static final IRBaseItem pointer;
     public static final RegistryObject<Item> pointer = registerItem("pointer", IRBaseItem::new);
@@ -41,6 +49,12 @@ public class ModItems {
 
     public static final RegistryObject<Item> WIND_BLADE = registerItem("small_wind_blade", ()->
             new ItemWindBlade(new Item.Properties().durability(48 * 60).tab(IndustrialRenewal.IR_TAB)));
+
+    public static final RegistryObject<Item>FIREBOX_SOLID = registerItem("firebox_solid", ()->
+            new ItemFireBox(new Item.Properties().tab(IndustrialRenewal.IR_TAB), 1));
+
+    public static final RegistryObject<Item>FIREBOX_FLUID = registerItem("firebox_fluid", ()->
+            new ItemFireBox(new Item.Properties().tab(IndustrialRenewal.IR_TAB), 2));
 
 
     public static void register(final IForgeRegistry<Item> registry) {
