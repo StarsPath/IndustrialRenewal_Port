@@ -62,6 +62,11 @@ public class ModItems {
     public static final RegistryObject<Item>DRILL_DEEP = registerItem("drill_deep", ()->
             new ItemDrill(new Item.Properties().tab(IndustrialRenewal.IR_TAB).durability(2000)));
 
+    public static final RegistryObject<Item>BATTERY = registerItem("battery", ()->
+            new ItemBattery(new Item.Properties().tab(IndustrialRenewal.IR_TAB).stacksTo(1), 10000, 1000));
+
+    public static final RegistryObject<Item>BATTERY_LITHIUM = registerItem("battery_lithium", ()->
+            new ItemBattery(new Item.Properties().tab(IndustrialRenewal.IR_TAB).stacksTo(1), 100000, 10000));
 
 
 

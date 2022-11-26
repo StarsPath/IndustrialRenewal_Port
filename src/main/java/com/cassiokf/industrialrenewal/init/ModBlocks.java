@@ -101,6 +101,11 @@ public class ModBlocks {
                     .sound(SoundType.METAL).noOcclusion()));
 
 
+    public static final RegistryObject<BlockIndustrialBatteryBank> INDUSTRIAL_BATTERY_BANK = registerBlock("ind_battery_bank",
+            ()-> new BlockIndustrialBatteryBank(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
+
+
 
 
 

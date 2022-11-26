@@ -22,6 +22,8 @@ public final class ClientModEvents {
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.BATTERY_BANK.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.STEAM_BOILER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.STEAM_TURBINE.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.INDUSTRIAL_BATTERY_BANK.get(), RenderType.translucent());
+
         });
     }
 
@@ -35,5 +37,7 @@ public final class ClientModEvents {
         event.registerBlockEntityRenderer(ModBlockEntity.STEAM_BOILER_TILE.get(), TESRSteamBoiler::new);
         event.registerBlockEntityRenderer(ModBlockEntity.STEAM_TURBINE_TILE.get(), TESRSteamTurbine::new);
         event.registerBlockEntityRenderer(ModBlockEntity.MINER_TILE.get(), TESRMining::new);
+        event.registerBlockEntityRenderer(ModBlockEntity.INDUSTRIAL_BATTERY_TILE.get(), TESRIndustrialBatteryBank::new);
+
     }
 }

@@ -61,7 +61,6 @@ public abstract class Block3x3x3Base<TE extends BlockEntity3x3x3MachineBase> ext
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable LivingEntity livingEntity, ItemStack itemStack) {
         if(!world.isClientSide)
         {
-            Utils.debug("PLACING");
             Direction facing = state.getValue(FACING);
             world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
             if (isValidPosition(world, pos, facing)) {
@@ -108,7 +107,6 @@ public abstract class Block3x3x3Base<TE extends BlockEntity3x3x3MachineBase> ext
     public boolean isValidPosition(Level worldIn, BlockPos pos, Direction facing)
     {
         Player player = worldIn.getNearestPlayer(TargetingConditions.forNonCombat(), pos.getX(), pos.getY(), pos.getZ());
-        Utils.debug("VALIDATING", player == null);
         if (player == null) return false;
         for (int y = 0; y < 3; y++)
         {

@@ -86,7 +86,9 @@ public class ModBlockEntity {
                     BlockEntityMiner::new, ModBlocks.MINER.get()).build(null));
 
 
-
+    public static RegistryObject<BlockEntityType<BlockEntityIndustrialBatteryBank>> INDUSTRIAL_BATTERY_TILE =
+            BLOCK_ENTITIES.register("ind_battery_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityIndustrialBatteryBank::new, ModBlocks.INDUSTRIAL_BATTERY_BANK.get()).build(null));
 
 
 
