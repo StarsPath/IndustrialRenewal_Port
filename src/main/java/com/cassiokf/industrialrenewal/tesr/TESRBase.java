@@ -4,6 +4,7 @@ import com.cassiokf.industrialrenewal.init.ModItems;
 import com.cassiokf.industrialrenewal.util.Utils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LightTexture;
@@ -59,7 +60,7 @@ public abstract class TESRBase <T extends BlockEntity> implements BlockEntityRen
         double lY = y;
         for (String line : text)
         {
-            renderText(matrixStack, facing, x, lY, z, Color.GREEN.getRGB() + line, scale, false);
+            renderText(matrixStack, facing, x, lY, z, ChatFormatting.GREEN + line, scale, false);
             lY -= spacing;
         }
     }
@@ -204,7 +205,7 @@ public abstract class TESRBase <T extends BlockEntity> implements BlockEntityRen
     }
 
     public static int lighting(BlockEntity blockEntity){
-        return LightTexture.FULL_BRIGHT;
-//        return Utils.getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos());
+//        return LightTexture.FULL_BRIGHT;
+        return Utils.getLightLevel(blockEntity.getLevel(), blockEntity.getBlockPos());
     }
 }

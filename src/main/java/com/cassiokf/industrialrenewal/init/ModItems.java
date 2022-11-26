@@ -1,10 +1,7 @@
 package com.cassiokf.industrialrenewal.init;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
-import com.cassiokf.industrialrenewal.items.IRBaseItem;
-import com.cassiokf.industrialrenewal.items.ItemFireBox;
-import com.cassiokf.industrialrenewal.items.ItemPowerScrewDrive;
-import com.cassiokf.industrialrenewal.items.ItemWindBlade;
+import com.cassiokf.industrialrenewal.items.*;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -55,6 +52,30 @@ public class ModItems {
 
     public static final RegistryObject<Item>FIREBOX_FLUID = registerItem("firebox_fluid", ()->
             new ItemFireBox(new Item.Properties().tab(IndustrialRenewal.IR_TAB), 2));
+
+    public static final RegistryObject<Item>DRILL_STEEL = registerItem("drill_steel", ()->
+            new ItemDrill(new Item.Properties().tab(IndustrialRenewal.IR_TAB).durability(600)));
+
+    public static final RegistryObject<Item>DRILL_DIAMOND = registerItem("drill_diamond", ()->
+            new ItemDrill(new Item.Properties().tab(IndustrialRenewal.IR_TAB).durability(1200)));
+
+    public static final RegistryObject<Item>DRILL_DEEP = registerItem("drill_deep", ()->
+            new ItemDrill(new Item.Properties().tab(IndustrialRenewal.IR_TAB).durability(2000)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public static void register(final IForgeRegistry<Item> registry) {

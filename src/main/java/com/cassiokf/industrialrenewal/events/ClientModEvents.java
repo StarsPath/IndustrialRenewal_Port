@@ -34,5 +34,6 @@ public final class ClientModEvents {
         event.registerBlockEntityRenderer(ModBlockEntity.CONVEYOR_TILE.get(), TESRConveyor::new);
         event.registerBlockEntityRenderer(ModBlockEntity.STEAM_BOILER_TILE.get(), TESRSteamBoiler::new);
         event.registerBlockEntityRenderer(ModBlockEntity.STEAM_TURBINE_TILE.get(), TESRSteamTurbine::new);
+        event.registerBlockEntityRenderer(ModBlockEntity.MINER_TILE.get(), TESRMining::new);
     }
 }

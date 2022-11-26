@@ -81,6 +81,30 @@ public class ModBlockEntity {
             BLOCK_ENTITIES.register("steam_turbine_tile", ()-> BlockEntityType.Builder.of(
                     BlockEntitySteamTurbine::new, ModBlocks.STEAM_TURBINE.get()).build(null));
 
+    public static RegistryObject<BlockEntityType<BlockEntityMiner>> MINER_TILE =
+            BLOCK_ENTITIES.register("miner_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityMiner::new, ModBlocks.MINER.get()).build(null));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static void registerInit(IEventBus bus){
         BLOCK_ENTITIES.register(bus);
     }
