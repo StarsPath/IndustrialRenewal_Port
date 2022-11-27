@@ -90,8 +90,9 @@ public class ModBlockEntity {
             BLOCK_ENTITIES.register("ind_battery_tile", ()-> BlockEntityType.Builder.of(
                     BlockEntityIndustrialBatteryBank::new, ModBlocks.INDUSTRIAL_BATTERY_BANK.get()).build(null));
 
-
-
+    public static RegistryObject<BlockEntityType<BlockEntityFluidTank>> FLUID_TANK_TILE =
+            BLOCK_ENTITIES.register("fluid_tank_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityFluidTank::new, ModBlocks.FLUID_TANK.get()).build(null));
 
 
 

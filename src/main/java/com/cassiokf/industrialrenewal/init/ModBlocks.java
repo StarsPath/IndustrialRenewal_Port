@@ -100,13 +100,14 @@ public class ModBlocks {
             ()-> new BlockMiner(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
                     .sound(SoundType.METAL).noOcclusion()));
 
-
     public static final RegistryObject<BlockIndustrialBatteryBank> INDUSTRIAL_BATTERY_BANK = registerBlock("ind_battery_bank",
             ()-> new BlockIndustrialBatteryBank(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
                     .sound(SoundType.METAL).noOcclusion()));
 
 
-
+    public static final RegistryObject<BlockFluidTank> FLUID_TANK = registerBlock("fluid_tank",
+            ()-> new BlockFluidTank(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
 
 
 
