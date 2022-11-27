@@ -27,7 +27,7 @@ public class BlockStorageChest extends Block3x3x2Base<BlockEntityStorageChest> i
     @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hitResult) {
         if (!worldIn.isClientSide()) {
-            Utils.debug("", worldIn.getBlockEntity(pos));
+//            Utils.debug("", worldIn.getBlockEntity(pos));
             BlockEntityStorageChest storageChestMaster = ((BlockEntityStorageChest) worldIn.getBlockEntity(pos)).getMaster();
             BlockPos masterPos = storageChestMaster.getBlockPos();
 

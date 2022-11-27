@@ -40,6 +40,18 @@ public class ModItems {
     public static final RegistryObject<Item> label_5 = registerItem("label_5", IRBaseItem::new);
 
 
+    public static final RegistryObject<Item> INGOT_STEEL = registerItem("ingot_steel", ()->
+            new IRBaseItem(new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+    public static final RegistryObject<Item> STICK_STEEL = registerItem("stick_steel", ()->
+            new IRBaseItem(new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+    public static final RegistryObject<Item> STICK_IRON = registerItem("stick_iron", ()->
+            new IRBaseItem(new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+    public static final RegistryObject<Item> STICK_COPPER = registerItem("stick_copper", ()->
+            new IRBaseItem(new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+    public static final RegistryObject<Item> STICK_GOLD = registerItem("stick_gold", ()->
+            new IRBaseItem(new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+
+
 //    public static final RegistryObject<Item> SCREW_DRIVE = registerItem("screwdrive", ItemPowerScrewDrive::new);
     public static final RegistryObject<Item> SCREW_DRIVE = registerItem("screwdrive", ()->
             new ItemPowerScrewDrive(new Item.Properties().stacksTo(1).tab(IndustrialRenewal.IR_TAB)));

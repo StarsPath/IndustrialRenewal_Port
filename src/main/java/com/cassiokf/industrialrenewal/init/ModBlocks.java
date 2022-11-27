@@ -115,6 +115,27 @@ public class ModBlocks {
                     .sound(SoundType.METAL).noOcclusion()));
 
 
+    public static final RegistryObject<BlockLathe> LATHE = registerBlock("lathe",
+            ()-> new BlockLathe(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

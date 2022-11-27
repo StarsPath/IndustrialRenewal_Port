@@ -3,21 +3,24 @@ package com.cassiokf.industrialrenewal.menus;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
-public class ScreenBase<T extends Container> extends ContainerScreen {
-    public ScreenBase(ChestMenu p_98409_, Inventory p_98410_, Component p_98411_) {
-        super(p_98409_, p_98410_, p_98411_);
+public class ScreenBase<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
+
+    public ScreenBase(T p_97741_, Inventory p_97742_, Component p_97743_) {
+        super(p_97741_, p_97742_, p_97743_);
     }
 
     @Override

@@ -63,9 +63,9 @@ public abstract class BlockEntity3x3x2MachineBase<TE extends BlockEntity3x3x2Mac
         return facing;
     }
 
-    public List<BlockPos> getListOfBlockPositions(BlockPos centerPosition)
+    public List<BlockPos> getListOfBlockPositions(BlockPos centerPosition, Direction facing)
     {
-        return Utils.getBlocksIn3x3x2Centered(centerPosition, getMasterFacing());
+        return Utils.getBlocksIn3x3x2Centered(centerPosition, facing);
     }
 
     @Override
@@ -74,12 +74,12 @@ public abstract class BlockEntity3x3x2MachineBase<TE extends BlockEntity3x3x2Mac
     }
 
     @Override
-    public void breakMultiBlocks() {
+    public void breakMultiBlocks(BlockState state) {
         if (!this.isMaster())
         {
             if (getMaster() != null)
             {
-                getMaster().breakMultiBlocks();
+                getMaster().breakMultiBlocks(state);
             }
             return;
         }
@@ -87,7 +87,7 @@ public abstract class BlockEntity3x3x2MachineBase<TE extends BlockEntity3x3x2Mac
         {
             breaking = true;
             onMasterBreak();
-            List<BlockPos> list = getListOfBlockPositions(worldPosition);
+            List<BlockPos> list = getListOfBlockPositions(worldPosition, state.getValue(Block3x3x2Base.FACING));
             for (BlockPos currentPos : list)
             {
                 Block block = level.getBlockState(currentPos).getBlock();

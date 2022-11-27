@@ -1,6 +1,7 @@
 package com.cassiokf.industrialrenewal.blockentity.abstracts;
 
 import com.cassiokf.industrialrenewal.blocks.abstracts.Block3x2x2Base;
+import com.cassiokf.industrialrenewal.blocks.abstracts.Block3x3x2Base;
 import com.cassiokf.industrialrenewal.util.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -52,9 +53,9 @@ public class BlockEntity3x2x2MachineBase<TE extends BlockEntity3x2x2MachineBase>
         return facing;
     }
 
-    public List<BlockPos> getListOfBlockPositions(BlockPos centerPosition)
+    public List<BlockPos> getListOfBlockPositions(BlockPos centerPosition, Direction facing)
     {
-        return Utils.getBlocksIn3x2x2Centered(centerPosition, getMasterFacing());
+        return Utils.getBlocksIn3x2x2Centered(centerPosition, facing);
     }
 
     @Override
@@ -63,12 +64,12 @@ public class BlockEntity3x2x2MachineBase<TE extends BlockEntity3x2x2MachineBase>
     }
 
     @Override
-    public void breakMultiBlocks() {
+    public void breakMultiBlocks(BlockState state) {
         if (!this.isMaster())
         {
             if (getMaster() != null)
             {
-                getMaster().breakMultiBlocks();
+                getMaster().breakMultiBlocks(state);
             }
             return;
         }
@@ -76,7 +77,7 @@ public class BlockEntity3x2x2MachineBase<TE extends BlockEntity3x2x2MachineBase>
         {
             breaking = true;
             onMasterBreak();
-            List<BlockPos> list = getListOfBlockPositions(worldPosition);
+            List<BlockPos> list = getListOfBlockPositions(worldPosition, state.getValue(Block3x3x2Base.FACING));
             for (BlockPos currentPos : list)
             {
                 Block block = level.getBlockState(currentPos).getBlock();

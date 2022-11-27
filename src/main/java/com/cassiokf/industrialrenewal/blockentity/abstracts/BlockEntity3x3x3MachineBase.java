@@ -58,14 +58,14 @@ public abstract class BlockEntity3x3x3MachineBase<TE extends BlockEntity3x3x3Mac
 
     public abstract boolean instanceOf(BlockEntity tileEntity);
 
-    public void breakMultiBlocks()
+    public void breakMultiBlocks(BlockState state)
     {
         //Utils.debug("breaking block", isMaster());
         if (!this.isMaster())
         {
             if (getMaster() != null)
             {
-                getMaster().breakMultiBlocks();
+                getMaster().breakMultiBlocks(state);
             }
             return;
         }

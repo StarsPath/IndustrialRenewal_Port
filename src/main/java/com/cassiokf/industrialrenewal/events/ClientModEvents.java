@@ -4,6 +4,7 @@ import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModBlocks;
 import com.cassiokf.industrialrenewal.init.ModMenus;
+import com.cassiokf.industrialrenewal.menus.screens.LatheScreen;
 import com.cassiokf.industrialrenewal.menus.screens.StorageChestScreen;
 import com.cassiokf.industrialrenewal.tesr.*;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -27,10 +28,13 @@ public final class ClientModEvents {
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.STEAM_TURBINE.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.INDUSTRIAL_BATTERY_BANK.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.FLUID_TANK.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.STORAGE_CHEST.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.LATHE.get(), RenderType.translucent());
 
         });
 
         MenuScreens.register(ModMenus.STORAGE_CHEST_CONTAINER.get(), StorageChestScreen::new);
+        MenuScreens.register(ModMenus.LATHE_CONTAINER.get(), LatheScreen::new);
     }
 
     @SubscribeEvent
@@ -45,6 +49,7 @@ public final class ClientModEvents {
         event.registerBlockEntityRenderer(ModBlockEntity.MINER_TILE.get(), TESRMining::new);
         event.registerBlockEntityRenderer(ModBlockEntity.INDUSTRIAL_BATTERY_TILE.get(), TESRIndustrialBatteryBank::new);
         event.registerBlockEntityRenderer(ModBlockEntity.FLUID_TANK_TILE.get(), TESRFluidTank::new);
+        event.registerBlockEntityRenderer(ModBlockEntity.LATHE_TILE.get(), TESRLathe::new);
 
     }
 }

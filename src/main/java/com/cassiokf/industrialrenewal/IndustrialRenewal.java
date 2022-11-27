@@ -55,6 +55,7 @@ public class IndustrialRenewal
         ModBlockEntity.registerInit(modEventBus);
         ModFluids.init(modEventBus);
         ModMenus.register(modEventBus);
+        ModRecipes.register(modEventBus);
 
 
         // Register the setup method for modloading

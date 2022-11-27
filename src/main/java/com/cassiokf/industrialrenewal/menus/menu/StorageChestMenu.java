@@ -13,7 +13,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class StorageChestMenu extends MenuBase {
 
-    private BlockEntityStorageChest tileEntity;
+    private final BlockEntityStorageChest tileEntity;
     private int currentPage = 0;
     private int slotsPerPage;
     private Inventory playerInventory;

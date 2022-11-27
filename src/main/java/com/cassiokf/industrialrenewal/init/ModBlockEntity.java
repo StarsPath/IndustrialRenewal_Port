@@ -98,6 +98,10 @@ public class ModBlockEntity {
             BLOCK_ENTITIES.register("storage_chest_tile", ()-> BlockEntityType.Builder.of(
                     BlockEntityStorageChest::new, ModBlocks.MINER.get()).build(null));
 
+    public static RegistryObject<BlockEntityType<BlockEntityLathe>> LATHE_TILE =
+            BLOCK_ENTITIES.register("lathe_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityLathe::new, ModBlocks.LATHE.get()).build(null));
+
 
 
 

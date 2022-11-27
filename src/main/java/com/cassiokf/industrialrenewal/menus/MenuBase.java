@@ -49,7 +49,6 @@ public abstract class MenuBase extends AbstractContainerMenu {
 
         int containerSlots = slots.size() - Inventory.INVENTORY_SIZE;
 
-        Utils.debug("MOVED", index, containerSlots, slots.size(), Inventory.INVENTORY_SIZE, itemstack);
         if (index < containerSlots)
         {
             if (!this.moveItemStackTo(itemstack1, containerSlots, slots.size(), true))

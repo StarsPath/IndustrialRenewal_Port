@@ -85,12 +85,12 @@ public class BlockEntity3x2x3MachineBase<TE extends BlockEntity3x2x3MachineBase>
     }
 
     @Override
-    public void breakMultiBlocks() {
+    public void breakMultiBlocks(BlockState state) {
         if (!this.isMaster())
         {
             if (getMaster() != null)
             {
-                getMaster().breakMultiBlocks();
+                getMaster().breakMultiBlocks(state);
             }
             return;
         }
@@ -109,13 +109,13 @@ public class BlockEntity3x2x3MachineBase<TE extends BlockEntity3x2x3MachineBase>
 
     @Override
     protected void saveAdditional(CompoundTag compoundTag) {
-        compoundTag.putBoolean("master", this.isMaster());
+        compoundTag.putLong("masterPos", masterPos.asLong());
         super.saveAdditional(compoundTag);
     }
 
     @Override
     public void load(CompoundTag compoundTag) {
-        this.master = compoundTag.getBoolean("master");
+        masterPos = BlockPos.of(compoundTag.getLong("masterPos"));
         super.load(compoundTag);
     }
 }

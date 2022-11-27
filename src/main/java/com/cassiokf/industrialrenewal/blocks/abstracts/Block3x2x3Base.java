@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
@@ -58,9 +59,8 @@ public abstract class Block3x2x3Base<TE extends BlockEntity3x2x3MachineBase> ext
     @Override
     public void destroy(LevelAccessor world, BlockPos pos, BlockState state) {
         if(!world.isClientSide()) {
-            List<BlockPos> blocks = Utils.getBlocksIn3x2x3Centered(pos);
-
             if (state.getValue(MASTER)) {
+                List<BlockPos> blocks = Utils.getBlocksIn3x2x3Centered(pos);
                 for (BlockPos blockPos : blocks) {
                     world.removeBlock(blockPos, false);
                 }
@@ -68,6 +68,20 @@ public abstract class Block3x2x3Base<TE extends BlockEntity3x2x3MachineBase> ext
 
             popResource((Level) world, pos, new ItemStack(this.asItem()));
         }
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean flag) {
+        if (!state.is(oldState.getBlock())) {
+            BlockEntity blockentity = world.getBlockEntity(pos);
+
+            if (blockentity instanceof BlockEntity3x2x3MachineBase) {
+                TE te = (TE)blockentity;
+                te.breakMultiBlocks(state);
+            }
+        }
+        super.onRemove(state, world, pos, oldState, flag);
+
     }
 
 

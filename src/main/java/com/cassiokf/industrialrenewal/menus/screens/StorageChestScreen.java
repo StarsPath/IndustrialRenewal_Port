@@ -2,11 +2,11 @@ package com.cassiokf.industrialrenewal.menus.screens;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.blockentity.BlockEntityStorageChest;
+import com.cassiokf.industrialrenewal.menus.ScreenBase;
 import com.cassiokf.industrialrenewal.menus.menu.StorageChestMenu;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
@@ -16,7 +16,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 //import com.cassiokf.IndustrialRenewal.network.NetworkHandler;
 
-public class StorageChestScreen extends AbstractContainerScreen<StorageChestMenu> {
+public class StorageChestScreen extends ScreenBase<StorageChestMenu> {
 
     private final BlockEntityStorageChest te;
     StorageChestMenu storageChestContainer;
