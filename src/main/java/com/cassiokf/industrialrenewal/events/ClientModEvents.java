@@ -3,7 +3,10 @@ package com.cassiokf.industrialrenewal.events;
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModBlocks;
+import com.cassiokf.industrialrenewal.init.ModMenus;
+import com.cassiokf.industrialrenewal.menus.screens.StorageChestScreen;
 import com.cassiokf.industrialrenewal.tesr.*;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,6 +29,8 @@ public final class ClientModEvents {
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.FLUID_TANK.get(), RenderType.translucent());
 
         });
+
+        MenuScreens.register(ModMenus.STORAGE_CHEST_CONTAINER.get(), StorageChestScreen::new);
     }
 
     @SubscribeEvent

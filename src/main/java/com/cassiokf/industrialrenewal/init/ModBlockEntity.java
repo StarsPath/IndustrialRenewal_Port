@@ -94,6 +94,10 @@ public class ModBlockEntity {
             BLOCK_ENTITIES.register("fluid_tank_tile", ()-> BlockEntityType.Builder.of(
                     BlockEntityFluidTank::new, ModBlocks.FLUID_TANK.get()).build(null));
 
+    public static RegistryObject<BlockEntityType<BlockEntityStorageChest>> STORAGE_CHEST_TILE =
+            BLOCK_ENTITIES.register("storage_chest_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityStorageChest::new, ModBlocks.MINER.get()).build(null));
+
 
 
 

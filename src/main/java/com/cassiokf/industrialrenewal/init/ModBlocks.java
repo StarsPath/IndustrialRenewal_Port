@@ -110,6 +110,9 @@ public class ModBlocks {
                     .sound(SoundType.METAL).noOcclusion()));
 
 
+    public static final RegistryObject<BlockStorageChest> STORAGE_CHEST = registerBlock("storage_chest",
+            ()-> new BlockStorageChest(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
 
 
 
