@@ -1,65 +1,70 @@
-//package com.cassiokf.industrialrenewal.data.client;
-//
-//import com.cassiokf.IndustrialRenewal.init.ModBlocks;
-//import com.google.common.collect.ImmutableList;
-//import com.mojang.datafixers.util.Pair;
-//import net.minecraft.block.Block;
-//import net.minecraft.data.DataGenerator;
-//import net.minecraft.data.LootTableProvider;
-//import net.minecraft.data.loot.BlockLootTables;
-//import net.minecraft.loot.*;
-//import net.minecraft.util.ResourceLocation;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Map;
-//import java.util.function.BiConsumer;
-//import java.util.function.Consumer;
-//import java.util.function.Supplier;
-//
-//public class ModLootTableProvider extends LootTableProvider {
-//    public ModLootTableProvider(DataGenerator generator) {
-//        super(generator);
-//    }
-//
-//    @Override
-//    protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables() {
-//        return ImmutableList.of(
-//                Pair.of(ModBlockLootTables::new, LootParameterSets.BLOCK)
-//        );
-//        //return super.getTables();
-//    }
-//
-//    @Override
-//    protected void validate(Map<ResourceLocation, LootTable> map, ValidationTracker validationtracker) {
-//        map.forEach((p_218436_2_, p_218436_3_) -> LootTableManager.validate(validationtracker, p_218436_2_, p_218436_3_));
-//        //super.validate(map, validationtracker);
-//    }
-//
-//    public static class ModBlockLootTables extends BlockLootTables{
-//        @Override
-//        protected void addTables() {
-//            dropSelf(ModBlocks.AISLEHAZARD.getBlock());
-//            dropSelf(ModBlocks.BLOCKHAZARD.getBlock());
-//            dropSelf(ModBlocks.CAUTIONHAZARD.getBlock());
-//            dropSelf(ModBlocks.DEFECTIVEHAZARD.getBlock());
-//            dropSelf(ModBlocks.SAFETYHAZARD.getBlock());
-//            dropSelf(ModBlocks.FIREHAZARD.getBlock());
-//            dropSelf(ModBlocks.RADIATIONHAZARD.getBlock());
-//            dropSelf(ModBlocks.CONCRETE.getBlock());
+package com.cassiokf.industrialrenewal.data.client;
+
+import com.cassiokf.industrialrenewal.init.ModBlocks;
+import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.ValidationContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+public class ModLootTableProvider extends LootTableProvider {
+    public ModLootTableProvider(DataGenerator generator) {
+        super(generator);
+    }
+
+    @Override
+    protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
+        return ImmutableList.of(
+                Pair.of(ModBlockLootTables::new, LootContextParamSets.BLOCK)
+        );
+        //return super.getTables();
+    }
+
+    @Override
+    protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationtracker) {
+        map.forEach((id, table) -> LootTables.validate(validationtracker, id, table));
+//        super.validate(map, validationtracker);
+    }
+
+    public static class ModBlockLootTables extends BlockLoot {
+        @Override
+        protected void addTables() {
+            dropSelf(ModBlocks.AISLEHAZARD.get());
+            dropSelf(ModBlocks.BLOCKHAZARD.get());
+            dropSelf(ModBlocks.CAUTIONHAZARD.get());
+            dropSelf(ModBlocks.DEFECTIVEHAZARD.get());
+            dropSelf(ModBlocks.SAFETYHAZARD.get());
+            dropSelf(ModBlocks.FIREHAZARD.get());
+            dropSelf(ModBlocks.RADIATIONHAZARD.get());
+            dropSelf(ModBlocks.CONCRETE.get());
 //            dropSelf(ModBlocks.CONCRETEWALL.get());
-//            dropSelf(ModBlocks.STEELBLOCK.getBlock());
+            dropSelf(ModBlocks.STEELBLOCK.get());
 //            dropSelf(ModBlocks.LOCKER.get());
-//            dropSelf(ModBlocks.SPANEL.get());
-//            dropSelf(ModBlocks.ENERGYCABLE_HV.get());
-//            dropSelf(ModBlocks.ENERGYCABLE_MV.get());
-//            dropSelf(ModBlocks.ENERGYCABLE_LV.get());
+            dropSelf(ModBlocks.SOLAR_PANEL.get());
+            dropSelf(ModBlocks.ENERGYCABLE_HV.get());
+            dropSelf(ModBlocks.ENERGYCABLE_MV.get());
+            dropSelf(ModBlocks.ENERGYCABLE_LV.get());
 //            dropSelf(ModBlocks.TRASH.get());
-//            dropSelf(ModBlocks.TURBINE_PILLAR.get());
-//            dropSelf(ModBlocks.WIND_TURBINE.get());
-//            dropSelf(ModBlocks.PORTABLE_GENERATOR.get());
-//            dropSelf(ModBlocks.FLUID_PIPE.get());
-//
+            dropSelf(ModBlocks.TURBINE_PILLAR.get());
+            dropSelf(ModBlocks.WIND_TURBINE.get());
+            dropSelf(ModBlocks.PORTABLE_GENERATOR.get());
+            dropSelf(ModBlocks.FLUID_PIPE.get());
+
 //            dropSelf(ModBlocks.BRACE.get());
 //            dropSelf(ModBlocks.BRACE_STEEL.get());
 //            dropSelf(ModBlocks.RAZOR_WIRE.get());
@@ -89,46 +94,56 @@
 //            dropSelf(ModBlocks.FLUORESCENT.get());
 //            dropSelf(ModBlocks.DAM_OUTLET.get());
 //            dropSelf(ModBlocks.DAM_INTAKE.get());
-//            dropSelf(ModBlocks.HIGH_PRESSURE_PIPE.get());
+            dropSelf(ModBlocks.HIGH_PRESSURE_PIPE.get());
 //            dropSelf(ModBlocks.ROTATIONAL_SHAFT.get());
-//            dropSelf(ModBlocks.CONVEYOR.get());
-////            dropSelf(ModBlocks.CONVEYOR_INSERTER.get());
-////            dropSelf(ModBlocks.CONVEYOR_HOPPER.get());
+            dropSelf(ModBlocks.CONVEYOR_BASIC.get());
+            dropSelf(ModBlocks.CONVEYOR_FAST.get());
+            dropSelf(ModBlocks.CONVEYOR_EXPRESS.get());
+//            dropSelf(ModBlocks.CONVEYOR_INSERTER.get());
+//            dropSelf(ModBlocks.CONVEYOR_HOPPER.get());
 //            dropSelf(ModBlocks.BOOSTER_RAIL.get());
 //            dropSelf(ModBlocks.INDUSTRIAL_FLOOR.get());
 //            dropSelf(ModBlocks.SPANEL_FRAME.get());
 //
 //            dropSelf(ModBlocks.HV_ISOLATOR.get());
-//            dropSelf(ModBlocks.FLUID_VALVE.get());
-//            dropSelf(ModBlocks.ENERGY_SWITCH.get());
-//
-//            //super.addTables();
-//        }
-//
+            dropSelf(ModBlocks.FLUID_VALVE.get());
+            dropSelf(ModBlocks.ENERGY_SWITCH.get());
+
+            //super.addTables();
+        }
+
 //        @Override
 //        protected Iterable<Block> getKnownBlocks() {
-//            ArrayList<Block> list = new ArrayList<>();
-//            list.add(ModBlocks.AISLEHAZARD.getBlock());
-//            list.add(ModBlocks.BLOCKHAZARD.getBlock());
-//            list.add(ModBlocks.CAUTIONHAZARD.getBlock());
-//            list.add(ModBlocks.DEFECTIVEHAZARD.getBlock());
-//            list.add(ModBlocks.SAFETYHAZARD.getBlock());
-//            list.add(ModBlocks.FIREHAZARD.getBlock());
-//            list.add(ModBlocks.RADIATIONHAZARD.getBlock());
-//            list.add(ModBlocks.CONCRETE.getBlock());
+//            return ModBlocks.BLOCKS.getEntries().stream().filter(x ->
+//                            x.equals(ModBlocks.BATTERY_BANK)||
+//                            x.equals(ModBlocks.BARREL)
+//                    ).map(RegistryObject::get)::iterator;
+//        }
+
+        @Override
+        protected Iterable<Block> getKnownBlocks() {
+            ArrayList<Block> list = new ArrayList<>();
+            list.add(ModBlocks.AISLEHAZARD.get());
+            list.add(ModBlocks.BLOCKHAZARD.get());
+            list.add(ModBlocks.CAUTIONHAZARD.get());
+            list.add(ModBlocks.DEFECTIVEHAZARD.get());
+            list.add(ModBlocks.SAFETYHAZARD.get());
+            list.add(ModBlocks.FIREHAZARD.get());
+            list.add(ModBlocks.RADIATIONHAZARD.get());
+            list.add(ModBlocks.CONCRETE.get());
 //            list.add(ModBlocks.CONCRETEWALL.get());
-//            list.add(ModBlocks.STEELBLOCK.getBlock());
+            list.add(ModBlocks.STEELBLOCK.get());
 //            list.add(ModBlocks.LOCKER.get());
-//            list.add(ModBlocks.SPANEL.get());
-//            list.add(ModBlocks.ENERGYCABLE_HV.get());
-//            list.add(ModBlocks.ENERGYCABLE_MV.get());
-//            list.add(ModBlocks.ENERGYCABLE_LV.get());
+            list.add(ModBlocks.SOLAR_PANEL.get());
+            list.add(ModBlocks.ENERGYCABLE_HV.get());
+            list.add(ModBlocks.ENERGYCABLE_MV.get());
+            list.add(ModBlocks.ENERGYCABLE_LV.get());
 //            list.add(ModBlocks.TRASH.get());
-//            list.add(ModBlocks.TURBINE_PILLAR.get());
-//            list.add(ModBlocks.WIND_TURBINE.get());
-//            list.add(ModBlocks.PORTABLE_GENERATOR.get());
-//            list.add(ModBlocks.FLUID_PIPE.get());
-//
+            list.add(ModBlocks.TURBINE_PILLAR.get());
+            list.add(ModBlocks.WIND_TURBINE.get());
+            list.add(ModBlocks.PORTABLE_GENERATOR.get());
+            list.add(ModBlocks.FLUID_PIPE.get());
+
 //            list.add(ModBlocks.BRACE.get());
 //            list.add(ModBlocks.BRACE_STEEL.get());
 //            list.add(ModBlocks.RAZOR_WIRE.get());
@@ -158,20 +173,22 @@
 //            list.add(ModBlocks.FLUORESCENT.get());
 //            list.add(ModBlocks.DAM_OUTLET.get());
 //            list.add(ModBlocks.DAM_INTAKE.get());
-//            list.add(ModBlocks.HIGH_PRESSURE_PIPE.get());
+            list.add(ModBlocks.HIGH_PRESSURE_PIPE.get());
 //            list.add(ModBlocks.ROTATIONAL_SHAFT.get());
-//            list.add(ModBlocks.CONVEYOR.get());
-////            list.add(ModBlocks.CONVEYOR_INSERTER.get());
-////            list.add(ModBlocks.CONVEYOR_HOPPER.get());
+            list.add(ModBlocks.CONVEYOR_BASIC.get());
+            list.add(ModBlocks.CONVEYOR_FAST.get());
+            list.add(ModBlocks.CONVEYOR_EXPRESS.get());
+//            list.add(ModBlocks.CONVEYOR_INSERTER.get());
+//            list.add(ModBlocks.CONVEYOR_HOPPER.get());
 //            list.add(ModBlocks.BOOSTER_RAIL.get());
 //            list.add(ModBlocks.INDUSTRIAL_FLOOR.get());
 //            list.add(ModBlocks.SPANEL_FRAME.get());
 //
 //            list.add(ModBlocks.HV_ISOLATOR.get());
-//            list.add(ModBlocks.FLUID_VALVE.get());
-//            list.add(ModBlocks.ENERGY_SWITCH.get());
-//
-//            return list;
-//        }
-//    }
-//}
+            list.add(ModBlocks.FLUID_VALVE.get());
+            list.add(ModBlocks.ENERGY_SWITCH.get());
+
+            return list;
+        }
+    }
+}

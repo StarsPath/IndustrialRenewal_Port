@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "BCC",
+    "DDD"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:leather"
+    },
+    "B": {
+      "tag": "forge:rods/steel"
+    },
+    "C": {
+      "item": "industrialrenewal:motor"
+    },
+    "D": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:conveyor_bulk_fast",
+    "count": 8
+  }
+}

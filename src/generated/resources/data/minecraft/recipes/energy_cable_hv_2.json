@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "AXA",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "industrialrenewal:energy_cable_mv"
+    },
+    "A": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:energy_cable_hv",
+    "count": 6
+  }
+}

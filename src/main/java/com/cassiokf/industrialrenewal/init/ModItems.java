@@ -51,6 +51,11 @@ public class ModItems {
     public static final RegistryObject<Item> STICK_GOLD = registerItem("stick_gold", ()->
             new IRBaseItem(new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
 
+    public static final RegistryObject<Item> SMALL_MOTOR = registerItem("motor", ()->
+            new IRBaseItem(new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+
+
+
 
 //    public static final RegistryObject<Item> SCREW_DRIVE = registerItem("screwdrive", ItemPowerScrewDrive::new);
     public static final RegistryObject<Item> SCREW_DRIVE = registerItem("screwdrive", ()->
