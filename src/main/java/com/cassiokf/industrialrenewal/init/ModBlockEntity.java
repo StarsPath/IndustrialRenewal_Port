@@ -19,6 +19,10 @@ public class ModBlockEntity {
                     BlockEntitySolarPanel::new, ModBlocks.SOLAR_PANEL.get()
             ).build(null));
 
+    public static RegistryObject<BlockEntityType<BlockEntitySolarPanelFrame>> SOLAR_PANEL_FRAME =
+            BLOCK_ENTITIES.register("solar_panel_frame", ()-> BlockEntityType.Builder.of(
+                    BlockEntitySolarPanelFrame::new, ModBlocks.SPANEL_FRAME.get()).build(null));
+
     public static RegistryObject<BlockEntityType<BlockEntityBatteryBank>> BATTERY_BANK =
             BLOCK_ENTITIES.register("battery_bank_tile", ()-> BlockEntityType.Builder.of(
                     BlockEntityBatteryBank::new, ModBlocks.BATTERY_BANK.get()
@@ -55,6 +59,14 @@ public class ModBlockEntity {
     public static RegistryObject<BlockEntityType<BlockEntityFluidValve>> FLUID_VALVE_TILE =
             BLOCK_ENTITIES.register("fluid_valve_tile", ()-> BlockEntityType.Builder.of(
                     BlockEntityFluidValve::new, ModBlocks.FLUID_VALVE.get()).build(null));
+
+    public static RegistryObject<BlockEntityType<BlockEntityElectricPump>> ELECTRIC_PUMP_TILE =
+            BLOCK_ENTITIES.register("electric_pump_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityElectricPump::new, ModBlocks.ELECTRIC_PUMP.get()).build(null));
+
+    public static RegistryObject<BlockEntityType<BlockEntityTrash>> TRASH_TILE =
+            BLOCK_ENTITIES.register("trash_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityTrash::new, ModBlocks.TRASH.get()).build(null));
 
     public static RegistryObject<BlockEntityType<BlockEntityWindTurbinePillar>> TURBINE_PILLAR_TILE =
             BLOCK_ENTITIES.register("turbine_pillar_tile", ()-> BlockEntityType.Builder.of(

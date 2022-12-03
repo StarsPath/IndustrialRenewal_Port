@@ -38,6 +38,10 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> SOLAR_PANEL = registerBlock("solar_panel", BlockSolarPanel::new);
 
+    public static final RegistryObject<BlockSolarPanelFrame> SPANEL_FRAME = registerBlock("solar_panel_frame",
+            () -> new BlockSolarPanelFrame(BlockBehaviour.Properties.of(Material.METAL).strength(2f)
+                    .sound(SoundType.METAL).noOcclusion()));
+
     public static final RegistryObject<Block> BATTERY_BANK = registerBlock("battery_bank", BlockBatteryBank::new);
 
 
@@ -62,6 +66,14 @@ public class ModBlocks {
                     .sound(SoundType.METAL).noOcclusion()));
     public static final RegistryObject<BlockFluidValve> FLUID_VALVE = registerBlock("valve_pipe_large",
             ()-> new BlockFluidValve(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<BlockElectricPump> ELECTRIC_PUMP = registerBlock("electric_pump",
+            ()-> new BlockElectricPump(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<BlockTrash> TRASH = registerBlock("trash",
+            () -> new BlockTrash(BlockBehaviour.Properties.of(Material.METAL).strength(2f)
                     .sound(SoundType.METAL).noOcclusion()));
 
     public static final RegistryObject<BlockWindTurbinePillar> TURBINE_PILLAR = registerBlock("small_wind_turbine_pillar",

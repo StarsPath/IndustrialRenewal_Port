@@ -162,32 +162,32 @@ public abstract class BlockEntityMultiBlocksTube<TE extends BlockEntityMultiBloc
         return posSet;
     }
 
-//    @Override
-//    public void setRemoved()
-//    {
-//        if (master != null)
-//        {
-//            master.setMaster(null);
-//            if (master != null) master.getMaster();
-//            else if (!isMaster) getMaster();
-//        }
-//
-//        for (Direction d : Direction.values())
-//        {
-//            BlockEntity te = level.getBlockEntity(getBlockPos().relative(d));
-//            if (instanceOf(te))
-//            {
-//                ((BlockEntityMultiBlocksTube) te).master = null;
-//
-////                if (te instanceof TileEntityCableTray)
-////                    ((TileEntityCableTray) te).refreshConnections();
-////                else
-//                    ((BlockEntityMultiBlocksTube) te).initializeMultiblockIfNecessary();
-//            }
-//        }
-//
-//        super.setRemoved();
-//    }
+    @Override
+    public void setRemoved()
+    {
+        if (master != null)
+        {
+            master.setMaster(null);
+            if (master != null) master.getMaster();
+            else if (!isMaster) getMaster();
+        }
+
+        for (Direction d : Direction.values())
+        {
+            BlockEntity te = level.getBlockEntity(getBlockPos().relative(d));
+            if (instanceOf(te))
+            {
+                ((BlockEntityMultiBlocksTube) te).master = null;
+
+//                if (te instanceof TileEntityCableTray)
+//                    ((TileEntityCableTray) te).refreshConnections();
+//                else
+                    ((BlockEntityMultiBlocksTube) te).initializeMultiblockIfNecessary();
+            }
+        }
+
+        super.setRemoved();
+    }
 
     public void addMachine(BlockPos pos, Direction face)
     {
