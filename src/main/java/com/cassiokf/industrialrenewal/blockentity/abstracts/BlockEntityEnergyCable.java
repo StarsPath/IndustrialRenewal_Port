@@ -36,6 +36,10 @@ public abstract class BlockEntityEnergyCable extends BlockEntityMultiBlocksTube<
         super(tileEntityType, pos, state);
     }
 
+//    @Override
+//    public boolean instanceOf(BlockEntity te) {
+//        return te instanceof BlockEntityEnergyCable;
+//    }
 
     public void tick() {
         if(!level.isClientSide && !isMaster()){

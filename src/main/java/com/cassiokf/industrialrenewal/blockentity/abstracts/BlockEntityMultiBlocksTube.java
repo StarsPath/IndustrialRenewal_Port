@@ -1,5 +1,6 @@
 package com.cassiokf.industrialrenewal.blockentity.abstracts;
 
+import com.cassiokf.industrialrenewal.util.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -154,7 +155,7 @@ public abstract class BlockEntityMultiBlocksTube<TE extends BlockEntityMultiBloc
         this.master = master;
         isMaster = master == this;
         if (!isMaster) posSet.clear();
-        requestModelRefresh();
+//        requestModelRefresh();
     }
 
     public Map<BlockPos, Direction> getPosSet()
@@ -165,28 +166,30 @@ public abstract class BlockEntityMultiBlocksTube<TE extends BlockEntityMultiBloc
     @Override
     public void setRemoved()
     {
+//        Utils.debug("SET REMOVED");
+        super.setRemoved();
         if (master != null)
         {
             master.setMaster(null);
-            if (master != null) master.getMaster();
-            else if (!isMaster) getMaster();
         }
+    }
 
+    public void breakBlock(){
+//        Utils.debug("BREAK BLOCK");
+        super.setRemoved();
+        if (master != null) master.getMaster();
+        else if (!isMaster) getMaster();
         for (Direction d : Direction.values())
         {
             BlockEntity te = level.getBlockEntity(getBlockPos().relative(d));
-            if (instanceOf(te))
+//            Utils.debug("", te instanceof BlockEntityMultiBlocksTube);
+            if (te instanceof BlockEntityMultiBlocksTube)
             {
                 ((BlockEntityMultiBlocksTube) te).master = null;
+                ((BlockEntityMultiBlocksTube) te).initializeMultiblockIfNecessary();
 
-//                if (te instanceof TileEntityCableTray)
-//                    ((TileEntityCableTray) te).refreshConnections();
-//                else
-                    ((BlockEntityMultiBlocksTube) te).initializeMultiblockIfNecessary();
             }
         }
-
-        super.setRemoved();
     }
 
     public void addMachine(BlockPos pos, Direction face)

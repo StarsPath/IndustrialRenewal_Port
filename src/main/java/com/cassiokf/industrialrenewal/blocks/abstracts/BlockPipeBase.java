@@ -1,5 +1,6 @@
 package com.cassiokf.industrialrenewal.blocks.abstracts;
 
+import com.cassiokf.industrialrenewal.blockentity.BlockEntityWindTurbineHead;
 import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntityMultiBlocksTube;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,7 +10,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -166,6 +169,20 @@ public abstract class BlockPipeBase<TE extends BlockEntityMultiBlocksTube> exten
 //        if(state.getValue(FLOOR))
 //            popResource((World)world, pos, new ItemStack(ModBlocks.INDUSTRIAL_FLOOR.get()));
 //    }
+
+
+    @Override
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean flag) {
+        if (!state.is(oldState.getBlock())) {
+            BlockEntity blockentity = world.getBlockEntity(pos);
+            if (blockentity instanceof BlockEntityMultiBlocksTube<?>) {
+                ((BlockEntityMultiBlocksTube)blockentity).breakBlock();
+                world.updateNeighbourForOutputSignal(pos, this);
+            }
+
+            super.onRemove(state, world, pos, oldState, flag);
+        }
+    }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
