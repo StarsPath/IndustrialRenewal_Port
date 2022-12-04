@@ -2,6 +2,9 @@ package com.cassiokf.industrialrenewal.blocks.abstracts;
 
 import com.cassiokf.industrialrenewal.blockentity.BlockEntityWindTurbineHead;
 import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntityMultiBlocksTube;
+import com.cassiokf.industrialrenewal.init.ModBlocks;
+import com.cassiokf.industrialrenewal.init.ModItems;
+import com.cassiokf.industrialrenewal.util.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -72,19 +75,26 @@ public abstract class BlockPipeBase<TE extends BlockEntityMultiBlocksTube> exten
     @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hitResult) {
         ItemStack playerStack = player.getItemInHand(handIn);
-//        if(playerStack.getItem().equals(ModBlocks.INDUSTRIAL_FLOOR.get().asItem()) && !state.getValue(FLOOR)){
-//            state = state.setValue(FLOOR, true);
+        if(playerStack.getItem().equals(ModBlocks.INDUSTRIAL_FLOOR.get().asItem()) && !state.getValue(FLOOR)){
+            state = state.setValue(FLOOR, true);
+            BlockState stateAbove = worldIn.getBlockState(pos.above());
+            if(stateAbove.getBlock() instanceof BlockPipeBase) {
+                worldIn.setBlock(pos, state.setValue(UPFlOOR, stateAbove.getValue(FLOOR)), 3);
+            }
+            else{
+                worldIn.setBlock(pos, state.setValue(UPFlOOR, false), 3);
+            }
+            if (!player.isCreative())
+                playerStack.shrink(1);
+            return InteractionResult.SUCCESS;
+        }
+        if(playerStack.getItem().equals(ModItems.SCREW_DRIVE.get()) && state.getValue(FLOOR)){
+            state = state.setValue(FLOOR, false);
 //            BlockState stateAbove = worldIn.getBlockState(pos.above());
-//            if(stateAbove.getBlock() instanceof BlockPipeBase) {
-//                worldIn.setBlock(pos, state.setValue(UPFlOOR, stateAbove.getValue(FLOOR)), 3);
-//            }
-//            else{
-//                worldIn.setBlock(pos, state.setValue(UPFlOOR, false), 3);
-//            }
-//            if (!player.isCreative())
-//                playerStack.shrink(1);
-//            return InteractionResult.SUCCESS;
-//        }
+            worldIn.setBlock(pos, state.setValue(UPFlOOR, false), 3);
+            Block.popResource(worldIn, pos, new ItemStack(ModBlocks.INDUSTRIAL_FLOOR.get()));
+            return InteractionResult.SUCCESS;
+        }
         return super.use(state, worldIn, pos, player, handIn, hitResult);
     }
 

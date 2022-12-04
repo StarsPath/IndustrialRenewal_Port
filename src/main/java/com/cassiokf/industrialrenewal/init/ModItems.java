@@ -2,10 +2,8 @@ package com.cassiokf.industrialrenewal.init;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.items.*;
-import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import com.cassiokf.industrialrenewal.items.decor.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -84,6 +82,59 @@ public class ModItems {
 
     public static final RegistryObject<Item>BATTERY_LITHIUM = registerItem("battery_lithium", ()->
             new ItemBattery(new Item.Properties().tab(IndustrialRenewal.IR_TAB).stacksTo(1), 100000, 10000));
+
+
+
+
+
+
+
+    public static final RegistryObject<BlockItem> PILLAR = ITEMS.register("catwalk_pillar",
+            ()-> new ItemBlockPillar(ModBlocks.PILLAR.get(), new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> PILLAR_STEEL = ITEMS.register("catwalk_steel_pillar",
+            ()-> new ItemBlockPillar(ModBlocks.PILLAR_STEEL.get(), new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> CATWALK = ITEMS.register("catwalk",
+            ()-> new ItemBlockCatwalk(ModBlocks.CATWALK.get(), new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> CATWALK_STEEL = ITEMS.register("catwalk_steel",
+            ()-> new ItemBlockCatwalk(ModBlocks.CATWALK_STEEL.get(), new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> CATWALK_STAIR = ITEMS.register("catwalk_stair",
+            ()-> new ItemBlockCatwalkStair(ModBlocks.CATWALK_STAIR.get(), new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> CATWALK_STEEL_STAIR = ITEMS.register("catwalk_stair_steel",
+            ()-> new ItemBlockCatwalkStair(ModBlocks.CATWALK_STAIR_STEEL.get(), new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> CATWALK_LADDER = ITEMS.register("catwalk_ladder",
+            ()-> new ItemBlockCatwalkLadder(ModBlocks.CATWALK_LADDER.get(), new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> CATWALK_LADDER_STEEL = ITEMS.register("catwalk_ladder_steel",
+            ()-> new ItemBlockCatwalkLadder(ModBlocks.CATWALK_LADDER_STEEL.get(), new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> PLATFORM = ITEMS.register("platform",
+            ()-> new ItemBlockPlatform(ModBlocks.PLATFORM.get(), new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+
+    public static final RegistryObject<BlockItem> SCAFFOLD = ITEMS.register("scaffold",
+            ()-> new ItemBlockScaffold(ModBlocks.SCAFFOLD.get(), new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
