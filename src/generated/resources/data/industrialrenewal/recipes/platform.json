@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "A A",
+    "ABA",
+    " C "
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:rods/iron"
+    },
+    "B": {
+      "tag": "minecraft:planks"
+    },
+    "C": {
+      "item": "industrialrenewal:catwalk_pillar"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:platform",
+    "count": 4
+  }
+}

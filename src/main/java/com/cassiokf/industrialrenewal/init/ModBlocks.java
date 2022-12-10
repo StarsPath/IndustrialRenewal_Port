@@ -3,6 +3,7 @@ package com.cassiokf.industrialrenewal.init;
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.blocks.*;
 import com.cassiokf.industrialrenewal.blocks.abstracts.IRBaseBlock;
+import com.cassiokf.industrialrenewal.blocks.dam.*;
 import com.cassiokf.industrialrenewal.blocks.decor.*;
 import com.cassiokf.industrialrenewal.blocks.transport.*;
 import com.cassiokf.industrialrenewal.util.enums.EnumConveyorTier;
@@ -225,6 +226,25 @@ public class ModBlocks {
             BlockFluorescent::new);
 
 
+
+
+
+    public static final RegistryObject<BlockDamIntake> DAM_INTAKE = registerBlock("dam_intake",
+            BlockDamIntake::new);
+
+    public static final RegistryObject<BlockDamOutlet> DAM_OUTLET = registerBlock("dam_outflow",
+            BlockDamOutlet::new);
+
+    public static final RegistryObject<BlockDamTurbine> DAM_TURBINE = registerBlock("dam_turbine",
+            ()-> new BlockDamTurbine(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<BlockRotationalShaft> ROTATIONAL_SHAFT = registerBlock("dam_axis",
+            BlockRotationalShaft::new);
+
+    public static final RegistryObject<BlockDamGenerator> DAM_GENERATOR = registerBlock("dam_generator",
+            ()-> new BlockDamGenerator(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
 
 
 

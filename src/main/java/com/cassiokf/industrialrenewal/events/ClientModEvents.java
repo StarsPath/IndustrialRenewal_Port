@@ -31,6 +31,8 @@ public final class ClientModEvents {
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.STORAGE_CHEST.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.LATHE.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.SPANEL_FRAME.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.DAM_GENERATOR.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.DAM_TURBINE.get(), RenderType.translucent());
 
         });
 
@@ -52,6 +54,8 @@ public final class ClientModEvents {
         event.registerBlockEntityRenderer(ModBlockEntity.FLUID_TANK_TILE.get(), TESRFluidTank::new);
         event.registerBlockEntityRenderer(ModBlockEntity.LATHE_TILE.get(), TESRLathe::new);
         event.registerBlockEntityRenderer(ModBlockEntity.SOLAR_PANEL_FRAME.get(), TESRSolarPanelFrame::new);
+        event.registerBlockEntityRenderer(ModBlockEntity.DAM_TURBINE_TILE.get(), TESRDamTurbine::new);
+        event.registerBlockEntityRenderer(ModBlockEntity.DAM_GENERATOR.get(), TESRDamGenerator::new);
 
     }
 }

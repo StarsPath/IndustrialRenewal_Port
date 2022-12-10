@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ACA",
+    "B B",
+    "BCB"
+  ],
+  "key": {
+    "A": {
+      "item": "industrialrenewal:energy_cable_hv"
+    },
+    "B": {
+      "item": "industrialrenewal:frame"
+    },
+    "C": {
+      "item": "industrialrenewal:scaffold"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:ind_battery_bank"
+  }
+}

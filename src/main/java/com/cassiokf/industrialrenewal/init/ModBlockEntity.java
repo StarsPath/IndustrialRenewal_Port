@@ -2,6 +2,10 @@ package com.cassiokf.industrialrenewal.init;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.blockentity.*;
+import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamGenerator;
+import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamIntake;
+import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamOutlet;
+import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamTurbine;
 import com.cassiokf.industrialrenewal.blockentity.transport.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -115,7 +119,21 @@ public class ModBlockEntity {
                     BlockEntityLathe::new, ModBlocks.LATHE.get()).build(null));
 
 
+    public static RegistryObject<BlockEntityType<BlockEntityDamIntake>> DAM_INTAKE =
+            BLOCK_ENTITIES.register("dam_intake", ()-> BlockEntityType.Builder.of(
+                    BlockEntityDamIntake::new, ModBlocks.DAM_INTAKE.get()).build(null));
 
+    public static RegistryObject<BlockEntityType<BlockEntityDamOutlet>> DAM_OUTLET =
+            BLOCK_ENTITIES.register("dam_outlet", ()-> BlockEntityType.Builder.of(
+                    BlockEntityDamOutlet::new, ModBlocks.DAM_OUTLET.get()).build(null));
+
+    public static RegistryObject<BlockEntityType<BlockEntityDamTurbine>> DAM_TURBINE_TILE =
+            BLOCK_ENTITIES.register("dam_turbine_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityDamTurbine::new, ModBlocks.DAM_TURBINE.get()).build(null));
+
+    public static RegistryObject<BlockEntityType<BlockEntityDamGenerator>> DAM_GENERATOR =
+            BLOCK_ENTITIES.register("dam_generator", ()-> BlockEntityType.Builder.of(
+                    BlockEntityDamGenerator::new, ModBlocks.DAM_GENERATOR.get()).build(null));
 
 
 

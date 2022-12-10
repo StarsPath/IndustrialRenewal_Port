@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:rods/iron"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:handrail",
+    "count": 4
+  }
+}
