@@ -32,7 +32,7 @@ public class BlockIndustrialFloor extends BlockAbstractSixWayConnections {
     protected static final VoxelShape C_EAST_AABB = Block.box(15, 0, 0, 16, 16, 16);
 
     public BlockIndustrialFloor() {
-        super(Block.Properties.of(Material.METAL), 16, 16);
+        super(Block.Properties.of(Material.METAL).strength(1f), 16, 16);
     }
 
     private static boolean isValidConnection(final BlockState neighborState, final BlockGetter world, final BlockPos ownPos, final Direction neighborDirection)
@@ -70,91 +70,13 @@ public class BlockIndustrialFloor extends BlockAbstractSixWayConnections {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
     }
 
-//    @Override
-//    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
-//    {
-//        return getVoxelShape(state);
-//    }
-//
-//    @Override
-//    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
-//    {
-//        return VoxelShapes.or(getVoxelShape(state), NONE_AABB);
-//    }
-//
-//    private VoxelShape getVoxelShape(BlockState state)
-//    {
-//        VoxelShape FINAL_SHAPE = NULL_SHAPE;
-//        if (isConnected(state, UP))
-//        {
-//            FINAL_SHAPE = VoxelShapes.or(FINAL_SHAPE, C_UP_AABB);
-//        }
-//        if (isConnected(state, DOWN))
-//        {
-//            FINAL_SHAPE = VoxelShapes.or(FINAL_SHAPE, C_DOWN_AABB);
-//        }
-//        if (isConnected(state, NORTH))
-//        {
-//            FINAL_SHAPE = VoxelShapes.or(FINAL_SHAPE, C_NORTH_AABB);
-//        }
-//        if (isConnected(state, SOUTH))
-//        {
-//            FINAL_SHAPE = VoxelShapes.or(FINAL_SHAPE, C_SOUTH_AABB);
-//        }
-//        if (isConnected(state, WEST))
-//        {
-//            FINAL_SHAPE = VoxelShapes.or(FINAL_SHAPE, C_WEST_AABB);
-//        }
-//        if (isConnected(state, EAST))
-//        {
-//            FINAL_SHAPE = VoxelShapes.or(FINAL_SHAPE, C_EAST_AABB);
-//        }
-//        return FINAL_SHAPE;
-//    }
-
-
     @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         ItemStack playerStack = player.getItemInHand(handIn);
-        if(playerStack.getItem().equals(ModBlocks.FLUID_PIPE.get().asItem())){
+
+        if(Block.byItem(playerStack.getItem()) instanceof BlockPipeBase<?>){
             worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundSource.BLOCKS, 1f, 1f);
-            worldIn.setBlock(pos, ModBlocks.FLUID_PIPE.get().defaultBlockState().setValue(BlockPipeBase.FLOOR, true), 3);
-            if (!player.isCreative())
-            {
-                playerStack.shrink(1);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        if(playerStack.getItem().equals(ModBlocks.HIGH_PRESSURE_PIPE.get().asItem())){
-            worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundSource.BLOCKS, 1f, 1f);
-            worldIn.setBlock(pos, ModBlocks.HIGH_PRESSURE_PIPE.get().defaultBlockState().setValue(BlockPipeBase.FLOOR, true), 3);
-            if (!player.isCreative())
-            {
-                playerStack.shrink(1);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        else if(playerStack.getItem().equals(ModBlocks.ENERGYCABLE_LV.get().asItem())){
-            worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundSource.BLOCKS, 1f, 1f);
-            worldIn.setBlock(pos, ModBlocks.ENERGYCABLE_LV.get().defaultBlockState().setValue(BlockPipeBase.FLOOR, true), 3);
-            if (!player.isCreative())
-            {
-                playerStack.shrink(1);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        else if(playerStack.getItem().equals(ModBlocks.ENERGYCABLE_MV.get().asItem())){
-            worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundSource.BLOCKS, 1f, 1f);
-            worldIn.setBlock(pos, ModBlocks.ENERGYCABLE_MV.get().defaultBlockState().setValue(BlockPipeBase.FLOOR, true), 3);
-            if (!player.isCreative())
-            {
-                playerStack.shrink(1);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        else if(playerStack.getItem().equals(ModBlocks.ENERGYCABLE_HV.get().asItem())){
-            worldIn.playSound(null, pos, SoundEvents.METAL_PLACE, SoundSource.BLOCKS, 1f, 1f);
-            worldIn.setBlock(pos, ModBlocks.ENERGYCABLE_HV.get().defaultBlockState().setValue(BlockPipeBase.FLOOR, true), 3);
+            worldIn.setBlock(pos, Block.byItem(playerStack.getItem()).defaultBlockState().setValue(BlockPipeBase.FLOOR, true), 3);
             if (!player.isCreative())
             {
                 playerStack.shrink(1);

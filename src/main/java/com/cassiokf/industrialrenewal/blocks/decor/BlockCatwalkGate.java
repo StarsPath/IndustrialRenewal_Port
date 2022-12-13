@@ -35,7 +35,7 @@ public class BlockCatwalkGate extends BlockAbstractHorizontalFacingWithActivatin
 
     public BlockCatwalkGate()
     {
-        super(Block.Properties.of(Material.METAL));
+        super(Block.Properties.of(Material.METAL).strength(1f));
     }
 
     @Override

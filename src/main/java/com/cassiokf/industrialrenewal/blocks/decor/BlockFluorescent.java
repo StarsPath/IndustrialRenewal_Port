@@ -11,7 +11,7 @@ import net.minecraft.world.level.material.Material;
 public class BlockFluorescent extends BlockAbstractSixWayConnections {
     public BlockFluorescent()
     {
-        super(Block.Properties.of(Material.METAL).lightLevel((blockState)->15), 8, 6);
+        super(Block.Properties.of(Material.METAL).strength(0.8f).lightLevel((blockState)->15), 8, 6);
     }
 
     @Override

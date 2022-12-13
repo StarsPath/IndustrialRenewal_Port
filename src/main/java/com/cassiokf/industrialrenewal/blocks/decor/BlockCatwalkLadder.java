@@ -43,12 +43,12 @@ public class BlockCatwalkLadder extends BlockAbstractHorizontalFacingWithActivat
     protected static final VoxelShape EAST_AABB = Block.box(15.5, 0, 0, 16, 16, 16);
 
     public BlockCatwalkLadder(Properties properties) {
-        super(properties);
+        super(properties.strength(1f));
     }
 
     public BlockCatwalkLadder()
     {
-        super(Block.Properties.of(Material.METAL));
+        super(Block.Properties.of(Material.METAL).strength(1f));
         registerDefaultState(defaultBlockState().setValue(DOWN, false).setValue(ACTIVE, true));
     }
 

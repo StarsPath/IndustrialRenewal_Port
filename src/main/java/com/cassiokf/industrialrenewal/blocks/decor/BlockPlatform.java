@@ -36,7 +36,7 @@ public class BlockPlatform extends BlockAbstractSixWayConnections {
 
     public BlockPlatform()
     {
-        super(Block.Properties.of(Material.METAL).noOcclusion(), 16, 16);
+        super(Block.Properties.of(Material.METAL).noOcclusion().strength(1f), 16, 16);
     }
 
     @Override

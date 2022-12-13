@@ -117,9 +117,12 @@ public class BlockEntityDamIntake extends BlockEntitySyncable {
             case RIVER:
             case OCEAN:
                 return 2f;
+            case SWAMP:
+                return 1.2f;
             case MESA:
             case DESERT:
             case SAVANNA:
+            case UNDERGROUND:
                 return 0.2f;
             case ICY:
             case TAIGA:

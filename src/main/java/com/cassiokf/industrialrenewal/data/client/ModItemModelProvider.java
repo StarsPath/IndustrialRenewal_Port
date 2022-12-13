@@ -108,5 +108,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent("transformer_hv", modLoc("block/hv/transformer"));
         withExistingParent("isolator_hv", modLoc("block/hv/hv_isolator"));
 
+        withExistingParent("fluid_pipe_large", modLoc("block/large_fluid_pipe/large_fluid_pipe_inventory"));
+
     }
 }

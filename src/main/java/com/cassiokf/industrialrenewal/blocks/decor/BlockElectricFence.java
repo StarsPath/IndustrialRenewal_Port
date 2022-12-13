@@ -13,7 +13,7 @@ public class BlockElectricFence extends BlockBasicElectricFence {
 
     public BlockElectricFence()
     {
-        super(Block.Properties.of(Material.METAL), 2);
+        super(Block.Properties.of(Material.METAL).strength(1f), 2);
     }
 
     @Override

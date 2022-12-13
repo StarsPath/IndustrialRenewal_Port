@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "A#A",
+    "# #",
+    "A#A"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/steel"
+    },
+    "A": {
+      "tag": "forge:nuggets/iron"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:fluid_pipe_large",
+    "count": 16
+  }
+}

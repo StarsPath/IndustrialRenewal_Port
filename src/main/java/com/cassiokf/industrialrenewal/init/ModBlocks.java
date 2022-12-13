@@ -41,7 +41,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SOLAR_PANEL = registerBlock("solar_panel", BlockSolarPanel::new);
 
     public static final RegistryObject<BlockSolarPanelFrame> SPANEL_FRAME = registerBlock("solar_panel_frame",
-            () -> new BlockSolarPanelFrame(BlockBehaviour.Properties.of(Material.METAL).strength(2f)
+            () -> new BlockSolarPanelFrame(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
     public static final RegistryObject<Block> BATTERY_BANK = registerBlock("battery_bank", BlockBatteryBank::new);
@@ -59,6 +59,8 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockFluidPipe> FLUID_PIPE = registerBlock("fluid_pipe", BlockFluidPipe::new);
 
+    public static final RegistryObject<BlockFluidPipeLarge> FLUID_PIPE_LARGE = registerBlock("fluid_pipe_large", BlockFluidPipeLarge::new);
+
     public static final RegistryObject<BlockHighPressureFluidPipe> HIGH_PRESSURE_PIPE = registerBlock("high_pressure_pipe", BlockHighPressureFluidPipe::new);
 
     public static final RegistryObject<BlockBarrel> BARREL = registerBlock("barrel", BlockBarrel::new);
@@ -71,11 +73,11 @@ public class ModBlocks {
                     .sound(SoundType.METAL).noOcclusion()));
 
     public static final RegistryObject<BlockElectricPump> ELECTRIC_PUMP = registerBlock("electric_pump",
-            ()-> new BlockElectricPump(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+            ()-> new BlockElectricPump(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
     public static final RegistryObject<BlockTrash> TRASH = registerBlock("trash",
-            () -> new BlockTrash(BlockBehaviour.Properties.of(Material.METAL).strength(2f)
+            () -> new BlockTrash(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
     public static final RegistryObject<BlockWindTurbinePillar> TURBINE_PILLAR = registerBlock("small_wind_turbine_pillar",
@@ -87,7 +89,7 @@ public class ModBlocks {
                     .sound(SoundType.METAL).noOcclusion()));
 
     public static final RegistryObject<BlockPortableGenerator> PORTABLE_GENERATOR = registerBlock("portable_generator",
-            () -> new BlockPortableGenerator(BlockBehaviour.Properties.of(Material.METAL).strength(2f)
+            () -> new BlockPortableGenerator(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
 
@@ -102,25 +104,25 @@ public class ModBlocks {
 
 
     public static final RegistryObject<BlockSteamBoiler> STEAM_BOILER = registerBlock("steam_boiler",
-            ()-> new BlockSteamBoiler(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+            ()-> new BlockSteamBoiler(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
     public static final RegistryObject<BlockSteamTurbine> STEAM_TURBINE = registerBlock("steam_turbine",
-            ()-> new BlockSteamTurbine(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+            ()-> new BlockSteamTurbine(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
 
     public static final RegistryObject<BlockMiner> MINER = registerBlock("mining",
-            ()-> new BlockMiner(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+            ()-> new BlockMiner(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
     public static final RegistryObject<BlockIndustrialBatteryBank> INDUSTRIAL_BATTERY_BANK = registerBlock("ind_battery_bank",
-            ()-> new BlockIndustrialBatteryBank(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+            ()-> new BlockIndustrialBatteryBank(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
 
     public static final RegistryObject<BlockFluidTank> FLUID_TANK = registerBlock("fluid_tank",
-            ()-> new BlockFluidTank(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+            ()-> new BlockFluidTank(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
 
@@ -130,7 +132,7 @@ public class ModBlocks {
 
 
     public static final RegistryObject<BlockLathe> LATHE = registerBlock("lathe",
-            ()-> new BlockLathe(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+            ()-> new BlockLathe(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
 
@@ -236,20 +238,25 @@ public class ModBlocks {
             BlockDamOutlet::new);
 
     public static final RegistryObject<BlockDamTurbine> DAM_TURBINE = registerBlock("dam_turbine",
-            ()-> new BlockDamTurbine(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+            ()-> new BlockDamTurbine(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
     public static final RegistryObject<BlockRotationalShaft> ROTATIONAL_SHAFT = registerBlock("dam_axis",
             BlockRotationalShaft::new);
 
     public static final RegistryObject<BlockDamGenerator> DAM_GENERATOR = registerBlock("dam_generator",
-            ()-> new BlockDamGenerator(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+            ()-> new BlockDamGenerator(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
 
 
+    public static final RegistryObject<BlockTransformer> TRANSFORMER = registerBlock("transformer_hv",
+            ()-> new BlockTransformer(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
+                    .sound(SoundType.METAL).noOcclusion()));
 
-
+    public static final RegistryObject<BlockHVIsolator> HV_ISOLATOR = registerBlock("isolator_hv",
+            ()-> new BlockHVIsolator(BlockBehaviour.Properties.of(Material.METAL).strength(0.8f)
+                    .sound(SoundType.METAL).noOcclusion()));
 
 
 

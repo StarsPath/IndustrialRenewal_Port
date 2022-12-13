@@ -83,7 +83,8 @@ public class ModItems {
     public static final RegistryObject<Item>BATTERY_LITHIUM = registerItem("battery_lithium", ()->
             new ItemBattery(new Item.Properties().tab(IndustrialRenewal.IR_TAB).stacksTo(1), 100000, 10000));
 
-
+    public static final RegistryObject<Item> WIRE_COIL = ITEMS.register("coil_hv",
+            ()-> new ItemWireCoil(new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
 
 
 

@@ -48,6 +48,10 @@ public class ModBlockEntity {
             BLOCK_ENTITIES.register("fluidpipe_tile", ()-> BlockEntityType.Builder.of(
                     BlockEntityFluidPipe::new, ModBlocks.FLUID_PIPE.get()).build(null));
 
+    public static RegistryObject<BlockEntityType<BlockEntityFluidPipeLarge>> FLUIDPIPE_LARGE_TILE =
+            BLOCK_ENTITIES.register("fluidpipe_large_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityFluidPipeLarge::new, ModBlocks.FLUID_PIPE_LARGE.get()).build(null));
+
     public static RegistryObject<BlockEntityType<BlockEntityHighPressureFluidPipe>> HIGH_PRESSURE_PIPE =
             BLOCK_ENTITIES.register("high_pressure_pipe", ()-> BlockEntityType.Builder.of(
                     BlockEntityHighPressureFluidPipe::new, ModBlocks.HIGH_PRESSURE_PIPE.get()).build(null));
@@ -134,6 +138,21 @@ public class ModBlockEntity {
     public static RegistryObject<BlockEntityType<BlockEntityDamGenerator>> DAM_GENERATOR =
             BLOCK_ENTITIES.register("dam_generator", ()-> BlockEntityType.Builder.of(
                     BlockEntityDamGenerator::new, ModBlocks.DAM_GENERATOR.get()).build(null));
+
+
+
+
+    public static RegistryObject<BlockEntityType<BlockEntityTransformer>> TRANSFORMER_TILE =
+            BLOCK_ENTITIES.register("transformer_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityTransformer::new, ModBlocks.TRANSFORMER.get()).build(null));
+
+    public static RegistryObject<BlockEntityType<BlockEntityHVIsolator>> ISOLATOR_TILE =
+            BLOCK_ENTITIES.register("isolator_tile", ()-> BlockEntityType.Builder.of(
+                    BlockEntityHVIsolator::new, ModBlocks.HV_ISOLATOR.get()).build(null));
+
+
+
+
 
 
 

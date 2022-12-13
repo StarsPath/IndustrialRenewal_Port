@@ -50,7 +50,7 @@ public class BlockElectricGate extends BlockAbstractNotFullCube {
 
     public BlockElectricGate()
     {
-        super(Block.Properties.of(Material.METAL));
+        super(Block.Properties.of(Material.METAL).strength(1f));
         registerDefaultState(defaultBlockState()
             .setValue(ACTIVE, false)
             .setValue(UP, false)

@@ -16,7 +16,7 @@ public class BlockColumn extends BlockAbstractSixWayConnections {
 
     public BlockColumn()
     {
-        super(Block.Properties.of(Material.METAL), 8, 12);
+        super(Block.Properties.of(Material.METAL).strength(1f), 8, 12);
     }
 
     protected boolean isValidConnection(final BlockState neighborState, final BlockState ownState, final Level world, final BlockPos ownPos, final Direction neighborDirection, BlockPos neighborPos)

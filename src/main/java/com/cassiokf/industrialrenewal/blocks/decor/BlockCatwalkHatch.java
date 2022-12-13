@@ -29,7 +29,7 @@ public class BlockCatwalkHatch extends BlockAbstractHorizontalFacingWithActivati
 
     public BlockCatwalkHatch()
     {
-        super(Block.Properties.of(Material.METAL));
+        super(Block.Properties.of(Material.METAL).strength(1f));
     }
 
     @Override

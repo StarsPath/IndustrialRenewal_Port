@@ -13,7 +13,7 @@
       "item": "industrialrenewal:motor"
     },
     "C": {
-      "tag": "forge:dusts/redstone"
+      "item": "industrialrenewal:battery_lithium"
     },
     "D": {
       "item": "industrialrenewal:electric_pump"

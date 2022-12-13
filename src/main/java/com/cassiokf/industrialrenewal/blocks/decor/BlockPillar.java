@@ -16,7 +16,7 @@ public class BlockPillar extends BlockAbstractSixWayConnections {
 
     public BlockPillar()
     {
-        super(Block.Properties.of(Material.METAL), 8, 16);
+        super(Block.Properties.of(Material.METAL).strength(1f), 8, 16);
     }
 
     @Override

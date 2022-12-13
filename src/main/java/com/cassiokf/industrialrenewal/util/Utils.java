@@ -2,6 +2,7 @@ package com.cassiokf.industrialrenewal.util;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.mojang.math.Vector3d;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.BlockPos;
@@ -556,6 +557,14 @@ public class Utils {
         double y = lerp(start.y, end.y, amount);
         double z = lerp(start.z, end.z, amount);
         return new Vector3d(x, y, z);
+    }
+
+    public static Vector3f lerp(Vector3f start, Vector3f end, float amount){
+        amount = Mth.clamp(amount, 0, 1);
+        float x = lerp(start.x(), end.x(), amount);
+        float y = lerp(start.y(), end.y(), amount);
+        float z = lerp(start.z(), end.z(), amount);
+        return new Vector3f(x, y, z);
     }
 
     public static double distance(BlockPos start, BlockPos end){

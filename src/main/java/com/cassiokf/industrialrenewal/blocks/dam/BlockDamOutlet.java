@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class BlockDamOutlet extends BlockAbstractHorizontalFacing implements EntityBlock {
     public BlockDamOutlet()  {
-        super(BlockBehaviour.Properties.of(Material.STONE));
+        super(BlockBehaviour.Properties.of(Material.STONE).strength(1f));
     }
 
     @org.jetbrains.annotations.Nullable

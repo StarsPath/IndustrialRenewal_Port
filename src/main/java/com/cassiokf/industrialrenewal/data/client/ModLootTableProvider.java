@@ -59,11 +59,12 @@ public class ModLootTableProvider extends LootTableProvider {
             dropSelf(ModBlocks.ENERGYCABLE_HV.get());
             dropSelf(ModBlocks.ENERGYCABLE_MV.get());
             dropSelf(ModBlocks.ENERGYCABLE_LV.get());
-//            dropSelf(ModBlocks.TRASH.get());
+            dropSelf(ModBlocks.TRASH.get());
             dropSelf(ModBlocks.TURBINE_PILLAR.get());
             dropSelf(ModBlocks.WIND_TURBINE.get());
             dropSelf(ModBlocks.PORTABLE_GENERATOR.get());
             dropSelf(ModBlocks.FLUID_PIPE.get());
+            dropSelf(ModBlocks.FLUID_PIPE_LARGE.get());
 
             dropSelf(ModBlocks.BRACE.get());
             dropSelf(ModBlocks.BRACE_STEEL.get());
@@ -92,20 +93,20 @@ public class ModLootTableProvider extends LootTableProvider {
 //
             dropSelf(ModBlocks.LIGHT.get());
             dropSelf(ModBlocks.FLUORESCENT.get());
-//            dropSelf(ModBlocks.DAM_OUTLET.get());
-//            dropSelf(ModBlocks.DAM_INTAKE.get());
+            dropSelf(ModBlocks.DAM_OUTLET.get());
+            dropSelf(ModBlocks.DAM_INTAKE.get());
             dropSelf(ModBlocks.HIGH_PRESSURE_PIPE.get());
-//            dropSelf(ModBlocks.ROTATIONAL_SHAFT.get());
+            dropSelf(ModBlocks.ROTATIONAL_SHAFT.get());
             dropSelf(ModBlocks.CONVEYOR_BASIC.get());
             dropSelf(ModBlocks.CONVEYOR_FAST.get());
             dropSelf(ModBlocks.CONVEYOR_EXPRESS.get());
 //            dropSelf(ModBlocks.CONVEYOR_INSERTER.get());
 //            dropSelf(ModBlocks.CONVEYOR_HOPPER.get());
 //            dropSelf(ModBlocks.BOOSTER_RAIL.get());
-//            dropSelf(ModBlocks.INDUSTRIAL_FLOOR.get());
-//            dropSelf(ModBlocks.SPANEL_FRAME.get());
+            dropSelf(ModBlocks.INDUSTRIAL_FLOOR.get());
+            dropSelf(ModBlocks.SPANEL_FRAME.get());
 //
-//            dropSelf(ModBlocks.HV_ISOLATOR.get());
+            dropSelf(ModBlocks.HV_ISOLATOR.get());
             dropSelf(ModBlocks.FLUID_VALVE.get());
             dropSelf(ModBlocks.ENERGY_SWITCH.get());
 
@@ -138,11 +139,12 @@ public class ModLootTableProvider extends LootTableProvider {
             list.add(ModBlocks.ENERGYCABLE_HV.get());
             list.add(ModBlocks.ENERGYCABLE_MV.get());
             list.add(ModBlocks.ENERGYCABLE_LV.get());
-//            list.add(ModBlocks.TRASH.get());
+            list.add(ModBlocks.TRASH.get());
             list.add(ModBlocks.TURBINE_PILLAR.get());
             list.add(ModBlocks.WIND_TURBINE.get());
             list.add(ModBlocks.PORTABLE_GENERATOR.get());
             list.add(ModBlocks.FLUID_PIPE.get());
+            list.add(ModBlocks.FLUID_PIPE_LARGE.get());
 
             list.add(ModBlocks.BRACE.get());
             list.add(ModBlocks.BRACE_STEEL.get());
@@ -171,20 +173,20 @@ public class ModLootTableProvider extends LootTableProvider {
 //
             list.add(ModBlocks.LIGHT.get());
             list.add(ModBlocks.FLUORESCENT.get());
-//            list.add(ModBlocks.DAM_OUTLET.get());
-//            list.add(ModBlocks.DAM_INTAKE.get());
+            list.add(ModBlocks.DAM_OUTLET.get());
+            list.add(ModBlocks.DAM_INTAKE.get());
             list.add(ModBlocks.HIGH_PRESSURE_PIPE.get());
-//            list.add(ModBlocks.ROTATIONAL_SHAFT.get());
+            list.add(ModBlocks.ROTATIONAL_SHAFT.get());
             list.add(ModBlocks.CONVEYOR_BASIC.get());
             list.add(ModBlocks.CONVEYOR_FAST.get());
             list.add(ModBlocks.CONVEYOR_EXPRESS.get());
 //            list.add(ModBlocks.CONVEYOR_INSERTER.get());
 //            list.add(ModBlocks.CONVEYOR_HOPPER.get());
 //            list.add(ModBlocks.BOOSTER_RAIL.get());
-//            list.add(ModBlocks.INDUSTRIAL_FLOOR.get());
-//            list.add(ModBlocks.SPANEL_FRAME.get());
+            list.add(ModBlocks.INDUSTRIAL_FLOOR.get());
+            list.add(ModBlocks.SPANEL_FRAME.get());
 //
-//            list.add(ModBlocks.HV_ISOLATOR.get());
+            list.add(ModBlocks.HV_ISOLATOR.get());
             list.add(ModBlocks.FLUID_VALVE.get());
             list.add(ModBlocks.ENERGY_SWITCH.get());
 

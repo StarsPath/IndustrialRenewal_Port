@@ -23,7 +23,7 @@ public class BlockBrace extends BlockAbstractFourConnections {
 
     public BlockBrace()
     {
-        super(Block.Properties.of(Material.METAL));
+        super(Block.Properties.of(Material.METAL).strength(1f));
         registerDefaultState(defaultBlockState()
                 .setValue(NORTH, false)
                 .setValue(SOUTH, false)

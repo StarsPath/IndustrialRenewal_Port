@@ -27,7 +27,7 @@ public class BlockBarrel extends BlockSaveContent implements EntityBlock {
 //        registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(FRAME, false));
 //    }
     public BlockBarrel() {
-        super(Properties.of(Material.METAL).noCollission().strength(2f));
+        super(Properties.of(Material.METAL).noCollission().strength(1f));
         registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(FRAME, false));
     }
 

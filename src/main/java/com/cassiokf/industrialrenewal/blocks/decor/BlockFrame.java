@@ -10,7 +10,7 @@ import net.minecraft.world.level.material.Material;
 public class BlockFrame extends IRBaseBlock {
     public BlockFrame()
     {
-        super(Block.Properties.of(Material.METAL).noOcclusion());
+        super(Block.Properties.of(Material.METAL).noOcclusion().strength(1f));
     }
 
     @Override

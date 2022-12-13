@@ -61,7 +61,7 @@ public class BlockConveyor extends BlockAbstractHorizontalFacing implements Enti
     }
 
     public BlockConveyor(EnumConveyorTier tier) {
-        super(BlockBehaviour.Properties.of(Material.METAL));
+        super(BlockBehaviour.Properties.of(Material.METAL).strength(1f));
         registerDefaultState(defaultBlockState().setValue(TIER, tier));
     }
 

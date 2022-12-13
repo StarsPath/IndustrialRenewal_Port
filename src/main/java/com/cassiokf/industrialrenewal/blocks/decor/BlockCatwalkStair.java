@@ -56,7 +56,7 @@ public class BlockCatwalkStair extends BlockAbstractHorizontalFacing {
 
     public BlockCatwalkStair()
     {
-        super(Block.Properties.of(Material.METAL));
+        super(Block.Properties.of(Material.METAL).strength(1f));
     }
 
     @Override

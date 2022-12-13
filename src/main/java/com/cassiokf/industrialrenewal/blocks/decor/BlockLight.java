@@ -20,7 +20,7 @@ public class BlockLight extends BlockAbstractFacing {
     protected static final VoxelShape DOWN_AABB = Block.box(5, 0, 3, 11, 5, 13);
 
     public BlockLight() {
-        super(Block.Properties.of(Material.METAL).lightLevel((blockState)->15));
+        super(Block.Properties.of(Material.METAL).strength(0.8f).lightLevel((blockState)->15));
     }
 
     @Override

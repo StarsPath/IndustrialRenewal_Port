@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ACA",
+    "ABA",
+    "DBD"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:ingots/steel"
+    },
+    "C": {
+      "tag": "forge:rods/steel"
+    },
+    "B": {
+      "item": "industrialrenewal:motor"
+    },
+    "D": {
+      "tag": "forge:storage_blocks/steel"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:dam_generator"
+  }
+}

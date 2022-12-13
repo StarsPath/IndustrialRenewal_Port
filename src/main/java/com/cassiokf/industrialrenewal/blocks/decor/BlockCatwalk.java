@@ -50,7 +50,7 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
 
     public BlockCatwalk()
     {
-        super(Block.Properties.of(Material.METAL).speedFactor(Config.CATWALK_SPEED.get()), 16, 2);
+        super(Block.Properties.of(Material.METAL).speedFactor(Config.CATWALK_SPEED.get()).strength(1f), 16, 2);
     }
 
 

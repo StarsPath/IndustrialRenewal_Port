@@ -10,16 +10,16 @@
       "tag": "forge:storage_blocks/redstone"
     },
     "A": {
-      "tag": "forge:nuggets/iron"
+      "tag": "forge:rods/copper"
     },
     "B": {
-      "item": "minecraft:gold_nugget"
+      "tag": "forge:rods/gold"
     },
     "C": {
       "item": "minecraft:lapis_block"
     },
     "D": {
-      "tag": "forge:ingots/iron"
+      "tag": "forge:ingots/copper"
     },
     "E": {
       "item": "minecraft:gold_ingot"

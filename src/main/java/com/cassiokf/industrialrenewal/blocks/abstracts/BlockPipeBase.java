@@ -46,7 +46,7 @@ public abstract class BlockPipeBase<TE extends BlockEntityMultiBlocksTube> exten
 
     public BlockPipeBase(Block.Properties property, float nodeWidth, float nodeHeight)
     {
-        super(property);
+        super(property.strength(0.8f));
         this.nodeWidth = nodeWidth;
         this.nodeHeight = nodeHeight;
         registerDefaultState(this.defaultBlockState()
@@ -188,6 +188,9 @@ public abstract class BlockPipeBase<TE extends BlockEntityMultiBlocksTube> exten
             if (blockentity instanceof BlockEntityMultiBlocksTube<?>) {
                 ((BlockEntityMultiBlocksTube)blockentity).breakBlock();
                 world.updateNeighbourForOutputSignal(pos, this);
+            }
+            if(state.getValue(FLOOR)){
+                Block.popResource(world, pos, new ItemStack(ModBlocks.INDUSTRIAL_FLOOR.get()));
             }
 
             super.onRemove(state, world, pos, oldState, flag);

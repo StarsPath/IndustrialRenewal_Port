@@ -25,7 +25,7 @@ public class BlockScaffold extends BlockAbstractSixWayConnections {
     protected static final VoxelShape CBASE_AABB = Block.box(1, 0, 1, 15, 16, 15);
 
     public BlockScaffold() {
-        super(Block.Properties.of(Material.METAL), 16, 16);
+        super(Block.Properties.of(Material.METAL).strength(0.8f), 16, 16);
     }
 
     @Override
