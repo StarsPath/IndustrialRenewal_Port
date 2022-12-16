@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockEntityTowerBase<TE extends BlockEntityTowerBase> extends BlockEntity3x3x3MachineBase<TE>{
+public abstract class BlockEntityTowerBase<TE extends BlockEntityTowerBase> extends BlockEntity3x3x3MachineBase<TE>{
 
     public ArrayList<BlockEntityTowerBase<TE>> tower = null;
 
@@ -30,7 +30,7 @@ public class BlockEntityTowerBase<TE extends BlockEntityTowerBase> extends Block
             for(BlockPos blockPos : blocks){
                 BlockEntity te = level.getBlockEntity(blockPos);
                 BlockState blockState = level.getBlockState(blockPos);
-                if(te instanceof BlockEntityTowerBase){
+                if(instanceOf(te)){
                     level.setBlockAndUpdate(blockPos, blockState.setValue(BlockTowerBase.TOP, false));
                     //Utils.debug("Updated BlockState", property, level.getBlockState(blockPos).getValue(property));
                 }
@@ -40,7 +40,7 @@ public class BlockEntityTowerBase<TE extends BlockEntityTowerBase> extends Block
             for(BlockPos blockPos : blocks){
                 BlockEntity te = level.getBlockEntity(blockPos);
                 BlockState blockState = level.getBlockState(blockPos);
-                if(te instanceof BlockEntityTowerBase){
+                if(instanceOf(te)){
                     level.setBlockAndUpdate(blockPos, blockState.setValue(BlockTowerBase.BASE, false));
                     //Utils.debug("Updated BlockState", property, level.getBlockState(blockPos).getValue(property));
                 }

@@ -62,6 +62,11 @@ public class BlockEntityFluidTank extends BlockEntityTowerBase<BlockEntityFluidT
     }
 
     @Override
+    public boolean instanceOf(BlockEntity tileEntity) {
+        return tileEntity instanceof BlockEntityFluidTank;
+    }
+
+    @Override
     public void loadTower(){
         BlockEntityFluidTank chunk = this;
         tower = new ArrayList<>();

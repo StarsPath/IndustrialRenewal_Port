@@ -41,7 +41,6 @@ public class BlockFluidTank extends BlockTowerBase<BlockEntityFluidTank> impleme
                 }
             }
         }
-        super.setPlacedBy(world, pos, state, livingEntity, itemStack);
     }
 
     @Override
