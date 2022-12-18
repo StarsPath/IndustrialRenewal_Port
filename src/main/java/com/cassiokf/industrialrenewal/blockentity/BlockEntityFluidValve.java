@@ -3,6 +3,7 @@ package com.cassiokf.industrialrenewal.blockentity;
 import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntitySyncable;
 import com.cassiokf.industrialrenewal.blocks.abstracts.BlockPipeSwitchBase;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
+import com.cassiokf.industrialrenewal.init.ModBlocks;
 import com.cassiokf.industrialrenewal.util.CustomFluidTank;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,6 +30,7 @@ public class BlockEntityFluidValve extends BlockEntitySyncable {
     public LazyOptional<CustomFluidTank> dummyTankHandler = LazyOptional.of(()->dummyTank);
 
     public void tick() {
+        if(level == null) return;
         if(!level.isClientSide){
             if(isOpen()){
                 transferFluid();
@@ -53,11 +55,11 @@ public class BlockEntityFluidValve extends BlockEntitySyncable {
     }
 
     public boolean isOpen(){
-        return level.getBlockState(worldPosition).getValue(BlockPipeSwitchBase.ON_OFF);
+        return getBlockState().is(ModBlocks.FLUID_VALVE.get())? getBlockState().getValue(BlockPipeSwitchBase.ON_OFF) : false;
     }
 
     public Direction getFacing(){
-        return level.getBlockState(worldPosition).getValue(BlockPipeSwitchBase.FACING);
+        return getBlockState().is(ModBlocks.FLUID_VALVE.get())? getBlockState().getValue(BlockPipeSwitchBase.FACING) : Direction.NORTH;
     }
 
     @Nonnull

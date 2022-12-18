@@ -142,6 +142,7 @@ public class BlockEntityMiner extends BlockEntity3x3x3MachineBase<BlockEntityMin
     }
 
     public void tick() {
+        if(level == null) return;
         if (this.isMaster() && hasLevel())
         {
             running = canRun();
@@ -221,6 +222,7 @@ public class BlockEntityMiner extends BlockEntity3x3x3MachineBase<BlockEntityMin
 
     private void mineOre()
     {
+        if(level == null) return;
         //Utils.debug("Called mineOre");
         if (currentTick >= getMaxCooldown())
         {
@@ -284,6 +286,7 @@ public class BlockEntityMiner extends BlockEntity3x3x3MachineBase<BlockEntityMin
 
     private void outputOrSpawn()
     {
+        if(level == null) return;
         if (!tempStack.isEmpty())
         {
             ItemStack s = tempStack.get(0);
@@ -318,6 +321,7 @@ public class BlockEntityMiner extends BlockEntity3x3x3MachineBase<BlockEntityMin
 
     private void getOres()
     {
+        if(level == null) return;
         tempStack.clear();
         int maxDepth = isDeepMine? -63 : 1;
         //Utils.debug("call getOres");
@@ -368,6 +372,7 @@ public class BlockEntityMiner extends BlockEntity3x3x3MachineBase<BlockEntityMin
 
     private void doAnimation()
     {
+        if(level == null) return;
         if (!level.isClientSide)
         {
             if (running)
@@ -414,6 +419,7 @@ public class BlockEntityMiner extends BlockEntity3x3x3MachineBase<BlockEntityMin
 
     private boolean canRun()
     {
+        if(level == null) return false;
         Direction facing = getMasterFacing();
         BlockPos posPort = worldPosition.relative(facing.getCounterClockWise()).relative(facing.getOpposite()).below();
         //Utils.debug("can run port pos", posPort, level.hasSignal(posPort, facing.getOpposite()));

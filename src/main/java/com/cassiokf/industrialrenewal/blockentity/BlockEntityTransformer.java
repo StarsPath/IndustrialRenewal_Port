@@ -4,6 +4,7 @@ import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntity3x2x3Mach
 import com.cassiokf.industrialrenewal.blocks.BlockTransformer;
 import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
+import com.cassiokf.industrialrenewal.init.ModBlocks;
 import com.cassiokf.industrialrenewal.util.CustomEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,6 +20,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -54,14 +56,15 @@ public class BlockEntityTransformer extends BlockEntity3x2x3MachineBase<BlockEnt
     }
 
     public boolean extract(){
-        return level.getBlockState(worldPosition).getValue(BlockTransformer.OUTPUT) == 2;
+        return getBlockState().is(ModBlocks.TRANSFORMER.get()) && getBlockState().getValue(BlockTransformer.OUTPUT) == 2;
     }
 
     public Direction getFacing(){
-        return level.getBlockState(worldPosition).getValue(BlockTransformer.FACING);
+        return getBlockState().is(ModBlocks.TRANSFORMER.get())? getBlockState().getValue(BlockTransformer.FACING): Direction.NORTH;
     }
 
     public void extractEnergy(){
+        if(level == null) return;
         BlockPos targetLocation = worldPosition.below().relative(getFacing().getOpposite(), 2);
         BlockEntity te = level.getBlockEntity(targetLocation);
         if(te != null){
@@ -79,7 +82,7 @@ public class BlockEntityTransformer extends BlockEntity3x2x3MachineBase<BlockEnt
             Set<BlockPos> allNodesPos = isolator.allNodes;
             Set<BlockEntityTransformer> availableTransformers = allNodesPos.stream()
                     .filter(x -> level.getBlockEntity(x.below()) instanceof BlockEntityTransformer)
-                    .map(x -> (BlockEntityTransformer)level.getBlockEntity(x.below()))
+                    .map(x -> (BlockEntityTransformer) level.getBlockEntity(x.below())).filter(Objects::nonNull)
                     .filter(x -> x.isMaster() && !x.extract())
                     .collect(Collectors.toSet());
 
@@ -100,10 +103,12 @@ public class BlockEntityTransformer extends BlockEntity3x2x3MachineBase<BlockEnt
     }
 
     public boolean hasIsolator(){
+        if(level == null) return false;
         return level.getBlockEntity(worldPosition.above()) instanceof BlockEntityHVIsolator;
     }
 
     public BlockEntityHVIsolator getIsolator(){
+        if(level == null) return null;
         BlockEntity TE = level.getBlockEntity(worldPosition.above());
         if(TE instanceof BlockEntityHVIsolator)
             return (BlockEntityHVIsolator)TE;

@@ -51,6 +51,7 @@ public class BlockEntityFluidTank extends BlockEntityTowerBase<BlockEntityFluidT
     }
 
     public void setFirstLoad(){
+        if(level == null) return;
         if(!level.isClientSide && isMaster()){
             if(isBase()){
                 if (tower == null || tower.isEmpty())
@@ -78,6 +79,7 @@ public class BlockEntityFluidTank extends BlockEntityTowerBase<BlockEntityFluidT
     }
 
     public void tick() {
+        if(level == null) return;
         if (!level.isClientSide && isMaster())
         {
             if (!firstLoad) {

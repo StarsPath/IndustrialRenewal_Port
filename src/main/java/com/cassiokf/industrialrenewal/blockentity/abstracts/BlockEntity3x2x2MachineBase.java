@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public class BlockEntity3x2x2MachineBase<TE extends BlockEntity3x2x2MachineBase> extends BlockEntity3x3x3MachineBase<TE>{
+public class BlockEntity3x2x2MachineBase<TE extends BlockEntity3x2x2MachineBase<?>> extends BlockEntity3x3x3MachineBase<TE>{
     public BlockEntity3x2x2MachineBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
         super(tileEntityTypeIn, pos, state);
     }
@@ -21,11 +21,12 @@ public class BlockEntity3x2x2MachineBase<TE extends BlockEntity3x2x2MachineBase>
 
     @Override
     public TE getMaster() {
+        if(level == null) return null;
         //return super.getMaster();
         BlockEntity te = level.getBlockEntity(masterPos);
         //Utils.debug("master pos", worldPosition, masterPos, te);
         if(te instanceof BlockEntity3x2x2MachineBase
-                && ((BlockEntity3x2x2MachineBase) te).isMaster()
+                && ((BlockEntity3x2x2MachineBase<?>) te).isMaster()
                 && instanceOf(te))
         {
             masterTE = (TE) te;
@@ -45,6 +46,7 @@ public class BlockEntity3x2x2MachineBase<TE extends BlockEntity3x2x2MachineBase>
     @Override
     public Direction getMasterFacing()
     {
+        if(level == null) return Direction.NORTH;
         if (faceChecked) return Direction.from3DDataValue(faceIndex);
 
         Direction facing = level.getBlockState(getMaster().worldPosition).getValue(Block3x2x2Base.FACING);
@@ -65,6 +67,7 @@ public class BlockEntity3x2x2MachineBase<TE extends BlockEntity3x2x2MachineBase>
 
     @Override
     public void breakMultiBlocks(BlockState state) {
+        if(level == null) return;
         if (!this.isMaster())
         {
             if (getMaster() != null)
@@ -80,7 +83,7 @@ public class BlockEntity3x2x2MachineBase<TE extends BlockEntity3x2x2MachineBase>
             List<BlockPos> list = getListOfBlockPositions(worldPosition, state.getValue(Block3x3x2Base.FACING));
             for (BlockPos currentPos : list)
             {
-                Block block = level.getBlockState(currentPos).getBlock();
+                Block block = getBlockState().getBlock();
                 if (block instanceof Block3x2x2Base) level.removeBlock(currentPos, false);
             }
         }

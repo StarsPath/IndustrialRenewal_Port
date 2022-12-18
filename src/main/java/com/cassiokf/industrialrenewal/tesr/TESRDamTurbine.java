@@ -15,7 +15,7 @@ public class TESRDamTurbine extends TESRBase<BlockEntityDamTurbine>{
     @Override
     public void render(BlockEntityDamTurbine blockEntity, float partialTick, PoseStack stack, MultiBufferSource buffer, int combinedOverlay, int packedLight) {
         double x = 0, y = 0, z = 0;
-        if (blockEntity.isMaster())
+        if (blockEntity!=null && blockEntity.isMaster())
         {
             Direction facing = blockEntity.getMasterFacing();
             doTheMath(facing, x, z, 1.98, 0);

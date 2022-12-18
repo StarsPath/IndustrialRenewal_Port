@@ -53,6 +53,7 @@ public class BlockEntityBatteryBank extends BlockEntitySyncable {
     }
 
     public void tick(){
+        if(level == null) return;
         if (this.hasLevel() && !level.isClientSide)
         {
             for (Direction face : outPutFacings)

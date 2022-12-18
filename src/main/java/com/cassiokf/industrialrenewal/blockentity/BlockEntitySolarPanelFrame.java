@@ -86,7 +86,8 @@ public class BlockEntitySolarPanelFrame extends BlockEntityMultiBlocksTube<Block
         if(DECORATIVE)
             return;
         super.tick();
-        if (this.hasLevel() && !level.isClientSide)
+        if(level == null) return;
+        if (!level.isClientSide)
         {
             if (isMaster())
             {
@@ -121,6 +122,7 @@ public class BlockEntitySolarPanelFrame extends BlockEntityMultiBlocksTube<Block
 
     public void checkIfIsReady()
     {
+        if(level == null) return;
         //Utils.debug("CHECK", hasPanel(), level.canSeeSky(worldPosition.relative(Direction.UP)), level.getBrightness(LightType.SKY, worldPosition) > 0);
         if (hasPanel() && level.canSeeSky(worldPosition.relative(Direction.UP))
                 && level.getBrightness(LightLayer.SKY, worldPosition) > 0)
@@ -150,6 +152,7 @@ public class BlockEntitySolarPanelFrame extends BlockEntityMultiBlocksTube<Block
 
     @Override
     public void checkForOutPuts(BlockPos pos) {
+        if(level == null) return;
         if (level.isClientSide) return;
         for (Direction face : Direction.values())
         {

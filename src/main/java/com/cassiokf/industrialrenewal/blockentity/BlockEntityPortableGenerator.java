@@ -16,6 +16,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -36,6 +37,7 @@ public class BlockEntityPortableGenerator extends BlockEntitySyncable {
     }
 
     public void tick() {
+        if(level == null) return;
         if (!level.isClientSide())
         {
             generator.onTick();
@@ -49,6 +51,7 @@ public class BlockEntityPortableGenerator extends BlockEntitySyncable {
 
     private void passEnergy()
     {
+        if(level == null) return;
         if (generator.energyStorage.getEnergyStored() >= 0)
         {
             BlockEntity te = level.getBlockEntity(worldPosition.relative(getBlockFacing()));
@@ -141,9 +144,9 @@ public class BlockEntityPortableGenerator extends BlockEntitySyncable {
         return Utils.formatEnergyString(generator.isGenerating() ? FluidGenerator.energyPerTick : 0) + "/t";
     }
 
-    @Nullable
+    @NotNull
     @Override
-    public <T> LazyOptional<T> getCapability(final Capability<T> capability, @Nullable final Direction facing)
+    public <T> LazyOptional<T> getCapability(final @NotNull Capability<T> capability, @Nullable final Direction facing)
     {
         if (facing == null)
             return super.getCapability(capability, facing);

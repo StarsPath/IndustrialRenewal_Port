@@ -3,6 +3,7 @@ package com.cassiokf.industrialrenewal.blockentity;
 import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntitySyncable;
 import com.cassiokf.industrialrenewal.blocks.abstracts.BlockPipeSwitchBase;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
+import com.cassiokf.industrialrenewal.init.ModBlocks;
 import com.cassiokf.industrialrenewal.util.CustomEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,6 +32,7 @@ public class BlockEntityEnergySwitch extends BlockEntitySyncable {
     }
 
     public void transferEnergy(){
+        if(level == null) return;
         Direction facing = getFacing();
         BlockEntity outputTile = level.getBlockEntity(worldPosition.relative(facing));
         BlockEntity inputTile = level.getBlockEntity(worldPosition.relative(facing.getOpposite()));
@@ -46,11 +48,11 @@ public class BlockEntityEnergySwitch extends BlockEntitySyncable {
     }
 
     public boolean isOpen(){
-        return level.getBlockState(worldPosition).getValue(BlockPipeSwitchBase.ON_OFF);
+        return getBlockState().is(ModBlocks.ENERGY_SWITCH.get())? getBlockState().getValue(BlockPipeSwitchBase.ON_OFF) : false;
     }
 
     public Direction getFacing(){
-        return level.getBlockState(worldPosition).getValue(BlockPipeSwitchBase.FACING);
+        return getBlockState().is(ModBlocks.ENERGY_SWITCH.get())? getBlockState().getValue(BlockPipeSwitchBase.FACING) : Direction.NORTH;
     }
 
     @Nonnull

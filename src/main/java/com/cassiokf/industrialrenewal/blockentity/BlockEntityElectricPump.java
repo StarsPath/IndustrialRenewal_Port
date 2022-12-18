@@ -25,6 +25,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -36,15 +37,15 @@ public class BlockEntityElectricPump extends BlockEntitySyncable implements ICap
     private int index = -1;
     //private int everyXtick = 10;
     private int tick;
-    private int energyPerTick = Config.PUMP_RF_PER_TICK.get();
-    private int energyCapacity = Config.PUMP_ENERGY_CAPACITY.get();
-    private int maxRadius = Config.PUMP_RADIUS.get();
-    private boolean config = Config.PUMP_INFINITE_WATER.get();
-    private boolean replaceCobbleConfig = Config.PUMP_REPLACE_COBBLE.get();
+    private final int energyPerTick = Config.PUMP_RF_PER_TICK.get();
+    private final int energyCapacity = Config.PUMP_ENERGY_CAPACITY.get();
+    private final int maxRadius = Config.PUMP_RADIUS.get();
+    private final boolean config = Config.PUMP_INFINITE_WATER.get();
+    private final boolean replaceCobbleConfig = Config.PUMP_REPLACE_COBBLE.get();
 
     private Direction facing;
 
-    private List<BlockPos> fluidSet = new ArrayList<>();
+    private final List<BlockPos> fluidSet = new ArrayList<>();
 
     //IEnergyStorage motorEnergy = null;
 
@@ -91,6 +92,7 @@ public class BlockEntityElectricPump extends BlockEntitySyncable implements ICap
     }
 
     public void setFirstLoad(){
+        if(level == null) return;
         if(!level.isClientSide && getIdex() == 1){
             BlockEntityElectricPump energyInputTile = (BlockEntityElectricPump) level.getBlockEntity(worldPosition.relative(getBlockState().getValue(BlockElectricPump.FACING).getOpposite()));
             if(energyInputTile != null)
@@ -99,6 +101,7 @@ public class BlockEntityElectricPump extends BlockEntitySyncable implements ICap
     }
 
     public void tick() {
+        if(level == null) return;
         if (!level.isClientSide && getIdex() == 1)
         {
             if(!firstLoad){
@@ -126,7 +129,7 @@ public class BlockEntityElectricPump extends BlockEntitySyncable implements ICap
     private int getIdex()
     {
         if (index != -1) return index;
-        BlockState state = level.getBlockState(worldPosition);
+        BlockState state = getBlockState();
         index = state.getBlock() instanceof BlockElectricPump ? state.getValue(BlockElectricPump.INDEX) : -1;
         return index;
     }
@@ -141,6 +144,7 @@ public class BlockEntityElectricPump extends BlockEntitySyncable implements ICap
 
     private void GetFluidDown()
     {
+        if(level == null) return;
         if (tank.getFluidAmount() <= 0 && isRunning)
         {
             if (config
@@ -191,6 +195,7 @@ public class BlockEntityElectricPump extends BlockEntitySyncable implements ICap
 
     private void getAllFluids()
     {
+        if(level == null) return;
         if (level.getFluidState(worldPosition.below()) != Fluids.EMPTY.defaultFluidState())
         {
             Stack<BlockPos> traversingFluids = new Stack<>();
@@ -222,6 +227,7 @@ public class BlockEntityElectricPump extends BlockEntitySyncable implements ICap
 
     private boolean instanceOf(BlockPos pos, boolean checkLevel)
     {
+        if(level == null) return false;
         if (pos == null) return false;
         FluidState state = level.getFluidState(pos);
         return state != Fluids.EMPTY.defaultFluidState()
@@ -254,6 +260,7 @@ public class BlockEntityElectricPump extends BlockEntitySyncable implements ICap
     }
 
     private BlockEntityElectricPump getMotor(){
+        if(level == null) return null;
         BlockEntity te = level.getBlockEntity(worldPosition.relative(getBlockState().getValue(BlockElectricPump.FACING).getOpposite()));
         if(te != null && te instanceof BlockEntityElectricPump)
             if(((BlockEntityElectricPump) te).index == 0)
@@ -263,6 +270,7 @@ public class BlockEntityElectricPump extends BlockEntitySyncable implements ICap
 
     private IFluidHandler GetTankUp()
     {
+        if(level == null) return null;
         BlockEntity upTE = level.getBlockEntity(worldPosition.above());
         if (upTE != null)
         {
@@ -274,12 +282,11 @@ public class BlockEntityElectricPump extends BlockEntitySyncable implements ICap
     private Direction getBlockFacing()
     {
         if (facing != null) return facing;
-        BlockState state = level.getBlockState(worldPosition);
-        facing = state.getValue(BlockElectricPump.FACING);
+        facing = getBlockState().getValue(BlockElectricPump.FACING);
         return facing;
     }
 
-    @Nullable
+    @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(final Capability<T> capability, @Nullable final Direction facing)
     {

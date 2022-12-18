@@ -17,7 +17,7 @@ public class TESRSolarPanelFrame extends TESRBase<BlockEntitySolarPanelFrame>{
     @Override
     public void render(BlockEntitySolarPanelFrame blockEntity, float partialTick, PoseStack stack, MultiBufferSource buffer, int combinedOverlay, int packedLight) {
         double x = 0, y = 0, z = 0;
-        if (blockEntity.hasPanel())
+        if (blockEntity!=null && blockEntity.hasPanel())
         {
             Direction facing = blockEntity.getBlockFacing();
             doTheMath(facing, x, z, 0.4, 0);

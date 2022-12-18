@@ -31,7 +31,7 @@ public class BlockEntityIndustrialBatteryBank extends BlockEntityTowerBase<Block
     private static final int maxTransfer = Config.INDUSTRIAL_BATTERY_BANK_TRANSFER_RATE.get();
     private static final int maxBatteries = 24;
 
-    private CustomEnergyStorage customDummyStorage = new CustomEnergyStorage(0, 0, 0);
+    private final CustomEnergyStorage customDummyStorage = new CustomEnergyStorage(0, 0, 0);
     private CustomEnergyStorage customEnergyStorage = new CustomEnergyStorage(0, maxTransfer, maxTransfer){
         @Override
         public void onEnergyChange() {
@@ -74,6 +74,7 @@ public class BlockEntityIndustrialBatteryBank extends BlockEntityTowerBase<Block
 
     public int onEnergyIn(int received, boolean simulated)
     {
+        if(level == null) return 0;
         if(!level.isClientSide && !simulated && isTop()){
             input += received;
         }
@@ -82,6 +83,7 @@ public class BlockEntityIndustrialBatteryBank extends BlockEntityTowerBase<Block
 //
     private int outPutEnergy(IEnergyStorage container, int maxReceive, boolean simulate)
     {
+        if(level == null) return 0;
         BlockPos masterPos = masterTE.getBlockPos();
         Direction face = getMasterFacing();
         BlockEntity te = level.getBlockEntity(masterPos.relative(face.getClockWise()).above(2 + (tower.size()-1)*3));
@@ -104,6 +106,7 @@ public class BlockEntityIndustrialBatteryBank extends BlockEntityTowerBase<Block
 
     public boolean placeBattery(Player player, ItemStack batteryStack)
     {
+        if(level == null) return false;
         if (!level.isClientSide)
         {
             if (batteries >= maxBatteries) return false;
@@ -121,6 +124,7 @@ public class BlockEntityIndustrialBatteryBank extends BlockEntityTowerBase<Block
 //    }
 
     public void setFirstLoad(){
+        if(level == null) return;
         if(!level.isClientSide && isMaster()){
             if(isBase()){
                 if (tower == null || tower.isEmpty())
@@ -143,6 +147,7 @@ public class BlockEntityIndustrialBatteryBank extends BlockEntityTowerBase<Block
     }
 
     public void tick() {
+        if(level == null) return;
         if (!level.isClientSide && isMaster() && isBase())
         {
             if(!firstLoad){
@@ -187,8 +192,7 @@ public class BlockEntityIndustrialBatteryBank extends BlockEntityTowerBase<Block
     public void passEnergyDown(){
         for(BlockEntityTowerBase<BlockEntityIndustrialBatteryBank> TE : getBase().tower){
             //Utils.debug("TE", TE);
-            if(TE instanceof BlockEntityIndustrialBatteryBank){
-                BlockEntityIndustrialBatteryBank bankTE = ((BlockEntityIndustrialBatteryBank) TE);
+            if(TE instanceof BlockEntityIndustrialBatteryBank bankTE){
 
                 //Utils.debug("condition 3", bankTE, !bankTE.isFull());
                 if(!bankTE.isFull() && bankTE != this) {
@@ -228,8 +232,7 @@ public class BlockEntityIndustrialBatteryBank extends BlockEntityTowerBase<Block
     public int fillEnergy(IEnergyStorage storage, int amount){
         for(BlockEntityTowerBase<BlockEntityIndustrialBatteryBank> TE : getMaster().getBase().tower){
 
-            if(TE instanceof BlockEntityIndustrialBatteryBank){
-                BlockEntityIndustrialBatteryBank bankTE = ((BlockEntityIndustrialBatteryBank) TE);
+            if(TE instanceof BlockEntityIndustrialBatteryBank bankTE){
 
                 if(!bankTE.isFull() && bankTE != this) {
                     bankTE.customEnergyStorage.receiveEnergy(storage.extractEnergy(amount, false), false);

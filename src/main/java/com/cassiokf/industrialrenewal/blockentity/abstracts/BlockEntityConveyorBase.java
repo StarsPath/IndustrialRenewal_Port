@@ -24,6 +24,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -83,6 +84,7 @@ public abstract class BlockEntityConveyorBase extends BlockEntitySyncable implem
 
     public static void dropInventoryItems(Level worldIn, BlockPos pos, IItemHandler inventory)
     {
+        if(inventory == null) return;
         for (int i = 0; i < 3; ++i)
         {
             ItemStack itemstack = inventory.getStackInSlot(i);
@@ -97,6 +99,7 @@ public abstract class BlockEntityConveyorBase extends BlockEntitySyncable implem
 
     public void tickConveyor(int speed)
     {
+        if(level == null) return;
         if (level.isClientSide)
         {
             doAnimation();
@@ -128,6 +131,7 @@ public abstract class BlockEntityConveyorBase extends BlockEntitySyncable implem
     }
 
     public void tickInserter(){
+        if(level == null) return;
         if (!level.isClientSide)
         {
             insertItem();
@@ -188,6 +192,7 @@ public abstract class BlockEntityConveyorBase extends BlockEntitySyncable implem
 
     private void moveItem()
     {
+        if(level == null) return;
         ItemStack frontPositionItem = inventory.orElse(null).getStackInSlot(2);
         BlockState ownState = level.getBlockState(worldPosition);
         if (!(ownState.getBlock() instanceof BlockConveyor)) return;
@@ -252,6 +257,7 @@ public abstract class BlockEntityConveyorBase extends BlockEntitySyncable implem
 
     private BlockPos frontConveyor(Direction facing, int mode)
     {
+        if(level == null) return null;
         BlockPos frontPos = worldPosition.relative(facing);
         if (mode == 1 || !(level.getBlockState(frontPos).getBlock() instanceof BlockConveyor))
         {
@@ -291,6 +297,7 @@ public abstract class BlockEntityConveyorBase extends BlockEntitySyncable implem
 
     public boolean dropFrontItem(Direction facing, ItemStack frontPositionItem, BlockPos frontPos)
     {
+        if(level == null) return false;
         if(getBlockState().getValue(BlockConveyor.TYPE) == EnumConveyorType.INSERTER)
             return false;
         double multiplierX = BlockConveyor.getMotionX(facing);
@@ -358,6 +365,7 @@ public abstract class BlockEntityConveyorBase extends BlockEntitySyncable implem
 
     private boolean getInvAbove(int count)
     {
+        if(level == null) return false;
         IItemHandler hopper = hopperInv.orElse(null);
         if (hopperInv.isPresent() && hopper.getStackInSlot(0).isEmpty())
         {
@@ -367,10 +375,9 @@ public abstract class BlockEntityConveyorBase extends BlockEntitySyncable implem
                 if (te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).isPresent())
                 {
                     IItemHandler itemHandler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
-                    int itemsPerTick = count;
                     for (int i = 0; i < itemHandler.getSlots(); i++)
                     {
-                        ItemStack stack = itemHandler.extractItem(i, itemsPerTick, true);
+                        ItemStack stack = itemHandler.extractItem(i, count, true);
                         if(hopperInv.isPresent()) {
                             IItemHandler itemHandler1 = hopperInv.orElse(null);
                             ItemStack left = itemHandler1.insertItem(0, stack, false);
@@ -403,12 +410,13 @@ public abstract class BlockEntityConveyorBase extends BlockEntitySyncable implem
 
     private void getEntityItemAbove()
     {
+        if(level == null) return;
         IItemHandler itemHandler = hopperInv.orElse(null);
         if (hopperInv.isPresent() && itemHandler.getStackInSlot(0).isEmpty())
         {
             BlockPos posAbove = worldPosition.above();
             List<ItemEntity> list = level.getEntitiesOfClass(ItemEntity.class, new AABB(posAbove.getX(), posAbove.getY(), posAbove.getZ(), posAbove.getX() + 2D, posAbove.getY() + 1D, posAbove.getZ() + 1D), EntitySelector.ENTITY_STILL_ALIVE);
-            if (!list.isEmpty() && list.get(0) instanceof ItemEntity)
+            if (!list.isEmpty() && list.get(0) != null)
             {
                 ItemEntity entityItem = list.get(0);
                 ItemStack stack = entityItem.getItem().copy();
@@ -422,6 +430,7 @@ public abstract class BlockEntityConveyorBase extends BlockEntitySyncable implem
 
     private void insertItem()
     {
+        if(level == null) return;
         if (!inventory.orElse(null).getStackInSlot(2).isEmpty())
         {
             Direction facing = getBlockFacing();
@@ -450,6 +459,7 @@ public abstract class BlockEntityConveyorBase extends BlockEntitySyncable implem
     }
 
     public void dropContents(){
+        if(level == null) return;
         inventory.ifPresent(inv->{
             for(int i = 0; i < inv.getSlots(); i++){
                 Block.popResource(level, worldPosition, inv.getStackInSlot(i));
@@ -463,8 +473,8 @@ public abstract class BlockEntityConveyorBase extends BlockEntitySyncable implem
     }
 
     @Override
-    @Nullable
-    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing)
+    @NotNull
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing)
     {
         if (facing == null)
             return super.getCapability(capability, facing);

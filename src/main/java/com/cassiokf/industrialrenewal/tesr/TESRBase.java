@@ -67,23 +67,26 @@ public abstract class TESRBase <T extends BlockEntity> implements BlockEntityRen
 
     public void doTheMath(Direction facing, double x, double z, double offset, double sidePlus)
     {
-        switch (facing)
-        {
-            case SOUTH:
+        switch (facing) {
+            case SOUTH -> {
                 xPos = x + (0.5 - sidePlus);
                 zPos = z + (1 - offset);
                 return;
-            case NORTH:
+            }
+            case NORTH -> {
                 xPos = x + (0.5 + sidePlus);
                 zPos = z + offset;
                 return;
-            case EAST:
+            }
+            case EAST -> {
                 xPos = x + (1 - offset);
                 zPos = z + (0.5 + sidePlus);
                 return;
-            case WEST:
+            }
+            case WEST -> {
                 xPos = x + offset;
                 zPos = z + (0.5 - sidePlus);
+            }
         }
     }
 

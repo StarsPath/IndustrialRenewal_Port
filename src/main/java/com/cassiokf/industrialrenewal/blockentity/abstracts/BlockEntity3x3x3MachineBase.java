@@ -13,7 +13,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import java.util.List;
 
-public abstract class BlockEntity3x3x3MachineBase<TE extends BlockEntity3x3x3MachineBase> extends BlockEntitySyncable implements ICapabilityProvider {
+public abstract class BlockEntity3x3x3MachineBase<TE extends BlockEntity3x3x3MachineBase<?>> extends BlockEntitySyncable implements ICapabilityProvider {
 
     protected boolean master;
     protected boolean breaking;
@@ -32,6 +32,7 @@ public abstract class BlockEntity3x3x3MachineBase<TE extends BlockEntity3x3x3Mac
     }
 
     public TE getMaster() {
+        if(level == null) return null;
         if (masterTE == null || masterTE.isRemoved())
         {
             List<BlockPos> list = Utils.getBlocksIn3x3x3Centered(worldPosition);
@@ -39,7 +40,7 @@ public abstract class BlockEntity3x3x3MachineBase<TE extends BlockEntity3x3x3Mac
             {
                 BlockEntity te = level.getBlockEntity(currentPos);
                 if (te instanceof BlockEntity3x3x3MachineBase
-                        && ((BlockEntity3x3x3MachineBase) te).isMaster()
+                        && ((BlockEntity3x3x3MachineBase<?>) te).isMaster()
                         && instanceOf(te))
                 {
                     masterTE = (TE) te;
@@ -60,6 +61,7 @@ public abstract class BlockEntity3x3x3MachineBase<TE extends BlockEntity3x3x3Mac
 
     public void breakMultiBlocks(BlockState state)
     {
+        if(level == null) return;
         //Utils.debug("breaking block", isMaster());
         if (!this.isMaster())
         {
@@ -88,6 +90,7 @@ public abstract class BlockEntity3x3x3MachineBase<TE extends BlockEntity3x3x3Mac
 
     public Direction getMasterFacing()
     {
+        if(level == null) return Direction.NORTH;
         if (faceChecked) return Direction.from3DDataValue(faceIndex);
 
         Direction facing = level.getBlockState(getMaster().worldPosition).getValue(Block3x3x3Base.FACING);

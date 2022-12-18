@@ -32,6 +32,7 @@ public class BlockEntityHVIsolator extends BlockEntitySyncable {
     }
 
     public void remove(){
+        if(level == null) return;
         if(!level.isClientSide){
             Block.popResource(level, worldPosition, new ItemStack(ModItems.WIRE_COIL.get(), neighbors.size()));
             unlinkAll();
@@ -55,11 +56,11 @@ public class BlockEntityHVIsolator extends BlockEntitySyncable {
     }
 
     public void unlinkAll(){
+        if(level == null) return;
         for(BlockPos neighbor : neighbors){
 //            Utils.debug("UNLINKING AT", neighbor);
             BlockEntity te = level.getBlockEntity(neighbor);
-            if(te != null && te instanceof BlockEntityHVIsolator){
-                BlockEntityHVIsolator nodeTE = (BlockEntityHVIsolator) te;
+            if(te instanceof BlockEntityHVIsolator nodeTE){
                 nodeTE.neighbors.remove(this.worldPosition);
                 nodeTE.search();
                 nodeTE.propagate();
@@ -69,6 +70,7 @@ public class BlockEntityHVIsolator extends BlockEntitySyncable {
     }
 
     public void search(){
+        if(level == null) return;
         allNodes.clear();
         allNodes.add(this.worldPosition);
 
@@ -94,6 +96,7 @@ public class BlockEntityHVIsolator extends BlockEntitySyncable {
     }
 
     public void propagate(){
+        if(level == null) return;
         Set<BlockPos> clone = new HashSet<BlockPos>(allNodes);
         for(BlockPos node : this.allNodes){
             BlockEntity te = level.getBlockEntity(node);
@@ -110,11 +113,11 @@ public class BlockEntityHVIsolator extends BlockEntitySyncable {
     }
 
     public long[] saveNeighbors(){
-        return neighbors.stream().map(element -> element.asLong()).mapToLong(i -> i).toArray();
+        return neighbors.stream().map(BlockPos::asLong).mapToLong(i -> i).toArray();
     }
 
     public long[] saveAllNodes(){
-        return allNodes.stream().map(element -> element.asLong()).mapToLong(i -> i).toArray();
+        return allNodes.stream().map(BlockPos::asLong).mapToLong(i -> i).toArray();
     }
 
     public void loadNeighbors(long[] savedNeighbors){

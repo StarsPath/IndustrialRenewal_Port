@@ -17,7 +17,7 @@ public class TESRTransformerHV extends TESRBase<BlockEntityTransformer>{
     public void render(BlockEntityTransformer blockEntity, float partialTick, PoseStack stack, MultiBufferSource buffer, int combinedOverlay, int packedLight) {
         double x = 0, y = 0, z = 0;
 
-        if (blockEntity.isMaster())
+        if (blockEntity!=null && blockEntity.isMaster())
         {
 //            Utils.debug("GENERATION", tileEntity.getGenerationFill());
             Direction facing = blockEntity.getMasterFacingDirect();

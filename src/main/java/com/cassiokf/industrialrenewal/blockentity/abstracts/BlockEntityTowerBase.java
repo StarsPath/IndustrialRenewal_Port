@@ -11,9 +11,9 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BlockEntityTowerBase<TE extends BlockEntityTowerBase> extends BlockEntity3x3x3MachineBase<TE>{
+public abstract class BlockEntityTowerBase<TE extends BlockEntityTowerBase<?>> extends BlockEntity3x3x3MachineBase<TE>{
 
-    public ArrayList<BlockEntityTowerBase<TE>> tower = null;
+    public ArrayList<TE> tower = null;
 
     public BlockEntityTowerBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
         super(tileEntityTypeIn, pos, state);
@@ -25,6 +25,7 @@ public abstract class BlockEntityTowerBase<TE extends BlockEntityTowerBase> exte
     }
 
     public void setSelfBooleanProperty(){
+        if(level == null) return;
         List<BlockPos> blocks = Utils.getBlocksIn3x3x3Centered(getMaster().worldPosition);
         if(isAligned(true)){
             for(BlockPos blockPos : blocks){
@@ -49,6 +50,7 @@ public abstract class BlockEntityTowerBase<TE extends BlockEntityTowerBase> exte
     }
 
     public void setSelfBooleanProperty(BooleanProperty property, boolean bool){
+        if(level == null) return;
         List<BlockPos> blocks = Utils.getBlocksIn3x3x3Centered(getMaster().worldPosition);
         for(BlockPos blockPos : blocks){
             BlockEntity te = level.getBlockEntity(blockPos);
@@ -61,27 +63,23 @@ public abstract class BlockEntityTowerBase<TE extends BlockEntityTowerBase> exte
     }
 
     public boolean topAligned(){
+        if(level == null) return false;
         TE master = getMaster();
         BlockPos relativePos = master.getBlockPos().above(3);
         BlockEntity relativeMaster = level.getBlockEntity(relativePos);
 
-        if(master.instanceOf(relativeMaster) && ((BlockEntityTowerBase<?>) relativeMaster).isMaster() &&
-                ((BlockEntityTowerBase<?>) relativeMaster).getMasterFacing() == master.getMasterFacing()) {
-            return true;
-        }
-        return false;
+        return master.instanceOf(relativeMaster) && ((BlockEntityTowerBase<?>) relativeMaster).isMaster() &&
+                ((BlockEntityTowerBase<?>) relativeMaster).getMasterFacing() == master.getMasterFacing();
     }
 
     public boolean botAligned(){
+        if(level == null) return false;
         TE master = getMaster();
         BlockPos relativePos = master.getBlockPos().below(3);
         BlockEntity relativeMaster = level.getBlockEntity(relativePos);
 
-        if(master.instanceOf(relativeMaster) && ((BlockEntityTowerBase<?>) relativeMaster).isMaster() &&
-                ((BlockEntityTowerBase<?>) relativeMaster).getMasterFacing() == master.getMasterFacing()) {
-            return true;
-        }
-        return false;
+        return master.instanceOf(relativeMaster) && ((BlockEntityTowerBase<?>) relativeMaster).isMaster() &&
+                ((BlockEntityTowerBase<?>) relativeMaster).getMasterFacing() == master.getMasterFacing();
     }
 
     public boolean isAligned(boolean above){
@@ -89,6 +87,7 @@ public abstract class BlockEntityTowerBase<TE extends BlockEntityTowerBase> exte
     }
 
     public void setOtherBooleanProperty(BooleanProperty property, boolean bool, boolean above){
+        if(level == null) return;
         if(isAligned(above)){
             TE master = getMaster();
             BlockPos relativePos = above? master.getBlockPos().above(3) : master.getBlockPos().below(3);
@@ -98,6 +97,7 @@ public abstract class BlockEntityTowerBase<TE extends BlockEntityTowerBase> exte
     }
 
     public TE getBase(){
+        if(level == null) return null;
         TE currentTower = (TE)level.getBlockEntity(worldPosition);
         BlockPos currentPos = worldPosition;
         while(isAligned(false)){
@@ -117,6 +117,7 @@ public abstract class BlockEntityTowerBase<TE extends BlockEntityTowerBase> exte
     }
 
     public TE getAbove(){
+        if(level == null) return null;
         TE above = null;
         if(topAligned()){
             above = (TE) level.getBlockEntity(worldPosition.above(3));
@@ -125,11 +126,13 @@ public abstract class BlockEntityTowerBase<TE extends BlockEntityTowerBase> exte
     }
 
     public boolean isBase(){
-        if(getMaster()== null || level.getBlockState(getMaster().worldPosition) == null)
-            return false;
+        if(level == null) return false;
+        if(getMaster() == null) return false;
         return level.getBlockState(getMaster().worldPosition).getValue(BlockTowerBase.BASE);
     }
     public boolean isTop(){
+        if(level == null) return false;
+        if(getMaster() == null) return false;
         return level.getBlockState(getMaster().worldPosition).getValue(BlockTowerBase.TOP);
     }
 
@@ -141,16 +144,16 @@ public abstract class BlockEntityTowerBase<TE extends BlockEntityTowerBase> exte
 //        }
 //    }
     public void loadTower(){
-        BlockEntityTowerBase<TE> chunk = this;
+        TE chunk = (TE) this;
         tower = new ArrayList<>();
         while(chunk != null){
             if(!tower.contains(chunk))
                 tower.add(chunk);
-            chunk = chunk.getAbove();
+            chunk = (TE) chunk.getAbove();
         }
     }
 
-    public void addToTower(TE tile, ArrayList<BlockEntityTowerBase<TE>> list){
+    public void addToTower(TE tile, ArrayList<TE> list){
         if(tower == null){
             tower = new ArrayList<>();
         }
@@ -164,8 +167,7 @@ public abstract class BlockEntityTowerBase<TE extends BlockEntityTowerBase> exte
     public void removeTower(TE tile){
         if(tower.contains(tile)){
             int index = tower.indexOf(tile);
-            ArrayList<BlockEntityTowerBase<TE>> newTower = new ArrayList<>(tower.subList(0, index));
-            this.tower = newTower;
+            this.tower = new ArrayList<>(tower.subList(0, index));
         }
     }
 

@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.Nonnull;
 import java.util.Map;
 
-public abstract class BlockEntityFluidPipeBase<T> extends BlockEntityMultiBlocksTube<BlockEntityFluidPipeBase> implements ICapabilityProvider {
+public abstract class BlockEntityFluidPipeBase<T> extends BlockEntityMultiBlocksTube<BlockEntityFluidPipeBase<?>> implements ICapabilityProvider {
     //TODO: add to config
     public int maxOutput = 1000;
     private int t = 0;
@@ -45,6 +45,7 @@ public abstract class BlockEntityFluidPipeBase<T> extends BlockEntityMultiBlocks
     public void tick()
     {
         super.tick();
+        if(level == null) return;
         if (hasLevel() && !level.isClientSide && isMaster())
         {
             final Map<BlockPos, Direction> mapPosSet = getPosSet();
@@ -61,7 +62,8 @@ public abstract class BlockEntityFluidPipeBase<T> extends BlockEntityMultiBlocks
 
     public void moveFluid(IFluidHandler.FluidAction action, int validOutputs, Map<BlockPos, Direction> mapPosSet, int offset)
     {
-        BlockEntityFluidPipeBase master = getMaster();
+        if(level == null) return;
+        BlockEntityFluidPipeBase<?> master = getMaster();
         int amountToExtract = Math.min(master.tank.getFluidAmount()/validOutputs, maxOutput);
         if(master.tank.getFluidAmount()/validOutputs < 1)
             amountToExtract = master.tank.getFluidAmount();
@@ -90,6 +92,7 @@ public abstract class BlockEntityFluidPipeBase<T> extends BlockEntityMultiBlocks
     @Override
     public void checkForOutPuts(BlockPos bPos)
     {
+        if(level == null) return;
         if (!level.isClientSide)
         {
             for (Direction face : Direction.values())
@@ -109,16 +112,16 @@ public abstract class BlockEntityFluidPipeBase<T> extends BlockEntityMultiBlocks
 
     @NotNull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nullable Capability<T> capability, @Nullable Direction facing)
+    public <E> LazyOptional<E> getCapability(@NotNull Capability<E> capability, @Nullable Direction facing)
     {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && getMaster() != null)
             return LazyOptional.of(() -> getMaster().tank).cast();
         return super.getCapability(capability, facing);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+    public <E> LazyOptional<E> getCapability(@NotNull Capability<E> cap) {
         if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && getMaster() != null)
             return LazyOptional.of(() -> getMaster().tank).cast();
         return super.getCapability(cap);
@@ -148,6 +151,7 @@ public abstract class BlockEntityFluidPipeBase<T> extends BlockEntityMultiBlocks
 
     public boolean canConnectToPipe(Direction neighborDirection)
     {
+        if(level == null) return false;
         BlockPos neighborPos = worldPosition.relative(neighborDirection);
         BlockEntity te = level.getBlockEntity(neighborPos);
         return instanceOf(te);
@@ -155,6 +159,7 @@ public abstract class BlockEntityFluidPipeBase<T> extends BlockEntityMultiBlocks
 
     public boolean canConnectToCapability(Direction neighborDirection)
     {
+        if(level == null) return false;
         BlockPos offset = worldPosition.relative(neighborDirection);
         BlockState state = level.getBlockState(offset);
         BlockEntity te = level.getBlockEntity(offset);

@@ -14,7 +14,7 @@ import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public abstract class BlockEntityMultiBlocksTube<TE extends BlockEntityMultiBlocksTube> extends BETubeBase
+public abstract class BlockEntityMultiBlocksTube<TE extends BlockEntityMultiBlocksTube<?>> extends BETubeBase
 {
     public int outPut;
     public int oldOutPut = -1;
@@ -61,17 +61,18 @@ public abstract class BlockEntityMultiBlocksTube<TE extends BlockEntityMultiBloc
 
     private void initializeMultiblockIfNecessary(boolean forceInit)
     {
+        if(level == null) return;
         if ((isMasterInvalid() && !this.isRemoved()) || forceInit)
         {
             //industrialrenewal.LOGGER.info("TRYING TO INIT MULTIBLOCK, Forced: "+forceInit);
             if (isTray()) return;
-            List<BlockEntityMultiBlocksTube> connectedCables = new CopyOnWriteArrayList<>();
-            Stack<BlockEntityMultiBlocksTube> traversingCables = new Stack<>();
+            List<BlockEntityMultiBlocksTube<?>> connectedCables = new CopyOnWriteArrayList<>();
+            Stack<BlockEntityMultiBlocksTube<?>> traversingCables = new Stack<>();
             TE master = (TE) this;
             traversingCables.add(this);
             while (!traversingCables.isEmpty())
             {
-                BlockEntityMultiBlocksTube storage = traversingCables.pop();
+                BlockEntityMultiBlocksTube<?> storage = traversingCables.pop();
                 if (storage.isMaster())
                 {
                     master = (TE) storage;
@@ -98,7 +99,7 @@ public abstract class BlockEntityMultiBlocksTube<TE extends BlockEntityMultiBloc
                 }
             } else
             {
-                for (BlockEntityMultiBlocksTube storage : connectedCables)
+                for (BlockEntityMultiBlocksTube<?> storage : connectedCables)
                 {
                     if (!canBeMaster(storage)) continue;
                     storage.getPosSet().clear();
@@ -175,6 +176,7 @@ public abstract class BlockEntityMultiBlocksTube<TE extends BlockEntityMultiBloc
     }
 
     public void breakBlock(){
+        if(level == null) return;
 //        Utils.debug("BREAK BLOCK");
         super.setRemoved();
         if (master != null) master.getMaster();
@@ -185,8 +187,8 @@ public abstract class BlockEntityMultiBlocksTube<TE extends BlockEntityMultiBloc
 //            Utils.debug("", te instanceof BlockEntityMultiBlocksTube);
             if (te instanceof BlockEntityMultiBlocksTube)
             {
-                ((BlockEntityMultiBlocksTube) te).master = null;
-                ((BlockEntityMultiBlocksTube) te).initializeMultiblockIfNecessary();
+                ((BlockEntityMultiBlocksTube<?>) te).master = null;
+                ((BlockEntityMultiBlocksTube<?>) te).initializeMultiblockIfNecessary();
 
             }
         }

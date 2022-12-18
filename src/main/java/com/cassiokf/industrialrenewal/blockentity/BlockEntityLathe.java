@@ -29,6 +29,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -119,6 +120,7 @@ public class BlockEntityLathe extends BlockEntity3x2x2MachineBase<BlockEntityLat
 
 
     public void tick() {
+        if(level == null) return;
         if(!level.isClientSide){
             if(isMaster()){
 //                Utils.debug("TICKING", inProcess);
@@ -154,6 +156,7 @@ public class BlockEntityLathe extends BlockEntity3x2x2MachineBase<BlockEntityLat
     }
 
     private boolean valid(ItemStack outputSlot){
+        if(level == null) return false;
 //        Utils.debug("OUTPUT", outputSlot);
         if(outputSlot.isEmpty())
             return true;
@@ -173,6 +176,7 @@ public class BlockEntityLathe extends BlockEntity3x2x2MachineBase<BlockEntityLat
 
     private void process()
     {
+        if(level == null) return;
         if (energyContainer.getEnergyStored() < energyPTick) return;
         energyContainer.extractEnergy(energyPTick, false);
         tick++;
@@ -198,6 +202,7 @@ public class BlockEntityLathe extends BlockEntity3x2x2MachineBase<BlockEntityLat
 
     private void getProcessFromInputItem()
     {
+        if(level == null) return;
 //        Utils.debug("GET PROCESS");
 //        Inventory inv = new Inventory(1);
         SimpleContainer inv = new SimpleContainer(1);
@@ -218,6 +223,7 @@ public class BlockEntityLathe extends BlockEntity3x2x2MachineBase<BlockEntityLat
 
     private void tryOutPutItem()
     {
+        if(level == null) return;
         if (!level.isClientSide && !output.getStackInSlot(0).isEmpty())
         {
             Direction facing = getMasterFacing().getClockWise();
@@ -336,12 +342,13 @@ public class BlockEntityLathe extends BlockEntity3x2x2MachineBase<BlockEntityLat
         super.load(compoundTag);
     }
 
+    @NotNull
     @Override
     public Component getDisplayName() {
         return new TextComponent("Lathe");
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
         return new LatheMenu(id, inv, this);

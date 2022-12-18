@@ -16,7 +16,7 @@ public class TESRDamGenerator extends TESRBase<BlockEntityDamGenerator>{
     public void render(BlockEntityDamGenerator blockEntity, float partialTick, PoseStack stack, MultiBufferSource buffer, int combinedOverlay, int packedLight) {
 //        super.render(blockEntity, partialTick, stack, buffer, combinedOverlay, packedLight);
         double x = 0, y = 0, z = 0;
-        if (blockEntity.isMaster())
+        if (blockEntity!=null && blockEntity.isMaster())
         {
             Direction facing = blockEntity.getMasterFacing();
             //GENERATION

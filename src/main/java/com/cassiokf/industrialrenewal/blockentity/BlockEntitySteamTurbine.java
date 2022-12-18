@@ -99,6 +99,7 @@ public class BlockEntitySteamTurbine extends BlockEntity3x3x3MachineBase<BlockEn
 
 
     public void tick() {
+        if(level == null) return;
         if (!level.isClientSide)
         {
             if (this.isMaster())

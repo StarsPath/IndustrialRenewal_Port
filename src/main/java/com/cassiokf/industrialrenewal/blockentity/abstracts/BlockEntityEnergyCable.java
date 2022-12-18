@@ -13,6 +13,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -42,6 +43,7 @@ public abstract class BlockEntityEnergyCable extends BlockEntityMultiBlocksTube<
 //    }
 
     public void tick() {
+        if(level == null) return;
         if(!level.isClientSide && !isMaster()){
             IEnergyStorage storage = energyStorageHandler.orElse(null);
 //            Utils.debug("\npos, energy, max isMaster ", worldPosition, storage.getEnergyStored(), storage.getMaxEnergyStored(), isMaster());
@@ -79,6 +81,7 @@ public abstract class BlockEntityEnergyCable extends BlockEntityMultiBlocksTube<
 
     public boolean canConnectToPipe(Direction neighborDirection)
     {
+        if(level == null) return false;
         BlockPos otherPos = worldPosition.relative(neighborDirection);
         BlockEntity te = level.getBlockEntity(otherPos);
         return instanceOf(te);
@@ -86,6 +89,7 @@ public abstract class BlockEntityEnergyCable extends BlockEntityMultiBlocksTube<
 
     public boolean canConnectToCapability(Direction neighborDirection)
     {
+        if(level == null) return false;
         BlockPos otherPos = worldPosition.relative(neighborDirection);
         BlockState state = level.getBlockState(otherPos);
         BlockEntity te = level.getBlockEntity(otherPos);
@@ -96,6 +100,7 @@ public abstract class BlockEntityEnergyCable extends BlockEntityMultiBlocksTube<
 
     public int moveEnergy(boolean simulate, int validOutputs, Map<BlockPos, Direction> mapPosSet)
     {
+        if(level == null) return 0;
         int canAccept = 0;
         int out = 0;
         IEnergyStorage thisStorage = energyStorageHandler.orElse(null);
@@ -130,6 +135,7 @@ public abstract class BlockEntityEnergyCable extends BlockEntityMultiBlocksTube<
     @Override
     public void checkForOutPuts(BlockPos bPos)
     {
+        if(level == null) return;
         if (level.isClientSide) return;
         for (Direction face : Direction.values())
         {
@@ -154,8 +160,8 @@ public abstract class BlockEntityEnergyCable extends BlockEntityMultiBlocksTube<
     public abstract int getMaxEnergyToTransport();
 
     @Override
-    @Nullable
-    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing)
+    @NotNull
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing)
     {
         if (facing == null)
             return super.getCapability(capability, facing);

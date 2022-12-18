@@ -17,7 +17,9 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 //import com.cassiokf.IndustrialRenewal.util.MultiBlockHelper;
@@ -62,6 +64,7 @@ public class BlockEntityWindTurbinePillar extends BlockEntityMultiBlocksTube<Blo
 
     public void tick()
     {
+        if(level == null) return;
         if (isMaster())
         {
             if (!level.isClientSide)
@@ -123,6 +126,7 @@ public class BlockEntityWindTurbinePillar extends BlockEntityMultiBlocksTube<Blo
     @Override
     public void checkForOutPuts(BlockPos bPos)
     {
+        if(level == null) return;
         isBase = getIsBase();
         if (isBase) forceNewTurbinePos();
         if (level.isClientSide) return;
@@ -161,6 +165,7 @@ public class BlockEntityWindTurbinePillar extends BlockEntityMultiBlocksTube<Blo
 
     private BlockPos forceNewTurbinePos()
     {
+        if(level == null) return turbinePos;
         int n = 1;
         while (level.getBlockEntity(worldPosition.above(n)) instanceof BlockEntityWindTurbinePillar)
         {
@@ -205,13 +210,14 @@ public class BlockEntityWindTurbinePillar extends BlockEntityMultiBlocksTube<Blo
 
     public boolean getIsBase()
     {
+        if(level == null) return false;
         BlockState state = level.getBlockState(worldPosition.below());
         return !(state.getBlock() instanceof BlockWindTurbinePillar);
     }
 
     @Override
-    @Nullable
-    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing)
+    @NotNull
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing)
     {
         if (facing == null)
             return super.getCapability(capability, facing);
@@ -225,6 +231,7 @@ public class BlockEntityWindTurbinePillar extends BlockEntityMultiBlocksTube<Blo
 
     @Override
     public void load(CompoundTag compound) {
+        if(level == null) return;
         energyStorage.setEnergy(compound.getInt("energy"));
         this.isBase = compound.getBoolean("base");
         BlockEntityWindTurbinePillar te = null;
@@ -244,6 +251,7 @@ public class BlockEntityWindTurbinePillar extends BlockEntityMultiBlocksTube<Blo
 
     private boolean canConnectTo(final Direction neighborDirection)
     {
+        if(level == null) return false;
         final BlockPos neighborPos = worldPosition.relative(neighborDirection);
         final BlockState neighborState = level.getBlockState(neighborPos);
 

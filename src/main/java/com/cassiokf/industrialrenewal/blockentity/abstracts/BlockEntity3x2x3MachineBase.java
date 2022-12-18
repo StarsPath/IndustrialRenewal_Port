@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public class BlockEntity3x2x3MachineBase<TE extends BlockEntity3x2x3MachineBase> extends BlockEntity3x3x3MachineBase<TE>{
+public class BlockEntity3x2x3MachineBase<TE extends BlockEntity3x2x3MachineBase<?>> extends BlockEntity3x3x3MachineBase<TE>{
     public BlockEntity3x2x3MachineBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
         super(tileEntityTypeIn, pos, state);
     }
@@ -20,9 +20,10 @@ public class BlockEntity3x2x3MachineBase<TE extends BlockEntity3x2x3MachineBase>
 
     @Override
     public TE getMaster() {
+        if(level == null) return null;
         BlockEntity te = level.getBlockEntity(masterPos);
         if(te != null && te instanceof BlockEntity3x2x3MachineBase
-                && ((BlockEntity3x2x3MachineBase) te).isMaster()
+                && ((BlockEntity3x2x3MachineBase<?>) te).isMaster()
                 && instanceOf(te)) {
             masterTE = (TE) te;
             return masterTE;
@@ -33,7 +34,7 @@ public class BlockEntity3x2x3MachineBase<TE extends BlockEntity3x2x3MachineBase>
             {
                 BlockEntity te2 = level.getBlockEntity(currentPos);
                 if (te2 != null && te2 instanceof BlockEntity3x3x3MachineBase
-                        && ((BlockEntity3x2x3MachineBase) te2).isMaster()
+                        && ((BlockEntity3x2x3MachineBase<?>) te2).isMaster()
                         && instanceOf(te2))
                 {
                     masterTE = (TE) te2;
@@ -67,6 +68,7 @@ public class BlockEntity3x2x3MachineBase<TE extends BlockEntity3x2x3MachineBase>
     }
 
     public Direction getMasterFacingDirect(){
+        if(level == null) return Direction.NORTH;
         if (faceChecked) return Direction.from3DDataValue(faceIndex);
         Direction facing = level.getBlockState(worldPosition).getValue(Block3x2x3Base.FACING);
         faceChecked = true;
@@ -86,6 +88,7 @@ public class BlockEntity3x2x3MachineBase<TE extends BlockEntity3x2x3MachineBase>
 
     @Override
     public void breakMultiBlocks(BlockState state) {
+        if(level == null) return;
         if (!this.isMaster())
         {
             if (getMaster() != null)

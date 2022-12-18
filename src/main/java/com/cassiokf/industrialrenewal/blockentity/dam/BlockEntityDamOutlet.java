@@ -43,6 +43,7 @@ public class BlockEntityDamOutlet extends BlockEntitySyncable {
     }
 
     public void tick() {
+        if(level == null) return;
         if(!level.isClientSide){
 //            if(firstLoad){
 //                aPoses = getAvailableSpaces();
@@ -60,7 +61,8 @@ public class BlockEntityDamOutlet extends BlockEntitySyncable {
     }
 
     public void releaseWater(){
-        Direction facing = level.getBlockState(worldPosition).getValue(BlockDamOutlet.FACING);
+        if(level == null) return;
+        Direction facing = getBlockState().getValue(BlockDamOutlet.FACING);
         if(level.getBlockState(worldPosition.relative(facing)).getMaterial().isReplaceable()){
             currentProcessing = MAX_PROCESSING;
             if(tank.getFluidAmount() > 0)

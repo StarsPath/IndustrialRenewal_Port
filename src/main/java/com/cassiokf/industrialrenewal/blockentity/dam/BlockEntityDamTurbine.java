@@ -71,6 +71,7 @@ public class BlockEntityDamTurbine extends BlockEntity3x3x3MachineBase<BlockEnti
 
 
     public void tick() {
+        if(level == null) return;
         if(!level.isClientSide && isMaster()){
             if(tick >= 20){
                 tick = 0;
@@ -93,6 +94,7 @@ public class BlockEntityDamTurbine extends BlockEntity3x3x3MachineBase<BlockEnti
     }
 
     private void passRotation(){
+        if(level == null) return;
         BlockPos top = worldPosition.above(2);
         for(int i = 0; i < 16; i++){
             if(level.getBlockState(top).getBlock() instanceof BlockDamGenerator){
@@ -112,6 +114,7 @@ public class BlockEntityDamTurbine extends BlockEntity3x3x3MachineBase<BlockEnti
     }
 
     private void releaseWater(){
+        if(level == null) return;
         if(!inTank.isEmpty()){
             Direction masterFace = getMasterFacing();
             BlockPos pos = getMaster().getBlockPos().relative(masterFace.getCounterClockWise(), 2).relative(masterFace.getOpposite()).below();

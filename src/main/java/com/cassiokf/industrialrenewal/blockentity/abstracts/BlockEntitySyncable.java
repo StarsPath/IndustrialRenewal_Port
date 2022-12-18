@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class BlockEntitySyncable extends BlockEntity {
     public BlockEntitySyncable(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -17,6 +18,7 @@ public abstract class BlockEntitySyncable extends BlockEntity {
     }
 
     public void sync() {
+        if(level == null) return;
         if (!level.isClientSide)
         {
             final BlockState state = getBlockState();
@@ -26,16 +28,17 @@ public abstract class BlockEntitySyncable extends BlockEntity {
     }
 
     @Override
-    public void load(CompoundTag compoundTag) {
+    public void load(@NotNull CompoundTag compoundTag) {
         super.load(compoundTag);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compoundTag) {
+    protected void saveAdditional(@NotNull CompoundTag compoundTag) {
         super.saveAdditional(compoundTag);
     }
 
     @Override
+    @NotNull
     public CompoundTag getUpdateTag() {
 //        return super.getUpdateTag();
         return serializeNBT();

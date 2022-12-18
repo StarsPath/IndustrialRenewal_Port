@@ -153,30 +153,25 @@ public class BlockEntitySteamBoiler extends BlockEntity3x3x3MachineBase<BlockEnt
     }
 
     public ItemStack getDrop(){
-        switch (type){
-            case 1: return new ItemStack(ModItems.FIREBOX_SOLID.get(), 1);
-            case 2: return new ItemStack(ModItems.FIREBOX_FLUID.get(), 1);
-        }
-        return null;
+        return switch (type) {
+            case 1 -> new ItemStack(ModItems.FIREBOX_SOLID.get(), 1);
+            case 2 -> new ItemStack(ModItems.FIREBOX_FLUID.get(), 1);
+            default -> null;
+        };
     }
 
     public boolean canRun(){
-        switch (type){
-            case 1:
-                if(fuelTime >= solidPerTick && !waterTank.isEmpty())
-                    return true;
-                break;
-            case 2:
-                if(fuelTime >= fluidPerTick && !waterTank.isEmpty())
-                    return true;
-                break;
-        }
-        return false;
+        return switch (type) {
+            case 1 -> (fuelTime >= solidPerTick && !waterTank.isEmpty());
+            case 2 -> (fuelTime >= fluidPerTick && !waterTank.isEmpty());
+            default -> false;
+        };
     }
 
     ;private int tick = 0;
 
     public void tick() {
+        if(level == null) return;
         if (this.isMaster() && !level.isClientSide)
         {
             if(this.type == 0) fuelLoaded = false;
@@ -284,6 +279,7 @@ public class BlockEntitySteamBoiler extends BlockEntity3x3x3MachineBase<BlockEnt
 
     public void setType(int type)
     {
+        if(level == null) return;
         if (!this.isMaster())
         {
             this.getMaster().setType(type);
@@ -305,12 +301,14 @@ public class BlockEntitySteamBoiler extends BlockEntity3x3x3MachineBase<BlockEnt
 
     private void dropItemsInGround(ItemStack stack)
     {
+        if(level == null) return;
         if (stack!= null && !stack.isEmpty())
             Block.popResource(level, worldPosition, stack);
     }
 
     private void dropItemsInGround(LazyOptional<IItemHandler> inventory)
     {
+        if(level == null) return;
         if(inventory == null || !inventory.isPresent())
             return;
         IItemHandler iItemHandler = inventory.orElse(null);

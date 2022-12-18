@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public abstract class BlockEntity3x3x2MachineBase<TE extends BlockEntity3x3x2MachineBase> extends BlockEntity3x3x3MachineBase<TE> {
+public abstract class BlockEntity3x3x2MachineBase<TE extends BlockEntity3x3x2MachineBase<?>> extends BlockEntity3x3x3MachineBase<TE> {
     public BlockEntity3x3x2MachineBase(BlockEntityType tileEntityTypeIn, BlockPos pos, BlockState state) {
         super(tileEntityTypeIn, pos, state);
     }
@@ -20,11 +20,12 @@ public abstract class BlockEntity3x3x2MachineBase<TE extends BlockEntity3x3x2Mac
 
     @Override
     public TE getMaster() {
+        if(level == null) return null;
         //return super.getMaster();
         BlockEntity te = level.getBlockEntity(masterPos);
         //Utils.debug("master pos", worldPosition, masterPos, te);
         if(te instanceof BlockEntity3x3x2MachineBase
-                && ((BlockEntity3x3x2MachineBase) te).isMaster()
+                && ((BlockEntity3x3x2MachineBase<?>) te).isMaster()
                 && instanceOf(te))
         {
             masterTE = (TE) te;
@@ -55,6 +56,7 @@ public abstract class BlockEntity3x3x2MachineBase<TE extends BlockEntity3x3x2Mac
     @Override
     public Direction getMasterFacing()
     {
+        if(level == null) return Direction.NORTH;
         if (faceChecked) return Direction.from3DDataValue(faceIndex);
 
         Direction facing = level.getBlockState(getMaster().worldPosition).getValue(Block3x3x2Base.FACING);
@@ -75,6 +77,7 @@ public abstract class BlockEntity3x3x2MachineBase<TE extends BlockEntity3x3x2Mac
 
     @Override
     public void breakMultiBlocks(BlockState state) {
+        if(level == null) return;
         if (!this.isMaster())
         {
             if (getMaster() != null)

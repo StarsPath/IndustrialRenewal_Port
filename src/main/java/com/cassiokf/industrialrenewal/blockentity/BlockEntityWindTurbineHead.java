@@ -77,6 +77,7 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
     }
 
     public void dropContents(){
+        if(level == null) return;
         bladeInv.ifPresent(inv->{
             Block.popResource(level, worldPosition, inv.getStackInSlot(0));
         });
@@ -89,6 +90,7 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
 
 
     public void tick() {
+        if(level == null) return;
         if (!level.isClientSide)
         {
             //Generate Energy
@@ -104,7 +106,7 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
                     tickToDamage = 0;
                     bladeInv.ifPresent(inv->{
                         ItemStack stack = inv.getStackInSlot(0);
-                        if(stack != null && !stack.isEmpty()){
+                        if(!stack.isEmpty()){
                             if(stack.hurt(1, new Random(), null))
                                 stack.shrink(1);
                         }
@@ -157,6 +159,7 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
 
     private float getEfficiency()
     {
+        if(level == null) return 0;
         float weatherModifier;
         if (level.isThundering())
         {

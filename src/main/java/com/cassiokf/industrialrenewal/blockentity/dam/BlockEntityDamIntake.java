@@ -4,6 +4,7 @@ import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntitySyncable;
 import com.cassiokf.industrialrenewal.blocks.dam.BlockDamIntake;
 import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
+import com.cassiokf.industrialrenewal.init.ModBlocks;
 import com.cassiokf.industrialrenewal.util.CustomFluidTank;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -48,13 +49,14 @@ public class BlockEntityDamIntake extends BlockEntitySyncable {
     private final int WIDTH = 7;
     private final int HEIGHT = 7;
     private final int DEPTH = 3;
-    private final int MAX_WATER = WIDTH*HEIGHT*DEPTH;
+    private final int MAX_WATER = WIDTH * HEIGHT * DEPTH;
     // 40 buckets per tick; max 160 min 8
     public final int MAX_WATER_PRODUCTION = Config.DAM_INTAKE_WATER_PRODUCTION.get();
     public int currentProduction = 0;
     public int tick = 0;
 
     public void tick() {
+        if(level == null) return;
         if(!level.isClientSide){
             BlockPos posBehind = worldPosition.relative(getFacing().getOpposite());
 //            BlockState blockBehind = level.getBlockState();
@@ -90,6 +92,9 @@ public class BlockEntityDamIntake extends BlockEntitySyncable {
     }
 
     public float getWaterEfficiency(){
+        if(level == null)
+            return 0;
+
         int waterBlockCount = 0;
         List<BlockPos> list = getWaterBlocks();
         for(BlockPos pos : list){
@@ -111,6 +116,8 @@ public class BlockEntityDamIntake extends BlockEntitySyncable {
     }
 
     public float getBiomeEfficiency(){
+        if(level == null)
+            return 0;
         Biome.BiomeCategory category = Biome.getBiomeCategory(level.getBiome(worldPosition));
         switch (category){
             case BEACH:
@@ -135,6 +142,8 @@ public class BlockEntityDamIntake extends BlockEntitySyncable {
     }
 
     public float getWeatherEfficiency(){
+        if(level == null)
+            return 0;
         if(level.isThundering() && level.isRaining())
             return 2;
         else if(level.isRaining())
@@ -157,7 +166,7 @@ public class BlockEntityDamIntake extends BlockEntitySyncable {
 
 
     public Direction getFacing(){
-        return level.getBlockState(worldPosition).getValue(BlockDamIntake.FACING);
+        return getBlockState().is(ModBlocks.DAM_INTAKE.get())? getBlockState().getValue(BlockDamIntake.FACING) : Direction.NORTH;
     }
 
     @Nonnull

@@ -29,6 +29,7 @@ public class BlockEntitySolarPanel extends BlockEntity {
     }
 
     public void tick(){
+        if(level == null) return;
         if(level.isClientSide || DECORATIVE){
             return;
         }
@@ -43,6 +44,7 @@ public class BlockEntitySolarPanel extends BlockEntity {
 
     private void moveEnergyOut(int energy, boolean simulate)
     {
+        if(level == null) return;
         for(Direction direction : Direction.values()){
             BlockEntity te = level.getBlockEntity(worldPosition.relative(direction));
             if(te == null)
@@ -75,6 +77,7 @@ public class BlockEntitySolarPanel extends BlockEntity {
 
     public void getEnergyFromSun()
     {
+        if(level == null) return;
         energyCanGenerate = getGeneration(this.level, this.worldPosition);
     }
 
