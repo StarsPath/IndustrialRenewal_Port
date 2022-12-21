@@ -89,6 +89,7 @@ public final class Config {
     public static final ForgeConfigSpec.ConfigValue<Integer> TRANSFORMER_TRANSFER_RATE;
 
     public static final ForgeConfigSpec.ConfigValue<Float> CATWALK_SPEED;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> INDUSTRIAL_FLOOR_COLLISION;
 
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> MINER_ORE_BLACKLIST;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MINER_BLACKLIST_AS_WHITE;
@@ -204,7 +205,8 @@ public final class Config {
 
 
         BUILDER.push("Misc");
-        CATWALK_SPEED = BUILDER.comment("Catwalk speed factor(default 1.2f)").define("catwalk_speed", 1.2f);
+        CATWALK_SPEED = BUILDER.comment("Catwalk speed factor (default 1.2f)").define("catwalk_speed", 1.2f);
+        INDUSTRIAL_FLOOR_COLLISION = BUILDER.comment("Enable Industrial Floor Collision (default false)").define("floor_collision", false);
         BUILDER.pop();
 
         BUILDER.push("Miner Ore List");

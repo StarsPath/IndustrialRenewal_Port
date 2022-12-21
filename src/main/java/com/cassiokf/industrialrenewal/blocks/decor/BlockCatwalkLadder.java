@@ -64,7 +64,7 @@ public class BlockCatwalkLadder extends BlockAbstractHorizontalFacingWithActivat
         if(!worldIn.isClientSide) {
             if (handIn == InteractionHand.MAIN_HAND) {
                 Item playerItem = player.getMainHandItem().getItem();
-                if (playerItem.equals(ModItems.SCREW_DRIVE)) {
+                if (playerItem.equals(ModItems.SCREW_DRIVE.get())) {
                     return super.use(state, worldIn, pos, player, handIn, hitResult);
                 }
             }

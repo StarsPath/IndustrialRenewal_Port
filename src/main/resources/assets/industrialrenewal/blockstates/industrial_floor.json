@@ -50,6 +50,14 @@
       "apply": {
         "model": "industrialrenewal:block/ind_floor/floor_side_down"
       }
+    },
+    {
+      "when": {
+        "light": "true"
+      },
+      "apply": {
+        "model": "industrialrenewal:block/ind_floor/floor_up_lamp"
+      }
     }
   ]
 }

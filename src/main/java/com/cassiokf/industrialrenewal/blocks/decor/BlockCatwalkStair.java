@@ -71,7 +71,7 @@ public class BlockCatwalkStair extends BlockAbstractHorizontalFacing {
         if(!worldIn.isClientSide){
             if (handIn == InteractionHand.MAIN_HAND) {
                 Item playerItem = player.getMainHandItem().getItem();
-                if (playerItem.equals(ModItems.SCREW_DRIVE)) {
+                if (playerItem.equals(ModItems.SCREW_DRIVE.get())) {
                     state = state.cycle(FACING);
                     worldIn.setBlockAndUpdate(pos, state);
                     return InteractionResult.SUCCESS;

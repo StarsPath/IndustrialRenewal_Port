@@ -1,7 +1,9 @@
 package com.cassiokf.industrialrenewal.blocks.decor;
 
 
+import com.cassiokf.industrialrenewal.blocks.BlockHVIsolator;
 import com.cassiokf.industrialrenewal.blocks.abstracts.BlockAbstractSixWayConnections;
+import com.cassiokf.industrialrenewal.util.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -22,7 +24,9 @@ public class BlockColumn extends BlockAbstractSixWayConnections {
     protected boolean isValidConnection(final BlockState neighborState, final BlockState ownState, final Level world, final BlockPos ownPos, final Direction neighborDirection, BlockPos neighborPos)
     {
         Block nb = neighborState.getBlock();
-        //if ((neighborState.isSolid() || nb instanceof BlockIndustrialFloor || nb instanceof BlockFloorLamp || nb instanceof BlockFloorPipe || nb instanceof BlockFloorCable)
+        if(nb instanceof BlockColumn || nb instanceof BlockPillar || (nb instanceof BlockHVIsolator && neighborState.getValue(BlockHVIsolator.FACING) == neighborDirection.getOpposite()))
+            return true;
+//        if ((neighborState.isSolid() || nb instanceof BlockIndustrialFloor || nb instanceof BlockFloorLamp || nb instanceof BlockFloorPipe || nb instanceof BlockFloorCable)
         if (Block.canSupportRigidBlock(world, neighborPos)
                 && neighborDirection != Direction.UP && neighborDirection != Direction.DOWN)
         {
@@ -37,7 +41,6 @@ public class BlockColumn extends BlockAbstractSixWayConnections {
                 return Objects.equals(neighborState.getValue(BlockBrace.FACING).getName(), neighborDirection.getOpposite().getName()) || Objects.equals(neighborState.getValue(BlockBrace.FACING).getName(), "down_" + neighborDirection.getName());
             }
             return nb instanceof BlockColumn || nb instanceof BlockPillar
-//                    || (nb instanceof BlockHVIsolator && neighborState.get(BlockHVIsolator.FACING) == neighborDirection.getOpposite())
 //                    || nb instanceof BlockPillarEnergyCable || nb instanceof BlockPillarFluidPipe
 //                    || (nb instanceof BlockAlarm && neighborState.get(BlockAlarm.FACING) == neighborDirection)
                     || (nb instanceof BlockLight && neighborState.getValue(BlockLight.FACING) == neighborDirection.getOpposite());
@@ -73,7 +76,9 @@ public class BlockColumn extends BlockAbstractSixWayConnections {
         final BlockPos neighborPos = currentPos.relative(neighborDirection);
         final BlockState neighborState = worldIn.getBlockState(neighborPos);
         BlockState ownState = worldIn.getBlockState(currentPos);
-        return isValidConnection(neighborState, ownState, worldIn, currentPos, neighborDirection, neighborPos);
+        boolean result =  isValidConnection(neighborState, ownState, worldIn, currentPos, neighborDirection, neighborPos);
+        Utils.debug("CAN CONNECT TO", neighborDirection, result);
+        return result;
     }
 
     public final boolean isConnected(final BlockState state, final Direction facing)
@@ -146,11 +151,13 @@ public class BlockColumn extends BlockAbstractSixWayConnections {
     @Override
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos neighbor, boolean flag) {
         //Utils.debug("neighbor changed", state, world, pos, block, neighbor, flag);
-        for (Direction face : Direction.values())
-        {
-            state = state.setValue(getPropertyBasedOnDirection(face), canConnectTo(world, pos, face));
+        if(!world.isClientSide){
+            for (Direction face : Direction.values())
+            {
+                state = state.setValue(getPropertyBasedOnDirection(face), canConnectTo(world, pos, face));
+            }
+            world.setBlockAndUpdate(pos, state);
         }
-        world.setBlockAndUpdate(pos, state);
         super.neighborChanged(state, world, pos, block, neighbor, flag);
     }
 }

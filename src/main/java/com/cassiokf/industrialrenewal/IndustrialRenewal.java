@@ -1,5 +1,6 @@
 package com.cassiokf.industrialrenewal;
 
+import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.events.EventHandler;
 import com.cassiokf.industrialrenewal.init.*;
 import com.mojang.logging.LogUtils;
@@ -14,7 +15,9 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -64,6 +67,9 @@ public class IndustrialRenewal
         modEventBus.addListener(this::enqueueIMC);
         // Register the processIMC method for modloading
         modEventBus.addListener(this::processIMC);
+
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC, "industrialrenewal-common.toml");
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

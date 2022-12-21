@@ -88,7 +88,7 @@ public class BlockCatwalk extends BlockAbstractSixWayConnections {
         if(!worldIn.isClientSide){
             if (handIn == InteractionHand.MAIN_HAND) {
                 Item playerItem = player.getMainHandItem().getItem();
-                if (playerItem.equals(ModItems.SCREW_DRIVE)) {
+                if (playerItem.equals(ModItems.SCREW_DRIVE.get())) {
                     Vec3 hitQuad = hit.getLocation().subtract(Vec3.atCenterOf(pos));
                     if (hit.getDirection() == Direction.UP)
                         state = state.cycle(quadToDir(hitQuad));

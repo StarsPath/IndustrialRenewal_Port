@@ -1,5 +1,6 @@
 package com.cassiokf.industrialrenewal.blocks.decor;
 
+import com.cassiokf.industrialrenewal.blocks.BlockHVIsolator;
 import com.cassiokf.industrialrenewal.blocks.abstracts.BlockAbstractSixWayConnections;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,12 +35,14 @@ public class BlockPillar extends BlockAbstractSixWayConnections {
         if (neighborDirection != Direction.UP && neighborDirection != Direction.DOWN)
         {
             return nb instanceof LeverBlock
-//                    || (nb instanceof BlockHVIsolator && neighborState.get(BlockHVIsolator.FACING) == neighborDirection.getOpposite())
+                    || (nb instanceof BlockHVIsolator && neighborState.getValue(BlockHVIsolator.FACING) == neighborDirection.getOpposite())
                     || nb instanceof RedstoneTorchBlock
                     || nb instanceof TripWireHookBlock
                     || nb instanceof BlockColumn
 //                    || (nb instanceof BlockCableTray && neighborState.get(BlockCableTray.BASE).equals(EnumBaseDirection.byIndex(neighborDirection.getOpposite().getIndex())))
                     || nb instanceof LadderBlock
+                    || nb instanceof BlockElectricFence
+                    || nb instanceof BlockElectricGate
                     || (nb instanceof BlockLight && neighborState.getValue(BlockLight.FACING) == neighborDirection.getOpposite())
 //                    || nb instanceof BlockRoof
                     || (nb instanceof BlockBrace && Objects.equals(neighborState.getValue(BlockBrace.FACING).getName(), neighborDirection.getOpposite().getName()))
@@ -60,7 +63,7 @@ public class BlockPillar extends BlockAbstractSixWayConnections {
         {
             return Block.canSupportRigidBlock(worldIn, neighborPos);
         }
-        return Block.canSupportRigidBlock(worldIn, neighborPos) || nb instanceof BlockCatwalk;
+        return (Block.canSupportRigidBlock(worldIn, neighborPos) || nb instanceof BlockCatwalk) && !(nb instanceof BlockPillar);
         //return false;
 //        return neighborState.isSolid() || nb instanceof BlockIndustrialFloor || nb instanceof BlockFloorLamp
 //                || nb instanceof BlockFloorPipe || nb instanceof BlockFloorCable || nb instanceof BlockCatWalk;

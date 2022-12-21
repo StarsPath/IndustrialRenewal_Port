@@ -50,6 +50,8 @@ public class BlockElectricFence extends BlockBasicElectricFence {
                 || nb instanceof BlockElectricGate
                 || neighborState.isFaceSturdy(worldIn, currentPos.relative(neighborDirection), neighborDirection)
                 || nb instanceof BlockBasicElectricFence
+                || nb instanceof BlockPillar
+                || nb instanceof BlockColumn
 //                || nb instanceof IRBaseWall
                 ;
     }
