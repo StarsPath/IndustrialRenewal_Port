@@ -3,10 +3,8 @@ package com.cassiokf.industrialrenewal.entity;
 
 import com.cassiokf.industrialrenewal.init.ModEntity;
 import com.cassiokf.industrialrenewal.init.ModItems;
-import com.cassiokf.industrialrenewal.util.CouplingHandler;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.ItemStack;

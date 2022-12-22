@@ -1,8 +1,8 @@
 package com.cassiokf.industrialrenewal.events;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
-import com.cassiokf.industrialrenewal.entity.model.ModelCartFlat;
-import com.cassiokf.industrialrenewal.entity.render.RenderFlatCart;
+import com.cassiokf.industrialrenewal.entity.model.*;
+import com.cassiokf.industrialrenewal.entity.render.*;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModBlocks;
 import com.cassiokf.industrialrenewal.init.ModEntity;
@@ -69,10 +69,18 @@ public final class ClientModEvents {
     @SubscribeEvent
     public static void entityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntity.FLAT_CART.get(), RenderFlatCart::new);
+        event.registerEntityRenderer(ModEntity.PASSENGER_CART.get(), RenderPassengerCart::new);
+        event.registerEntityRenderer(ModEntity.PASSENGER_CART_MK2.get(), RenderPassengerCartMk2::new);
+        event.registerEntityRenderer(ModEntity.CARGO_CONTAINER.get(), RenderCargoContainer::new);
+        event.registerEntityRenderer(ModEntity.FLUID_CONTAINER.get(), RenderFluidContainer::new);
     }
 
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(ModelCartFlat.LAYER_LOCATION, ModelCartFlat::createBodyLayer);
+        event.registerLayerDefinition(ModelPassengerCart.LAYER_LOCATION, ModelPassengerCart::createBodyLayer);
+        event.registerLayerDefinition(ModelPassengerCartMk2.LAYER_LOCATION, ModelPassengerCartMk2::createBodyLayer);
+        event.registerLayerDefinition(ModelCargoContainer.LAYER_LOCATION, ModelCargoContainer::createBodyLayer);
+        event.registerLayerDefinition(ModelCartFluidTank.LAYER_LOCATION, ModelCartFluidTank::createBodyLayer);
     }
 }

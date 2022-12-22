@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class ModelCartFlat<T extends EntityFlatCart> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(IndustrialRenewal.MODID+ "flat_cart"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(IndustrialRenewal.MODID, "flat_cart"), "main");
 	private final ModelPart Weels;
 	private final ModelPart Shafts;
 	private final ModelPart Truck;

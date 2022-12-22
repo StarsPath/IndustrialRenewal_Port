@@ -13,8 +13,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RailBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Material;
@@ -113,7 +113,7 @@ public class BlockPlatform extends BlockAbstractSixWayConnections {
         {
             return nb instanceof BlockPlatform
                     || neighborState.isFaceSturdy(worldIn, neighborPos, neighborDirection.getOpposite())
-                    || nb instanceof RailBlock
+                    || nb instanceof BaseRailBlock
                     || (nb instanceof BlockCatwalkStair && neighborState.getValue(BlockCatwalkStair.FACING) == neighborDirection.getOpposite())
                     || (ub.getBlock() instanceof BlockCatwalkGate && neighborDirection == worldIn.getBlockState(currentPos.above()).getValue(BlockCatwalkGate.FACING))
                     || (nub.getBlock() instanceof BlockCatwalkStair && worldIn.getBlockState(neighborPos.above()).getValue(BlockCatwalkStair.FACING) == neighborDirection);

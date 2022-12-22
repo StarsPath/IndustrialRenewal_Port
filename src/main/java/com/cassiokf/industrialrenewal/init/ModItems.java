@@ -3,7 +3,7 @@ package com.cassiokf.industrialrenewal.init;
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.items.*;
 import com.cassiokf.industrialrenewal.items.decor.*;
-import com.cassiokf.industrialrenewal.items.locomotion.ItemFlatCart;
+import com.cassiokf.industrialrenewal.items.locomotion.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -126,17 +126,13 @@ public class ModItems {
 
     public static final RegistryObject<Item> FLAT_CART = ITEMS.register("minecart_flat", ItemFlatCart::new);
 
-    public static final RegistryObject<Item> CARGO_CART = ITEMS.register("cargo_container",
-            ()-> new IRBaseItem(new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+    public static final RegistryObject<Item> CARGO_CART = ITEMS.register("cargo_container", ItemCargoContainer::new);
 
-    public static final RegistryObject<Item> FLUID_CART = ITEMS.register("fluid_container",
-            ()-> new IRBaseItem(new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+    public static final RegistryObject<Item> FLUID_CART = ITEMS.register("fluid_container", ItemFluidContainer::new);
 
-    public static final RegistryObject<Item> PASSENGER_CART_MK1 = ITEMS.register("passenger_car",
-            ()-> new IRBaseItem(new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+    public static final RegistryObject<Item> PASSENGER_CART_MK1 = ITEMS.register("passenger_cart", ItemPassengerCart::new);
 
-    public static final RegistryObject<Item> PASSENGER_CART_MK2 = ITEMS.register("passenger_cart_mk2",
-            ()-> new IRBaseItem(new Item.Properties().tab(IndustrialRenewal.IR_TAB)));
+    public static final RegistryObject<Item> PASSENGER_CART_MK2 = ITEMS.register("passenger_cart_mk2", ItemPassengerCartMk2::new);
 
     public static final RegistryObject<Item> CART_LINKABLE = ITEMS.register("cart_linkable", ItemCartLinker::new);
 
