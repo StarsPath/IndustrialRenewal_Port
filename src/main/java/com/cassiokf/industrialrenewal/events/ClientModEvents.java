@@ -1,8 +1,11 @@
 package com.cassiokf.industrialrenewal.events;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
+import com.cassiokf.industrialrenewal.entity.model.ModelCartFlat;
+import com.cassiokf.industrialrenewal.entity.render.RenderFlatCart;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModBlocks;
+import com.cassiokf.industrialrenewal.init.ModEntity;
 import com.cassiokf.industrialrenewal.init.ModMenus;
 import com.cassiokf.industrialrenewal.menus.screens.LatheScreen;
 import com.cassiokf.industrialrenewal.menus.screens.StorageChestScreen;
@@ -60,5 +63,16 @@ public final class ClientModEvents {
         event.registerBlockEntityRenderer(ModBlockEntity.TRANSFORMER_TILE.get(), TESRTransformerHV::new);
         event.registerBlockEntityRenderer(ModBlockEntity.ISOLATOR_TILE.get(), TESRWire::new);
 
+    }
+
+
+    @SubscribeEvent
+    public static void entityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModEntity.FLAT_CART.get(), RenderFlatCart::new);
+    }
+
+    @SubscribeEvent
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(ModelCartFlat.LAYER_LOCATION, ModelCartFlat::createBodyLayer);
     }
 }
