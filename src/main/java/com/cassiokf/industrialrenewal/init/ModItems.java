@@ -134,6 +134,8 @@ public class ModItems {
 
     public static final RegistryObject<Item> PASSENGER_CART_MK2 = ITEMS.register("passenger_cart_mk2", ItemPassengerCartMk2::new);
 
+    public static final RegistryObject<Item> STEAM_LOCOMOTIVE = ITEMS.register("steam_locomotive", ItemSteamLocomotive::new);
+
     public static final RegistryObject<Item> CART_LINKABLE = ITEMS.register("cart_linkable", ItemCartLinker::new);
 
 

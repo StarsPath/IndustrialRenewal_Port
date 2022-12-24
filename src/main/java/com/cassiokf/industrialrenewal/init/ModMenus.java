@@ -3,6 +3,7 @@ package com.cassiokf.industrialrenewal.init;
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.blockentity.BlockEntityStorageChest;
 import com.cassiokf.industrialrenewal.menus.menu.LatheMenu;
+import com.cassiokf.industrialrenewal.menus.menu.SteamLocomotiveMenu;
 import com.cassiokf.industrialrenewal.menus.menu.StorageChestMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -32,6 +33,9 @@ public class ModMenus {
 //                TileEntity tileEntity = inv.player.level.getBlockEntity(pos);
 //                return new LatheContainer(windowId, inv, ((TileEntityLathe) Objects.requireNonNull(tileEntity)).getMaster());
 //            })));
+
+    public static final RegistryObject<MenuType<SteamLocomotiveMenu>> STEAM_LOCOMOTIVE_MENU =
+            registerMenuType(SteamLocomotiveMenu::new, "steam_locomotive_menu");
 
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {

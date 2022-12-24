@@ -8,6 +8,7 @@ import com.cassiokf.industrialrenewal.init.ModBlocks;
 import com.cassiokf.industrialrenewal.init.ModEntity;
 import com.cassiokf.industrialrenewal.init.ModMenus;
 import com.cassiokf.industrialrenewal.menus.screens.LatheScreen;
+import com.cassiokf.industrialrenewal.menus.screens.SteamLocomotiveScreen;
 import com.cassiokf.industrialrenewal.menus.screens.StorageChestScreen;
 import com.cassiokf.industrialrenewal.tesr.*;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -42,6 +43,8 @@ public final class ClientModEvents {
 
         MenuScreens.register(ModMenus.STORAGE_CHEST_CONTAINER.get(), StorageChestScreen::new);
         MenuScreens.register(ModMenus.LATHE_CONTAINER.get(), LatheScreen::new);
+
+        MenuScreens.register(ModMenus.STEAM_LOCOMOTIVE_MENU.get(), SteamLocomotiveScreen::new);
     }
 
     @SubscribeEvent
@@ -73,6 +76,7 @@ public final class ClientModEvents {
         event.registerEntityRenderer(ModEntity.PASSENGER_CART_MK2.get(), RenderPassengerCartMk2::new);
         event.registerEntityRenderer(ModEntity.CARGO_CONTAINER.get(), RenderCargoContainer::new);
         event.registerEntityRenderer(ModEntity.FLUID_CONTAINER.get(), RenderFluidContainer::new);
+        event.registerEntityRenderer(ModEntity.STEAM_LOCOMOTIVE.get(), RenderSteamLocomotive::new);
     }
 
     @SubscribeEvent
@@ -82,5 +86,6 @@ public final class ClientModEvents {
         event.registerLayerDefinition(ModelPassengerCartMk2.LAYER_LOCATION, ModelPassengerCartMk2::createBodyLayer);
         event.registerLayerDefinition(ModelCargoContainer.LAYER_LOCATION, ModelCargoContainer::createBodyLayer);
         event.registerLayerDefinition(ModelCartFluidTank.LAYER_LOCATION, ModelCartFluidTank::createBodyLayer);
+        event.registerLayerDefinition(ModelSteamLocomotive.LAYER_LOCATION, ModelSteamLocomotive::createBodyLayer);
     }
 }
