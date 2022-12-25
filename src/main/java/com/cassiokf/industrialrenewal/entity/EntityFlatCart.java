@@ -39,23 +39,6 @@ public class EntityFlatCart extends AbstractMinecart {
         super.destroy(p_38115_);
     }
 
-//    @Override
-//    public void tick() {
-//        super.tick();
-//        CouplingHandler.onMinecartTick(this);
-//    }
-
-//    @Override
-//    protected double getMaxSpeed() {
-//        return 0.20d;
-////        return super.getMaxSpeed();
-//    }
-//
-//    @Override
-//    public float getMaxCartSpeedOnRail() {
-//        return 0.20f;
-//    }
-
     @Override
     public Type getMinecartType() {
         return Type.RIDEABLE;
@@ -66,8 +49,4 @@ public class EntityFlatCart extends AbstractMinecart {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
-    //    @Override
-//    public IPacket<?> getAddEntityPacket() {
-//        return NetworkHooks.getEntitySpawningPacket(this);
-//    }
 }

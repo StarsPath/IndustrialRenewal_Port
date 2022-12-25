@@ -5,17 +5,22 @@ import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.entity.EntityPassengerCart;
 import com.cassiokf.industrialrenewal.entity.EntitySteamLocomotive;
 import com.cassiokf.industrialrenewal.entity.model.ModelSteamLocomotive;
+import com.cassiokf.industrialrenewal.util.TrainUtil;
+import com.cassiokf.industrialrenewal.util.Utils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
-public class RenderSteamLocomotive<T extends EntitySteamLocomotive> extends RenderBase<EntitySteamLocomotive>{
+public class RenderSteamLocomotive<T extends EntitySteamLocomotive> extends MinecartRenderer<EntitySteamLocomotive> {
 
     public static final ResourceLocation TEXTURES = new ResourceLocation(IndustrialRenewal.MODID + ":textures/entities/steamlocomotive.png");
 
@@ -30,6 +35,7 @@ public class RenderSteamLocomotive<T extends EntitySteamLocomotive> extends Rend
 
     @Override
     public void render(EntitySteamLocomotive entity, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLightIn) {
+//        super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLightIn);
         matrixStack.pushPose();
         long i = (long)entity.getId() * 493286711L;
         i = i * i * 4392167121L + i * 98761L;
@@ -44,8 +50,8 @@ public class RenderSteamLocomotive<T extends EntitySteamLocomotive> extends Rend
         Vec3 vector3d = entity.getPos(d0, d1, d2);
         float f3 = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
         if (vector3d != null) {
-            Vec3 vector3d1 = entity.getPosOffs(d0, d1, d2, (double)0.3F);
-            Vec3 vector3d2 = entity.getPosOffs(d0, d1, d2, (double)-0.3F);
+            Vec3 vector3d1 = entity.getPosOffs(d0, d1, d2, (double) 0.3F);
+            Vec3 vector3d2 = entity.getPosOffs(d0, d1, d2, (double) -0.3F);
             if (vector3d1 == null) {
                 vector3d1 = vector3d;
             }
@@ -57,28 +63,18 @@ public class RenderSteamLocomotive<T extends EntitySteamLocomotive> extends Rend
             matrixStack.translate(vector3d.x - d0, (vector3d1.y + vector3d2.y) / 2.0D - d1, vector3d.z - d2);
             Vec3 vector3d3 = vector3d2.add(-vector3d1.x, -vector3d1.y, -vector3d1.z);
             if (vector3d3.length() != 0.0D) {
+//
+//                Direction entityDir = TrainUtil.getTravelDirection(entity.getDeltaMovement());
+//                if (entityDir == Direction.NORTH || entityDir == Direction.WEST) {
+//                    vector3d3 = vector3d3.multiply(new Vec3(-1, 0, -1));
+//                }
+
                 vector3d3 = vector3d3.normalize();
-                entityYaw = (float)(Math.atan2(vector3d3.z, vector3d3.x) * 180.0D / Math.PI);
-                f3 = (float)(Math.atan(vector3d3.y) * 73.0D);
+                entityYaw = (float) (Math.atan2(vector3d3.z, vector3d3.x) * 180.0D / Math.PI);
+                f3 = (float) (Math.atan(vector3d3.y) * 73.0D);
             }
         }
 
-        entityYaw = entityYaw % 360;
-        if (entityYaw < 0) {
-            entityYaw += 360;
-        }
-        entityYaw += 360;
-
-        double rotationYaw = (entity.getXRot() + 180) % 360;
-        if (rotationYaw < 0) {
-            rotationYaw = rotationYaw + 360;
-        }
-        rotationYaw = rotationYaw + 360;
-
-        if (Math.abs(entityYaw - rotationYaw) > 90) {
-            entityYaw += 180;
-            f3 = -f3;
-        }
 
         matrixStack.translate(0.0D, 0.375D, 0.0D);
         matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - entityYaw));
@@ -107,7 +103,7 @@ public class RenderSteamLocomotive<T extends EntitySteamLocomotive> extends Rend
         matrixStack.mulPose(Vector3f.YP.rotationDegrees(flip ? 0.0f : 180.0f));
 
         matrixStack.scale(-1.0F, -1.0F, 1.0F);
-        this.model.setupAnim(entity, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F);
+        this.model.setupAnim(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         VertexConsumer ivertexbuilder = buffer.getBuffer(this.model.renderType(this.getTextureLocation(entity)));
         this.model.renderToBuffer(matrixStack, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         matrixStack.popPose();

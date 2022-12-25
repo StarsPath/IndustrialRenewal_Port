@@ -1,6 +1,5 @@
 package com.cassiokf.industrialrenewal.entity;
 
-import com.cassiokf.industrialrenewal.entity.render.RotatableBase;
 import com.cassiokf.industrialrenewal.init.ModEntity;
 import com.cassiokf.industrialrenewal.init.ModItems;
 import net.minecraft.network.protocol.Packet;
@@ -22,14 +21,6 @@ public class EntityPassengerCart extends RotatableBase {
     public EntityPassengerCart(Level p_38091_, double p_38092_, double p_38093_, double p_38094_) {
         super(ModEntity.PASSENGER_CART.get(), p_38091_, p_38092_, p_38093_, p_38094_);
     }
-//    public EntityPassengerCar(EntityType<EntityPassengerCar> p_i48538_1_, World p_i48538_2_) {
-//        super(p_i48538_1_, p_i48538_2_);
-//    }
-//
-//    public EntityPassengerCar(World world, double x, double y, double z){
-//        super(ModEntity.PASSENGER_CAR.get(), world, x, y, z);
-//    }
-
 
     @Override
     public ItemStack getPickResult() {
@@ -69,19 +60,6 @@ public class EntityPassengerCart extends RotatableBase {
             this.spawnAtLocation(itemstack);
         }
     }
-
-
-//    @Override
-//    protected double getMaxSpeed() {
-//        return 0.20d;
-////        return super.getMaxSpeed();
-//    }
-//
-//    @Override
-//    public float getMaxCartSpeedOnRail() {
-//        return 0.20f;
-//    }
-
 
     @Override
     public Type getMinecartType() {

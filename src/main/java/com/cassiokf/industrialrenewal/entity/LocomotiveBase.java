@@ -1,44 +1,37 @@
 package com.cassiokf.industrialrenewal.entity;
 
-import com.cassiokf.industrialrenewal.entity.render.RotatableBase;
 import com.cassiokf.industrialrenewal.init.ModItems;
+import com.cassiokf.industrialrenewal.util.Utils;
 import com.cassiokf.industrialrenewal.util.interfaces.ICoupleCart;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.entity.vehicle.AbstractMinecartContainer;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.block.BaseRailBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RailBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.RailShape;
+import net.minecraftforge.network.NetworkHooks;
 
-public abstract class LocomotiveBase extends TrainHeadBase implements ICoupleCart
+public abstract class LocomotiveBase extends AbstractMinecartContainer implements ICoupleCart
 {
-//    private static final DataParameter<Boolean> PLOW = EntityDataManager.createKey(EntitySteamLocomotive.class, DataSerializers.BOOLEAN);
-//    public boolean hasPlowItem;
-//
-//    public ItemStackHandler inventory = new ItemStackHandler(1)
-//    {
-//        @Override
-//        public boolean isItemValid(int slot, ItemStack stack)
-//        {
-//            return true;
-//        }
-//
-//        @Override
-//        protected void onContentsChanged(int slot)
-//        {
-////            LocomotiveBase.this.sync();
-//        }
-//    };
 
-//    public LazyOptional<ItemStackHandler> itemHandler = LazyOptional.of(()->inventory);
+    public boolean cornerFlip;
+    private int wrongRender;
+    private boolean oldRender;
+    private float lastRenderYaw;
+    private double lastMotionX;
+    private double lastMotionZ;
 
     protected LocomotiveBase(EntityType<?> p_38213_, Level p_38214_) {
         super(p_38213_, p_38214_);
@@ -48,16 +41,15 @@ public abstract class LocomotiveBase extends TrainHeadBase implements ICoupleCar
         super(p_38207_, p_38208_, p_38209_, p_38210_, p_38211_);
     }
 
+    @Override
+    protected AbstractContainerMenu createMenu(int p_38222_, Inventory p_38223_) {
+        return null;
+    }
 
-//    public LocomotiveBase(Level worldIn)
-//    {
-//        super(worldIn);
-//    }
-//
-//    public LocomotiveBase(Level worldIn, double x, double y, double z)
-//    {
-//        super(worldIn, x, y, z);
-//    }
+    @Override
+    public int getContainerSize() {
+        return 0;
+    }
 
     public void onLocomotiveUpdate()
     {
@@ -66,88 +58,39 @@ public abstract class LocomotiveBase extends TrainHeadBase implements ICoupleCar
     public void moveForward()
     {
         Direction cartDir = this.getDirection();
-        double acceleration = 0.08D;
-        this.setDeltaMovement(this.getDeltaMovement().x + cartDir.getStepX() * acceleration, this.getDeltaMovement().y, this.getDeltaMovement().z + cartDir.getStepZ() * acceleration);
+        double acceleration = 0.2D;
+        double yaw = getYRot() * Math.PI / 180D;
+//        Utils.debug("MOVE", this.getDeltaMovement().x , cartDir.getStepX() , acceleration , Math.cos(yaw), yaw);
+        double xMovement = this.getDeltaMovement().x + acceleration * Math.cos(yaw);
+        double zMovement = this.getDeltaMovement().z + acceleration * Math.sin(yaw);
+//        Utils.debug("MOVE", xMovement, zMovement);
+        this.setDeltaMovement(xMovement, this.getDeltaMovement().y, zMovement);
     }
-
-//    public void setTender(EntityTenderBase tender)
-//    {
-//        this.tender = tender;
-//    }
-
-//    private boolean hasPlowItem()
-//    {
-//        boolean temp = false;
-//        ItemStack stack = this.inventory.getStackInSlot(0);
-//        if (!stack.isEmpty())
-//        {
-//            temp = true;
-//        }
-//        hasPlowItem = temp;
-//        return hasPlowItem;
-//    }
 
 //    public void horn()
 //    {
 //        world.playSound(null, getPosition(), IRSoundRegister.TILEENTITY_TRAINHORN, SoundCategory.NEUTRAL, 2F * IRConfig.MainConfig.Sounds.masterVolumeMult, 1F);
 //    }
 
+
+    @Override
+    public InteractionResult interact(Player player, InteractionHand hand) {
+        if(!level.isClientSide){
+            if(hand == InteractionHand.MAIN_HAND && player.getMainHandItem().is(ModItems.SCREW_DRIVE.get())){
+                Utils.debug("RIGHT CLICKED WITH SCREW DRIVER", this.getYRot());
+                this.setYRot(this.getYRot() + 180f);
+                Utils.debug("", this.getYRot());
+            }
+            return InteractionResult.SUCCESS;
+        }
+        return super.interact(player, hand);
+    }
+
     @Override
     protected double getMaxSpeed()
     {
         return super.getMaxSpeed();
     }
-
-//    @Override
-//    public void destroy(DamageSource source)
-//    {
-//        super.destroy(source);
-//
-//        if (!source.isExplosion() && this.level.getGameRules().getBoolean("doEntityDrops"))
-//        {
-//            this.entityDropItem(new ItemStack(ModItems.steamLocomotive, 1), 0.0F);
-//        }
-//    }
-//    @Override
-//    public void destroy(DamageSource p_94095_1_) {
-//        this.remove(RemovalReason.KILLED);
-//        if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
-//            ItemStack itemstack = new ItemStack(ModItems.STEAM_LOCOMOTIVE.get());
-//            if (this.hasCustomName()) {
-//                itemstack.setHoverName(this.getCustomName());
-//            }
-//            this.spawnAtLocation(itemstack);
-////            this.spawnAtLocation(inventory.getStackInSlot(0));
-//        }
-//    }
-
-//    @Override
-//    public boolean save(CompoundTag compound) {
-//        compound.put("inventory", this.inventory.serializeNBT());
-//        return super.save(compound);
-//    }
-//
-//    @Override
-//    public void load(CompoundTag compound) {
-//        super.load(compound);
-//        this.inventory.deserializeNBT(compound.getCompound("inventory"));
-////        this.sync();
-//    }
-
-//    @Override
-//    public void sync()
-//    {
-//        if (!this.level.isClientSide)
-//        {
-//            this.dataManager.set(PLOW, hasPlowItem());
-//        }
-//    }
-
-//    @Override
-//    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-//        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY?
-//                itemHandler.cast() : super.getCapability(capability, facing);
-//    }
 
 
     @Override
@@ -168,20 +111,58 @@ public abstract class LocomotiveBase extends TrainHeadBase implements ICoupleCar
         return 1.6f;
     }
 
-//    @Override
-//    protected void entityInit()
-//    {
-//        super.entityInit();
-//        this.getDataManager().register(PLOW, false);
-//    }
 
-//    @Override
-//    public void notifyDataManagerChange(DataParameter<?> key)
-//    {
-//        super.notifyDataManagerChange(key);
-//        if (this.world.isRemote && key.equals(PLOW))
-//        {
-//            this.hasPlowItem = this.dataManager.get(PLOW);
-//        }
-//    }
+    @Override
+    public double getDragAir() {
+        return 0.5f;
+    }
+
+
+
+    public boolean getRenderFlippedYaw(float yaw)
+    {
+        yaw %= 360.0f;
+        if (yaw < 0.0f)
+        {
+            yaw += 360.0f;
+        }
+        if (!oldRender || Math.abs(yaw - lastRenderYaw) < 90.0f || Math.abs(yaw - lastRenderYaw) > 270.0f || (xo > 0.0 && lastMotionX < 0.0) || (zo > 0.0 && lastMotionZ < 0.0)
+                || (xo < 0.0 && lastMotionX > 0.0) || (zo < 0.0 && lastMotionZ > 0.0) || wrongRender >= 50)
+        {
+            lastMotionX = xo;
+            lastMotionZ = zo;
+            lastRenderYaw = yaw;
+            oldRender = true;
+            wrongRender = 0;
+            return false;
+        }
+        ++wrongRender;
+        return true;
+    }
+
+    @Override
+    protected void moveAlongTrack(BlockPos pos, BlockState blockState) {
+        super.moveAlongTrack(pos, blockState);
+        Block b = blockState.getBlock();
+        if(b instanceof RailBlock railBlock) {
+            RailShape railDirection = railBlock.getRailDirection(blockState, level, pos, this);
+//            cornerFlip = ((railDirection == RailShape.SOUTH_EAST || railDirection == RailShape.SOUTH_WEST) && this.getDeltaMovement().x < 0.0)
+//                    || ((railDirection == RailShape.NORTH_EAST || railDirection == RailShape.NORTH_WEST) && this.getDeltaMovement().x > 0.0);
+            cornerFlip = (railDirection == RailShape.SOUTH_EAST || railDirection == RailShape.SOUTH_WEST || railDirection == RailShape.NORTH_WEST);
+//            if(cornerFlip)
+//                Utils.debug("SHOULD CORNER FLIP", railDirection);
+        }
+    }
+
+    @Override
+    protected void addAdditionalSaveData(CompoundTag tag) {
+        tag.putBoolean("corner_flip", cornerFlip);
+        super.addAdditionalSaveData(tag);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(CompoundTag tag) {
+        cornerFlip = tag.getBoolean("corner_flip");
+        super.readAdditionalSaveData(tag);
+    }
 }

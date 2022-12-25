@@ -14,7 +14,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
 
-public class EntityPassengerCartMk2 extends TrainBase{
+public class EntityPassengerCartMk2 extends RotatableBase {
     public EntityPassengerCartMk2(EntityType<?> p_38087_, Level p_38088_) {
         super(p_38087_, p_38088_);
     }
@@ -22,13 +22,6 @@ public class EntityPassengerCartMk2 extends TrainBase{
     public EntityPassengerCartMk2(Level p_38091_, double p_38092_, double p_38093_, double p_38094_) {
         super(ModEntity.PASSENGER_CART_MK2.get(), p_38091_, p_38092_, p_38093_, p_38094_);
     }
-//    public EntityPassengerCartMk2(EntityType<EntityPassengerCartMk2> p_i48538_1_, World p_i48538_2_) {
-//        super(p_i48538_1_, p_i48538_2_);
-//    }
-//
-//    public EntityPassengerCartMk2(World world, double x, double y, double z){
-//        super(ModEntity.PASSENGER_CART_MK2.get(), world, x, y, z);
-//    }
 
 
     @Override
@@ -77,12 +70,6 @@ public class EntityPassengerCartMk2 extends TrainBase{
             this.spawnAtLocation(itemstack);
         }
     }
-
-//    @Override
-//    public void tick() {
-//        super.tick();
-//        CouplingHandler.onMinecartTick(this);
-//    }
 
 
     @Override

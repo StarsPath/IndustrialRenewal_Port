@@ -7,6 +7,7 @@ import com.cassiokf.industrialrenewal.init.ModItems;
 import com.cassiokf.industrialrenewal.menus.menu.SteamLocomotiveMenu;
 import com.cassiokf.industrialrenewal.util.CustomFluidTank;
 import com.cassiokf.industrialrenewal.util.CustomItemStackHandler;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -17,7 +18,9 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -87,6 +90,7 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
                 generateSteam();
             if(consumeSteam())
                 move();
+//            Utils.debug("MOV", getYRot(), this.getDeltaMovement().x, this.getDeltaMovement().y);
         }
     }
 
@@ -147,19 +151,31 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
         this.remove(RemovalReason.KILLED);
     }
 
+    @Override
+    public boolean canCollideWith(Entity p_38168_) {
+        return !(p_38168_ instanceof LivingEntity) && super.canCollideWith(p_38168_);
+//        return super.canCollideWith(p_38168_);
+    }
+
     @NotNull
     @Override
     public InteractionResult interact(@NotNull Player player, @NotNull InteractionHand hand) {
         if(!level.isClientSide){
-            if(hand == InteractionHand.MAIN_HAND && player.getMainHandItem().isEmpty()){
+            if(player.isCrouching()){
+                return super.interact(player, hand);
+            }
+            else if(hand == InteractionHand.MAIN_HAND && player.getMainHandItem().isEmpty() && !player.isCrouching()){
                 NetworkHooks.openGui(((ServerPlayer)player), this, new BlockPos(getId(), 0, 0));
             }
             else{
+                if(player.getMainHandItem().is(ModItems.SCREW_DRIVE.get()))
+                    return InteractionResult.SUCCESS;
+
                 boolean acceptFluid = FluidUtil.interactWithFluidHandler(player, hand, fluidWaterTank);
                 if(!acceptFluid){
-                    String message = String.format("%s: %d/%d mB", fluidWaterTank.getFluid().getDisplayName(), fluidWaterTank.getFluidAmount(), fluidWaterTank.getCapacity());
+                    String message = String.format("%s %s: %d/%d mB", "Water Tank", I18n.get(fluidWaterTank.getFluid().getTranslationKey()), fluidWaterTank.getFluidAmount(), fluidWaterTank.getCapacity());
                     player.sendMessage(new TextComponent(message), player.getUUID());
-                    message = String.format("%s: %d/%d mB", fluidSteamTank.getFluid().getDisplayName(), fluidSteamTank.getFluidAmount(), fluidSteamTank.getCapacity());
+                    message = String.format("%s %s: %d/%d mB", "Steam Tank", I18n.get(fluidSteamTank.getFluid().getTranslationKey()), fluidSteamTank.getFluidAmount(), fluidSteamTank.getCapacity());
                     player.sendMessage(new TextComponent(message), player.getUUID());
                 }
             }
@@ -220,11 +236,6 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
         return this.getCapability(capability);
-//        if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-//            return waterTankHandler.cast();
-//        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-//            return itemHandler.cast();
-//        return super.getCapability(capability, facing);
     }
 
     @NotNull
@@ -236,98 +247,4 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
             return itemHandler.cast();
         return super.getCapability(cap);
     }
-
-    //    private final SteamBoiler boiler = new SteamBoiler(this, SteamBoiler.BoilerType.Solid, 1)
-//    {
-//        @Override
-//        public void outPutSteam()
-//        {
-//            EntitySteamLocomotive.this.onSteamGenerated();
-//        }
-//    }.setWaterTankCapacity(64000);
-//
-//    public EntitySteamLocomotive(Level worldIn)
-//    {
-//        super(worldIn);
-//        this.setSize(1F, 1.0F);
-//    }
-//
-//    public EntitySteamLocomotive(World worldIn, double x, double y, double z)
-//    {
-//        super(worldIn, x, y, z);
-//    }
-
-//    @Override
-//    public void onLocomotiveUpdate()
-//    {
-//        //if (!inventory.getStackInSlot(0).isEmpty()) moveForward();
-//        fillBoiler();
-//        boiler.onTick();
-//    }
-//
-//    public void onSteamGenerated()
-//    {
-//        if (boiler.steamTank.getFluidAmount() > 0)
-//        {
-//            this.moveForward();
-//            boiler.steamTank.drain(20, true);
-//        }
-//    }
-
-//    private void fillBoiler()
-//    {
-//        if (tender == null) return;
-//        FluidTank tenderTank = tender.tank;
-//        tenderTank.drain(boiler.waterTank.fill(tenderTank.drain(Fluid.BUCKET_VOLUME, false), true), true);
-//        Utils.moveItemsBetweenInventories(tender.inventory, boiler.solidFuelInv);
-//    }
-//
-//    @Override
-//    public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
-//    {
-//        //if (!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() instanceof ItemCartLinkable)
-//        //{
-//        //    //send to server to rotate the cart
-//        //    return true;
-//        //}
-//        if (!player.isSneaking())
-//        {
-//            if (!this.world.isRemote)
-//                player.openGui(IndustrialRenewal.instance, GUIHandler.STEAMLOCOMOTIVE, this.world, this.getEntityId(), 0, 0);
-//            return true;
-//        }
-//        return super.processInitialInteract(player, hand);
-//    }
-//
-//    @Override
-//    public ItemStack getCartItem()
-//    {
-//        return new ItemStack(ModItems.steamLocomotive);
-//    }
-//
-//    @Override
-//    public float getMaxCouplingDistance(EntityMinecart cart)
-//    {
-//        return 2.0f;
-//    }
-//
-//    @Override
-//    public float getFixedDistance(EntityMinecart cart)
-//    {
-//        return 1.6f;
-//    }
-//
-//    @Override
-//    public void writeEntityToNBT(NBTTagCompound compound)
-//    {
-//        super.writeEntityToNBT(compound);
-//        boiler.serialize(compound);
-//    }
-//
-//    @Override
-//    public void readEntityFromNBT(NBTTagCompound compound)
-//    {
-//        super.readEntityFromNBT(compound);
-//        boiler.deserialize(compound);
-//    }
 }

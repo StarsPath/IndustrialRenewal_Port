@@ -1,5 +1,6 @@
 package com.cassiokf.industrialrenewal.entity.render;
 
+import com.cassiokf.industrialrenewal.entity.RotatableBase;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;

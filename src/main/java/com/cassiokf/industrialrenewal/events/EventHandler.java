@@ -63,30 +63,15 @@ public class EventHandler {
     }
 
 //    @SubscribeEvent
-//    public static void onMinecartEvent(EntityJoinWorldEvent event){
-//        Entity entity = event.getEntity();
-//        if(entity instanceof AbstractMinecart){
-//            Utils.debug("MINECART");
-//            CouplingHandler.onMinecartTick((AbstractMinecart) entity);
-//        }
-//    }
-
-//    @SubscribeEvent
-//    public static void onMinecartEvent(LivingEvent event){
-//        Entity entity = event.getEntity();
-//        if(entity instanceof AbstractMinecart){
-//            Utils.debug("MINECART");
-//            CouplingHandler.onMinecartTick((AbstractMinecart) entity);
-//        }
-//    }
+//    public static void onMinecartTickEvent(TickEvent.WorldTickEvent event){
+//        ServerLevel level = (ServerLevel) event.world;
+//        Iterable<Entity> entityIterable = level.getAllEntities();
 //
+//        entityIterable.forEach((x)->{
+//            if(x instanceof AbstractMinecart){
+////                Utils.debug("Minecart YRot", x.getYRot());
+//            }
+//        });
 //
-//    @SubscribeEvent
-//    public static void onMinecartEvent(net.minecraftforge.event.entity.EntityEvent event){
-//        Entity entity = event.getEntity();
-//        if(entity instanceof AbstractMinecart){
-//            Utils.debug("MINECART");
-//            CouplingHandler.onMinecartTick((AbstractMinecart) entity);
-//        }
 //    }
 }

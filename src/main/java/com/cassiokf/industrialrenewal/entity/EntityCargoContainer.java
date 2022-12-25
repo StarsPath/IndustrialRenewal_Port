@@ -24,13 +24,6 @@ public class EntityCargoContainer extends AbstractMinecartContainer {
     public EntityCargoContainer(double p_38208_, double p_38209_, double p_38210_, Level p_38211_) {
         super(ModEntity.CARGO_CONTAINER.get(), p_38208_, p_38209_, p_38210_, p_38211_);
     }
-//    public EntityCargoContainer(EntityType<EntityCargoContainer> entityType, World world) {
-//        super(entityType, world);
-//    }
-//
-//    public EntityCargoContainer(Level world, double x, double y, double z){
-//        super(ModEntity.CARGO_CONTAINER.get(), x, y, z, world);
-//    }
 
     @Override
     public Type getMinecartType() {
@@ -65,34 +58,8 @@ public class EntityCargoContainer extends AbstractMinecartContainer {
     }
 
 
-//    @Override
-//    protected double getMaxSpeed() {
-//        return 0.20d;
-////        return super.getMaxSpeed();
-//    }
-//
-//    @Override
-//    public float getMaxCartSpeedOnRail() {
-//        return 0.20f;
-//    }
-
-
     @Override
     public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
-
-    //    @Nullable
-//    @Override
-//    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
-//        return ChestContainer.threeRows(p_createMenu_1_, p_createMenu_2_);
-//    }
-//
-//    @Override
-//    public ActionResultType interact(PlayerEntity p_184230_1_, Hand p_184230_2_) {
-//        ActionResultType ret = super.interact(p_184230_1_, p_184230_2_);
-//        if (ret.consumesAction()) return ret;
-//        p_184230_1_.openMenu(this);
-//        return ActionResultType.SUCCESS;
-//    }
 }
