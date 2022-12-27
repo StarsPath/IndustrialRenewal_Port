@@ -25,7 +25,7 @@ import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
-public abstract class LocomotiveBase extends AbstractMinecartContainer implements ICoupleCart
+public abstract class LocomotiveBase extends AbstractMinecart implements ICoupleCart
 {
 
     public boolean cornerFlip;
@@ -39,23 +39,21 @@ public abstract class LocomotiveBase extends AbstractMinecartContainer implement
 
     public Direction directionOverride = Direction.UP;
 
-    protected LocomotiveBase(EntityType<?> p_38213_, Level p_38214_) {
-        super(p_38213_, p_38214_);
+    protected LocomotiveBase(EntityType<?> p_38087_, Level p_38088_) {
+        super(p_38087_, p_38088_);
     }
 
-    protected LocomotiveBase(EntityType<?> p_38207_, double p_38208_, double p_38209_, double p_38210_, Level p_38211_) {
-        super(p_38207_, p_38208_, p_38209_, p_38210_, p_38211_);
+    protected LocomotiveBase(EntityType<?> p_38090_, Level p_38091_, double p_38092_, double p_38093_, double p_38094_) {
+        super(p_38090_, p_38091_, p_38092_, p_38093_, p_38094_);
     }
 
-    @Override
-    protected AbstractContainerMenu createMenu(int p_38222_, Inventory p_38223_) {
-        return null;
-    }
-
-    @Override
-    public int getContainerSize() {
-        return 0;
-    }
+//    protected LocomotiveBase(EntityType<?> p_38213_, Level p_38214_) {
+//        super(p_38213_, p_38214_);
+//    }
+//
+//    protected LocomotiveBase(EntityType<?> p_38207_, double p_38208_, double p_38209_, double p_38210_, Level p_38211_) {
+//        super(p_38207_, p_38208_, p_38209_, p_38210_, p_38211_);
+//    }
 
     public void onLocomotiveUpdate()
     {
@@ -175,9 +173,9 @@ public abstract class LocomotiveBase extends AbstractMinecartContainer implement
         Block b = blockState.getBlock();
         if(b instanceof RailBlock railBlock) {
             RailShape railDirection = railBlock.getRailDirection(blockState, level, pos, this);
-//            cornerFlip = ((railDirection == RailShape.SOUTH_EAST || railDirection == RailShape.SOUTH_WEST) && this.getDeltaMovement().x < 0.0)
-//                    || ((railDirection == RailShape.NORTH_EAST || railDirection == RailShape.NORTH_WEST) && this.getDeltaMovement().x > 0.0);
-            cornerFlip = (railDirection == RailShape.SOUTH_EAST || railDirection == RailShape.SOUTH_WEST || railDirection == RailShape.NORTH_WEST);
+            cornerFlip = ((railDirection == RailShape.SOUTH_EAST || railDirection == RailShape.SOUTH_WEST) && this.getDeltaMovement().x < 0.0)
+                    || ((railDirection == RailShape.NORTH_EAST || railDirection == RailShape.NORTH_WEST) && this.getDeltaMovement().x > 0.0);
+//            cornerFlip = (railDirection == RailShape.SOUTH_EAST || railDirection == RailShape.SOUTH_WEST || railDirection == RailShape.NORTH_WEST);
 //            if(cornerFlip)
 //                Utils.debug("SHOULD CORNER FLIP", railDirection);
         }

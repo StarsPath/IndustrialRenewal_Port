@@ -15,6 +15,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -25,6 +26,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
@@ -54,7 +56,7 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
 //            return stack.getItem().getBurnTime(stack, null) > 0;
         }
     };
-    private final LazyOptional<CustomItemStackHandler> itemHandler = LazyOptional.of(()-> itemStorage);
+    private LazyOptional<CustomItemStackHandler> itemHandler = LazyOptional.of(()-> itemStorage);
 
 
     private final CustomFluidTank fluidWaterTank = new CustomFluidTank(16000);
@@ -74,14 +76,71 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
 
     private int burnTime;
 
-
-    public EntitySteamLocomotive(EntityType<?> p_38213_, Level p_38214_) {
-        super(p_38213_, p_38214_);
+    public EntitySteamLocomotive(EntityType<?> p_38087_, Level p_38088_) {
+        super(p_38087_, p_38088_);
     }
 
-    public EntitySteamLocomotive(double p_38208_, double p_38209_, double p_38210_, Level p_38211_) {
-        super(ModEntity.STEAM_LOCOMOTIVE.get(), p_38208_, p_38209_, p_38210_, p_38211_);
+    public EntitySteamLocomotive(Level p_38091_, double p_38092_, double p_38093_, double p_38094_) {
+        super(ModEntity.STEAM_LOCOMOTIVE.get(), p_38091_, p_38092_, p_38093_, p_38094_);
     }
+
+
+//    public EntitySteamLocomotive(EntityType<?> p_38213_, Level p_38214_) {
+//        super(p_38213_, p_38214_);
+//    }
+//
+//    public EntitySteamLocomotive(double p_38208_, double p_38209_, double p_38210_, Level p_38211_) {
+//        super(ModEntity.STEAM_LOCOMOTIVE.get(), p_38208_, p_38209_, p_38210_, p_38211_);
+//    }
+
+//    @Override
+//    public int getContainerSize() {
+//        return 6;
+//    }
+//
+//    @Override
+//    public boolean isEmpty() {
+//        for(int i = 0; i < itemStorage.getSlots(); i++){
+//            if(!itemStorage.getStackInSlot(i).isEmpty())
+//                return false;
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public ItemStack getItem(int slot) {
+//        return itemStorage.getStackInSlot(slot);
+//    }
+//
+//    @Override
+//    public ItemStack removeItem(int slot, int amount) {
+//        return itemStorage.extractItem(slot, amount, false);
+//    }
+//
+//    @Override
+//    public ItemStack removeItemNoUpdate(int slot) {
+//        ItemStack stack = itemStorage.getStackInSlot(slot);
+//        if(stack == null || stack.isEmpty()){
+//            stack =  ItemStack.EMPTY;
+//        }
+//        itemStorage.setStackInSlot(slot, ItemStack.EMPTY);
+//        return stack;
+//    }
+//
+//    @Override
+//    public void setItem(int slot, ItemStack itemStack) {
+//        itemStorage.setStackInSlot(slot, itemStack);
+//    }
+//
+//    @Override
+//    public void setChanged() {
+//
+//    }
+//
+//    @Override
+//    public boolean stillValid(Player player) {
+//        return player.distanceTo(this) < 5.0f;
+//    }
 
     @Override
     public void tick() {
@@ -196,10 +255,10 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
         return new TextComponent("Steam Locomotive");
     }
 
-    @Override
-    protected AbstractContainerMenu createMenu(int id, Inventory inv) {
-        return new SteamLocomotiveMenu(id, inv, this);
-    }
+//    @Override
+//    protected AbstractContainerMenu createMenu(int id, Inventory inv) {
+//        return new SteamLocomotiveMenu(id, inv, this);
+//    }
 
     @Override
     protected void addAdditionalSaveData(@NotNull CompoundTag tag) {
@@ -245,17 +304,42 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
     }
 
     @Override
+    public void reviveCaps() {
+        itemHandler = net.minecraftforge.common.util.LazyOptional.of(() -> itemStorage);
+        super.reviveCaps();
+    }
+
+    @Override
     public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-        return this.getCapability(capability);
+        if(this.isAlive() && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+            return waterTankHandler.cast();
+        if(this.isAlive() && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+            return itemHandler.cast();
+        return null;
+//        return super.getCapability(capability, facing);
     }
 
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        if(cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+        if(this.isAlive() && cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
             return waterTankHandler.cast();
-        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+        if(this.isAlive() && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return itemHandler.cast();
-        return super.getCapability(cap);
+        return null;
+//        return super.getCapability(cap);
+    }
+
+//    @Override
+//    public void clearContent() {
+//        for(int i = 0; i < itemStorage.getSlots(); i++){
+//            itemStorage.setStackInSlot(i, ItemStack.EMPTY);
+//        }
+//    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inv, Player p_39956_) {
+        return new SteamLocomotiveMenu(id, inv, this);
     }
 }

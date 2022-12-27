@@ -81,6 +81,7 @@ public class IndustrialRenewal
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         MinecraftForge.EVENT_BUS.register(EventHandler.class);
+        event.enqueueWork(PacketHandler::init);
 //        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     }
 

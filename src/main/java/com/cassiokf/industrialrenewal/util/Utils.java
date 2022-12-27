@@ -9,12 +9,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
@@ -181,34 +183,40 @@ public class Utils {
         return a + f * (b - a);
     }
 
-
-    public static void dropInventoryItems(Level worldIn, BlockPos pos, ItemStackHandler inventory)
-    {
-        if(inventory == null)
-            return;
-        for (int i = 0; i < inventory.getSlots(); ++i)
-        {
-            ItemStack itemstack = inventory.getStackInSlot(i);
-
-            if (!itemstack.isEmpty())
-            {
-                spawnItemStack(worldIn, pos, itemstack);
-            }
+    public static void dropInventoryItems(Level level, BlockPos pos, ItemStackHandler itemStackHandler){
+        for(int i = 0; i < itemStackHandler.getSlots(); i++){
+            Block.popResource(level, pos, itemStackHandler.getStackInSlot(i));
         }
     }
 
-    public static void dropInventoryItems(Level worldIn, BlockPos pos, IItemHandler inventory)
-    {
-        for (int i = 0; i < inventory.getSlots(); ++i)
-        {
-            ItemStack itemstack = inventory.getStackInSlot(i);
 
-            if (!itemstack.isEmpty())
-            {
-                spawnItemStack(worldIn, pos, itemstack);
-            }
-        }
-    }
+//    public static void dropInventoryItems(Level worldIn, BlockPos pos, ItemStackHandler inventory)
+//    {
+//        if(inventory == null)
+//            return;
+//        for (int i = 0; i < inventory.getSlots(); ++i)
+//        {
+//            ItemStack itemstack = inventory.getStackInSlot(i);
+//
+//            if (!itemstack.isEmpty())
+//            {
+//                spawnItemStack(worldIn, pos, itemstack);
+//            }
+//        }
+//    }
+
+//    public static void dropInventoryItems(Level worldIn, BlockPos pos, IItemHandler inventory)
+//    {
+//        for (int i = 0; i < inventory.getSlots(); ++i)
+//        {
+//            ItemStack itemstack = inventory.getStackInSlot(i);
+//
+//            if (!itemstack.isEmpty())
+//            {
+//                spawnItemStack(worldIn, pos, itemstack);
+//            }
+//        }
+//    }
 
     public static void spawnItemStack(net.minecraft.world.level.Level worldIn, BlockPos pos, ItemStack stack)
     {
@@ -353,7 +361,9 @@ public class Utils {
         }
     }
 
-    public static boolean isInventoryFull(Inventory inv){
+    public static boolean isInventoryFull(Container inv){
+//        Utils.debug("FULL?", inv.getContainerSize());
+//        Utils.debug("FULL?", inv.getItem(0));
         for(int i = 0; i < inv.getContainerSize(); i++){
             if(inv.getItem(i).isEmpty())
                 return false;
@@ -392,7 +402,7 @@ public class Utils {
         return movement;
     }
 
-    public static boolean moveItemsBetweenInventories(Inventory from, IItemHandler to){
+    public static boolean moveItemsBetweenInventories(Container from, IItemHandler to){
 
         if(to==null || from == null)
             return false;
@@ -415,7 +425,7 @@ public class Utils {
         return false;
     }
 
-    public static boolean moveItemsBetweenInventories(IItemHandler from, Inventory to)
+    public static boolean moveItemsBetweenInventories(IItemHandler from, Container to)
     {
         if(to==null || from==null)
             return false;

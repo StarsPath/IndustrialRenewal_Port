@@ -20,7 +20,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
-public class RenderSteamLocomotive<T extends EntitySteamLocomotive> extends MinecartRenderer<EntitySteamLocomotive> {
+public class RenderSteamLocomotive<T extends EntitySteamLocomotive> extends RenderBase<EntitySteamLocomotive> {
 
     public static final ResourceLocation TEXTURES = new ResourceLocation(IndustrialRenewal.MODID + ":textures/entities/steamlocomotive.png");
 

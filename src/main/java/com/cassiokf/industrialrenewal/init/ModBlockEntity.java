@@ -6,6 +6,7 @@ import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamGenerator;
 import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamIntake;
 import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamOutlet;
 import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamTurbine;
+import com.cassiokf.industrialrenewal.blockentity.locomotion.BlockEntityCargoLoader;
 import com.cassiokf.industrialrenewal.blockentity.transport.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -152,7 +153,9 @@ public class ModBlockEntity {
 
 
 
-
+    public static RegistryObject<BlockEntityType<BlockEntityCargoLoader>> CARGO_LOADER =
+            BLOCK_ENTITIES.register("cargo_loader", ()-> BlockEntityType.Builder.of(
+                    BlockEntityCargoLoader::new, ModBlocks.CARGO_LOADER.get()).build(null));
 
 
 

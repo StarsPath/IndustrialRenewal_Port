@@ -2,6 +2,7 @@ package com.cassiokf.industrialrenewal.init;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.blockentity.BlockEntityStorageChest;
+import com.cassiokf.industrialrenewal.menus.menu.CargoLoaderMenu;
 import com.cassiokf.industrialrenewal.menus.menu.LatheMenu;
 import com.cassiokf.industrialrenewal.menus.menu.SteamLocomotiveMenu;
 import com.cassiokf.industrialrenewal.menus.menu.StorageChestMenu;
@@ -28,14 +29,14 @@ public class ModMenus {
 
     public static final RegistryObject<MenuType<LatheMenu>> LATHE_CONTAINER =
             registerMenuType(LatheMenu::new, "lathe_container");
-//            CONTAINERS.register("lathe_container", ()-> IForgeContainerType.create(((windowId, inv, data) -> {
-//                BlockPos pos = data.readBlockPos();
-//                TileEntity tileEntity = inv.player.level.getBlockEntity(pos);
-//                return new LatheContainer(windowId, inv, ((TileEntityLathe) Objects.requireNonNull(tileEntity)).getMaster());
-//            })));
+
+    public static final RegistryObject<MenuType<CargoLoaderMenu>> CARGO_LOADER_CONTAINER =
+            registerMenuType(CargoLoaderMenu::new, "cargo_loader_container");
+
 
     public static final RegistryObject<MenuType<SteamLocomotiveMenu>> STEAM_LOCOMOTIVE_MENU =
             registerMenuType(SteamLocomotiveMenu::new, "steam_locomotive_menu");
+
 
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {

@@ -14,6 +14,6 @@ public class ItemSteamLocomotive extends IRCartItemBase{
 
     @Override
     public AbstractMinecart getEntity(Level world, double x, double y, double z) {
-        return new EntitySteamLocomotive(x, y, z, world);
+        return new EntitySteamLocomotive(world, x, y, z);
     }
 }
