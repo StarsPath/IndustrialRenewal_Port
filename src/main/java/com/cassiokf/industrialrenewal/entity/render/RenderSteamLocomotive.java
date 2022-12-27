@@ -75,6 +75,23 @@ public class RenderSteamLocomotive<T extends EntitySteamLocomotive> extends Mine
             }
         }
 
+        entityYaw = entityYaw % 360;
+        if (entityYaw < 0) {
+            entityYaw += 360;
+        }
+        entityYaw += 360;
+
+        double rotationYaw = (entity.getXRot() + 180) % 360;
+        if (rotationYaw < 0) {
+            rotationYaw = rotationYaw + 360;
+        }
+        rotationYaw = rotationYaw + 360;
+
+        if (Math.abs(entityYaw - rotationYaw) > 90) {
+            entityYaw += 180;
+            f3 = -f3;
+        }
+
 
         matrixStack.translate(0.0D, 0.375D, 0.0D);
         matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - entityYaw));

@@ -23,6 +23,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraftforge.network.NetworkHooks;
 
+import javax.annotation.Nullable;
+
 public abstract class LocomotiveBase extends AbstractMinecartContainer implements ICoupleCart
 {
 
@@ -32,6 +34,10 @@ public abstract class LocomotiveBase extends AbstractMinecartContainer implement
     private float lastRenderYaw;
     private double lastMotionX;
     private double lastMotionZ;
+
+    private int tick;
+
+    public Direction directionOverride = Direction.UP;
 
     protected LocomotiveBase(EntityType<?> p_38213_, Level p_38214_) {
         super(p_38213_, p_38214_);
@@ -55,16 +61,39 @@ public abstract class LocomotiveBase extends AbstractMinecartContainer implement
     {
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+        if(directionOverride != null){
+            tick++;
+            if(tick >= 10){
+                tick = 0;
+                directionOverride = Direction.UP;
+            }
+        }
+    }
+
     public void moveForward()
     {
-        Direction cartDir = this.getDirection();
-        double acceleration = 0.2D;
-        double yaw = getYRot() * Math.PI / 180D;
-//        Utils.debug("MOVE", this.getDeltaMovement().x , cartDir.getStepX() , acceleration , Math.cos(yaw), yaw);
-        double xMovement = this.getDeltaMovement().x + acceleration * Math.cos(yaw);
-        double zMovement = this.getDeltaMovement().z + acceleration * Math.sin(yaw);
-//        Utils.debug("MOVE", xMovement, zMovement);
-        this.setDeltaMovement(xMovement, this.getDeltaMovement().y, zMovement);
+        if(!level.isClientSide){
+            double acceleration = 0.1D;
+            if (directionOverride != Direction.UP) {
+                setYRot(directionOverride.toYRot()+90);
+                this.setDeltaMovement(0, this.getDeltaMovement().y, 0);
+//                double yaw = getYRot() * Math.PI / 180D;
+//                double xMovement = this.getDeltaMovement().x + acceleration * Math.cos(yaw);
+//                double zMovement = this.getDeltaMovement().z + acceleration * Math.sin(yaw);
+//                this.setDeltaMovement(xMovement, this.getDeltaMovement().y, zMovement);
+//                return;
+            }
+
+            double yaw = getYRot() * Math.PI / 180D;
+//            Utils.debug("YAW", getYRot(), directionOverride);
+
+            double xMovement = this.getDeltaMovement().x + acceleration * Math.cos(yaw);
+            double zMovement = this.getDeltaMovement().z + acceleration * Math.sin(yaw);
+            this.setDeltaMovement(xMovement, this.getDeltaMovement().y, zMovement);
+        }
     }
 
 //    public void horn()
@@ -157,12 +186,14 @@ public abstract class LocomotiveBase extends AbstractMinecartContainer implement
     @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
         tag.putBoolean("corner_flip", cornerFlip);
+        tag.putInt("dir", directionOverride.get3DDataValue());
         super.addAdditionalSaveData(tag);
     }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {
         cornerFlip = tag.getBoolean("corner_flip");
+        directionOverride = Direction.from3DDataValue(tag.getInt("dir"));
         super.readAdditionalSaveData(tag);
     }
 }

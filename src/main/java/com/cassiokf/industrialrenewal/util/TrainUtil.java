@@ -24,7 +24,7 @@ public class TrainUtil {
         if(vector.z < 0)
             return Direction.NORTH;
 
-        return null;
+        return Direction.UP;
     }
 
 //    public static void conformToRailDirection(AbstractMinecart minecart){

@@ -7,6 +7,7 @@ import com.cassiokf.industrialrenewal.init.ModItems;
 import com.cassiokf.industrialrenewal.menus.menu.SteamLocomotiveMenu;
 import com.cassiokf.industrialrenewal.util.CustomFluidTank;
 import com.cassiokf.industrialrenewal.util.CustomItemStackHandler;
+import com.cassiokf.industrialrenewal.util.Utils;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -172,6 +173,7 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
                     return InteractionResult.SUCCESS;
 
                 boolean acceptFluid = FluidUtil.interactWithFluidHandler(player, hand, fluidWaterTank);
+                Utils.debug("FLUID", acceptFluid);
                 if(!acceptFluid){
                     String message = String.format("%s %s: %d/%d mB", "Water Tank", I18n.get(fluidWaterTank.getFluid().getTranslationKey()), fluidWaterTank.getFluidAmount(), fluidWaterTank.getCapacity());
                     player.sendMessage(new TextComponent(message), player.getUUID());
@@ -201,16 +203,25 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
 
     @Override
     protected void addAdditionalSaveData(@NotNull CompoundTag tag) {
-        fluidWaterTank.writeToNBT(tag);
-        fluidSteamTank.writeToNBT(tag);
+        tag.putInt("burn", burnTime);
+        CompoundTag waterTag = new CompoundTag();
+        CompoundTag steamTag = new CompoundTag();
+
+        fluidWaterTank.writeToNBT(waterTag);
+        fluidSteamTank.writeToNBT(steamTag);
+
+        tag.put("water", waterTag);
+        tag.put("steam", steamTag);
+
         tag.put("inv", itemStorage.serializeNBT());
         super.addAdditionalSaveData(tag);
     }
 
     @Override
     protected void readAdditionalSaveData(@NotNull CompoundTag tag) {
-        fluidWaterTank.readFromNBT(tag);
-        fluidSteamTank.readFromNBT(tag);
+        burnTime = tag.getInt("burn");
+        fluidWaterTank.readFromNBT(tag.getCompound("waterTag"));
+        fluidSteamTank.readFromNBT(tag.getCompound("steamTag"));
         itemStorage.deserializeNBT(tag.getCompound("inv"));
         super.readAdditionalSaveData(tag);
     }

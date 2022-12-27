@@ -5,6 +5,7 @@ import com.cassiokf.industrialrenewal.blocks.*;
 import com.cassiokf.industrialrenewal.blocks.abstracts.IRBaseBlock;
 import com.cassiokf.industrialrenewal.blocks.dam.*;
 import com.cassiokf.industrialrenewal.blocks.decor.*;
+import com.cassiokf.industrialrenewal.blocks.locomotion.rails.BlockBoosterRail;
 import com.cassiokf.industrialrenewal.blocks.transport.*;
 import com.cassiokf.industrialrenewal.util.enums.EnumConveyorTier;
 import com.cassiokf.industrialrenewal.util.enums.EnumConveyorType;
@@ -260,6 +261,8 @@ public class ModBlocks {
 
 
 
+    public static final RegistryObject<BlockBoosterRail> BOOSTER_RAIL = registerBlock("booster_rail",
+            BlockBoosterRail::new);
 
 
 

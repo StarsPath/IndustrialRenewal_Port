@@ -2,6 +2,7 @@ package com.cassiokf.industrialrenewal.items;
 
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
+import com.cassiokf.industrialrenewal.blocks.locomotion.rails.BlockBoosterRail;
 import com.cassiokf.industrialrenewal.init.ModBlocks;
 import com.cassiokf.industrialrenewal.util.CouplingHandler;
 import com.cassiokf.industrialrenewal.util.Utils;
@@ -35,10 +36,10 @@ public class ItemCartLinker extends IRBaseItem{
         Level world = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockState state = world.getBlockState(pos);
-//        if(state.getBlock().is(ModBlocks.BOOSTER_RAIL.get())){
-//            world.setBlock(pos, state.setValue(BlockBoosterRail.FACING, state.getValue(BlockBoosterRail.FACING).getOpposite()), 3);
-//            return InteractionResult.SUCCESS;
-//        }
+        if(state.getBlock().equals(ModBlocks.BOOSTER_RAIL.get())){
+            world.setBlock(pos, state.setValue(BlockBoosterRail.FACING, state.getValue(BlockBoosterRail.FACING).getOpposite()), 3);
+            return InteractionResult.SUCCESS;
+        }
         return super.useOn(context);
     }
 
@@ -51,10 +52,6 @@ public class ItemCartLinker extends IRBaseItem{
                 Utils.sendChatMessage(player, "Coupling Failed, TOO FAR");
                 return;
             }
-
-//            Vector3d spawnPos = last.position().add(cart.position().subtract(last.position()).multiply(0.5f,0.5f,0.5f));
-//            CouplerEntity couplerEntity = new CouplerEntity(player.level, spawnPos.x, spawnPos.y, spawnPos.z, last, cart);
-//            player.level.addFreshEntity(couplerEntity);
             if (CouplingHandler.isConnected(cart, last))
             {
                 CouplingHandler.removeConnection(cart, last);
@@ -96,16 +93,10 @@ public class ItemCartLinker extends IRBaseItem{
         {
             if (hasFreeConnectionIn(from, link))
             {
-//                if (from instanceof EntityTenderBase && to instanceof LocomotiveBase)
-//                {
-//                    ((LocomotiveBase) to).setTender((EntityTenderBase) from);
-//                }
                 UUID id = to.getUUID();
 
                 from.getPersistentData().putLong(link.tagMostSigBits, id.getMostSignificantBits());
                 from.getPersistentData().putLong(link.tagLeastSigBits, id.getLeastSignificantBits());
-//                from.getEntityData().setLong(link.tagMostSigBits, id.getMostSignificantBits());
-//                from.getEntityData().setLong(link.tagLeastSigBits, id.getLeastSignificantBits());
                 return;
             }
         }
