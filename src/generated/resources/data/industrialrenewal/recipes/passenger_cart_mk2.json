@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CBC",
+    "CAC"
+  ],
+  "key": {
+    "A": {
+      "item": "industrialrenewal:minecart_flat"
+    },
+    "B": {
+      "tag": "minecraft:carpets"
+    },
+    "C": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:passenger_cart_mk2"
+  }
+}

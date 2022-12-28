@@ -103,7 +103,7 @@ public class CouplingHandler {
 
     private static void applySpringForce(AbstractMinecart cart1, AbstractMinecart cart2, double distance, Vec2 normalized)
     {
-        double stretch = 1.5F * (distance - getDistanceBetween(cart1, cart2));
+        double stretch = 1.0F * (distance - getDistanceBetween(cart1, cart2));
 
         double springX = stretch * normalized.x;
         double springZ = stretch * normalized.y;
@@ -151,11 +151,11 @@ public class CouplingHandler {
         if (cart1 instanceof ICoupleCart)
             dist += ((ICoupleCart) cart1).getFixedDistance(cart2);
         else
-            dist += 0.87f;
+            dist += 0.85f;
         if (cart2 instanceof ICoupleCart)
             dist += ((ICoupleCart) cart2).getFixedDistance(cart1);
         else
-            dist += 0.87f;
+            dist += 0.85f;
         return dist;
     }
 

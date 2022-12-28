@@ -129,13 +129,13 @@ public abstract class LocomotiveBase extends AbstractMinecart implements ICouple
     @Override
     public float getMaxCouplingDistance(AbstractMinecart cart)
     {
-        return 2.0f;
+        return 1.75f;
     }
 
     @Override
     public float getFixedDistance(AbstractMinecart cart)
     {
-        return 1.6f;
+        return 1.5f;
     }
 
 
@@ -173,9 +173,9 @@ public abstract class LocomotiveBase extends AbstractMinecart implements ICouple
         Block b = blockState.getBlock();
         if(b instanceof RailBlock railBlock) {
             RailShape railDirection = railBlock.getRailDirection(blockState, level, pos, this);
-            cornerFlip = ((railDirection == RailShape.SOUTH_EAST || railDirection == RailShape.SOUTH_WEST) && this.getDeltaMovement().x < 0.0)
-                    || ((railDirection == RailShape.NORTH_EAST || railDirection == RailShape.NORTH_WEST) && this.getDeltaMovement().x > 0.0);
-//            cornerFlip = (railDirection == RailShape.SOUTH_EAST || railDirection == RailShape.SOUTH_WEST || railDirection == RailShape.NORTH_WEST);
+//            cornerFlip = ((railDirection == RailShape.SOUTH_EAST || railDirection == RailShape.SOUTH_WEST) && this.getDeltaMovement().x < 0.0)
+//                    || ((railDirection == RailShape.NORTH_EAST || railDirection == RailShape.NORTH_WEST) && this.getDeltaMovement().x > 0.0);
+            cornerFlip = (railDirection == RailShape.SOUTH_EAST || railDirection == RailShape.SOUTH_WEST || railDirection == RailShape.NORTH_WEST);
 //            if(cornerFlip)
 //                Utils.debug("SHOULD CORNER FLIP", railDirection);
         }

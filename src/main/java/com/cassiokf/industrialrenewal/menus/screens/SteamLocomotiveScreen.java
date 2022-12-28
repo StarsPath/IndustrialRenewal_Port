@@ -1,6 +1,7 @@
 package com.cassiokf.industrialrenewal.menus.screens;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
+import com.cassiokf.industrialrenewal.entity.EntitySteamLocomotive;
 import com.cassiokf.industrialrenewal.menus.ScreenBase;
 import com.cassiokf.industrialrenewal.menus.menu.SteamLocomotiveMenu;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -15,7 +16,7 @@ public class SteamLocomotiveScreen extends ScreenBase<SteamLocomotiveMenu> {
 
     private final ResourceLocation GUI = new ResourceLocation(IndustrialRenewal.MODID, "textures/gui/container/tender.png");
 
-    private final Entity locomotiveEntity;
+    private final EntitySteamLocomotive locomotiveEntity;
 
     private final SteamLocomotiveMenu locomotiveMenu;
 
@@ -30,6 +31,8 @@ public class SteamLocomotiveScreen extends ScreenBase<SteamLocomotiveMenu> {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.renderTooltip(matrixStack, mouseX, mouseY);
+        drawFluidBar(matrixStack, 117, 66, locomotiveEntity.getWaterTank());
+        drawFluidBar(matrixStack, 138, 66, locomotiveEntity.getSteamTank());
     }
 
     protected void renderLabels(PoseStack p_230451_1_, int p_230451_2_, int p_230451_3_) {

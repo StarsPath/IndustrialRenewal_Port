@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AB",
+    "AC",
+    "A "
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:ingots/iron"
+    },
+    "B": {
+      "tag": "forge:ingots/steel"
+    },
+    "C": {
+      "tag": "forge:nuggets/iron"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:cart_linkable"
+  }
+}

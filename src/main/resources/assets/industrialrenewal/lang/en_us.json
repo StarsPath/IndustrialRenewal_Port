@@ -23,7 +23,7 @@
   "item.industrialrenewal.stick_steel" : "Steel Rod",
   "item.industrialrenewal.stick_copper" : "Copper Rod",
   "item.industrialrenewal.stick_gold" : "Golden Rod",
-  "item.industrialrenewal.steam_locomotive" : "Steam Locomotive (WIP)",
+  "item.industrialrenewal.steam_locomotive" : "Steam Locomotive",
   "item.industrialrenewal.cargo_container" : "Cargo Cart",
   "item.industrialrenewal.fluid_container" : "Fluid Tank Cart",
   "item.industrialrenewal.minecart_flat" : "Flat Cart",
@@ -212,5 +212,13 @@
   "gui.industrialrenewal.arrowup" : "▲",
   "gui.industrialrenewal.arrowdown" : "▼",
 
-  "entity.industrialrenewal.cargo_container": "Cargo Cart"
+  "entity.industrialrenewal.cargo_container": "Cargo Cart",
+  "entity.industrialrenewal.fluid_container": "Fluid Tank Cart",
+  "entity.industrialrenewal.passenger_cart": "Legacy Passenger Cart",
+  "entity.industrialrenewal.passenger_cart_mk2": "Modern Passenger Cart",
+  "entity.industrialrenewal.flat_cart": "Flat Cart",
+  "entity.industrialrenewal.steam_locomotive": "Steam Locomotive",
+
+  "tesr.ir.mode": "Mode",
+  "tesr.ir.inventory": "Inventory"
 }

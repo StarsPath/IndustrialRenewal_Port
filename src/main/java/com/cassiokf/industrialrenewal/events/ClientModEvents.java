@@ -7,10 +7,7 @@ import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModBlocks;
 import com.cassiokf.industrialrenewal.init.ModEntity;
 import com.cassiokf.industrialrenewal.init.ModMenus;
-import com.cassiokf.industrialrenewal.menus.screens.CargoLoaderScreen;
-import com.cassiokf.industrialrenewal.menus.screens.LatheScreen;
-import com.cassiokf.industrialrenewal.menus.screens.SteamLocomotiveScreen;
-import com.cassiokf.industrialrenewal.menus.screens.StorageChestScreen;
+import com.cassiokf.industrialrenewal.menus.screens.*;
 import com.cassiokf.industrialrenewal.tesr.*;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -39,12 +36,14 @@ public final class ClientModEvents {
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.DAM_GENERATOR.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.DAM_TURBINE.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.TRANSFORMER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.BOOSTER_RAIL.get(), RenderType.translucent());
 
         });
 
         MenuScreens.register(ModMenus.STORAGE_CHEST_CONTAINER.get(), StorageChestScreen::new);
         MenuScreens.register(ModMenus.LATHE_CONTAINER.get(), LatheScreen::new);
         MenuScreens.register(ModMenus.CARGO_LOADER_CONTAINER.get(), CargoLoaderScreen::new);
+        MenuScreens.register(ModMenus.FLUID_LOADER_CONTAINER.get(), FluidLoaderScreen::new);
 
         MenuScreens.register(ModMenus.STEAM_LOCOMOTIVE_MENU.get(), SteamLocomotiveScreen::new);
     }
@@ -67,6 +66,8 @@ public final class ClientModEvents {
         event.registerBlockEntityRenderer(ModBlockEntity.DAM_GENERATOR.get(), TESRDamGenerator::new);
         event.registerBlockEntityRenderer(ModBlockEntity.TRANSFORMER_TILE.get(), TESRTransformerHV::new);
         event.registerBlockEntityRenderer(ModBlockEntity.ISOLATOR_TILE.get(), TESRWire::new);
+        event.registerBlockEntityRenderer(ModBlockEntity.CARGO_LOADER.get(), TESRCargoLoader::new);
+        event.registerBlockEntityRenderer(ModBlockEntity.FLUID_LOADER.get(), TESRFluidLoader::new);
 
     }
 

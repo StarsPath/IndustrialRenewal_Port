@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DDD",
+    "CBB",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "industrialrenewal:minecart_flat"
+    },
+    "B": {
+      "item": "minecraft:blast_furnace"
+    },
+    "C": {
+      "item": "industrialrenewal:barrel"
+    },
+    "D": {
+      "tag": "forge:ingots/steel"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:steam_locomotive"
+  }
+}

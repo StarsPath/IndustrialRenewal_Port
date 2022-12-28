@@ -44,7 +44,7 @@ public class SteamLocomotiveMenu extends MenuBase {
 //    }
 
 
-    public Entity getSteamLocomotive() {
+    public EntitySteamLocomotive getSteamLocomotive() {
         return steamLocomotive;
     }
 

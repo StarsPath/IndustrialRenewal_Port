@@ -6,6 +6,7 @@ import com.cassiokf.industrialrenewal.blocks.abstracts.IRBaseBlock;
 import com.cassiokf.industrialrenewal.blocks.dam.*;
 import com.cassiokf.industrialrenewal.blocks.decor.*;
 import com.cassiokf.industrialrenewal.blocks.locomotion.BlockCargoLoader;
+import com.cassiokf.industrialrenewal.blocks.locomotion.BlockFluidLoader;
 import com.cassiokf.industrialrenewal.blocks.locomotion.rails.BlockBoosterRail;
 import com.cassiokf.industrialrenewal.blocks.transport.*;
 import com.cassiokf.industrialrenewal.util.enums.EnumConveyorTier;
@@ -269,6 +270,9 @@ public class ModBlocks {
 
     public static final RegistryObject<BlockCargoLoader> CARGO_LOADER = registerBlock("cargo_loader",
             BlockCargoLoader::new);
+
+    public static final RegistryObject<BlockFluidLoader> FLUID_LOADER = registerBlock("fluid_loader",
+            BlockFluidLoader::new);
 
 
 

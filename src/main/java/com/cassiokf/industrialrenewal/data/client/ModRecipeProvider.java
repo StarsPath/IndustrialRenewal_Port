@@ -755,41 +755,41 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("A")
                 .unlockedBy("has_item", has(STEEL_BLOCKS))
                 .save(consumer);
-//
-//        ShapedRecipeBuilder.shaped(ModBlocks.CARGO_LOADER.get(), 1)
-//                .define('A', Items.HOPPER)
-//                .define('B', ModBlocks.FRAME.get())
-//                .define('C', IRON_ROD)
-//                .define('D', ModItems.SMALL_MOTOR.get())
-//                .define('E', Tags.Items.DUSTS_REDSTONE)
-//                .pattern("ABC")
-//                .pattern("DBE")
-//                .pattern("ABC")
-//                .unlockedBy("has_item", has(IRON_ROD))
-//                .save(consumer);
-//
-//        ShapedRecipeBuilder.shaped(ModBlocks.FLUID_LOADER.get(), 1)
-//                .define('A', Items.HOPPER)
-//                .define('B', ModBlocks.FRAME.get())
-//                .define('C', IRON_ROD)
-//                .define('D', ModItems.SMALL_MOTOR.get())
-//                .define('E', Tags.Items.DUSTS_REDSTONE)
-//                .define('F', ModBlocks.FLUID_TANK.get())
-//                .pattern("ABC")
-//                .pattern("DBE")
-//                .pattern("FBC")
-//                .unlockedBy("has_item", has(IRON_ROD))
-//                .save(consumer);
-//
-//        ShapedRecipeBuilder.shaped(ModBlocks.BOOSTER_RAIL.get(), 1)
-//                .define('A', Tags.Items.INGOTS_GOLD)
-//                .define('B', Tags.Items.RODS_WOODEN)
-//                .define('C', Tags.Items.DUSTS_REDSTONE)
-//                .pattern("ABA")
-//                .pattern("ACA")
-//                .pattern("ACA")
-//                .unlockedBy("has_item", has(Tags.Items.INGOTS_GOLD))
-//                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.CARGO_LOADER.get(), 1)
+                .define('A', Items.HOPPER)
+                .define('B', ModBlocks.FRAME.get())
+                .define('C', IRON_ROD)
+                .define('D', ModItems.SMALL_MOTOR.get())
+                .define('E', Tags.Items.DUSTS_REDSTONE)
+                .pattern("ABC")
+                .pattern("DBE")
+                .pattern("ABC")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.FLUID_LOADER.get(), 1)
+                .define('A', Items.HOPPER)
+                .define('B', ModBlocks.FRAME.get())
+                .define('C', IRON_ROD)
+                .define('D', ModItems.SMALL_MOTOR.get())
+                .define('E', Tags.Items.DUSTS_REDSTONE)
+                .define('F', ModBlocks.FLUID_TANK.get())
+                .pattern("ABC")
+                .pattern("DBE")
+                .pattern("FBC")
+                .unlockedBy("has_item", has(IRON_ROD))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.BOOSTER_RAIL.get(), 2)
+                .define('A', Tags.Items.INGOTS_GOLD)
+                .define('B', Tags.Items.RODS_WOODEN)
+                .define('C', Tags.Items.DUSTS_REDSTONE)
+                .pattern("ABA")
+                .pattern("ACA")
+                .pattern("ACA")
+                .unlockedBy("has_item", has(Tags.Items.INGOTS_GOLD))
+                .save(consumer);
 
         ShapedRecipeBuilder.shaped(ModBlocks.CONVEYOR_BASIC.get(), 8)
                 .define('A', Tags.Items.LEATHER)
@@ -832,61 +832,74 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_item", has(Tags.Items.INGOTS_IRON))
                 .save(consumer);
 
-//        ShapedRecipeBuilder.shaped(ModItems.cartLinkable, 1)
-//                .define('A', Tags.Items.INGOTS_IRON)
-//                .define('B', STEEL_INGOT)
-//                .define('C', Tags.Items.NUGGETS_IRON)
-//                .pattern("AB")
-//                .pattern("AC")
-//                .pattern("A ")
-//                .unlockedBy("has_item", has(STEEL_INGOT))
-//                .save(consumer);
-//
-//        ShapelessRecipeBuilder.shapeless(ModItems.flatCart, 1)
-//                .requires(Items.SMOOTH_STONE_SLAB)
-//                .requires(Items.MINECART)
-//                .unlockedBy("has_item", has(Items.MINECART))
-//                .save(consumer);
-//
-//        ShapedRecipeBuilder.shaped(ModItems.cargoContainer, 1)
-//                .define('A', ModItems.flatCart)
-//                .define('B', Tags.Items.CHESTS)
-//                .pattern("B")
-//                .pattern("A")
-//                .unlockedBy("has_item", has(ModItems.flatCart))
-//                .save(consumer);
-//
-//        ShapedRecipeBuilder.shaped(ModItems.passengerCar, 1)
-//                .define('A', ModItems.flatCart)
-//                .define('B', ItemTags.CARPETS)
-//                .define('C', ItemTags.PLANKS)
-//                .define('D', Tags.Items.RODS_WOODEN)
-//                .define('E', ItemTags.WOODEN_SLABS)
-//                .pattern("EEE")
-//                .pattern("DBD")
-//                .pattern("CAC")
-//                .unlockedBy("has_item", has(ModItems.flatCart))
-//                .save(consumer);
-//
-//        ShapedRecipeBuilder.shaped(ModItems.passengerCartMk2, 1)
-//                .define('A', ModItems.flatCart)
-//                .define('B', ItemTags.CARPETS)
-//                .define('C', Tags.Items.INGOTS_IRON)
-//                .pattern("CCC")
-//                .pattern("CBC")
-//                .pattern("CAC")
-//                .unlockedBy("has_item", has(ModItems.flatCart))
-//                .save(consumer);
-//
-//        ShapedRecipeBuilder.shaped(ModItems.fluidContainer, 1)
-//                .define('A', ModItems.flatCart)
-//                .define('B', ModBlocks.BARREL.get())
-//                .define('C', Tags.Items.INGOTS_IRON)
-//                .pattern("BBB")
-//                .pattern("CAC")
-//                .unlockedBy("has_item", has(ModItems.flatCart))
-//                .save(consumer);
-//
+        ShapedRecipeBuilder.shaped(ModItems.CART_LINKABLE.get(), 1)
+                .define('A', Tags.Items.INGOTS_IRON)
+                .define('B', STEEL_INGOT)
+                .define('C', Tags.Items.NUGGETS_IRON)
+                .pattern("AB")
+                .pattern("AC")
+                .pattern("A ")
+                .unlockedBy("has_item", has(STEEL_INGOT))
+                .save(consumer);
+
+        ShapelessRecipeBuilder.shapeless(ModItems.FLAT_CART.get(), 1)
+                .requires(Items.SMOOTH_STONE_SLAB)
+                .requires(Items.MINECART)
+                .unlockedBy("has_item", has(Items.MINECART))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModItems.CARGO_CART.get(), 1)
+                .define('A', ModItems.FLAT_CART.get())
+                .define('B', Tags.Items.CHESTS)
+                .pattern("B")
+                .pattern("A")
+                .unlockedBy("has_item", has(ModItems.FLAT_CART.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModItems.PASSENGER_CART_MK1.get(), 1)
+                .define('A', ModItems.FLAT_CART.get())
+                .define('B', ItemTags.CARPETS)
+                .define('C', ItemTags.PLANKS)
+                .define('D', Tags.Items.RODS_WOODEN)
+                .define('E', ItemTags.WOODEN_SLABS)
+                .pattern("EEE")
+                .pattern("DBD")
+                .pattern("CAC")
+                .unlockedBy("has_item", has(ModItems.FLAT_CART.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModItems.PASSENGER_CART_MK2.get(), 1)
+                .define('A', ModItems.FLAT_CART.get())
+                .define('B', ItemTags.CARPETS)
+                .define('C', Tags.Items.INGOTS_IRON)
+                .pattern("CCC")
+                .pattern("CBC")
+                .pattern("CAC")
+                .unlockedBy("has_item", has(ModItems.FLAT_CART.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModItems.FLUID_CART.get(), 1)
+                .define('A', ModItems.FLAT_CART.get())
+                .define('B', ModBlocks.BARREL.get())
+                .define('C', Tags.Items.INGOTS_IRON)
+                .pattern("BBB")
+                .pattern("CAC")
+                .unlockedBy("has_item", has(ModItems.FLAT_CART.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModItems.STEAM_LOCOMOTIVE.get(), 1)
+                .define('A', ModItems.FLAT_CART.get())
+                .define('B', Blocks.BLAST_FURNACE)
+                .define('C', ModBlocks.BARREL.get())
+                .define('D', STEEL_INGOT)
+                .pattern("DDD")
+                .pattern("CBB")
+                .pattern("AAA")
+                .unlockedBy("has_item", has(ModItems.FLAT_CART.get()))
+                .save(consumer);
+
+
+
         ShapedRecipeBuilder.shaped(ModBlocks.SPANEL_FRAME.get(), 1)
                 .define('A', IRON_ROD)
                 .define('B', ModItems.BATTERY.get())

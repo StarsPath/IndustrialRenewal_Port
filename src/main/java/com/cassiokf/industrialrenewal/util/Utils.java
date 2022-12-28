@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.fluids.capability.wrappers.BlockWrapper;
@@ -186,6 +188,13 @@ public class Utils {
     public static void dropInventoryItems(Level level, BlockPos pos, ItemStackHandler itemStackHandler){
         for(int i = 0; i < itemStackHandler.getSlots(); i++){
             Block.popResource(level, pos, itemStackHandler.getStackInSlot(i));
+        }
+    }
+
+    public static void dropInventoryItems(Level level, Vec3 vec3, ItemStackHandler itemStackHandler){
+        for(int i = 0; i < itemStackHandler.getSlots(); i++){
+            Containers.dropItemStack(level, vec3.x, vec3.y, vec3.z, itemStackHandler.getStackInSlot(i));
+//            Block.popResource(level, pos, itemStackHandler.getStackInSlot(i));
         }
     }
 

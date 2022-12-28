@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "ACA",
+    "ACA"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:ingots/gold"
+    },
+    "B": {
+      "tag": "forge:rods/wooden"
+    },
+    "C": {
+      "tag": "forge:dusts/redstone"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:booster_rail",
+    "count": 2
+  }
+}

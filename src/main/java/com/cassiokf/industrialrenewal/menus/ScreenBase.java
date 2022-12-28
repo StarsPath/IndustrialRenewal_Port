@@ -1,10 +1,13 @@
 package com.cassiokf.industrialrenewal.menus;
 
+import com.cassiokf.industrialrenewal.util.Utils;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -38,6 +41,8 @@ public class ScreenBase<T extends AbstractContainerMenu> extends AbstractContain
         {
             renderFluid(matrixStack, getGuiLeft()+xOffset, getGuiTop()+yOffset, 16, 16, percentage, fluid.getFluid());
         }
+
+//        Utils.debug("TANK", tank.getFluidAmount(), tank.getFluid().getFluid());
     }
 
     protected void renderFluid(PoseStack matrixStack, int guiLeft, int guiTop, int x, int y, int level, Fluid fluid)
@@ -49,55 +54,28 @@ public class ScreenBase<T extends AbstractContainerMenu> extends AbstractContain
         float r = (color >> 16 & 0xFF) / 255.0F;
         float g = (color >> 8 & 0xFF) / 255.0F;
         float b = (color & 0xFF) / 255.0F;
-        GlStateManager._clearColor(r, g, b,1.0F);
+        RenderSystem.setShaderColor(r, g, b, 1.0f);
+
+//        GlStateManager._clearColor(r, g, b,1.0F);
 
         ResourceLocation stillLocation = fluid.getAttributes().getStillTexture();
         TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(stillLocation);
-        ResourceLocation spriteLocation = sprite.getName();
-        Minecraft.getInstance().getTextureManager().bindForSetup(InventoryMenu.BLOCK_ATLAS);
+//        ResourceLocation spriteLocation = sprite.getName();
+//        Minecraft.getInstance().getTextureManager().bindForSetup(InventoryMenu.BLOCK_ATLAS);
 
-        drawTiledTexture(guiLeft, guiTop-level, sprite, 16, level);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
+
+        int yCount = level / 16;
+        int yRemainder = level % 16;
+
+        for (int i = 1; i <= yCount; i++) {
+            blit(matrixStack, guiLeft, guiTop - 16 * i, 0, 16, 16, sprite);
+        }
+        blit(matrixStack, guiLeft, guiTop - 16 * yCount - yRemainder, 0, 16, yRemainder, sprite);
+
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+
         matrixStack.popPose();
-    }
-
-    public void drawTiledTexture(int x, int y, TextureAtlasSprite icon, int width, int height) {
-        int i;
-        int j;
-
-        int drawHeight;
-        int drawWidth;
-
-        for (i = 0; i < width; i += 16) {
-            for (j = 0; j < height; j += 16) {
-                drawWidth = Math.min(width - i, 16);
-                drawHeight = Math.min(height - j, 16);
-                drawScaledTexturedModelRectFromIcon(x + i, y + j, icon, drawWidth, drawHeight);
-            }
-        }
-        GlStateManager._clearColor(1.0F, 1.0F, 1.0F, 1.0F);
-    }
-
-    public void drawScaledTexturedModelRectFromIcon(int x, int y, TextureAtlasSprite icon, int width, int height) {
-        if ( icon == null ) {
-            return;
-        }
-        float minU = icon.getU0();
-        float maxU = icon.getU1();
-        float minV = icon.getV0();
-        float maxV = icon.getV1();
-
-        float zLevel = 1.0f;
-
-        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
-        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        float p_85949_ = minV + (maxV - minV) * height / 16F;
-        bufferbuilder.vertex(x, y + height, zLevel).uv(minU, p_85949_).endVertex();
-        float p_85948_ = minU + (maxU - minU) * width / 16F;
-        bufferbuilder.vertex(x + width, y + height, zLevel).uv(p_85948_, p_85949_).endVertex();
-        bufferbuilder.vertex(x + width, y, zLevel).uv(p_85948_, minV).endVertex();
-        bufferbuilder.vertex(x, y, zLevel).uv(minU, minV).endVertex();
-        bufferbuilder.end();
-//        RenderSystem.enableAlphaTest();
-        BufferUploader.end(bufferbuilder);
     }
 }

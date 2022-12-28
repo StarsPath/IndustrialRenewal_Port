@@ -11,6 +11,6 @@ public interface ICoupleCart
 
     default float getFixedDistance(AbstractMinecart cart)
     {
-        return 0.87f;
+        return 0.85f;
     }
 }
