@@ -32,7 +32,7 @@ public class TESRCargoLoader extends TESRBase<BlockEntityCargoLoader>{
             if (facing == Direction.EAST) armX += 1;
             if (facing == Direction.WEST) armX -= 1;
             //doTheMath(facing, x, z, 0);
-            render3dItem(matrixStack, combinedLightIn, combinedOverlayIn, renderTypeBuffer, facing, tileEntity.getLevel(), armX, y + 0.2f, armZ, arm, 2.08f, false);
+//            render3dItem(matrixStack, combinedLightIn, combinedOverlayIn, renderTypeBuffer, facing, tileEntity.getLevel(), armX, y + 0.2f, armZ, arm, 2.08f, false);
 
             doTheMath(facing, x, z, 1.03, 0);
             renderText(matrixStack, facing, xPos, y + 0.93, zPos, tileEntity.getModeText(), 0.006F);
