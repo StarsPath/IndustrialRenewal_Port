@@ -3,6 +3,7 @@ package com.cassiokf.industrialrenewal.entity;
 
 import com.cassiokf.industrialrenewal.init.ModEntity;
 import com.cassiokf.industrialrenewal.init.ModItems;
+import com.cassiokf.industrialrenewal.util.CouplingHandler;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -57,6 +58,11 @@ public class EntityCargoContainer extends AbstractMinecartContainer {
         }
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+        CouplingHandler.onMinecartTick(this);
+    }
 
     @Override
     public Packet<?> getAddEntityPacket() {

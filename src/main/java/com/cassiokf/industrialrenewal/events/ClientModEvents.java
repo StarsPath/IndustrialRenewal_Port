@@ -80,6 +80,7 @@ public final class ClientModEvents {
         event.registerEntityRenderer(ModEntity.CARGO_CONTAINER.get(), RenderCargoContainer::new);
         event.registerEntityRenderer(ModEntity.FLUID_CONTAINER.get(), RenderFluidContainer::new);
         event.registerEntityRenderer(ModEntity.STEAM_LOCOMOTIVE.get(), RenderSteamLocomotive::new);
+        event.registerEntityRenderer(ModEntity.DIESEL_LOCOMOTIVE.get(), RenderDieselLocomotive::new);
     }
 
     @SubscribeEvent
@@ -90,5 +91,6 @@ public final class ClientModEvents {
         event.registerLayerDefinition(ModelCargoContainer.LAYER_LOCATION, ModelCargoContainer::createBodyLayer);
         event.registerLayerDefinition(ModelCartFluidTank.LAYER_LOCATION, ModelCartFluidTank::createBodyLayer);
         event.registerLayerDefinition(ModelSteamLocomotive.LAYER_LOCATION, ModelSteamLocomotive::createBodyLayer);
+        event.registerLayerDefinition(ModelDieselLocomotive.LAYER_LOCATION, ModelDieselLocomotive::createBodyLayer);
     }
 }

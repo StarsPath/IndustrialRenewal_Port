@@ -49,18 +49,18 @@ public class EventHandler {
         }
     }
 
-    @SubscribeEvent
-    public static void onServerTickEvent(TickEvent.WorldTickEvent event){
-        ServerLevel level = (ServerLevel) event.world;
-        Iterable<Entity> entityIterable = level.getAllEntities();
-
-        entityIterable.forEach((x)->{
-            if(x instanceof AbstractMinecart){
-                CouplingHandler.onMinecartTick((AbstractMinecart) x);
-            }
-        });
-
-    }
+//    @SubscribeEvent
+//    public static void onServerTickEvent(TickEvent.WorldTickEvent event){
+//        ServerLevel level = (ServerLevel) event.world;
+//        Iterable<Entity> entityIterable = level.getAllEntities();
+//
+//        entityIterable.forEach((x)->{
+//            if(x instanceof AbstractMinecart){
+//                CouplingHandler.onMinecartTick((AbstractMinecart) x);
+//            }
+//        });
+//
+//    }
 
 //    @SubscribeEvent
 //    public static void onMinecartTickEvent(TickEvent.WorldTickEvent event){

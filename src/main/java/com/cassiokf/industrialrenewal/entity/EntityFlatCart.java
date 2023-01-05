@@ -12,7 +12,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
 
-public class EntityFlatCart extends AbstractMinecart {
+public class EntityFlatCart extends CartBase {
     public EntityFlatCart(EntityType<?> p_38087_, Level p_38088_) {
         super(p_38087_, p_38088_);
     }

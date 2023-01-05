@@ -28,7 +28,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.network.NetworkHooks;
 
-public class EntityFluidContainer extends AbstractMinecart {
+public class EntityFluidContainer extends CartBase {
 
     private static final EntityDataAccessor<CompoundTag> FLUID_TAG = SynchedEntityData.defineId(EntityFluidContainer.class, EntityDataSerializers.COMPOUND_TAG);
     boolean changed_flag;

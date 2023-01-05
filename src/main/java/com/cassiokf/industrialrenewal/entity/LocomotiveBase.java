@@ -1,6 +1,7 @@
 package com.cassiokf.industrialrenewal.entity;
 
 import com.cassiokf.industrialrenewal.init.ModItems;
+import com.cassiokf.industrialrenewal.util.CouplingHandler;
 import com.cassiokf.industrialrenewal.util.Utils;
 import com.cassiokf.industrialrenewal.util.interfaces.ICoupleCart;
 import net.minecraft.core.BlockPos;
@@ -62,6 +63,7 @@ public abstract class LocomotiveBase extends AbstractMinecart implements ICouple
     @Override
     public void tick() {
         super.tick();
+        CouplingHandler.onMinecartTick(this);
         if(directionOverride != null){
             tick++;
             if(tick >= 10){

@@ -1,6 +1,7 @@
 package com.cassiokf.industrialrenewal.entity;
 
 
+import com.cassiokf.industrialrenewal.util.CouplingHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -47,6 +48,12 @@ public class RotatableBase extends AbstractMinecart {
         }
         ++wrongRender;
         return true;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        CouplingHandler.onMinecartTick(this);
     }
 
     @Override

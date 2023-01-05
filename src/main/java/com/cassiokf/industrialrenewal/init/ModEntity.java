@@ -50,7 +50,11 @@ public class ModEntity {
                                     MobCategory.MISC).sized(1f, 1f)
                             .build(new ResourceLocation(IndustrialRenewal.MODID, "steam_locomotive").toString()));
 
-
+    public static final RegistryObject<EntityType<EntityDieselLocomotive>> DIESEL_LOCOMOTIVE =
+            ENTITY_TYPES.register("diesel_locomotive",
+                    ()->EntityType.Builder.<EntityDieselLocomotive>of(EntityDieselLocomotive::new,
+                                    MobCategory.MISC).sized(1f, 1f)
+                            .build(new ResourceLocation(IndustrialRenewal.MODID, "diesel_locomotive").toString()));
 
 
 

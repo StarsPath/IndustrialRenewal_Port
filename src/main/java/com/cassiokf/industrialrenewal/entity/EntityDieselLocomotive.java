@@ -19,7 +19,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -49,10 +48,10 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvider
+public class EntityDieselLocomotive extends LocomotiveBase implements MenuProvider
 {
-    private static final EntityDataAccessor<CompoundTag> FLUID_WATER_TAG = SynchedEntityData.defineId(EntitySteamLocomotive.class, EntityDataSerializers.COMPOUND_TAG);
-    private static final EntityDataAccessor<CompoundTag> FLUID_STEAM_TAG = SynchedEntityData.defineId(EntitySteamLocomotive.class, EntityDataSerializers.COMPOUND_TAG);
+    private static final EntityDataAccessor<CompoundTag> FLUID_WATER_TAG = SynchedEntityData.defineId(EntityDieselLocomotive.class, EntityDataSerializers.COMPOUND_TAG);
+    private static final EntityDataAccessor<CompoundTag> FLUID_STEAM_TAG = SynchedEntityData.defineId(EntityDieselLocomotive.class, EntityDataSerializers.COMPOUND_TAG);
 
     private final CustomItemStackHandler itemStorage = new CustomItemStackHandler(6){
         @Override
@@ -69,7 +68,7 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
         @Override
         protected void onContentsChanged() {
             super.onContentsChanged();
-            if (level != null && !EntitySteamLocomotive.this.level.isClientSide) {
+            if (level != null && !EntityDieselLocomotive.this.level.isClientSide) {
                 updateSynchedData();
             }
         }
@@ -80,7 +79,7 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
         @Override
         protected void onContentsChanged() {
             super.onContentsChanged();
-            if (level != null && !EntitySteamLocomotive.this.level.isClientSide) {
+            if (level != null && !EntityDieselLocomotive.this.level.isClientSide) {
 //                updateSynchedData();
             }
         }
@@ -98,12 +97,12 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
 
     private int burnTime;
 
-    public EntitySteamLocomotive(EntityType<?> p_38087_, Level p_38088_) {
+    public EntityDieselLocomotive(EntityType<?> p_38087_, Level p_38088_) {
         super(p_38087_, p_38088_);
     }
 
-    public EntitySteamLocomotive(Level p_38091_, double p_38092_, double p_38093_, double p_38094_) {
-        super(ModEntity.STEAM_LOCOMOTIVE.get(), p_38091_, p_38092_, p_38093_, p_38094_);
+    public EntityDieselLocomotive(Level p_38091_, double p_38092_, double p_38093_, double p_38094_) {
+        super(ModEntity.DIESEL_LOCOMOTIVE.get(), p_38091_, p_38092_, p_38093_, p_38094_);
     }
 
     @Override
@@ -163,7 +162,7 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
     @Override
     public void destroy(DamageSource p_94095_1_) {
         if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
-            ItemStack itemstack = new ItemStack(ModItems.STEAM_LOCOMOTIVE.get());
+            ItemStack itemstack = new ItemStack(ModItems.DIESEL_LOCOMOTIVE.get());
             if (this.hasCustomName()) {
                 itemstack.setHoverName(this.getCustomName());
             }
@@ -301,7 +300,7 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
 
     @Override
     public void reviveCaps() {
-        itemHandler = net.minecraftforge.common.util.LazyOptional.of(() -> itemStorage);
+        itemHandler = LazyOptional.of(() -> itemStorage);
         waterTankHandler = LazyOptional.of(()->fluidWaterTank);
         steamTankHandler = LazyOptional.of(()->fluidSteamTank);
         super.reviveCaps();
@@ -319,7 +318,7 @@ public class EntitySteamLocomotive extends LocomotiveBase implements MenuProvide
             return waterTankHandler.cast();
         if(this.isAlive() && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return itemHandler.cast();
-        return super.getCapability(cap);
+        return null;
 //        return super.getCapability(cap);
     }
 
