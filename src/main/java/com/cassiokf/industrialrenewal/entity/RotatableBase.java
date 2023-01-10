@@ -53,7 +53,7 @@ public class RotatableBase extends AbstractMinecart {
     @Override
     public void tick() {
         super.tick();
-        CouplingHandler.onMinecartTick(this);
+//        CouplingHandler.onMinecartTick(this);
     }
 
     @Override

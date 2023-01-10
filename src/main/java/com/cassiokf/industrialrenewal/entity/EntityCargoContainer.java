@@ -61,7 +61,7 @@ public class EntityCargoContainer extends AbstractMinecartContainer {
     @Override
     public void tick() {
         super.tick();
-        CouplingHandler.onMinecartTick(this);
+//        CouplingHandler.onMinecartTick(this);
     }
 
     @Override

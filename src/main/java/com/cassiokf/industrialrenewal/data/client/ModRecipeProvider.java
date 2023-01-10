@@ -702,8 +702,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(ModBlocks.DAM_INTAKE.get(), 1)
                 .define('A', ModBlocks.CONCRETE.get())
                 .define('B', Items.IRON_BARS)
+                .define('C', ModBlocks.HIGH_PRESSURE_PIPE.get())
                 .pattern("AAA")
-                .pattern("  B")
+                .pattern("C B")
                 .pattern("AAA")
                 .unlockedBy("has_item", has(ModBlocks.HIGH_PRESSURE_PIPE.get()))
                 .save(consumer);
@@ -712,7 +713,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('A', ModBlocks.CONCRETE.get())
                 .define('B', Items.IRON_BARS)
                 .pattern("AAA")
-                .pattern("B  ")
+                .pattern("B B")
                 .pattern("AAA")
                 .unlockedBy("has_item", has(ModBlocks.HIGH_PRESSURE_PIPE.get()))
                 .save(consumer);

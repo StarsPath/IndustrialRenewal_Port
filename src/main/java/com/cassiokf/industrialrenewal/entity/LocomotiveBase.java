@@ -63,7 +63,7 @@ public abstract class LocomotiveBase extends AbstractMinecart implements ICouple
     @Override
     public void tick() {
         super.tick();
-        CouplingHandler.onMinecartTick(this);
+//        CouplingHandler.onMinecartTick(this);
         if(directionOverride != null){
             tick++;
             if(tick >= 10){

@@ -318,8 +318,7 @@ public class EntityDieselLocomotive extends LocomotiveBase implements MenuProvid
             return waterTankHandler.cast();
         if(this.isAlive() && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return itemHandler.cast();
-        return null;
-//        return super.getCapability(cap);
+        return super.getCapability(cap);
     }
 
 
