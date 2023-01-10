@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "AAA",
-    "  B",
+    "C B",
     "AAA"
   ],
   "key": {
@@ -11,6 +11,9 @@
     },
     "B": {
       "item": "minecraft:iron_bars"
+    },
+    "C": {
+      "item": "industrialrenewal:high_pressure_pipe"
     }
   },
   "result": {
