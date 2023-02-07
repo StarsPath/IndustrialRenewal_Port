@@ -39,6 +39,8 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
     private final int energyTransfer = Config.WIND_TURBINE_TRANSFER_RATE.get();
     private int tickToDamage;
 
+    private boolean USE_DURABILITY = Config.WIND_TURBINE_USE_DURABILITY.get();
+
     private final Random random = new Random();
 
     public BlockEntityWindTurbineHead(BlockPos pos, BlockState state) {
@@ -104,13 +106,15 @@ public class BlockEntityWindTurbineHead extends BlockEntitySyncable {
                 if (++tickToDamage >= 1200 && energyGen > 0)
                 {
                     tickToDamage = 0;
-                    bladeInv.ifPresent(inv->{
-                        ItemStack stack = inv.getStackInSlot(0);
-                        if(!stack.isEmpty()){
-                            if(stack.hurt(1, new Random(), null))
-                                stack.shrink(1);
-                        }
-                    });
+                    if(USE_DURABILITY){
+                        bladeInv.ifPresent(inv->{
+                            ItemStack stack = inv.getStackInSlot(0);
+                            if(!stack.isEmpty()){
+                                if(stack.hurt(1, new Random(), null))
+                                    stack.shrink(1);
+                            }
+                        });
+                    }
                 }
             } else
             {

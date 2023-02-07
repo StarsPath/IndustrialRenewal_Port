@@ -89,6 +89,7 @@ public final class Config {
     public static final ForgeConfigSpec.ConfigValue<Integer> TRANSFORMER_TRANSFER_RATE;
 
     public static final ForgeConfigSpec.ConfigValue<Float> CATWALK_SPEED;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> WIND_TURBINE_USE_DURABILITY;
     public static final ForgeConfigSpec.ConfigValue<Boolean> INDUSTRIAL_FLOOR_COLLISION;
 
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> MINER_ORE_BLACKLIST;
@@ -205,8 +206,10 @@ public final class Config {
 
 
         BUILDER.push("Misc");
+        WIND_TURBINE_USE_DURABILITY = BUILDER.comment("Wind Turbine uses windblade durability (default true)").define("turbine_use_durability", true);
         CATWALK_SPEED = BUILDER.comment("Catwalk speed factor (default 1.2f)").define("catwalk_speed", 1.2f);
         INDUSTRIAL_FLOOR_COLLISION = BUILDER.comment("Enable Industrial Floor Collision (default false)").define("floor_collision", false);
+
         BUILDER.pop();
 
         BUILDER.push("Miner Ore List");
