@@ -276,7 +276,9 @@ public class ModBlocks {
 
 
 
-
+    public static final RegistryObject<BlockIndustrialBatteryBank2> TEST_BLOCK = registerBlock("ind_battery_bank_2",
+            ()-> new BlockIndustrialBatteryBank2(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
+                    .sound(SoundType.METAL).noOcclusion()));
 
 
 

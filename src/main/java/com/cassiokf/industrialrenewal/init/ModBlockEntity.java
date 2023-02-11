@@ -2,6 +2,7 @@ package com.cassiokf.industrialrenewal.init;
 
 import com.cassiokf.industrialrenewal.IndustrialRenewal;
 import com.cassiokf.industrialrenewal.blockentity.*;
+import com.cassiokf.industrialrenewal.blockentity.abstracts.MultiBlockEntityDummy;
 import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamGenerator;
 import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamIntake;
 import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamOutlet;
@@ -111,6 +112,15 @@ public class ModBlockEntity {
     public static RegistryObject<BlockEntityType<BlockEntityIndustrialBatteryBank>> INDUSTRIAL_BATTERY_TILE =
             BLOCK_ENTITIES.register("ind_battery_tile", ()-> BlockEntityType.Builder.of(
                     BlockEntityIndustrialBatteryBank::new, ModBlocks.INDUSTRIAL_BATTERY_BANK.get()).build(null));
+
+    public static RegistryObject<BlockEntityType<BlockEntityIndustrialBatteryBank2>> TEST_TILE =
+            BLOCK_ENTITIES.register("ind_battery_tile_2", ()-> BlockEntityType.Builder.of(
+                    BlockEntityIndustrialBatteryBank2::new, ModBlocks.TEST_BLOCK.get()).build(null));
+
+    public static RegistryObject<BlockEntityType<MultiBlockEntityDummy>> DUMMY =
+            BLOCK_ENTITIES.register("dummy_tile", ()-> BlockEntityType.Builder.of(
+                    MultiBlockEntityDummy::new).build(null));
+
 
     public static RegistryObject<BlockEntityType<BlockEntityFluidTank>> FLUID_TANK_TILE =
             BLOCK_ENTITIES.register("fluid_tank_tile", ()-> BlockEntityType.Builder.of(

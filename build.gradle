@@ -195,6 +195,7 @@ dependencies {
     runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
 
     runtimeOnly fg.deobf("curse.maven:theoneprobe-245211:3965688")
+    runtimeOnly fg.deobf("curse.maven:buildinggadgets-298187:4095788")
 
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
