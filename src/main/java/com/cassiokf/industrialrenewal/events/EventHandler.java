@@ -51,7 +51,7 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onServerTickEvent(TickEvent.WorldTickEvent event){
-        ServerLevel level = (ServerLevel) event.world;
+        ServerLevel level = event.world.getServer().getLevel(event.world.dimension());
         Iterable<Entity> entityIterable = level.getAllEntities();
 
         entityIterable.forEach((x)->{
