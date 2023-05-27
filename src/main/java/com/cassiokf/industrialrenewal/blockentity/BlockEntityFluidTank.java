@@ -78,6 +78,12 @@ public class BlockEntityFluidTank extends BlockEntityTowerBase<BlockEntityFluidT
         }
     }
 
+    @Override
+    public void invalidateCaps() {
+        tankHandler.invalidate();
+        super.invalidateCaps();
+    }
+
     public void tick() {
         if(level == null) return;
         if (!level.isClientSide && isMaster())
