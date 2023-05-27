@@ -1,7 +1,9 @@
 package com.cassiokf.industrialrenewal.blockentity.dam;
 
 import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntity3x3x3MachineBase;
+import com.cassiokf.industrialrenewal.blockentity.abstracts.MultiBlockEntity3x3x3MachineBase;
 import com.cassiokf.industrialrenewal.blocks.dam.BlockDamGenerator;
+import com.cassiokf.industrialrenewal.blocks.dam.BlockDamTurbine;
 import com.cassiokf.industrialrenewal.blocks.dam.BlockRotationalShaft;
 import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
@@ -11,8 +13,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -22,7 +29,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockEntityDamTurbine extends BlockEntity3x3x3MachineBase<BlockEntityDamTurbine> {
+public class BlockEntityDamTurbine extends MultiBlockEntity3x3x3MachineBase {
 
     public static final int MAX_PROCESSING = Config.DAM_TURBINE_WATER_TANK_CAPACITY.get();
     public static final int MAX_EFFICIENCY = Config.DAM_TURBINE_MAX_EFFICIENCY.get();
@@ -72,7 +79,7 @@ public class BlockEntityDamTurbine extends BlockEntity3x3x3MachineBase<BlockEnti
 
     public void tick() {
         if(level == null) return;
-        if(!level.isClientSide && isMaster()){
+        if(!level.isClientSide){
             if(tick >= 20){
                 tick = 0;
                 multiplier = getMultiplier();
@@ -116,8 +123,8 @@ public class BlockEntityDamTurbine extends BlockEntity3x3x3MachineBase<BlockEnti
     private void releaseWater(){
         if(level == null) return;
         if(!inTank.isEmpty()){
-            Direction masterFace = getMasterFacing();
-            BlockPos pos = getMaster().getBlockPos().relative(masterFace.getCounterClockWise(), 2).relative(masterFace.getOpposite()).below();
+            Direction masterFace = getBlockState().getValue(BlockDamTurbine.FACING);
+            BlockPos pos = getBlockPos().relative(masterFace.getCounterClockWise(), 2).relative(masterFace.getOpposite()).below();
             BlockEntity tileEntity = level.getBlockEntity(pos);
             if(tileEntity != null){
                 tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, masterFace.getClockWise()).ifPresent(tank -> {
@@ -190,10 +197,6 @@ public class BlockEntityDamTurbine extends BlockEntity3x3x3MachineBase<BlockEnti
         }
     }
 
-    @Override
-    public boolean instanceOf(BlockEntity tileEntity) {
-        return tileEntity instanceof BlockEntityDamTurbine;
-    }
 
     public String getRotationText()
     {
@@ -225,14 +228,6 @@ public class BlockEntityDamTurbine extends BlockEntity3x3x3MachineBase<BlockEnti
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        BlockEntityDamTurbine master = getMaster();
-        if(master == null || side == null)
-            return super.getCapability(cap, side);
-        Direction masterFace = getMasterFacing();
-        if(cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && worldPosition.equals(master.getBlockPos().relative(masterFace).relative(masterFace.getClockWise())) && side == masterFace)
-            return getMaster().inTankHandler.cast();
-        if(cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && worldPosition.equals(master.getBlockPos().relative(masterFace.getCounterClockWise()).relative(masterFace.getOpposite()).below()) && side == masterFace.getCounterClockWise())
-            return getMaster().dummyHandler.cast();
         return super.getCapability(cap, side);
     }
 
@@ -252,5 +247,33 @@ public class BlockEntityDamTurbine extends BlockEntity3x3x3MachineBase<BlockEnti
         multiplier = compoundTag.getFloat("multiplier");
         rotationMultiplier = compoundTag.getFloat("rotationMultiplier");
         super.load(compoundTag);
+    }
+
+    @Override
+    public void onMasterBreak() {
+
+    }
+
+    @Override
+    public InteractionResult onUse(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hitResult) {
+        return null;
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side, BlockPos pos) {
+        if(side == null)
+            return super.getCapability(cap, side);
+        Direction masterFace = getBlockState().getValue(BlockDamTurbine.FACING);
+
+        if(cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && pos.equals(getBlockPos().relative(masterFace).relative(masterFace.getClockWise())) && side == masterFace)
+            return inTankHandler.cast();
+        if(cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && pos.equals(getBlockPos().relative(masterFace.getCounterClockWise()).relative(masterFace.getOpposite()).below()) && side == masterFace.getCounterClockWise())
+            return dummyHandler.cast();
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void dropAllItems() {
+
     }
 }

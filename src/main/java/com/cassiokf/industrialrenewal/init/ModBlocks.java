@@ -119,7 +119,7 @@ public class ModBlocks {
             ()-> new BlockMiner(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
-    public static final RegistryObject<BlockIndustrialBatteryBank> INDUSTRIAL_BATTERY_BANK = registerBlock("ind_battery_bank",
+    public static final RegistryObject<BlockIndustrialBatteryBank> INDUSTRIAL_BATTERY_BANK = registerBlock("deprecated_ind_battery_bank",
             ()-> new BlockIndustrialBatteryBank(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 
@@ -276,7 +276,7 @@ public class ModBlocks {
 
 
 
-    public static final RegistryObject<BlockIndustrialBatteryBank2> TEST_BLOCK = registerBlock("ind_battery_bank_2",
+    public static final RegistryObject<BlockIndustrialBatteryBank2> TEST_BLOCK = registerBlock("ind_battery_bank",
             ()-> new BlockIndustrialBatteryBank2(BlockBehaviour.Properties.of(Material.METAL).strength(1f)
                     .sound(SoundType.METAL).noOcclusion()));
 

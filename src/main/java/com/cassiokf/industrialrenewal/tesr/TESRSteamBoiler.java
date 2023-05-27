@@ -1,6 +1,7 @@
 package com.cassiokf.industrialrenewal.tesr;
 
 import com.cassiokf.industrialrenewal.blockentity.BlockEntitySteamBoiler;
+import com.cassiokf.industrialrenewal.blocks.BlockSteamBoiler;
 import com.cassiokf.industrialrenewal.init.ModItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -25,9 +26,9 @@ public class TESRSteamBoiler extends TESRBase<BlockEntitySteamBoiler>{
         int z = 0;
         int y = 0;
 
-        if (blockEntity!= null && blockEntity.isMaster())
+        if (blockEntity!= null)
         {
-            Direction facing = blockEntity.getMasterFacing();
+            Direction facing = blockEntity.getBlockState().getValue(BlockSteamBoiler.FACING);
             //WATER
             doTheMath(facing, x, z, 1.9, -0.69);
             //Utils.debug("Water:", tileEntity.GetWaterFill());

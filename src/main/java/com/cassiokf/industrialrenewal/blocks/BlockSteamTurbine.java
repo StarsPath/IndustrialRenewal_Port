@@ -1,7 +1,9 @@
 package com.cassiokf.industrialrenewal.blocks;
 
 import com.cassiokf.industrialrenewal.blockentity.BlockEntitySteamTurbine;
+import com.cassiokf.industrialrenewal.blockentity.abstracts.MultiBlockEntityDummy;
 import com.cassiokf.industrialrenewal.blocks.abstracts.Block3x3x3Base;
+import com.cassiokf.industrialrenewal.blocks.abstracts.MultiBlock3x3x3Base;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -13,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class BlockSteamTurbine extends Block3x3x3Base<BlockEntitySteamTurbine> implements EntityBlock {
+public class BlockSteamTurbine extends MultiBlock3x3x3Base implements EntityBlock {
     public BlockSteamTurbine(BlockBehaviour.Properties properties) {
         super(properties);
     }
@@ -38,12 +40,18 @@ public class BlockSteamTurbine extends Block3x3x3Base<BlockEntitySteamTurbine> i
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return ModBlockEntity.STEAM_TURBINE_TILE.get().create(pos, state);
+        if(state.getValue(MASTER)) {
+            return ModBlockEntity.STEAM_TURBINE_TILE.get().create(pos, state);
+        }
+        return new MultiBlockEntityDummy(pos, state);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_) {
-        return ($0, $1, $2, blockEntity) -> ((BlockEntitySteamTurbine)blockEntity).tick();
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState state, BlockEntityType<T> p_153214_) {
+        if(state.getValue(MASTER)) {
+            return ($0, $1, $2, blockEntity) -> ((BlockEntitySteamTurbine) blockEntity).tick();
+        }
+        return null;
     }
 }

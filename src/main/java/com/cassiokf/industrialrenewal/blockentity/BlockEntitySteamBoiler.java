@@ -1,11 +1,13 @@
 package com.cassiokf.industrialrenewal.blockentity;
 
-import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntity3x3x3MachineBase;
+import com.cassiokf.industrialrenewal.blockentity.abstracts.MultiBlockEntity3x3x3MachineBase;
 import com.cassiokf.industrialrenewal.blocks.BlockSteamBoiler;
 import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModFluids;
 import com.cassiokf.industrialrenewal.init.ModItems;
+import com.cassiokf.industrialrenewal.items.ItemFireBox;
+import com.cassiokf.industrialrenewal.items.ItemPowerScrewDrive;
 import com.cassiokf.industrialrenewal.util.CustomFluidTank;
 import com.cassiokf.industrialrenewal.util.CustomItemStackHandler;
 import com.cassiokf.industrialrenewal.util.Utils;
@@ -13,15 +15,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -30,14 +35,13 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockEntitySteamBoiler extends BlockEntity3x3x3MachineBase<BlockEntitySteamBoiler> {
+public class BlockEntitySteamBoiler extends MultiBlockEntity3x3x3MachineBase {
 
     private int waterTankCapacity = Config.STEAM_BOILER_WATER_TANK_CAPACITY.get();
     private int SteamTankCapacity = Config.STEAM_BOILER_STEAM_TANK_CAPACITY.get();
@@ -148,8 +152,30 @@ public class BlockEntitySteamBoiler extends BlockEntity3x3x3MachineBase<BlockEnt
 
     @Override
     public void onMasterBreak() {
-        dropItemsInGround(getDrop());
-        super.onMasterBreak();
+//        dropItemsInGround(getDrop());
+//        dropAllItems();
+    }
+
+    @Override
+    public InteractionResult onUse(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hitResult) {
+        if(!level.isClientSide){
+            ItemStack heldItem = player.getItemInHand(handIn);
+            if (heldItem.getItem() instanceof ItemFireBox && getIntType()==0)
+            {
+                int type = ((ItemFireBox) heldItem.getItem()).type;
+                setType(type);
+                if (!worldIn.isClientSide && !player.isCreative()) heldItem.shrink(1);
+                return InteractionResult.SUCCESS;
+            }
+            if (heldItem.getItem() instanceof ItemPowerScrewDrive && getIntType()!=0)
+            {
+                ItemStack stack = getDrop();
+                if (!worldIn.isClientSide && !player.isCreative()) player.addItem(stack);
+                setType(0);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return InteractionResult.SUCCESS;
     }
 
     public ItemStack getDrop(){
@@ -172,7 +198,7 @@ public class BlockEntitySteamBoiler extends BlockEntity3x3x3MachineBase<BlockEnt
 
     public void tick() {
         if(level == null) return;
-        if (this.isMaster() && !level.isClientSide)
+        if (!level.isClientSide)
         {
             if(this.type == 0) fuelLoaded = false;
             if (this.type > 0)
@@ -266,11 +292,6 @@ public class BlockEntitySteamBoiler extends BlockEntity3x3x3MachineBase<BlockEnt
         }
     }
 
-    @Override
-    public boolean instanceOf(BlockEntity tileEntity)
-    {
-        return tileEntity instanceof BlockEntitySteamBoiler;
-    }
 
     public int getIntType()
     {
@@ -280,11 +301,7 @@ public class BlockEntitySteamBoiler extends BlockEntity3x3x3MachineBase<BlockEnt
     public void setType(int type)
     {
         if(level == null) return;
-        if (!this.isMaster())
-        {
-            this.getMaster().setType(type);
-            return;
-        }
+        clearFluidInv();
         dropItemsInGround(solidFuelInv);
         this.fuelTime = 0;
         this.type = type;
@@ -294,9 +311,17 @@ public class BlockEntitySteamBoiler extends BlockEntity3x3x3MachineBase<BlockEnt
         this.sync();
     }
 
+    public void clearFluidInv(){
+        if(level == null) return;
+        if(fuelTank == null)
+            return;
+        fuelTank.setFluid(FluidStack.EMPTY);
+    }
+
     public void dropAllItems()
     {
         dropItemsInGround(solidFuelInv);
+        dropItemsInGround(getDrop());
     }
 
     private void dropItemsInGround(ItemStack stack)
@@ -315,12 +340,9 @@ public class BlockEntitySteamBoiler extends BlockEntity3x3x3MachineBase<BlockEnt
         if(iItemHandler == null)
             return;
 
-        ItemStack stack = iItemHandler.getStackInSlot(0);
+        ItemStack stack = iItemHandler.extractItem(0, 64, false);
         if (!stack.isEmpty())
         {
-//            ItemEntity item = new ItemEntity(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), stack);
-//            inventory.ifPresent(e -> ((CustomItemStackHandler) e).setStackInSlot(0, ItemStack.EMPTY));
-//            level.addFreshEntity(item);
             Block.popResource(level, worldPosition, stack);
         }
     }
@@ -454,21 +476,24 @@ public class BlockEntitySteamBoiler extends BlockEntity3x3x3MachineBase<BlockEnt
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-        BlockEntitySteamBoiler masterTE = getMaster();
-        if (masterTE == null) return super.getCapability(capability, facing);
-        Direction face = masterTE.getMasterFacing();
+        return super.getCapability(capability, facing);
+    }
 
-        if (facing == null)
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing, BlockPos pos) {
+        Direction face = getBlockState().getValue(BlockSteamBoiler.FACING);
+        if (facing == null) {
             return super.getCapability(capability, facing);
+        }
 
-        if (facing == Direction.UP && worldPosition.equals(masterTE.getBlockPos().above()) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-            return LazyOptional.of(() -> masterTE.steamTank).cast();
-        if (facing == face && worldPosition.equals(masterTE.getBlockPos().below().relative(face)) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-            return LazyOptional.of(() -> masterTE.waterTank).cast();
-        if (masterTE.getIntType() == 1 && facing == face.getCounterClockWise() && worldPosition.equals(masterTE.getBlockPos().below().relative(face.getOpposite()).relative(face.getCounterClockWise())) && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-            return masterTE.solidFuelInv.cast();
-        if (masterTE.getIntType() == 2 && facing == face.getCounterClockWise() && worldPosition.equals(masterTE.getBlockPos().below().relative(face.getOpposite()).relative(face.getCounterClockWise())) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-            return LazyOptional.of(() -> masterTE.fuelTank).cast();
+        if (facing == Direction.UP && pos.equals(getBlockPos().above()) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            return LazyOptional.of(() -> steamTank).cast();
+        }
+        if (facing == face && pos.equals(getBlockPos().below().relative(face)) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+            return LazyOptional.of(() -> waterTank).cast();
+        if (getIntType() == 1 && facing == face.getCounterClockWise() && pos.equals(getBlockPos().below().relative(face.getOpposite()).relative(face.getCounterClockWise())) && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+            return solidFuelInv.cast();
+        if (getIntType() == 2 && facing == face.getCounterClockWise() && pos.equals(getBlockPos().below().relative(face.getOpposite()).relative(face.getCounterClockWise())) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+            return LazyOptional.of(() -> fuelTank).cast();
         return super.getCapability(capability, facing);
     }
 }

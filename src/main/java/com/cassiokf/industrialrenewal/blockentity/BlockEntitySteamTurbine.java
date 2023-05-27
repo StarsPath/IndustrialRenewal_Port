@@ -1,6 +1,9 @@
 package com.cassiokf.industrialrenewal.blockentity;
 
 import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntity3x3x3MachineBase;
+import com.cassiokf.industrialrenewal.blockentity.abstracts.MultiBlockEntity3x3x3MachineBase;
+import com.cassiokf.industrialrenewal.blocks.BlockSteamBoiler;
+import com.cassiokf.industrialrenewal.blocks.BlockSteamTurbine;
 import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModFluids;
@@ -11,10 +14,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -26,7 +34,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nullable;
 
-public class BlockEntitySteamTurbine extends BlockEntity3x3x3MachineBase<BlockEntitySteamTurbine> {
+public class BlockEntitySteamTurbine extends MultiBlockEntity3x3x3MachineBase {
 
     private final int waterTankCapacity = Config.STEAM_TURBINE_WATER_TANK_CAPACITY.get();
     private final int steamTankCapacity = Config.STEAM_TURBINE_STEAM_TANK_CAPACITY.get();
@@ -102,8 +110,6 @@ public class BlockEntitySteamTurbine extends BlockEntity3x3x3MachineBase<BlockEn
         if(level == null) return;
         if (!level.isClientSide)
         {
-            if (this.isMaster())
-            {
                 this.sync();
                 if (this.steamTank.getFluidAmount() > 0)
                 {
@@ -129,7 +135,7 @@ public class BlockEntitySteamTurbine extends BlockEntity3x3x3MachineBase<BlockEn
                 rotation = Mth.clamp(rotation, 0, maxRotation);
 
 
-                Direction facing = getMasterFacing();
+                Direction facing = getBlockState().getValue(BlockSteamTurbine.FACING);
                 BlockEntity eTE = level.getBlockEntity(worldPosition.relative(facing.getOpposite()).below().relative(facing.getCounterClockWise(), 2));
                 if (eTE != null && thisEnergy.getEnergyStored() > 0)
                 {
@@ -156,13 +162,6 @@ public class BlockEntitySteamTurbine extends BlockEntity3x3x3MachineBase<BlockEn
             {
                 //updateSound(getPitch());
             }
-        }
-    }
-
-    @Override
-    public boolean instanceOf(BlockEntity tileEntity)
-    {
-        return tileEntity instanceof BlockEntitySteamTurbine;
     }
 
     private int getEnergyProduction()
@@ -285,21 +284,39 @@ public class BlockEntitySteamTurbine extends BlockEntity3x3x3MachineBase<BlockEn
     @Override
     public <T> LazyOptional<T> getCapability(final Capability<T> capability, @Nullable final Direction facing)
     {
-        BlockEntitySteamTurbine masterTE = this.getMaster();
-        if (masterTE == null) return super.getCapability(capability, facing);
-        Direction face = getMasterFacing();
-        BlockPos masterPos = masterTE.getBlockPos();
+        return super.getCapability(capability, facing);
+    }
+
+    public <T> LazyOptional<T> getCapability(final Capability<T> capability, @Nullable final Direction facing, BlockPos pos)
+    {
+        if (facing == null) return super.getCapability(capability, facing);
+        Direction face = getBlockState().getValue(BlockSteamTurbine.FACING);
 
         if (facing == null)
             return super.getCapability(capability, facing);
 
-        if (facing == Direction.UP && worldPosition.equals(masterPos.above()) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-            return LazyOptional.of(() -> masterTE.steamTank).cast();
-        if (facing == face && worldPosition.equals(masterPos.below().relative(face)) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-            return LazyOptional.of(() -> masterTE.waterTank).cast();
-        if (facing == face.getCounterClockWise() && worldPosition.equals(masterPos.below().relative(face.getOpposite()).relative(face.getCounterClockWise())) && capability == CapabilityEnergy.ENERGY)
-            return masterTE.energyStorageHandler.cast();
+        if (facing == Direction.UP && pos.equals(getBlockPos().above()) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+            return LazyOptional.of(() -> steamTank).cast();
+        if (facing == face && pos.equals(getBlockPos().below().relative(face)) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+            return LazyOptional.of(() -> waterTank).cast();
+        if (facing == face.getCounterClockWise() && pos.equals(getBlockPos().below().relative(face.getOpposite()).relative(face.getCounterClockWise())) && capability == CapabilityEnergy.ENERGY)
+            return energyStorageHandler.cast();
 
         return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public void dropAllItems() {
+
+    }
+
+    @Override
+    public void onMasterBreak() {
+
+    }
+
+    @Override
+    public InteractionResult onUse(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hitResult) {
+        return InteractionResult.SUCCESS;
     }
 }

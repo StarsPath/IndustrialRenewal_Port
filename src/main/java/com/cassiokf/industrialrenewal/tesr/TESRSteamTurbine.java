@@ -1,6 +1,8 @@
 package com.cassiokf.industrialrenewal.tesr;
 
 import com.cassiokf.industrialrenewal.blockentity.BlockEntitySteamTurbine;
+import com.cassiokf.industrialrenewal.blocks.BlockSteamBoiler;
+import com.cassiokf.industrialrenewal.blocks.BlockSteamTurbine;
 import com.cassiokf.industrialrenewal.init.ModItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -25,9 +27,9 @@ public class TESRSteamTurbine extends TESRBase<BlockEntitySteamTurbine>{
         int z = 0;
         int y = 0;
 
-        if (blockEntity!= null && blockEntity.isMaster())
+        if (blockEntity!= null)
         {
-            Direction facing = blockEntity.getMasterFacing();
+            Direction facing = blockEntity.getBlockState().getValue(BlockSteamTurbine.FACING);
             //STEAM
             doTheMath(facing, x, z, 1.95, -1.1);
             renderText(stack, facing, xPos, y + 1.25, zPos, blockEntity.getSteamText(), 0.01F);

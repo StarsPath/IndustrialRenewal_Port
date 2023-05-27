@@ -2,9 +2,11 @@ package com.cassiokf.industrialrenewal.blocks.dam;
 
 
 
+import com.cassiokf.industrialrenewal.blockentity.abstracts.MultiBlockEntityDummy;
 import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamOutlet;
 import com.cassiokf.industrialrenewal.blockentity.dam.BlockEntityDamTurbine;
 import com.cassiokf.industrialrenewal.blocks.abstracts.Block3x3x3Base;
+import com.cassiokf.industrialrenewal.blocks.abstracts.MultiBlock3x3x3Base;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,7 +25,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class BlockDamTurbine extends Block3x3x3Base<BlockEntityDamTurbine> implements EntityBlock {
+public class BlockDamTurbine extends MultiBlock3x3x3Base implements EntityBlock {
     public static BooleanProperty NO_COLLISION = BooleanProperty.create("no_collision");
 
     public BlockDamTurbine(Properties properties) {
@@ -68,25 +70,21 @@ public class BlockDamTurbine extends Block3x3x3Base<BlockEntityDamTurbine> imple
         return super.getShape(state, p_220053_2_, p_220053_3_, p_220053_4_);
     }
 
-    @Override
-    public boolean propagatesSkylightDown(BlockState p_200123_1_, BlockGetter p_200123_2_, BlockPos p_200123_3_) {
-        return true;
-    }
-
-    @Override
-    public float getShadeBrightness(BlockState p_220080_1_, BlockGetter p_220080_2_, BlockPos p_220080_3_) {
-        return 1f;
-    }
-
     @org.jetbrains.annotations.Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return ModBlockEntity.DAM_TURBINE_TILE.get().create(pos, state);
+        if(state.getValue(MASTER)) {
+            return ModBlockEntity.DAM_TURBINE_TILE.get().create(pos, state);
+        }
+        return new MultiBlockEntityDummy(pos, state);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_) {
-        return ($0, $1, $2, blockEntity) -> ((BlockEntityDamTurbine)blockEntity).tick();
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState state, BlockEntityType<T> p_153214_) {
+        if(state.getValue(MASTER)) {
+            return ($0, $1, $2, blockEntity) -> ((BlockEntityDamTurbine) blockEntity).tick();
+        }
+        return null;
     }
 }
