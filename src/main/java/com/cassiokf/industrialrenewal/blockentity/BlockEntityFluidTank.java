@@ -172,18 +172,19 @@ public class BlockEntityFluidTank extends BlockEntityTowerBase<BlockEntityFluidT
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        Direction downFace = getMasterFacing().getOpposite();
-        BlockEntityFluidTank master = getMaster();
+        BlockEntityFluidTank masterTE = getMaster();
+        if (masterTE == null) return super.getCapability(cap, side);
+        Direction face = masterTE.getMasterFacing();
 
         if (side == null)
             return super.getCapability(cap, side);
 
         if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
         {
-            if (side == downFace && this.worldPosition.equals(master.worldPosition.below().relative(downFace)))
-                return getMaster().tankHandler.cast();
-            if (side == Direction.UP && this.worldPosition.equals(master.worldPosition.above()))
-                return getMaster().tankHandler.cast();
+            if (side == face.getOpposite() && this.worldPosition.equals(masterTE.getBlockPos().below().relative(face.getOpposite())))
+                return masterTE.tankHandler.cast();
+            if (side == Direction.UP && this.worldPosition.equals(masterTE.getBlockPos().above()))
+                return masterTE.tankHandler.cast();
         }
 
         return super.getCapability(cap, side);

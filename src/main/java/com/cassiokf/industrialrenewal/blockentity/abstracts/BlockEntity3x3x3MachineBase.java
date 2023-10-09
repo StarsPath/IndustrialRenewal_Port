@@ -92,6 +92,8 @@ public abstract class BlockEntity3x3x3MachineBase<TE extends BlockEntity3x3x3Mac
     {
         if(level == null) return Direction.NORTH;
         if (faceChecked) return Direction.from3DDataValue(faceIndex);
+        if(getMaster() == null)
+            return Direction.NORTH;
 
         Direction facing = level.getBlockState(getMaster().worldPosition).getValue(Block3x3x3Base.FACING);
         faceChecked = true;

@@ -183,13 +183,15 @@ public class BlockEntityIndustrialBatteryBank extends BlockEntityTowerBase<Block
         else if(!level.isClientSide && isMaster() && isTop()){
             if(!firstLoad){
                 firstLoad = true;
-                this.onLoad();
             }
             passEnergyDown();
         }
     }
 
     public void passEnergyDown(){
+        if(getBase() == null || getBase().tower == null){
+            return;
+        }
         for(BlockEntityTowerBase<BlockEntityIndustrialBatteryBank> TE : getBase().tower){
             //Utils.debug("TE", TE);
             if(TE instanceof BlockEntityIndustrialBatteryBank bankTE){

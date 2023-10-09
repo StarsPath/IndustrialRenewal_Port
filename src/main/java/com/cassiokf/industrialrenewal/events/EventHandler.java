@@ -51,15 +51,16 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onServerTickEvent(TickEvent.WorldTickEvent event){
-        ServerLevel level = event.world.getServer().getLevel(event.world.dimension());
-        Iterable<Entity> entityIterable = level.getAllEntities();
+        if (event.phase == TickEvent.Phase.END && event.world instanceof ServerLevel) {
+            ServerLevel level = (ServerLevel) event.world;
+            Iterable<Entity> entityIterable = level.getAllEntities();
 
-        entityIterable.forEach((x)->{
-            if(x instanceof AbstractMinecart){
-                CouplingHandler.onMinecartTick((AbstractMinecart) x);
-            }
-        });
-
+            entityIterable.forEach((x)->{
+                if(x instanceof AbstractMinecart){
+                    CouplingHandler.onMinecartTick((AbstractMinecart) x);
+                }
+            });
+        }
     }
 
 //    @SubscribeEvent
