@@ -22,8 +22,6 @@ public class ItemWireCoil extends IRBaseItem{
         super(name, industrialrenewal.IR_TAB);
     }
 
-    private final int TRANSFORMER_MAX_DISTANCE = Config.TRANSFORMER_MAX_DISTANCE.get();
-
     @Override
     public ActionResultType useOn(ItemUseContext context) {
         World level = context.getLevel();
@@ -42,7 +40,7 @@ public class ItemWireCoil extends IRBaseItem{
                 if(firstClickedOn == tempClick){
                     Utils.sendChatMessage(player, "Link Cancelled");
                 }
-                else if(Utils.distance(firstClickedOn.getBlockPos(), blockPos) > TRANSFORMER_MAX_DISTANCE){
+                else if(Utils.distance(firstClickedOn.getBlockPos(), blockPos) > Config.TRANSFORMER_MAX_DISTANCE.get()){
                     Utils.sendChatMessage(player, "Link Cancelled, Too far");
                 }
                 else{

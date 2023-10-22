@@ -201,7 +201,7 @@ public final class Config {
 
         BUILDER.push("Transformer");
         TRANSFORMER_TRANSFER_RATE = BUILDER.comment("HV Transformer Transfer Rate (default 1000000)").define("transformer_transfer_rate", 1000000);
-        TRANSFORMER_MAX_DISTANCE = BUILDER.comment("HV Transformer Link Distance (defaut 36)").define("transformer_link_max_distance", 36);
+        TRANSFORMER_MAX_DISTANCE = BUILDER.comment("HV Transformer Link Distance (default 36)").define("transformer_link_max_distance", 36);
         BUILDER.pop();
 
 
