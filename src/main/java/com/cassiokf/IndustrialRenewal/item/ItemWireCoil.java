@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.item;
 
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityWireIsolator;
 import com.cassiokf.IndustrialRenewal.util.Utils;
@@ -21,6 +22,8 @@ public class ItemWireCoil extends IRBaseItem{
         super(name, industrialrenewal.IR_TAB);
     }
 
+    private final int TRANSFORMER_MAX_DISTANCE = Config.TRANSFORMER_MAX_DISTANCE.get();
+
     @Override
     public ActionResultType useOn(ItemUseContext context) {
         World level = context.getLevel();
@@ -39,7 +42,7 @@ public class ItemWireCoil extends IRBaseItem{
                 if(firstClickedOn == tempClick){
                     Utils.sendChatMessage(player, "Link Cancelled");
                 }
-                else if(Utils.distance(firstClickedOn.getBlockPos(), blockPos) > 36){
+                else if(Utils.distance(firstClickedOn.getBlockPos(), blockPos) > TRANSFORMER_MAX_DISTANCE){
                     Utils.sendChatMessage(player, "Link Cancelled, Too far");
                 }
                 else{
