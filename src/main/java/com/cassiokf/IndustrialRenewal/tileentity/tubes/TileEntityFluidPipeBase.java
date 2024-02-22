@@ -98,7 +98,7 @@ public abstract class TileEntityFluidPipeBase<T> extends TileEntityMultiBlocksTu
                 TileEntity te = level.getBlockEntity(currentPos);
                 boolean hasMachine = te != null
                         && !(te instanceof TileEntityFluidPipeBase)
-                        && te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face.getOpposite()).isPresent();
+                        && te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, face.getOpposite()) != null;
                 if (hasMachine)
                 {
                     if (!isMasterInvalid()) getMaster().addMachine(currentPos, face);
