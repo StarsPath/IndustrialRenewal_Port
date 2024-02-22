@@ -1,5 +1,6 @@
 package com.cassiokf.IndustrialRenewal.item;
 
+import com.cassiokf.IndustrialRenewal.config.Config;
 import com.cassiokf.IndustrialRenewal.industrialrenewal;
 import com.cassiokf.IndustrialRenewal.tileentity.TileEntityWireIsolator;
 import com.cassiokf.IndustrialRenewal.util.Utils;
@@ -39,7 +40,7 @@ public class ItemWireCoil extends IRBaseItem{
                 if(firstClickedOn == tempClick){
                     Utils.sendChatMessage(player, "Link Cancelled");
                 }
-                else if(Utils.distance(firstClickedOn.getBlockPos(), blockPos) > 36){
+                else if(Utils.distance(firstClickedOn.getBlockPos(), blockPos) > Config.TRANSFORMER_MAX_DISTANCE.get()){
                     Utils.sendChatMessage(player, "Link Cancelled, Too far");
                 }
                 else{
