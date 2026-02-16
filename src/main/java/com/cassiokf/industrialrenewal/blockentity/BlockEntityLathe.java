@@ -4,6 +4,7 @@ import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntity3x2x2Mach
 import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModRecipes;
+import com.cassiokf.industrialrenewal.init.ModSound;
 import com.cassiokf.industrialrenewal.menus.menu.LatheMenu;
 import com.cassiokf.industrialrenewal.menus.menu.StorageChestMenu;
 import com.cassiokf.industrialrenewal.recipes.LatheRecipe;
@@ -14,6 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -198,6 +200,7 @@ public class BlockEntityLathe extends BlockEntity3x2x2MachineBase<BlockEntityLat
                 }
             }
         }
+        level.playSound(null, getBlockPos(), ModSound.LATHE_SOUND.get(), SoundSource.BLOCKS, 0.06f, 1.0f);
     }
 
     private void getProcessFromInputItem()

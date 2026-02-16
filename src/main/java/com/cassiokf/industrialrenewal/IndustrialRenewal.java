@@ -60,6 +60,8 @@ public class IndustrialRenewal
         ModMenus.register(modEventBus);
         ModRecipes.register(modEventBus);
         ModEntity.register(modEventBus);
+        ModSound.register(modEventBus);
+
 
 
         // Register the setup method for modloading

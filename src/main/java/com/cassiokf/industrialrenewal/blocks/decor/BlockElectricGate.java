@@ -1,8 +1,10 @@
 package com.cassiokf.industrialrenewal.blocks.decor;
 
 import com.cassiokf.industrialrenewal.blocks.abstracts.BlockAbstractNotFullCube;
+import com.cassiokf.industrialrenewal.init.ModSound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -101,7 +103,8 @@ public class BlockElectricGate extends BlockAbstractNotFullCube {
             ((BlockElectricGate) leftState.getBlock()).OpenUpAndDown(worldIn, leftState, leftPos, active);
         }
 
-        //TODO: Sound
+        worldIn.playSound(null, pos, ModSound.GATE_SOUND.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
+
 //        Random r = new Random();
 //        float pitch = r.nextFloat() * (1.1f - 0.9f) + 0.9f;
 //        if (active)

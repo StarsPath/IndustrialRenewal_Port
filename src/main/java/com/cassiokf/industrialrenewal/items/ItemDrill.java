@@ -1,7 +1,9 @@
 package com.cassiokf.industrialrenewal.items;
 
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 
 public class ItemDrill extends IRBaseItem{
 

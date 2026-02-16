@@ -4,12 +4,14 @@ import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntitySyncable;
 import com.cassiokf.industrialrenewal.blocks.BlockElectricPump;
 import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
+import com.cassiokf.industrialrenewal.init.ModSound;
 import com.cassiokf.industrialrenewal.util.CustomEnergyStorage;
 import com.cassiokf.industrialrenewal.util.CustomFluidTank;
 import com.cassiokf.industrialrenewal.util.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -112,6 +114,7 @@ public class BlockEntityElectricPump extends BlockEntitySyncable implements ICap
 
             if (isRunning = consumeEnergy())
             {
+                level.playSound(null, getBlockPos(), ModSound.PUMP_ROTATION_SOUND.get(), SoundSource.BLOCKS, 0.2f, 1.0f);
                 GetFluidDown();
                 passFluidUp();
                 this.sync();

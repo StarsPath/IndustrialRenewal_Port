@@ -3,11 +3,13 @@ package com.cassiokf.industrialrenewal.blockentity.dam;
 import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntity3x3x3MachineBase;
 import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
+import com.cassiokf.industrialrenewal.init.ModSound;
 import com.cassiokf.industrialrenewal.util.CustomEnergyStorage;
 import com.cassiokf.industrialrenewal.util.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -42,8 +44,10 @@ public class BlockEntityDamGenerator extends BlockEntity3x3x3MachineBase<BlockEn
     public void tick() {
         if(!level.isClientSide && isMaster()){
             generation = (int) (Utils.normalizeClamped(rotation, 0, BlockEntityDamTurbine.MAX_PROCESSING/40f) * maxGeneration);
-            if (generation > 0)
+            if (generation > 0){
                 energyStorage.receiveEnergy(generation, false);
+                level.playSound(null, getBlockPos(), ModSound.MOTOR_ROTATION_SOUND.get(), SoundSource.BLOCKS, 0.8f, 1.0f);
+            }
             BlockEntity te = level.getBlockEntity(worldPosition.above(2));
             if (te != null)
             {

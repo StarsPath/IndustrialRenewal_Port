@@ -1,7 +1,9 @@
 package com.cassiokf.industrialrenewal.blocks.abstracts;
 
+import com.cassiokf.industrialrenewal.init.ModSound;
 import com.cassiokf.industrialrenewal.items.ItemPowerScrewDrive;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -38,12 +40,14 @@ public abstract class BlockPipeSwitchBase extends BlockBase{
 
     @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult p_225533_6_) {
-        if(worldIn.isClientSide())
+        if(worldIn.isClientSide()){
             return super.use(state, worldIn, pos, player, handIn, p_225533_6_);
+        }
 
         else{
             if(handIn == InteractionHand.MAIN_HAND && player.getMainHandItem().isEmpty()){
                 worldIn.setBlockAndUpdate(pos, state.setValue(ON_OFF, !state.getValue(ON_OFF)));
+                worldIn.playSound(null, pos, ModSound.VALVE_SOUND.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
                 return InteractionResult.PASS;
             }
             if(handIn == InteractionHand.MAIN_HAND && player.getMainHandItem().getItem() instanceof ItemPowerScrewDrive){

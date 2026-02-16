@@ -4,12 +4,14 @@ import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntity3x3x3Mach
 import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModFluids;
+import com.cassiokf.industrialrenewal.init.ModSound;
 import com.cassiokf.industrialrenewal.util.CustomEnergyStorage;
 import com.cassiokf.industrialrenewal.util.CustomFluidTank;
 import com.cassiokf.industrialrenewal.util.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -107,6 +109,7 @@ public class BlockEntitySteamTurbine extends BlockEntity3x3x3MachineBase<BlockEn
                 this.sync();
                 if (this.steamTank.getFluidAmount() > 0)
                 {
+                    level.playSound(null, getBlockPos(), ModSound.MOTOR_ROTATION_SOUND.get(), SoundSource.BLOCKS, 0.8f, 1.0f);
                     FluidStack stack = steamTank.drainInternal(steamPerTick, IFluidHandler.FluidAction.EXECUTE);
                     float amount = stack != null ? stack.getAmount() : 0f;
                     FluidStack waterStack = new FluidStack(Fluids.WATER, Math.round(amount / steamBoilerConversionFactor));

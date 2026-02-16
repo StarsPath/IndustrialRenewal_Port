@@ -3,8 +3,13 @@ package com.cassiokf.industrialrenewal.blocks;
 import com.cassiokf.industrialrenewal.blockentity.BlockEntityBatteryBank;
 import com.cassiokf.industrialrenewal.blocks.abstracts.BlockAbstractHorizontalFacing;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
+import com.cassiokf.industrialrenewal.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -15,6 +20,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class BlockBatteryBank extends BlockAbstractHorizontalFacing implements EntityBlock {
@@ -58,6 +65,24 @@ public class BlockBatteryBank extends BlockAbstractHorizontalFacing implements E
             case DOWN: return DOWN_OUTPUT;
         }
         return NORTH_OUTPUT;
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit)
+    {
+        if(!worldIn.isClientSide){
+            if (handIn == InteractionHand.MAIN_HAND) {
+                Item playerItem = player.getMainHandItem().getItem();
+                if (playerItem.equals(ModItems.SCREW_DRIVE.get())) {
+                    Direction facehit = hit.getDirection();
+                    BlockEntityBatteryBank blockEntityBatteryBank = (BlockEntityBatteryBank)worldIn.getBlockEntity(pos);
+                    blockEntityBatteryBank.toggleFacing(facehit);
+
+                    worldIn.setBlockAndUpdate(pos, state.cycle(toggleOutput(facehit)));
+                }
+            }
+        }
+        return InteractionResult.PASS;
     }
 
     @Nullable

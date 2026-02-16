@@ -3,11 +3,13 @@ package com.cassiokf.industrialrenewal.blockentity;
 import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntitySyncable;
 import com.cassiokf.industrialrenewal.blockentity.abstracts.FluidGenerator;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
+import com.cassiokf.industrialrenewal.init.ModSound;
 import com.cassiokf.industrialrenewal.util.Utils;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -42,10 +44,12 @@ public class BlockEntityPortableGenerator extends BlockEntitySyncable {
         {
             generator.onTick();
             passEnergy();
+            if(generator.isGenerating())
+                handleSound();
         }
         else
         {
-            handleSound();
+
         }
     }
 
@@ -68,7 +72,7 @@ public class BlockEntityPortableGenerator extends BlockEntitySyncable {
     }
     private void handleSound()
     {
-
+        level.playSound(null, getBlockPos(), ModSound.PORTABLE_GENERATOR_SOUND.get(), SoundSource.BLOCKS, 0.2f, 1.0f);
     }
 
     public boolean isGenerating(){

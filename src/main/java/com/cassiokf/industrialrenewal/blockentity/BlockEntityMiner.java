@@ -4,6 +4,7 @@ import com.cassiokf.industrialrenewal.blockentity.abstracts.BlockEntity3x3x3Mach
 import com.cassiokf.industrialrenewal.config.Config;
 import com.cassiokf.industrialrenewal.init.ModBlockEntity;
 import com.cassiokf.industrialrenewal.init.ModItems;
+import com.cassiokf.industrialrenewal.init.ModSound;
 import com.cassiokf.industrialrenewal.items.ItemDrill;
 import com.cassiokf.industrialrenewal.util.CustomEnergyStorage;
 import com.cassiokf.industrialrenewal.util.CustomFluidTank;
@@ -13,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -159,6 +161,7 @@ public class BlockEntityMiner extends BlockEntity3x3x3MachineBase<BlockEntityMin
                     if (running)
                     {
                         consumeEnergy();
+                        level.playSound(null, getBlockPos(), ModSound.MINING_SOUND.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
                         if (drillHeat < (waterTank.getFluidAmount() >= waterPerTick ? 9400 : 17300)) drillHeat += 20;
                         mineOre();
                         size = getOreSize();
