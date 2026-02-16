@@ -192,18 +192,20 @@ public class TileEntityIndustrialBatteryBank extends TileEntityTowerBase<TileEnt
     }
 
     public void passEnergyDown(){
-        for(TileEntityTowerBase<TileEntityIndustrialBatteryBank> TE : getBase().tower){
-            //Utils.debug("TE", TE);
-            if(TE instanceof TileEntityIndustrialBatteryBank){
-                TileEntityIndustrialBatteryBank bankTE = ((TileEntityIndustrialBatteryBank) TE);
+        if(getBase().tower != null){
+            for(TileEntityTowerBase<TileEntityIndustrialBatteryBank> TE : getBase().tower){
+                //Utils.debug("TE", TE);
+                if(TE instanceof TileEntityIndustrialBatteryBank){
+                    TileEntityIndustrialBatteryBank bankTE = ((TileEntityIndustrialBatteryBank) TE);
 
-                //Utils.debug("condition 3", bankTE, !bankTE.isFull());
-                if(!bankTE.isFull() && bankTE != this) {
-                    //Utils.debug("condition 3", bankTE);
-                    bankTE.customEnergyStorage.receiveEnergy(this.customEnergyStorage.extractEnergy(maxTransfer, false), false);
-                    break;
+                    //Utils.debug("condition 3", bankTE, !bankTE.isFull());
+                    if(!bankTE.isFull() && bankTE != this) {
+                        //Utils.debug("condition 3", bankTE);
+                        bankTE.customEnergyStorage.receiveEnergy(this.customEnergyStorage.extractEnergy(maxTransfer, false), false);
+                        break;
+                    }
+                    else continue;
                 }
-                else continue;
             }
         }
     }
